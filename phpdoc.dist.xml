@@ -1,0 +1,14 @@
+<?xml version="1." encoding="UTF-8" ?>
+<phpdoc>
+  <parser>
+    <target>apidoc</target>
+    <visibility>public,protected</visibility>
+  </parser>
+  <transformer>
+    <target>apidoc</target>
+  </transformer>
+  <files>
+    <directory>src</directory>
+  </files>
+</phpdoc>
+

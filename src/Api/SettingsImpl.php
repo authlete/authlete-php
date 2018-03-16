@@ -1,0 +1,162 @@
+<?php
+//
+// Copyright (C) 2018 Authlete, Inc.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing,
+// software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+// either express or implied. See the License for the specific
+// language governing permissions and limitations under the
+// License.
+//
+
+
+/**
+ * File containing the definition of SettingsImpl class.
+ */
+
+
+namespace Authlete\Api;
+
+
+use Authlete\Util\ValidationUtility;
+
+
+/**
+ * An implementation of the \Authlete\Api\Settings interface.
+ */
+class SettingsImpl implements Settings
+{
+    private $connectionTimeout   = 0;     // integer
+    private $proxyHost           = null;  // string
+    private $proxyPort           = 0;     // integer
+    private $httpProxyTunnelUsed = false; // boolean
+
+
+    /**
+     * {@inheritdoc}
+     *
+     * {@inheritdoc}
+     */
+    public function getConnectionTimeout()
+    {
+        return $this->connectionTimeout;
+    }
+
+
+    /**
+     * {@inheritdoc}
+     *
+     * {@inheritdoc}
+     *
+     * @param integer $timeout
+     *     {@inheritdoc}
+     */
+    public function setConnectionTimeout($timeout)
+    {
+        ValidationUtility::ensureInteger('$timeout', $timeout);
+
+        if ($timeout < 0)
+        {
+            throw new \InvalidArgumentException('The given timeout value is negative.');
+        }
+
+        $this->connectionTimeout = $timeout;
+
+        return $this;
+    }
+
+
+    /**
+     * {@inheritdoc}
+     *
+     * {@inheritdoc}
+     */
+    public function getProxyHost()
+    {
+        return $this->proxyHost;
+    }
+
+
+    /**
+     * {@inheritdoc}
+     *
+     * {@inheritdoc}
+     *
+     * @param string $host
+     *     {@inheritdoc}
+     */
+    public function setProxyHost($host)
+    {
+        ValidationUtility::ensureNullOrString('$host', $host);
+
+        $this->proxyHost = $host;
+
+        return $this;
+    }
+
+
+    /**
+     * {@inheritdoc}
+     *
+     * {@inheritdoc}
+     */
+    public function getProxyPort()
+    {
+        return $this->proxyPort;
+    }
+
+
+    /**
+     * {@inheritdoc}
+     *
+     * {@inheritdoc}
+     *
+     * @param integer $port
+     *     {@inheritdoc}
+     */
+    public function setProxyPort($port)
+    {
+        ValidationUtility::ensureInteger('$port', $port);
+
+        $this->proxyPort = $port;
+
+        return $this;
+    }
+
+
+    /**
+     * {@inheritdoc}
+     *
+     * {@inheritdoc}
+     */
+    public function isHttpProxyTunnelUsed()
+    {
+        return $this->httpProxyTunnelUsed;
+    }
+
+
+    /**
+     * {@inheritdoc}
+     *
+     * {@inheritdoc}
+     *
+     * @param boolean $used
+     *     {@inheritdoc}
+     */
+    public function setHttpProxyTunnelUsed($used)
+    {
+        ValidationUtility::ensureBoolean('$used', $used);
+
+        $this->httpProxyTunnelUsed = $used;
+
+        return $this;
+    }
+}
+?>
