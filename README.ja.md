@@ -326,21 +326,18 @@ $services = $response->getServices();
 
 #### 4. API リファレンス更新
 
-    $ rm -rf apidoc
+次のコマンドで `docs` 以下の文書が更新される。
+
+    $ rm -rf docs
     $ phpdoc
 
 #### 5. API リファレンス公開
 
-    $ mkdir -p ../docs
-    $ cd ../docs
-    $ git clone https://github.com/authlete/authlete-php
-    $ cd authlete-php
-    $ git checkout gh-pages
-    $ rm -rf *
-    $ cp -r ../../authlete-php/apidoc/* .
-    $ git add .
-    $ git commit -m 'Updated for version X.Y.Z'
-    $ git push origin gh-pages
+    $ git add docs
+    $ git commit -m 'Updated API reference for version X.Y.Z.'
+    $ git push
+
+詳細は [Configuring a publishing source for GitHub Pages][11] を参照のこと。
 
 
 コンタクト
@@ -364,3 +361,4 @@ $services = $response->getServices();
 [8]: https://packagist.org
 [9]: https://getcomposer.org/doc/articles/versions.md
 [10]: https://packagist.org/about#how-to-update-packages
+[11]: https://help.github.com/articles/configuring-a-publishing-source-for-github-pages/

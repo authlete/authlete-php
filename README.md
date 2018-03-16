@@ -329,21 +329,18 @@ detected by [Packagist][8].
 
 #### 4. Update API Reference
 
-    $ rm -rf apidoc
+The following command updates documents under `docs` folder.
+
+    $ rm -rf docs
     $ phpdoc
 
 #### 5. Publish API Reference
 
-    $ mkdir -p ../docs
-    $ cd ../docs
-    $ git clone https://github.com/authlete/authlete-php
-    $ cd authlete-php
-    $ git checkout gh-pages
-    $ rm -rf *
-    $ cp -r ../../authlete-php/apidoc/* .
-    $ git add .
-    $ git commit -m 'Updated for version X.Y.Z'
-    $ git push origin gh-pages
+    $ git add docs
+    $ git commit -m 'Updated API reference for version X.Y.Z.'
+    $ git push
+
+See [Configuring a publishing source for GitHub Pages][11] for details.
 
 
 Contact
@@ -366,3 +363,4 @@ Contact
 [8]: https://packagist.org
 [9]: https://getcomposer.org/doc/articles/versions.md
 [10]: https://packagist.org/about#how-to-update-packages
+[11]: https://help.github.com/articles/configuring-a-publishing-source-for-github-pages/
