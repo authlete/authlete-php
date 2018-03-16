@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>API Documentation</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+    <link href="../css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="../css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/prism.css" rel="stylesheet" media="all"/>
+    <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+    <!--[if lt IE 9]>
+    <script src="../js/html5.js"></script>
+    <![endif]-->
+    <script src="../js/jquery-1.11.0.min.js"></script>
+    <script src="../js/ui/1.10.4/jquery-ui.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery.smooth-scroll.js"></script>
+    <script src="../js/prism.min.js"></script>
+    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
+    <script type="text/javascript">
+    function loadExternalCodeSnippets() {
+        Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
+            var src = pre.getAttribute('data-src');
+            var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
+            var language = 'php';
+
+            var code = document.createElement('code');
+            code.className = 'language-' + language;
+
+            pre.textContent = '';
+
+            code.textContent = 'Loading…';
+
+            pre.appendChild(code);
+
+            var xhr = new XMLHttpRequest();
+
+            xhr.open('GET', src, true);
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+
+                    if (xhr.status < 400 && xhr.responseText) {
+                        code.textContent = xhr.responseText;
+
+                        Prism.highlightElement(code);
+                    }
+                    else if (xhr.status >= 400) {
+                        code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                    }
+                    else {
+                        code.textContent = '✖ Error: File does not exist or is empty';
+                    }
+                }
+            };
+
+            xhr.send(null);
+        });
+    }
+
+    $(document).ready(function(){
+        loadExternalCodeSnippets();
+    });
+    $('#source-view').on('shown', function () {
+        loadExternalCodeSnippets();
+    })
+</script>
+
+    <link rel="shortcut icon" href="../images/favicon.ico"/>
+    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png"/>
+</head>
+<body>
+
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <i class="icon-ellipsis-vertical"></i>
+            </a>
+            <a class="brand" href="../index.html">API Documentation</a>
+
+            <div class="nav-collapse">
+                <ul class="nav pull-right">
+                                        <li class="dropdown">
+                        <a href="../index.html" class="dropdown-toggle" data-toggle="dropdown">
+                            API Documentation <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                                                        <li><a href="../namespaces/Authlete.html">\Authlete</a></li>
+                                                    </ul>
+                    </li>
+                                        <li class="dropdown" id="charts-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Charts <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../graphs/class.html">
+                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" id="reports-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Reports <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../reports/errors.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/markers.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/deprecated.html">
+                                                                                                            <i class="icon-list-alt"></i>&#160;Deprecated <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--<div class="go_to_top">-->
+    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
+    <!--</div>-->
+</div>
+
+<div id="___" class="container-fluid">
+        <section class="row-fluid">
+        <div class="span2 sidebar">
+                                <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-587234916"></a>
+                                <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
+            </div>
+            <div id="namespace-587234916" class="accordion-body collapse in">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2089649456"></a>
+                                <a href="../namespaces/Authlete.html" style="margin-left: 30px; padding-left: 0">Authlete</a>
+            </div>
+            <div id="namespace-2089649456" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-306197282"></a>
+                                <a href="../namespaces/Authlete.Api.html" style="margin-left: 30px; padding-left: 0">Api</a>
+            </div>
+            <div id="namespace-306197282" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/Authlete.Api.AuthleteApi.html">AuthleteApi</a></li>
+                                                    <li class="interface"><a href="../classes/Authlete.Api.Settings.html">Settings</a></li>
+                                                                                                    <li class="class"><a href="../classes/Authlete.Api.AuthleteApiException.html">AuthleteApiException</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Api.AuthleteApiImpl.html">AuthleteApiImpl</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Api.SettingsImpl.html">SettingsImpl</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1822244114"></a>
+                                <a href="../namespaces/Authlete.Conf.html" style="margin-left: 30px; padding-left: 0">Conf</a>
+            </div>
+            <div id="namespace-1822244114" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/Authlete.Conf.AuthleteConfiguration.html">AuthleteConfiguration</a></li>
+                                                                            <li class="trait"><a href="../classes/Authlete.Conf.AuthleteConfigurationTrait.html">AuthleteConfigurationTrait</a></li>
+                                                                            <li class="class"><a href="../classes/Authlete.Conf.AuthleteEnvConfiguration.html">AuthleteEnvConfiguration</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Conf.AuthleteIniConfiguration.html">AuthleteIniConfiguration</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Conf.AuthleteSimpleConfiguration.html">AuthleteSimpleConfiguration</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1866702650"></a>
+                                <a href="../namespaces/Authlete.Dto.html" style="margin-left: 30px; padding-left: 0">Dto</a>
+            </div>
+            <div id="namespace-1866702650" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Authlete.Dto.Address.html">Address</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.ApiResponse.html">ApiResponse</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.AuthorizationAction.html">AuthorizationAction</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.AuthorizationFailAction.html">AuthorizationFailAction</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.AuthorizationFailReason.html">AuthorizationFailReason</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.AuthorizationFailRequest.html">AuthorizationFailRequest</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.AuthorizationFailResponse.html">AuthorizationFailResponse</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.AuthorizationIssueAction.html">AuthorizationIssueAction</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.AuthorizationIssueRequest.html">AuthorizationIssueRequest</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.AuthorizationIssueResponse.html">AuthorizationIssueResponse</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.AuthorizationRequest.html">AuthorizationRequest</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.AuthorizationResponse.html">AuthorizationResponse</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.AuthorizedClientListResponse.html">AuthorizedClientListResponse</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.Client.html">Client</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.ClientAuthorizationDeleteRequest.html">ClientAuthorizationDeleteRequest</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.ClientAuthorizationGetListRequest.html">ClientAuthorizationGetListRequest</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.ClientAuthorizationUpdateRequest.html">ClientAuthorizationUpdateRequest</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.ClientExtension.html">ClientExtension</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.ClientListResponse.html">ClientListResponse</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.ClientSecretRefreshResponse.html">ClientSecretRefreshResponse</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.ClientSecretUpdateRequest.html">ClientSecretUpdateRequest</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.ClientSecretUpdateResponse.html">ClientSecretUpdateResponse</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.GrantedScopesDeleteRequest.html">GrantedScopesDeleteRequest</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.GrantedScopesGetRequest.html">GrantedScopesGetRequest</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.GrantedScopesGetResponse.html">GrantedScopesGetResponse</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.IntrospectionAction.html">IntrospectionAction</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.IntrospectionRequest.html">IntrospectionRequest</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.IntrospectionResponse.html">IntrospectionResponse</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.Pair.html">Pair</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.Property.html">Property</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.RevocationAction.html">RevocationAction</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.RevocationRequest.html">RevocationRequest</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.RevocationResponse.html">RevocationResponse</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.Scope.html">Scope</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.Service.html">Service</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.ServiceListResponse.html">ServiceListResponse</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.SnsCredentials.html">SnsCredentials</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.StandardIntrospectionAction.html">StandardIntrospectionAction</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.StandardIntrospectionRequest.html">StandardIntrospectionRequest</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.StandardIntrospectionResponse.html">StandardIntrospectionResponse</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.TaggedValue.html">TaggedValue</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.TokenAction.html">TokenAction</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.TokenCreateAction.html">TokenCreateAction</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.TokenCreateRequest.html">TokenCreateRequest</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.TokenCreateResponse.html">TokenCreateResponse</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.TokenFailAction.html">TokenFailAction</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.TokenFailReason.html">TokenFailReason</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.TokenFailRequest.html">TokenFailRequest</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.TokenFailResponse.html">TokenFailResponse</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.TokenIssueAction.html">TokenIssueAction</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.TokenIssueRequest.html">TokenIssueRequest</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.TokenIssueResponse.html">TokenIssueResponse</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.TokenRequest.html">TokenRequest</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.TokenResponse.html">TokenResponse</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.TokenUpdateAction.html">TokenUpdateAction</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.TokenUpdateRequest.html">TokenUpdateRequest</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.TokenUpdateResponse.html">TokenUpdateResponse</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.UserInfoAction.html">UserInfoAction</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.UserInfoIssueAction.html">UserInfoIssueAction</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.UserInfoIssueRequest.html">UserInfoIssueRequest</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.UserInfoIssueResponse.html">UserInfoIssueResponse</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.UserInfoRequest.html">UserInfoRequest</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.UserInfoResponse.html">UserInfoResponse</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1237259436"></a>
+                                <a href="../namespaces/Authlete.Types.html" style="margin-left: 30px; padding-left: 0">Types</a>
+            </div>
+            <div id="namespace-1237259436" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/Authlete.Types.ArrayCopyable.html">ArrayCopyable</a></li>
+                                                    <li class="interface"><a href="../classes/Authlete.Types.Jsonable.html">Jsonable</a></li>
+                                                                            <li class="trait"><a href="../classes/Authlete.Types.EnumTrait.html">EnumTrait</a></li>
+                                                                            <li class="class"><a href="../classes/Authlete.Types.ApplicationType.html">ApplicationType</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Types.ClaimType.html">ClaimType</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Types.ClientAuthMethod.html">ClientAuthMethod</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Types.ClientType.html">ClientType</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Types.CodeChallengeMethod.html">CodeChallengeMethod</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Types.Display.html">Display</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Types.GrantType.html">GrantType</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Types.JWEAlg.html">JWEAlg</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Types.JWEEnc.html">JWEEnc</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Types.JWSAlg.html">JWSAlg</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Types.Prompt.html">Prompt</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Types.ResponseType.html">ResponseType</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Types.ServiceProfile.html">ServiceProfile</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Types.Sns.html">Sns</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Types.StandardClaims.html">StandardClaims</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Types.SubjectType.html">SubjectType</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2098413935"></a>
+                                <a href="../namespaces/Authlete.Util.html" style="margin-left: 30px; padding-left: 0">Util</a>
+            </div>
+            <div id="namespace-2098413935" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                            <li class="trait"><a href="../classes/Authlete.Util.JsonTrait.html">JsonTrait</a></li>
+                                                                            <li class="class"><a href="../classes/Authlete.Util.LanguageUtility.html">LanguageUtility</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Util.ValidationUtility.html">ValidationUtility</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2114956169"></a>
+                                <a href="../namespaces/Authlete.Web.html" style="margin-left: 30px; padding-left: 0">Web</a>
+            </div>
+            <div id="namespace-2114956169" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Authlete.Web.BasicCredentials.html">BasicCredentials</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Web.HttmMethod.html">HttmMethod</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        </div>
+    </section>
+    <section class="row-fluid">
+        <div class="span10 offset2">
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <nav>
+                                                <a href="../namespaces/Authlete.Dto.html">\Authlete\Dto</a> <i class="icon-level-up"></i>
+                                            </nav>
+                    <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
+
+                    <h1><small>\Authlete\Dto</small>AuthorizationFailReason</h1>
+                    <p><em>The value of &quot;reason&quot; in requests to Authlete&#039;s
+/api/auth/authorization/fail API.</em></p>
+                    
+                    
+                                        
+                    <section id="summary">
+                        <h2>Summary</h2>
+                        <section class="row-fluid heading">
+                            <section class="span4">
+                                <a href="#methods">Methods</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#properties">Properties</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#constants">Constants</a>
+                            </section>
+                        </section>
+                        <section class="row-fluid public">
+                            <section class="span4">
+                                                                    <a href="../classes/Authlete.Types.EnumTrait.html#method_values" class="">values()</a><br />
+                                                                    <a href="../classes/Authlete.Types.EnumTrait.html#method_valueOf" class="">valueOf()</a><br />
+                                                                    <a href="../classes/Authlete.Types.EnumTrait.html#method___toString" class="">__toString()</a><br />
+                                                                    <a href="../classes/Authlete.Types.EnumTrait.html#method_name" class="">name()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <a href="../classes/Authlete.Dto.AuthorizationFailReason.html#property_UNKNOWN" class="">$UNKNOWN</a><br />
+                                                                    <a href="../classes/Authlete.Dto.AuthorizationFailReason.html#property_NOT_LOGGED_IN" class="">$NOT_LOGGED_IN</a><br />
+                                                                    <a href="../classes/Authlete.Dto.AuthorizationFailReason.html#property_MAX_AGE_NOT_SUPPORTED" class="">$MAX_AGE_NOT_SUPPORTED</a><br />
+                                                                    <a href="../classes/Authlete.Dto.AuthorizationFailReason.html#property_EXCEEDS_MAX_AGE" class="">$EXCEEDS_MAX_AGE</a><br />
+                                                                    <a href="../classes/Authlete.Dto.AuthorizationFailReason.html#property_DIFFERENT_SUBJECT" class="">$DIFFERENT_SUBJECT</a><br />
+                                                                    <a href="../classes/Authlete.Dto.AuthorizationFailReason.html#property_ACR_NOT_SATISFIED" class="">$ACR_NOT_SATISFIED</a><br />
+                                                                    <a href="../classes/Authlete.Dto.AuthorizationFailReason.html#property_DENIED" class="">$DENIED</a><br />
+                                                                    <a href="../classes/Authlete.Dto.AuthorizationFailReason.html#property_SERVER_ERROR" class="">$SERVER_ERROR</a><br />
+                                                                    <a href="../classes/Authlete.Dto.AuthorizationFailReason.html#property_NOT_AUTHENTICATED" class="">$NOT_AUTHENTICATED</a><br />
+                                                                    <a href="../classes/Authlete.Dto.AuthorizationFailReason.html#property_ACCOUNT_SELECTION_REQUIRED" class="">$ACCOUNT_SELECTION_REQUIRED</a><br />
+                                                                    <a href="../classes/Authlete.Dto.AuthorizationFailReason.html#property_CONSENT_REQUIRED" class="">$CONSENT_REQUIRED</a><br />
+                                                                    <a href="../classes/Authlete.Dto.AuthorizationFailReason.html#property_INTERACTION_REQUIRED" class="">$INTERACTION_REQUIRED</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No constants found</em>
+                                                            </section>
+                        </section>
+                        <section class="row-fluid protected">
+                            <section class="span4">
+                                                                    <em>No protected methods found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No protected properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                        <section class="row-fluid private">
+                            <section class="span4">
+                                                                    <em>No private methods found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No private properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                    </section>
+                </div>
+                <aside class="span4 detailsbar">
+                                        
+                    
+                    <dl>
+                        <dt>File</dt>
+                            <dd><a href="../files/Dto.AuthorizationFailReason.html"><div class="path-wrapper">Dto/AuthorizationFailReason.php</div></a></dd>
+                                                <dt>Package</dt>
+                            <dd><div class="namespace-wrapper">Default</div></dd>
+                                                <dt>Class hierarchy</dt>
+                            <dd class="hierarchy">
+                                                                                                                                                                    <div class="namespace-wrapper">\Authlete\Dto\AuthorizationFailReason</div>
+                            </dd>
+
+                        
+                                                                                    <dt>Uses traits</dt>
+                                                        <dd>
+                                <a href="../classes/Authlete.Types.EnumTrait.html">                                    <div class="namespace-wrapper">\Authlete\Types\EnumTrait</div>
+                                </a>                            </dd>
+                        
+                        
+                        
+                                                                        </dl>
+                    <h2>Tags</h2>
+                    <table class="table table-condensed">
+                                            <tr><td colspan="2"><em>None found</em></td></tr>
+                                        </table>
+                </aside>
+            </div>
+
+                        
+                                    <a id="properties" name="properties"></a>
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <h2>Properties</h2>
+                </div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_UNKNOWN" name="property_UNKNOWN" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$UNKNOWN</h3>
+                <pre class="signature">$UNKNOWN : \Authlete\Dto\AuthorizationFailReason</pre>
+                <p><em>Unknown reason.</em></p>
+                <p>Using this reason will result in <code>error=server_error</code>.</p>
+
+                                <h4>Type</h4>
+                <a href="../classes/Authlete.Dto.AuthorizationFailReason.html">\Authlete\Dto\AuthorizationFailReason</a>
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            static
+                        </th>
+                        <td>
+                                                            
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_NOT_LOGGED_IN" name="property_NOT_LOGGED_IN" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$NOT_LOGGED_IN</h3>
+                <pre class="signature">$NOT_LOGGED_IN : \Authlete\Dto\AuthorizationFailReason</pre>
+                <p><em>The authorization request from the client application contained
+&quot;prompt=none&quot;, but any end-user has not logged in.</em></p>
+                <p>Using this reason will result in <code>error=login_required</code>.</p>
+
+                                <h4>Type</h4>
+                <a href="../classes/Authlete.Dto.AuthorizationFailReason.html">\Authlete\Dto\AuthorizationFailReason</a>
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            static
+                        </th>
+                        <td>
+                                                            
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_MAX_AGE_NOT_SUPPORTED" name="property_MAX_AGE_NOT_SUPPORTED" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$MAX_AGE_NOT_SUPPORTED</h3>
+                <pre class="signature">$MAX_AGE_NOT_SUPPORTED : \Authlete\Dto\AuthorizationFailReason</pre>
+                <p><em>The authorization request from the client application contained the
+&quot;max_age&quot; request parameter with a non-zero value or the client&#039;s
+configuration has a non-zero value for the &quot;default_max_age&quot;
+configuration parameter, but the authorization server implementation
+cannot behave properly based on the max age value mainly because the
+authorization server implementation does not manage authentication
+time of end-users.</em></p>
+                <p>Using this reason will result in <code>error=login_required</code>.</p>
+
+                                <h4>Type</h4>
+                <a href="../classes/Authlete.Dto.AuthorizationFailReason.html">\Authlete\Dto\AuthorizationFailReason</a>
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            static
+                        </th>
+                        <td>
+                                                            
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_EXCEEDS_MAX_AGE" name="property_EXCEEDS_MAX_AGE" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$EXCEEDS_MAX_AGE</h3>
+                <pre class="signature">$EXCEEDS_MAX_AGE : \Authlete\Dto\AuthorizationFailReason</pre>
+                <p><em>The authorization request from the client application contained
+&quot;prompt=none&quot;, but the time specified by the &quot;max_age&quot; request
+parameter or by the &quot;default_max_age&quot; configuration parameter
+has passed since the time at which the end-user logged in.</em></p>
+                <p>Using this reason will result in <code>error=login_required</code>.</p>
+
+                                <h4>Type</h4>
+                <a href="../classes/Authlete.Dto.AuthorizationFailReason.html">\Authlete\Dto\AuthorizationFailReason</a>
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            static
+                        </th>
+                        <td>
+                                                            
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_DIFFERENT_SUBJECT" name="property_DIFFERENT_SUBJECT" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$DIFFERENT_SUBJECT</h3>
+                <pre class="signature">$DIFFERENT_SUBJECT : \Authlete\Dto\AuthorizationFailReason</pre>
+                <p><em>The authorization request from the client application requested a
+specific value for the &quot;sub&quot; claim, but the current end-user (in
+the case of prompt=none) or the end-user after the authentication
+is different from the specified value.</em></p>
+                <p>Using this reason will result in <code>error=login_required</code>.</p>
+
+                                <h4>Type</h4>
+                <a href="../classes/Authlete.Dto.AuthorizationFailReason.html">\Authlete\Dto\AuthorizationFailReason</a>
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            static
+                        </th>
+                        <td>
+                                                            
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_ACR_NOT_SATISFIED" name="property_ACR_NOT_SATISFIED" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$ACR_NOT_SATISFIED</h3>
+                <pre class="signature">$ACR_NOT_SATISFIED : \Authlete\Dto\AuthorizationFailReason</pre>
+                <p><em>The authorization request from the client application contained the
+&quot;acr&quot; claim in the &quot;claims&quot; request parameter and the claim was
+marked as essential, but the ACR performed for the end-user does not
+match any one of the requested ACRs.</em></p>
+                <p>Using this reason will result in <code>error=login_required</code>.</p>
+
+                                <h4>Type</h4>
+                <a href="../classes/Authlete.Dto.AuthorizationFailReason.html">\Authlete\Dto\AuthorizationFailReason</a>
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            static
+                        </th>
+                        <td>
+                                                            
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_DENIED" name="property_DENIED" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$DENIED</h3>
+                <pre class="signature">$DENIED : \Authlete\Dto\AuthorizationFailReason</pre>
+                <p><em>The end-user denied the authorization request from the client
+application.</em></p>
+                <p>Using this reason will result in <code>error=access_denied</code>.</p>
+
+                                <h4>Type</h4>
+                <a href="../classes/Authlete.Dto.AuthorizationFailReason.html">\Authlete\Dto\AuthorizationFailReason</a>
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            static
+                        </th>
+                        <td>
+                                                            
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_SERVER_ERROR" name="property_SERVER_ERROR" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$SERVER_ERROR</h3>
+                <pre class="signature">$SERVER_ERROR : \Authlete\Dto\AuthorizationFailReason</pre>
+                <p><em>Server error.</em></p>
+                <p>Using this reason will result in <code>error=server_error</code>.</p>
+
+                                <h4>Type</h4>
+                <a href="../classes/Authlete.Dto.AuthorizationFailReason.html">\Authlete\Dto\AuthorizationFailReason</a>
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            static
+                        </th>
+                        <td>
+                                                            
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_NOT_AUTHENTICATED" name="property_NOT_AUTHENTICATED" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$NOT_AUTHENTICATED</h3>
+                <pre class="signature">$NOT_AUTHENTICATED : \Authlete\Dto\AuthorizationFailReason</pre>
+                <p><em>The end-user was not authenticated.</em></p>
+                <p>Using this reason will result in <code>error=login_required</code>.</p>
+
+                                <h4>Type</h4>
+                <a href="../classes/Authlete.Dto.AuthorizationFailReason.html">\Authlete\Dto\AuthorizationFailReason</a>
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            static
+                        </th>
+                        <td>
+                                                            
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_ACCOUNT_SELECTION_REQUIRED" name="property_ACCOUNT_SELECTION_REQUIRED" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$ACCOUNT_SELECTION_REQUIRED</h3>
+                <pre class="signature">$ACCOUNT_SELECTION_REQUIRED : \Authlete\Dto\AuthorizationFailReason</pre>
+                <p><em>The authorization server cannot obtain an account selection choice
+made by the end-user.</em></p>
+                <p>Using this reason will result in <code>error=account_selection_required</code>.</p>
+
+                                <h4>Type</h4>
+                <a href="../classes/Authlete.Dto.AuthorizationFailReason.html">\Authlete\Dto\AuthorizationFailReason</a>
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            static
+                        </th>
+                        <td>
+                                                            
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_CONSENT_REQUIRED" name="property_CONSENT_REQUIRED" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$CONSENT_REQUIRED</h3>
+                <pre class="signature">$CONSENT_REQUIRED : \Authlete\Dto\AuthorizationFailReason</pre>
+                <p><em>The authorization server cannot obtain consent from the end-user.</em></p>
+                <p>Using this reason will result in <code>error=consent_required</code>.</p>
+
+                                <h4>Type</h4>
+                <a href="../classes/Authlete.Dto.AuthorizationFailReason.html">\Authlete\Dto\AuthorizationFailReason</a>
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            static
+                        </th>
+                        <td>
+                                                            
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_INTERACTION_REQUIRED" name="property_INTERACTION_REQUIRED" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$INTERACTION_REQUIRED</h3>
+                <pre class="signature">$INTERACTION_REQUIRED : \Authlete\Dto\AuthorizationFailReason</pre>
+                <p><em>The authorization server needs interaction with the end-user.</em></p>
+                <p>Using this reason will result in <code>error=interaction_required</code>.</p>
+
+                                <h4>Type</h4>
+                <a href="../classes/Authlete.Dto.AuthorizationFailReason.html">\Authlete\Dto\AuthorizationFailReason</a>
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            static
+                        </th>
+                        <td>
+                                                            
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                            
+                                    <a id="methods" name="methods"></a>
+            <div class="row-fluid">
+                <div class="span8 content class"><h2>Methods</h2></div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_values" name="method_values" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">values()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">values() : array</pre>
+                <p><em>Get the list of public class variables listed in this class.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>Instances of this class which are defined as public class
+variables.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/Authlete.Types.EnumTrait.html"><div class="path-wrapper">\Authlete\Types\EnumTrait</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_valueOf" name="method_valueOf" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">valueOf()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">valueOf(mixed  <span class="argument">$value</span>) : static</pre>
+                <p><em>Get an instance of this class that the given argument represents.</em></p>
+                <p>If the given argument is an instance of this class, the instance
+itself is returned.</p>
+<p>Otherwise, if the given argument is <code>null</code>, <code>null</code> is returned.</p>
+<p>Otherwise, if the type of the given argument is not <code>string</code>,
+an <code>InvalidArgumentException</code> is returned.</p>
+<p>Otherwise, a class variable whose name is equal to the given
+argument is looked up. If found, the instance is returned.
+If not found, an <code>InvalidArgumentException</code> is thrown.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$value </td>
+                                <td><p>A string that represents an instance of this class, or an
+instance of this class, or <code>null</code>.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    static
+                                            &mdash; <p>An instance of this class.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/Authlete.Types.EnumTrait.html"><div class="path-wrapper">\Authlete\Types\EnumTrait</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method___toString" name="method___toString" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">__toString()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">__toString() : string</pre>
+                <p><em>Get the name of this instance.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>The name of this instance.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/Authlete.Types.EnumTrait.html"><div class="path-wrapper">\Authlete\Types\EnumTrait</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_name" name="method_name" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">name()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">name() : string</pre>
+                <p><em>Get the name of this instance.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>The name of this instance.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/Authlete.Types.EnumTrait.html"><div class="path-wrapper">\Authlete\Types\EnumTrait</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                                    </div>
+    </section>
+
+    <div id="source-view" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="source-view-label" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="source-view-label">AuthorizationFailReason.php</h3>
+        </div>
+        <div class="modal-body">
+            <pre data-src="../files/Dto/AuthorizationFailReason.php.txt" class="language-php line-numbers"></pre>
+        </div>
+    </div>
+
+    <footer class="row-fluid">
+        <section class="span10 offset2">
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <section class="row-fluid footer-sections">
+                        <section class="span4">
+                                                        <h1><i class="icon-code"></i></h1>
+                            <div>
+                                <ul>
+                                                                            <li><a href="../namespaces/Authlete.html">\Authlete</a></li>
+                                                                    </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-bar-chart"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../graphs/class.html">Class Hierarchy Diagram</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-pushpin"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../reports/errors.html">Errors</a></li>
+                                    <li><a href="../reports/markers.html">Markers</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <hr />
+                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
+                    on March 16th, 2018 at 08:18.
+                </section>
+            </section>
+        </section>
+    </footer>
+</div>
+
+</body>
+</html>
