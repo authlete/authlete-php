@@ -51,6 +51,12 @@ Composer
 ```
 
 
+Packagist
+---------
+
+  <code>https://packagist.org/packages/authlete/authlete</code>
+
+
 ソースコード (authlete-php)
 ---------------------------
 
