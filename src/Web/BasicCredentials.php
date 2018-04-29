@@ -150,7 +150,7 @@ class BasicCredentials
 
     private static function buildFromParameter($base64String)
     {
-        if (is_null($base64String))
+        if (is_null($base64String) || empty($base64String))
         {
             // $userId = null, $password = null
             return new BasicCredentials(null, null);
@@ -160,7 +160,7 @@ class BasicCredentials
         $plainText = base64_decode($base64String);
 
         // Split "userId:password" into "userId" and "password".
-        $elements = explode(':', $base64String, 2);
+        $elements = explode(':', $plainText, 2);
 
         $userId   = null;
         $password = null;
