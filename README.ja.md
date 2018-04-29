@@ -269,7 +269,7 @@ $settings->setProxyTunnelUsed(false);
 $conf = new AuthleteSimpleConfiguration();
 $conf->setBaseUrl("https://api.authlete.com")
      ->setServiceOwnerApiKey("1532787510")
-     ->setServiceOwnerApiSecret(9Y0ZARGatedJRhsYLNfiK_aKQIBCug2O3JQU6srZrpk")
+     ->setServiceOwnerApiSecret("9Y0ZARGatedJRhsYLNfiK_aKQIBCug2O3JQU6srZrpk")
      ->setServiceApiKey("9463955934")
      ->setServiceApiSecret("AAw0rner_wjRCpk-y1A6J9s20Bvez3GxEBoL9jOJVR0")
      ;
