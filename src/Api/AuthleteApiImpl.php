@@ -70,6 +70,7 @@ use Authlete\Dto\UserInfoResponse;
 use Authlete\Types\Jsonable;
 use Authlete\Util\LanguageUtility;
 use Authlete\Util\ValidationUtility;
+use Authlete\Web\BasicCredentials;
 use Authlete\Web\HttpMethod;
 
 
