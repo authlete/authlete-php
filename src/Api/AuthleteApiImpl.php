@@ -129,7 +129,7 @@ class AuthleteApiImpl implements AuthleteApi
     {
         $this->serviceOwnerCredentials = self::createServiceOwnerCredentials($configuration);
         $this->serviceCredentials      = self::createServiceCredentials($configuration);
-        $this->baseUril                = self::createBaseUrl($configuration);
+        $this->baseUrl                 = self::createBaseUrl($configuration);
         $this->settings                = new SettingsImpl();
     }
 
