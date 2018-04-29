@@ -77,7 +77,7 @@ class AuthleteIniConfiguration implements AuthleteConfiguration
     {
         if (is_null($file))
         {
-            $file = getConfigFileName();
+            $file = self::getConfigFileName();
         }
 
         $conf = parse_ini_file($file);

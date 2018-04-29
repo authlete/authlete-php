@@ -58,7 +58,7 @@ class BasicCredentials
 
         $this->userId      = $userId;
         $this->password    = $password;
-        $this->credentials = formatCredentials($userId, $password);
+        $this->credentials = self::formatCredentials($userId, $password);
     }
 
 
@@ -144,7 +144,7 @@ class BasicCredentials
         // Base64-encoded "{userId}:{password}".
         $base64String = $matches['parameter'];
 
-        return buildFromParameter($base64String);
+        return self::buildFromParameter($base64String);
     }
 
 
