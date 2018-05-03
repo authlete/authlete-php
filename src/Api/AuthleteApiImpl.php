@@ -71,6 +71,7 @@ use Authlete\Types\Jsonable;
 use Authlete\Util\LanguageUtility;
 use Authlete\Util\ValidationUtility;
 use Authlete\Web\BasicCredentials;
+use Authlete\Web\HttpHeaders;
 use Authlete\Web\HttpMethod;
 
 
@@ -221,6 +222,9 @@ class AuthleteApiImpl implements AuthleteApi
         // Make curl_exec() return a string.
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 
+        // Make curl_exec() return response headers in addition to a response body.
+        curl_setopt($curl, CURLOPT_HEADER, true);
+
         // Settings.
         $settings = $this->settings;
 
@@ -340,7 +344,7 @@ class AuthleteApiImpl implements AuthleteApi
     private static function sendRequest($curl, $path)
     {
         // Send the request to the Authlete API and receive a response.
-        $body = curl_exec($curl);
+        $response = curl_exec($curl);
 
         // Error info that might have been set by the curl_exec() call.
         $errno = curl_errno($curl);
@@ -348,6 +352,9 @@ class AuthleteApiImpl implements AuthleteApi
 
         // HTTP status code in the response from the Authlete API.
         $statusCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+
+        // The size of the response headers.
+        $headerSize = curl_getinfo($curl, CURLINFO_HEADER_SIZE);
 
         // Finish using the handler.
         curl_close($curl);
@@ -358,6 +365,10 @@ class AuthleteApiImpl implements AuthleteApi
             throw new AuthleteApiException(
                 "curl_exec() failed: path=${path}, errno=${errno}, error=${error}");
         }
+
+        // Split the response into the headers and the body.
+        $headers = substr($response, 0, $headerSize);
+        $body    = substr($response, $headerSize);
 
         // If the HTTP status code indicates that the API call has succeeded.
         if (200 <= $statusCode && $statusCode < 300)
@@ -371,7 +382,7 @@ class AuthleteApiImpl implements AuthleteApi
 
         throw new AuthleteApiException(
             "Unexpected response: path=${path}, statusCode=${statusCode}, resultMessage=${resultMessage}",
-            $statusCode, $body);
+            $statusCode, HttpHeaders::parse($headers), $body);
     }
 
 
