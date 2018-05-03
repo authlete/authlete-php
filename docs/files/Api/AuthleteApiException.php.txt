@@ -26,6 +26,7 @@ namespace Authlete\Api;
 
 
 use Authlete\Util\ValidationUtility;
+use Authlete\Web\HttpHeaders;
 
 
 /**
@@ -36,8 +37,9 @@ use Authlete\Util\ValidationUtility;
  */
 class AuthleteApiException extends \Exception
 {
-    private $statusCode   = 0;     // integer
-    private $responseBody = null;  // string
+    private $statusCode      = 0;     // integer
+    private $responseHeaders = null;  // \Authlete\Web\HttpHeaders
+    private $responseBody    = null;  // string
 
 
     /**
@@ -53,6 +55,12 @@ class AuthleteApiException extends \Exception
      *     value is 0. This value is available through `getStatusCode()`
      *     method.
      *
+     * @param HttpHeaders $responseHeaders
+     *     HTTP response headers. This argument is optional and its default
+     *     value is `null`. This value is available through `getResponseHeaders()`
+     *     method. If `null` is given, however, `getResponseHeader()` will
+     *     return an empty `HttpHeaders` instance.
+     *
      * @param string $responseBody
      *     An HTTP response body. This argument is optional and its default
      *     value is `null`. This value is available through `getResponseBody()`
@@ -61,16 +69,24 @@ class AuthleteApiException extends \Exception
      * @throws \InvalidArgumentException
      *     Types of arguments are invalid.
      */
-    public function __construct($message, $statusCode = 0, $responseBody = null)
+    public function __construct(
+        $message, $statusCode = 0, $responseHeaders = null, $responseBody = null)
     {
         ValidationUtility::ensureNullOrString('$message', $message);
         ValidationUtility::ensureInteger('$statusCode', $statusCode);
+        ValidationUtility::ensureNullOrType('$responseHeaders', $responseHeaders, '\Authlete\Web\HttpHeaders');
         ValidationUtility::ensureNullOrString('$responseBody', $responseBody);
 
         parent::__construct($message);
 
-        $this->statusCode   = $statusCode;
-        $this->responseBody = $responseBody;
+        if (is_null($responseHeaders))
+        {
+            $responseHeaders = new HttpHeaders();
+        }
+
+        $this->statusCode      = $statusCode;
+        $this->responseHeaders = $responseHeaders;
+        $this->responseBody    = $responseBody;
     }
 
 
@@ -84,6 +100,20 @@ class AuthleteApiException extends \Exception
     public function getStatusCode()
     {
         return $this->statusCode;
+    }
+
+
+    /**
+     * Get the HTTP headers of a response from an Authlete API.
+     *
+     * @return HttpHeaders
+     *     HTTP response headers.
+     *
+     * @since 1.2
+     */
+    public function getResponseHeaders()
+    {
+        return $this->responsesHeaders;
     }
 
 

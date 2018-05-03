@@ -25,6 +25,7 @@
 namespace Authlete\Web;
 
 
+use Authlete\Types\EnumTrait;
 use Authlete\Util\LanguageUtility;
 
 
@@ -34,7 +35,7 @@ use Authlete\Util\LanguageUtility;
  *
  * @see https://tools.ietf.org/html/rfc7231#section-4.3 RFC 7231 (HTTP/1.1), 4.3. Method Definitions
  */
-class HttmMethod
+class HttpMethod
 {
     use EnumTrait;
 
