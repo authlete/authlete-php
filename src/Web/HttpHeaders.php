@@ -39,6 +39,9 @@ class HttpHeaders
     private $headerMap;
 
 
+    /**
+     * Constructor.
+     */
     public function __construct()
     {
         $this->keyMap    = array();

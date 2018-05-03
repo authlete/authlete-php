@@ -177,6 +177,9 @@ class ValidationUtility
      * @param integer $value
      *     Value of a parameter.
      *
+     * @param string $type
+     *     The expected type of the value.
+     *
      * @throws \InvalidArgumentException
      *     `$value` is neither `null` nor an instance of the specified type.
      *
