@@ -169,6 +169,31 @@ class ValidationUtility
 
 
     /**
+     * Ensure that the given object is `null` or an instance of the specified type.
+     *
+     * @param string $name
+     *     Name of a parameter.
+     *
+     * @param integer $value
+     *     Value of a parameter.
+     *
+     * @throws \InvalidArgumentException
+     *     `$value` is neither `null` nor an instance of the specified type.
+     *
+     * @since 1.2
+     */
+    public static function ensureNullOrType($name, $value, $type)
+    {
+        if (is_null($value) || ($value instanceof $type))
+        {
+            return;
+        }
+
+        throw new \InvalidArgumentException("'$name' must be null or an instance of $type.");
+    }
+
+
+    /**
      * Ensure that the given object is `null`, a `string` instance,
      * or an `integer` instance.
      *
