@@ -109,9 +109,11 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
     private $pkceRequired                                = false; // boolean
     private $supportedServiceProfiles                    = null;  // array of \Authlete\Types\ServiceProfile
     private $mutualTlsSenderConstrainedAccessTokens      = false; // boolean
+    private $mutualTlsValidatePkiCertChain               = false; // boolean
     private $introspectionEndpoint                       = null;  // string
     private $supportedIntrospectionAuthMethods           = null;  // array of \Authlete\Types\ClientAuthMethod
     private $supportedIntrospectionAuthSigningAlgorithms = null;  // array of \Authlete\Types\JWSAlg
+    private $trustedRootCertificates                     = null;  // array of string
 
 
     /**
@@ -2231,12 +2233,12 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      */
     public function isMutualTlsSenderConstrainedAccessTokens()
     {
-        return $this->clientIdAliasEnabled;
+        return $this->mutualTlsSenderConstrainedAccessTokens;
     }
 
 
     /**
-     * Get the flag which indicates whether this service supports
+     * Set the flag which indicates whether this service supports
      * "Mutual TLS sender constrained access tokens".
      *
      * If `true` is set to this property, client applications whose
@@ -2256,6 +2258,43 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
         ValidationUtility::ensureBoolean('$enabled', $enabled);
 
         $this->mutualTlsSenderConstrainedAccessTokens = $enabled;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the flag which indicates whether to check if client certificates
+     * can be reached from pre-registered trusted root certificates.
+     *
+     * @return boolean
+     *     `true` if validation of client certificates is performed.
+     *
+     * @since 1.3
+     */
+    public function isMutualTlsValidatePkiCertChain()
+    {
+        return $this->mutualTlsValidatePkiCertChain;
+    }
+
+
+    /**
+     * Set the flag which indicates whether to check if client certificates
+     * can be reached from pre-registered trusted root certificates.
+     *
+     * @param boolean $enabled
+     *     `true` to perform validation of client certificates.
+     *
+     * @return Service
+     *     `$this` object.
+     *
+     * @since 1.3
+     */
+    public function setMutualTlsValidatePkiCertChain($enabled)
+    {
+        ValidationUtility::ensureBoolean('$enabled', $enabled);
+
+        $this->mutualTlsValidatePkiCertChain = $enabled;
 
         return $this;
     }
@@ -2383,6 +2422,47 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
 
 
     /**
+     * Get trusted root certificates.
+     *
+     * If `isMutualTlsValidatePkiCertChain()` returns `true`, pre-registered
+     * trusted root certificates are used to validate client certificates.
+     *
+     * @return string[]
+     *     Trusted root certificates.
+     *
+     * @since 1.3
+     */
+    public function getTrustedRootCertificates()
+    {
+        return $this->trustedRootCertificates;
+    }
+
+
+    /**
+     * Set trusted root certificates.
+     *
+     * If `isMutualTlsValidatePkiCertChain()` returns `true`, pre-registered
+     * trusted root certificates are used to validate client certificates.
+     *
+     * @param string[] $certificates
+     *     Trusted root certificates.
+     *
+     * @return Service
+     *     `$this` object.
+     *
+     * @since 1.3
+     */
+    public function setTrustedRootCertificates(array $certificates = null)
+    {
+        ValidationUtility::ensureNullOrArrayOfString('$certificates', $certificates);
+
+        $this->trustedRootCertificates = $certificates;
+
+        return $this;
+    }
+
+
+    /**
      * {@inheritdoc}
      *
      * {@inheritdoc}
@@ -2446,9 +2526,11 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
         $array['pkceRequired']                                = $this->pkceRequired;
         $array['supportedServiceProfiles']                    = LanguageUtility::convertArrayToStringArray($this->supportedServiceProfiles);
         $array['mutualTlsSenderConstrainedAccessTokens']      = $this->mutualTlsSenderConstrainedAccessTokens;
+        $array['mutualTlsValidatePkiCertChain']               = $this->mutualTlsValidatePkiCertChain;
         $array['introspectionEndpoint']                       = $this->introspectionEndpoint;
         $array['supportedIntrospectionAuthMethods']           = LanguageUtility::convertArrayToStringArray($this->supportedIntrospectionAuthMethods);
         $array['supportedIntrospectionAuthSigningAlgorithms'] = LanguageUtility::convertArrayToStringArray($this->supportedIntrospectionAuthSigningAlgorithms);
+        $array['trustedRootCertificates']                     = $this->trustedRootCertificates;
     }
 
 
@@ -2716,6 +2798,10 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
         $this->setMutualTlsSenderConstrainedAccessTokens(
             LanguageUtility::getFromArrayAsBoolean('mutualTlsSenderConstrainedAccessTokens', $array));
 
+        // mutualTlsValidatePkiCertChain
+        $this->setMutualTlsValidatePkiCertChain(
+            LanguageUtility::getFromArrayAsBoolean('mutualTlsValidatePkiCertChain', $array));
+
         // introspectionEndpoint
         $this->setIntrospectionEndpoint(
             LanguageUtility::getFromArray('introspectionEndpoint', $array));
@@ -2731,5 +2817,9 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
         $this->setSupportedIntrospectionAuthSigningAlgorithms(
             LanguageUtility::convertArray(
                 $supportedIntrospectionAuthSigningAlgorithms, '\Authlete\Types\JWSAlg::valueOf'));
+
+        // trustedRootCertificates
+        $this->setTrustedRootCertificates(
+            LanguageUtility::getFromArray('trustedRootCertificates', $array));
     }
 }
