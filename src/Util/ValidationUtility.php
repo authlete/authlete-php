@@ -77,6 +77,31 @@ class ValidationUtility
 
 
     /**
+     * Ensure that the type of the given object is `string`.
+     *
+     * @param string $name
+     *     Name of a parameter.
+     *
+     * @param mixed $value
+     *     Value of a parameter.
+     *
+     * @throws \InvalidArgumentException
+     *     The type of `$value` is not `string`.
+     *
+     * @since 1.3
+     */
+    public static function ensureString($name, $value)
+    {
+        if (is_string($value))
+        {
+            return;
+        }
+
+        throw new \InvalidArgumentException("'$name' must be a string.");
+    }
+
+
+    /**
      * Ensure that the given object is not `null`.
      *
      * @param string $name
