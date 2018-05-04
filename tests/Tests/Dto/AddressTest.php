@@ -554,5 +554,66 @@ class AddressTest extends TestCase
         $this->assertArrayHasKey('country', $array);
         $this->assertEquals(self::COUNTRY, $array['country']);
     }
+
+
+    public function testFromArray()
+    {
+        $array = array(
+            'formatted'      => self::FORMATTED,
+            'street_address' => self::STREET_ADDRESS,
+            'locality'       => self::LOCALITY,
+            'region'         => self::REGION,
+            'postal_code'    => self::POSTAL_CODE,
+            'country'        => self::COUNTRY
+        );
+
+        $obj = Address::fromArray($array);
+
+        $this->assertEquals(self::FORMATTED,      $obj->getFormatted());
+        $this->assertEquals(self::STREET_ADDRESS, $obj->getStreetAddress());
+        $this->assertEquals(self::LOCALITY,       $obj->getLocality());
+        $this->assertEquals(self::REGION,         $obj->getRegion());
+        $this->assertEquals(self::POSTAL_CODE,    $obj->getPostalCode());
+        $this->assertEquals(self::COUNTRY,        $obj->getCountry());
+    }
+
+
+    public function testToArray()
+    {
+        $obj = new Address();
+        $obj->setFormatted(self::FORMATTED)
+            ->setStreetAddress(self::STREET_ADDRESS)
+            ->setLocality(self::LOCALITY)
+            ->setRegion(self::REGION)
+            ->setPostalCode(self::POSTAL_CODE)
+            ->setCountry(self::COUNTRY)
+            ;
+
+        $array = $obj->toArray();
+
+        // formatted
+        $this->assertArrayHasKey('formatted', $array);
+        $this->assertEquals(self::FORMATTED, $array['formatted']);
+
+        // street_address
+        $this->assertArrayHasKey('street_address', $array);
+        $this->assertEquals(self::STREET_ADDRESS, $array['street_address']);
+
+        // locality
+        $this->assertArrayHasKey('locality', $array);
+        $this->assertEquals(self::LOCALITY, $array['locality']);
+
+        // region
+        $this->assertArrayHasKey('region', $array);
+        $this->assertEquals(self::REGION, $array['region']);
+
+        // postal_code
+        $this->assertArrayHasKey('postal_code', $array);
+        $this->assertEquals(self::POSTAL_CODE, $array['postal_code']);
+
+        // country
+        $this->assertArrayHasKey('country', $array);
+        $this->assertEquals(self::COUNTRY, $array['country']);
+    }
 }
 ?>
