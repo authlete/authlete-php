@@ -53,11 +53,12 @@ class TokenRequest implements ArrayCopyable, Arrayable, Jsonable
     use JsonTrait;
 
 
-    private $parameters        = null;  // string
-    private $clientId          = null;  // string
-    private $clientSecret      = null;  // string
-    private $clientCertificate = null;  // string
-    private $properties        = null;  // array of \Authlete\Dto\Property
+    private $parameters            = null;  // string
+    private $clientId              = null;  // string
+    private $clientSecret          = null;  // string
+    private $clientCertificate     = null;  // string
+    private $clientCertificatePath = null;  // array of string
+    private $properties            = null;  // array of \Authlete\Dto\Property
 
 
     /**
@@ -211,6 +212,43 @@ class TokenRequest implements ArrayCopyable, Arrayable, Jsonable
 
 
     /**
+     * Get the certificate path presented by the client during client
+     * authentication.
+     *
+     * @return string[]
+     *     Certificates in PEM format.
+     *
+     * @since 1.3
+     */
+    public function getClientCertificatePath()
+    {
+        return $this->clientCertificatePath;
+    }
+
+
+    /**
+     * Set the certificate path presented by the client during client
+     * authentication.
+     *
+     * @param string[] $path
+     *     Certificates in PEM format.
+     *
+     * @return TokenRequest
+     *     `$this` object.
+     *
+     * @since 1.3
+     */
+    public function setClientCertificatePath(array $path = null)
+    {
+        ValidationUtility::ensureNullOrArrayOfString('$path', $path);
+
+        $this->clientCertificatePath = $path;
+
+        return $this;
+    }
+
+
+    /**
      * Get the properties to be associated with an access token which may be
      * issued as a result of the token request.
      *
@@ -324,10 +362,12 @@ class TokenRequest implements ArrayCopyable, Arrayable, Jsonable
      */
     public function copyToArray(array &$array)
     {
-        $array['parameters']   = $this->parameters;
-        $array['clientId']     = $this->clientId;
-        $array['clientSecret'] = $this->clientSecret;
-        $array['properties']   = LanguageUtility::convertArrayOfArrayCopyableToArray($this->properties);
+        $array['parameters']            = $this->parameters;
+        $array['clientId']              = $this->clientId;
+        $array['clientSecret']          = $this->clientSecret;
+        $array['clientCertificate']     = $this->clientCertificate;
+        $array['clientCertificatePath'] = $this->clientCertificatePath;
+        $array['properties']            = LanguageUtility::convertArrayOfArrayCopyableToArray($this->properties);
     }
 
 
@@ -352,6 +392,14 @@ class TokenRequest implements ArrayCopyable, Arrayable, Jsonable
         // clientSecret
         $this->setClientSecret(
             LanguageUtility::getFromArray('clientSecret', $array));
+
+        // clientCertificate
+        $this->setClientCertificate(
+            LanguageUtility::getFromArray('clientCertificate', $array));
+
+        // clientCertificatePath
+        $this->setClientCertificatePath(
+            LanguageUtility::getFromArray('clientCertificatePath', $array));
 
         // properties
         $properties = LanguageUtility::getFromArray('properties', $array);
