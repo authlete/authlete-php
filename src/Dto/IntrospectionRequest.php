@@ -45,9 +45,10 @@ class IntrospectionRequest implements ArrayCopyable, Arrayable, Jsonable
     use JsonTrait;
 
 
-    private $token   = null;  // string
-    private $scopes  = null;  // array of string
-    private $subject = null;  // string
+    private $token             = null;  // string
+    private $scopes            = null;  // array of string
+    private $subject           = null;  // string
+    private $clientCertificate = null;  // string
 
 
     /**
@@ -165,6 +166,43 @@ class IntrospectionRequest implements ArrayCopyable, Arrayable, Jsonable
 
 
     /**
+     * Get the client certificate, used to validate binding against access
+     * tokens using the MTLS sender confirmation method.
+     *
+     * @return string
+     *     The client certificate in PEM format.
+     *
+     * @since 1.3
+     */
+    public function getClientCertificate()
+    {
+        return $this->clientCertificate;
+    }
+
+
+    /**
+     * Set the client certificate, used to validate binding against access
+     * tokens using the MTLS sender confirmation method.
+     *
+     * @param string $certificate
+     *     The client certificate in PEM format.
+     *
+     * @return IntrospectionRequest
+     *     `$this` object.
+     *
+     * @since 1.3
+     */
+    public function setClientCertificate($certificate)
+    {
+        ValidationUtility::ensureNullOrString('$certificate', $certificate);
+
+        $this->clientCertificate = $certificate;
+
+        return $this;
+    }
+
+
+    /**
      * {@inheritdoc}
      *
      * {@inheritdoc}
@@ -174,9 +212,10 @@ class IntrospectionRequest implements ArrayCopyable, Arrayable, Jsonable
      */
     public function copyToArray(array &$array)
     {
-        $array['token']   = $this->token;
-        $array['scopes']  = $this->scopes;
-        $array['subject'] = $this->subject;
+        $array['token']             = $this->token;
+        $array['scopes']            = $this->scopes;
+        $array['subject']           = $this->subject;
+        $array['clientCertificate'] = $this->clientCertificate;
     }
 
 
@@ -201,6 +240,10 @@ class IntrospectionRequest implements ArrayCopyable, Arrayable, Jsonable
         // subject
         $this->setSubject(
             LanguageUtility::getFromArray('subject', $array));
+
+        // clientCertificate
+        $this->setClientCertificate(
+            LanguageUtility::getFromArray('clientCertificate', $array));
     }
 }
 ?>
