@@ -25,8 +25,10 @@
 namespace Authlete\Dto;
 
 
+use Authlete\Types\Arrayable;
 use Authlete\Types\ArrayCopyable;
 use Authlete\Types\Jsonable;
+use Authlete\Util\ArrayTrait;
 use Authlete\Util\JsonTrait;
 use Authlete\Util\LanguageUtility;
 use Authlete\Util\ValidationUtility;
@@ -38,8 +40,9 @@ use Authlete\Util\ValidationUtility;
  * Some Authlete APIs accept a `properties` request parameter. The value of
  * the parameter is an array of \Authlete\Dto\Property.
  */
-class Property implements ArrayCopyable, Jsonable
+class Property implements ArrayCopyable, Arrayable, Jsonable
 {
+    use ArrayTrait;
     use JsonTrait;
 
 

@@ -25,8 +25,10 @@
 namespace Authlete\Dto;
 
 
+use Authlete\Types\Arrayable;
 use Authlete\Types\ArrayCopyable;
 use Authlete\Types\Jsonable;
+use Authlete\Util\ArrayTrait;
 use Authlete\Util\JsonTrait;
 use Authlete\Util\LanguageUtility;
 use Authlete\Util\ValidationUtility;
@@ -35,8 +37,9 @@ use Authlete\Util\ValidationUtility;
 /**
  * Request to Authlete's /api/auth/token/update API.
  */
-class TokenUpdateRequest implements ArrayCopyable, Jsonable
+class TokenUpdateRequest implements ArrayCopyable, Arrayable, Jsonable
 {
+    use ArrayTrait;
     use JsonTrait;
 
 

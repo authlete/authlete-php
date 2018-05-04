@@ -25,8 +25,10 @@
 namespace Authlete\Dto;
 
 
+use Authlete\Types\Arrayable;
 use Authlete\Types\ArrayCopyable;
 use Authlete\Types\Jsonable;
+use Authlete\Util\ArrayTrait;
 use Authlete\Util\JsonTrait;
 use Authlete\Util\LanguageUtility;
 use Authlete\Util\ValidationUtility;
@@ -38,8 +40,9 @@ use Authlete\Util\ValidationUtility;
  * The API returns the set of scopes that an end-user has granted to a
  * client application.
  */
-class GrantedScopesGetRequest implements ArrayCopyable, Jsonable
+class GrantedScopesGetRequest implements ArrayCopyable, Arrayable, Jsonable
 {
+    use ArrayTrait;
     use JsonTrait;
 
 

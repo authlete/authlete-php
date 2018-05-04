@@ -26,6 +26,7 @@ namespace Authlete\Dto;
 
 
 use Authlete\Types\ApplicationType;
+use Authlete\Types\Arrayable;
 use Authlete\Types\ArrayCopyable;
 use Authlete\Types\ClientAuthMethod;
 use Authlete\Types\ClientType;
@@ -36,6 +37,7 @@ use Authlete\Types\JWEEnc;
 use Authlete\Types\JWSAlg;
 use Authlete\Types\ResponseType;
 use Authlete\Types\SubjectType;
+use Authlete\Util\ArrayTrait;
 use Authlete\Util\JsonTrait;
 use Authlete\Util\LanguageUtility;
 use Authlete\Util\ValidationUtility;
@@ -48,8 +50,9 @@ use Authlete\Util\ValidationUtility;
  * [2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata)
  * of [OpenID Connect Dynamic Client Registration 1.0](https://openid.net/specs/openid-connect-registration-1_0.html)
  */
-class Client implements ArrayCopyable, Jsonable
+class Client implements ArrayCopyable, Arrayable, Jsonable
 {
+    use ArrayTrait;
     use JsonTrait;
 
 

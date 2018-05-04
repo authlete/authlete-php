@@ -25,8 +25,10 @@
 namespace Authlete\Dto;
 
 
+use Authlete\Types\Arrayable;
 use Authlete\Types\ArrayCopyable;
 use Authlete\Types\Jsonable;
+use Authlete\Util\ArrayTrait;
 use Authlete\Util\JsonTrait;
 use Authlete\Util\LanguageUtility;
 use Authlete\Util\ValidationUtility;
@@ -45,8 +47,9 @@ use Authlete\Util\ValidationUtility;
  * API reports an error. It is not an error of your authorization server
  * implementation but an error of the client application.
  */
-class TokenRequest implements ArrayCopyable, Jsonable
+class TokenRequest implements ArrayCopyable, Arrayable, Jsonable
 {
+    use ArrayTrait;
     use JsonTrait;
 
 

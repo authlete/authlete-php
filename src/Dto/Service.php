@@ -25,6 +25,7 @@
 namespace Authlete\Dto;
 
 
+use Authlete\Types\Arrayable;
 use Authlete\Types\ArrayCopyable;
 use Authlete\Types\ClaimType;
 use Authlete\Types\ClientAuthMethod;
@@ -34,6 +35,7 @@ use Authlete\Types\Jsonable;
 use Authlete\Types\ResponseType;
 use Authlete\Types\ServiceProfile;
 use Authlete\Types\Sns;
+use Authlete\Util\ArrayTrait;
 use Authlete\Util\JsonTrait;
 use Authlete\Util\LanguageUtility;
 use Authlete\Util\ValidationUtility;
@@ -47,8 +49,9 @@ use Authlete\Util\ValidationUtility;
  * [3. OpenID Provider Metadata](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata)
  * of [OpenID Connect Discovery 1.0](https://openid.net/specs/openid-connect-discovery-1_0.html).
  */
-class Service implements ArrayCopyable, Jsonable
+class Service implements ArrayCopyable, Arrayable, Jsonable
 {
+    use ArrayTrait;
     use JsonTrait;
 
 

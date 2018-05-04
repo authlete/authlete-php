@@ -25,8 +25,10 @@
 namespace Authlete\Dto;
 
 
+use Authlete\Types\Arrayable;
 use Authlete\Types\ArrayCopyable;
 use Authlete\Types\Jsonable;
+use Authlete\Util\ArrayTrait;
 use Authlete\Util\JsonTrait;
 use Authlete\Util\LanguageUtility;
 use Authlete\Util\ValidationUtility;
@@ -37,8 +39,9 @@ use Authlete\Util\ValidationUtility;
  *
  * The API replaces the client secret with the specified value.
  */
-class ClientSecretUpdateRequest implements ArrayCopyable, Jsonable
+class ClientSecretUpdateRequest implements ArrayCopyable, Arrayable, Jsonable
 {
+    use ArrayTrait;
     use JsonTrait;
 
 
