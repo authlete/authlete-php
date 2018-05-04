@@ -158,16 +158,20 @@ use Authlete\Util\ValidationUtility;
  */
 class IntrospectionResponse extends ApiResponse
 {
-    private $action          = null;  // \Authlete\Dto\IntrospectionAction
-    private $clientId        = null;  // string or (64-bit) integer
-    private $subject         = null;  // string
-    private $scopes          = null;  // array of string
-    private $existent        = false; // boolean
-    private $usable          = false; // boolean
-    private $sufficient      = false; // boolean
-    private $refreshable     = false; // boolean
-    private $responseContent = null;  // string
-    private $expiresAt       = null;  // string or (64-bit) integer
+    private $action                = null;  // \Authlete\Dto\IntrospectionAction
+    private $clientId              = null;  // string or (64-bit) integer
+    private $subject               = null;  // string
+    private $scopes                = null;  // array of string
+    private $existent              = false; // boolean
+    private $usable                = false; // boolean
+    private $sufficient            = false; // boolean
+    private $refreshable           = false; // boolean
+    private $responseContent       = null;  // string
+    private $expiresAt             = null;  // string or (64-bit) integer
+    private $properties            = null;  // array of \Authlete\Dto\Property
+    private $clientIdAlias         = null;  // string
+    private $clientIdAliasUsed     = false; // boolean
+    private $certificateThumbprint = null;  // string
 
 
     /**
@@ -497,6 +501,160 @@ class IntrospectionResponse extends ApiResponse
 
 
     /**
+     * Get the properties associated with the access token.
+     *
+     * @return Property[]
+     *     Properties.
+     *
+     * @since 1.3
+     */
+    public function getProperties()
+    {
+        return $this->properties;
+    }
+
+
+    /**
+     * Set the properties associated with the access token.
+     *
+     * @param Property[] $properties
+     *     Properties.
+     *
+     * @return IntrospectionResponse
+     *     `$this` object.
+     *
+     * @since 1.3
+     */
+    public function setProperties(array $properties = null)
+    {
+        ValidationUtility::ensureNullOrArrayOfType(
+            '$properties', $properties, __NAMESPACE__ . '\Property');
+
+        $this->properties = $properties;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the client ID alias when the authorization request or the token
+     * request for the access token was made.
+     *
+     * Note that this value may be different from the current client ID alias.
+     *
+     * @return string
+     *     The client ID alias when the authorization request or the token
+     *     request for the access token was made.
+     *
+     * @since 1.3
+     */
+    public function getClientIdAlias()
+    {
+        return $this->clientIdAlias;
+    }
+
+
+    /**
+     * Set the client ID alias when the authorization request or the token
+     * request for the access token was made.
+     *
+     * @param string $alias
+     *     The client ID alias.
+     *
+     * @return IntrospectionResponse
+     *     `$this` object.
+     *
+     * @since 1.3
+     */
+    public function setClientIdAlias($alias)
+    {
+        ValidationUtility::ensureNullOrString('$alias', $alias);
+
+        $this->clientIdAlias = $alias;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the flag which indicates whether the client ID alias was used when
+     * the authorization request or the token request for the access token
+     * was made.
+     *
+     * @return boolean
+     *     `true` if the client ID alias was used when the authorization
+     *     request or the token request for the access token was made.
+     *
+     * @since 1.3
+     */
+    public function isClientIdAliasUsed()
+    {
+        return $this->clientIdAliasUsed;
+    }
+
+
+    /**
+     * Set the flag which indicates whether the client ID alias was used when
+     * the authorization request or the token request for the access token
+     * was made.
+     *
+     * @param boolean $used
+     *     `true` if the client ID alias was used when the authorization
+     *     request or the token request for the access token was made.
+     *
+     * @return IntrospectionResponse
+     *     `$this` object.
+     *
+     * @since 1.3
+     */
+    public function setClientIdAliasUsed($used)
+    {
+        ValidationUtility::ensureBoolean('$used', $used);
+
+        $this->clientIdAliasUsed = $used;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the client certificate thumbprint used to validate the access token.
+     *
+     * @return string
+     *     The certificate thumbprint, calculated as the SHA-256 hash of the
+     *     DER-encoded certificate value.
+     *
+     * @since 1.3
+     */
+    public function getCertificateThumbprint()
+    {
+        return $this->certificateThumbprint;
+    }
+
+
+    /**
+     * Set the client certificate thumbprint used to validate the access token.
+     *
+     * @param string $thumbprint
+     *     The certificate thumbprint, calculated as the SHA-256 hash of the
+     *     DER-encoded certificate value.
+     *
+     * @return IntrospectionResponse
+     *     `$this` object.
+     *
+     * @since 1.3
+     */
+    public function setCertificateThumbprint($thumbprint)
+    {
+        ValidationUtility::ensureNullOrString('$thumbprint', $thumbprint);
+
+        $this->certificateThumbprint = $thumbprint;
+
+        return $this;
+    }
+
+
+    /**
      * Get the flag which indicates whether the access token is active
      * (= exists and has not expired).
      *
@@ -549,16 +707,20 @@ class IntrospectionResponse extends ApiResponse
     {
         parent::copyToArray($array);
 
-        $array['action']          = LanguageUtility::toString($this->action);
-        $array['clientId']        = $this->clientId;
-        $array['subject']         = $this->subject;
-        $array['scopes']          = $this->scopes;
-        $array['existent']        = $this->existent;
-        $array['usable']          = $this->usable;
-        $array['sufficient']      = $this->sufficient;
-        $array['refreshable']     = $this->refreshable;
-        $array['responseContent'] = $this->responseContent;
-        $array['expiresAt']       = $this->expiresAt;
+        $array['action']                = LanguageUtility::toString($this->action);
+        $array['clientId']              = $this->clientId;
+        $array['subject']               = $this->subject;
+        $array['scopes']                = $this->scopes;
+        $array['existent']              = $this->existent;
+        $array['usable']                = $this->usable;
+        $array['sufficient']            = $this->sufficient;
+        $array['refreshable']           = $this->refreshable;
+        $array['responseContent']       = $this->responseContent;
+        $array['expiresAt']             = $this->expiresAt;
+        $array['properties']            = LanguageUtility::convertArrayOfArrayCopyableToArray($this->properties);
+        $array['clientIdAlias']         = $this->clientIdAlias;
+        $array['clientIdAliasUsed']     = $this->clientIdAliasUsed;
+        $array['certificateThumbprint'] = $this->certificateThumbprint;
     }
 
 
@@ -614,6 +776,24 @@ class IntrospectionResponse extends ApiResponse
         // expiresAt
         $this->setExpiresAt(
             LanguageUtility::getFromArray('expiresAt', $array));
+
+        // properties
+        $properties = LanguageUtility::getFromArray('properties', $array);
+        $this->setProperties(
+            LanguageUtility::convertArrayToArrayOfArrayCopyable(
+                $properties, __NAMESPACE__ . '\Property'));
+
+        // clientIdAlias
+        $this->setClientIdAlias(
+            LanguageUtility::getFromArray('clientIdAlias', $array));
+
+        // clientIdAliasUsed
+        $this->setClientIdAliasUsed(
+            LanguageUtility::getFromArrayAsBoolean('clientIdAliasUsed', $array));
+
+        // certificateThumbprint
+        $this->setCertificateThumbprint(
+            LanguageUtility::getFromArray('certificateThumbprint', $array));
     }
 }
 ?>
