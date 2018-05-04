@@ -397,7 +397,7 @@ class AuthorizationIssueRequest implements ArrayCopyable, Arrayable, Jsonable
      * Get scopes that should be associated with an authorization code
      * and/or an access token.
      *
-     * @return array
+     * @return string[]
      *     A string array that represents scope names.
      */
     public function getScopes()
