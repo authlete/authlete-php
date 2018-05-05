@@ -25,8 +25,10 @@
 namespace Authlete\Dto;
 
 
+use Authlete\Types\Arrayable;
 use Authlete\Types\ArrayCopyable;
 use Authlete\Types\Jsonable;
+use Authlete\Util\ArrayTrait;
 use Authlete\Util\JsonTrait;
 use Authlete\Util\LanguageUtility;
 use Authlete\Util\ValidationUtility;
@@ -37,8 +39,9 @@ use Authlete\Util\ValidationUtility;
  *
  * @see https://tools.ietf.org/html/rfc6749#section-3.3 RFC 6749, 3.3. Access Token Scope
  */
-class Scope implements ArrayCopyable, Jsonable
+class Scope implements ArrayCopyable, Arrayable, Jsonable
 {
+    use ArrayTrait;
     use JsonTrait;
 
 

@@ -25,8 +25,10 @@
 namespace Authlete\Dto;
 
 
+use Authlete\Types\Arrayable;
 use Authlete\Types\ArrayCopyable;
 use Authlete\Types\Jsonable;
+use Authlete\Util\ArrayTrait;
 use Authlete\Util\JsonTrait;
 use Authlete\Util\LanguageUtility;
 use Authlete\Util\ValidationUtility;
@@ -37,8 +39,9 @@ use Authlete\Util\ValidationUtility;
  *
  * @see https://en.wikipedia.org/wiki/IETF_language_tag Language Tag
  */
-class TaggedValue implements ArrayCopyable, Jsonable
+class TaggedValue implements ArrayCopyable, Arrayable, Jsonable
 {
+    use ArrayTrait;
     use JsonTrait;
 
 

@@ -25,8 +25,10 @@
 namespace Authlete\Dto;
 
 
+use Authlete\Types\Arrayable;
 use Authlete\Types\ArrayCopyable;
 use Authlete\Types\Jsonable;
+use Authlete\Util\ArrayTrait;
 use Authlete\Util\JsonTrait;
 use Authlete\Util\LanguageUtility;
 use Authlete\Util\ValidationUtility;
@@ -38,8 +40,9 @@ use Authlete\Util\ValidationUtility;
  * The API deletes all existing access tokens issued to a client application
  * by an end-user.
  */
-class ClientAuthorizationDeleteRequest implements ArrayCopyable, Jsonable
+class ClientAuthorizationDeleteRequest implements ArrayCopyable, Arrayable, Jsonable
 {
+    use ArrayTrait;
     use JsonTrait;
 
 

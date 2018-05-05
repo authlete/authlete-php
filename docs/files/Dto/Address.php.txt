@@ -25,8 +25,10 @@
 namespace Authlete\Dto;
 
 
+use Authlete\Types\Arrayable;
 use Authlete\Types\ArrayCopyable;
 use Authlete\Types\Jsonable;
+use Authlete\Util\ArrayTrait;
 use Authlete\Util\JsonTrait;
 use Authlete\Util\LanguageUtility;
 use Authlete\Util\ValidationUtility;
@@ -41,8 +43,9 @@ use Authlete\Util\ValidationUtility;
  *
  * @see https://openid.net/specs/openid-connect-core-1_0.html#AddressClaim OpenID Connect Core 1.0, 5.1.1. Address Claim
  */
-class Address implements ArrayCopyable, Jsonable
+class Address implements ArrayCopyable, Arrayable, Jsonable
 {
+    use ArrayTrait;
     use JsonTrait;
 
 

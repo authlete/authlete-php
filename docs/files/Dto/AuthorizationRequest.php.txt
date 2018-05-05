@@ -25,8 +25,10 @@
 namespace Authlete\Dto;
 
 
+use Authlete\Types\Arrayable;
 use Authlete\Types\ArrayCopyable;
 use Authlete\Types\Jsonable;
+use Authlete\Util\ArrayTrait;
 use Authlete\Util\JsonTrait;
 use Authlete\Util\LanguageUtility;
 use Authlete\Util\ValidationUtility;
@@ -38,8 +40,9 @@ use Authlete\Util\ValidationUtility;
  * An authorization endpoint implementation is supposed to pass all the
  * request parameters it received from a client application to the API.
  */
-class AuthorizationRequest implements ArrayCopyable, Jsonable
+class AuthorizationRequest implements ArrayCopyable, Arrayable, Jsonable
 {
+    use ArrayTrait;
     use JsonTrait;
 
 

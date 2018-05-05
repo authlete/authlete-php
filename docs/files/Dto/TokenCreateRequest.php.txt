@@ -25,9 +25,11 @@
 namespace Authlete\Dto;
 
 
+use Authlete\Types\Arrayable;
 use Authlete\Types\ArrayCopyable;
 use Authlete\Types\GrantType;
 use Authlete\Types\Jsonable;
+use Authlete\Util\ArrayTrait;
 use Authlete\Util\JsonTrait;
 use Authlete\Util\LanguageUtility;
 use Authlete\Util\ValidationUtility;
@@ -39,8 +41,9 @@ use Authlete\Util\ValidationUtility;
  * The API can be used to create an arbitrary access token without using
  * standard flows.
  */
-class TokenCreateRequest implements ArrayCopyable, Jsonable
+class TokenCreateRequest implements ArrayCopyable, Arrayable, Jsonable
 {
+    use ArrayTrait;
     use JsonTrait;
 
 

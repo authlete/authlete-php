@@ -25,8 +25,10 @@
 namespace Authlete\Dto;
 
 
+use Authlete\Types\Arrayable;
 use Authlete\Types\ArrayCopyable;
 use Authlete\Types\Jsonable;
+use Authlete\Util\ArrayTrait;
 use Authlete\Util\JsonTrait;
 use Authlete\Util\LanguageUtility;
 use Authlete\Util\ValidationUtility;
@@ -38,8 +40,9 @@ use Authlete\Util\ValidationUtility;
  * An authorization endpoint implementation is supposed to call the API
  * to generate an error response to a client application.
  */
-class AuthorizationFailRequest implements ArrayCopyable, Jsonable
+class AuthorizationFailRequest implements ArrayCopyable, Arrayable, Jsonable
 {
+    use ArrayTrait;
     use JsonTrait;
 
 
