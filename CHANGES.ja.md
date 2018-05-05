@@ -1,6 +1,43 @@
 CHANGES (日本語)
 ================
 
+1.3.0 (2018 年 05 月 05 日)
+---------------------------
+
+- `IntrospectionRequest` クラス
+    * `getClientCertificate()` メソッドを追加。
+    * `setClientCertificate()` メソッドを追加。
+
+- `IntrospectionResponse` クラス
+    * `getProperties()` メソッドを追加。
+    * `setProperties()` メソッドを追加。
+    * `getClientIdAlias()` メソッドを追加。
+    * `setClientIdAlias()` メソッドを追加。
+    * `isClientIdAliasUsed()` メソッドを追加。
+    * `setClientIdAliasUsed()` メソッドを追加。
+    * `getCertificateThumbprint()` メソッドを追加。
+    * `setCertificateThumbprint()` メソッドを追加。
+
+- `Service` クラス
+    * `isMutualTlsValidatePkiCertChain()` メソッドを追加。
+    * `setMutualTlsValidatePkiCertChain()` メソッドを追加。
+    * `getTrustedRootCertificates()` メソッドを追加。
+    * `setTrustedRootCertificates()` メソッドを追加。
+
+- `TokenRequest` クラス
+    * `getClientCertificatePath()` メソッドを追加。
+    * `setClientCertificatePath()` メソッドを追加。
+
+- `ValidationUtility` クラス
+    * `ensureString()` メソッドを追加。
+
+- 新しい部品
+    * `Arrayable` インターフェース
+    * `ArrayTrait` トレイト
+
+- `Authlete.Dto` 名前空間内の幾つかのクラスに `Arrayable` インターフェースを追加。
+
+
 1.2.0 (2018 年 05 月 03 日)
 ---------------------------
 

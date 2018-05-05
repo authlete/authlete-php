@@ -1,7 +1,44 @@
 CHANGES
 =======
 
-1.1.0 (2018-05-03)
+1.3.0 (2018-05-05)
+------------------
+
+- `IntrospectionRequest` class
+    * Added `getClientCertificate()` method.
+    * Added `setClientCertificate()` method.
+
+- `IntrospectionResponse` class
+    * Added `getProperties()` method.
+    * Added `setProperties()` method.
+    * Added `getClientIdAlias()` method.
+    * Added `setClientIdAlias()` method.
+    * Added `isClientIdAliasUsed()` method.
+    * Added `setClientIdAliasUsed()` method.
+    * Added `getCertificateThumbprint()` method.
+    * Added `setCertificateThumbprint()` method.
+
+- `Service` class
+    * Added `isMutualTlsValidatePkiCertChain()` method.
+    * Added `setMutualTlsValidatePkiCertChain()` method.
+    * Added `getTrustedRootCertificates()` method.
+    * Added `setTrustedRootCertificates()` method.
+
+- `TokenRequest` class
+    * Added `getClientCertificatePath()` method.
+    * Added `setClientCertificatePath()` method.
+
+- `ValidationUtility` class
+    * Added `ensureString()` method.
+
+- New parts
+    * `Arrayable` interface.
+    * `ArrayTrait` trait.
+
+- Added `Arrayable` interface to some classes in `Authlete.Dto` namespace.
+
+
+1.2.0 (2018-05-03)
 ------------------
 
 - `AuthleteApiException` class
