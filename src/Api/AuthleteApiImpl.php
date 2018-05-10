@@ -321,6 +321,11 @@ class AuthleteApiImpl implements AuthleteApi
             return '';
         }
 
+        if (is_bool($value))
+        {
+            return ($value ? "true" : "false");
+        }
+
         if (!is_string($value))
         {
             $value = strval($value);
