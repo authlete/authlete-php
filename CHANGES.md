@@ -1,6 +1,22 @@
 CHANGES
 =======
 
+1.4.0 (2018-05-13)
+------------------
+
+- `Client` class
+    * Added `isTlsClientCertificateBoundAccessTokens()` method.
+    * Added `setTlsClientCertificateBoundAccessTokens()` method.
+    * Removed `isMutualTlsSenderConstratinedAccessTokens()` method.
+    * Removed `setMutualTlsSenderConstrainedAccessTokens()` method.
+
+- `Service` class
+    * Added `isTlsClientCertificateBoundAccessTokens()` method.
+    * Added `setTlsClientCertificateBoundAccessTokens()` method.
+    * Removed `isMutualTlsSenderConstratinedAccessTokens()` method.
+    * Removed `setMutualTlsSenderConstrainedAccessTokens()` method.
+
+
 1.3.0 (2018-05-05)
 ------------------
 

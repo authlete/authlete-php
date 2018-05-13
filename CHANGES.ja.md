@@ -1,6 +1,22 @@
 CHANGES (日本語)
 ================
 
+1.4.0 (2018 年 05 月 13 日)
+---------------------------
+
+- `Client` クラス
+    * `isTlsClientCertificateBoundAccessTokens()` メソッドを追加。
+    * `setTlsClientCertificateBoundAccessTokens()` メソッドを追加。
+    * `isMutualTlsSenderConstratinedAccessTokens()` メソッドを削除。
+    * `setMutualTlsSenderConstrainedAccessTokens()` メソッドを削除。
+
+- `Service` クラス
+    * `isTlsClientCertificateBoundAccessTokens()` メソッドを追加。
+    * `setTlsClientCertificateBoundAccessTokens()` メソッドを追加。
+    * `isMutualTlsSenderConstratinedAccessTokens()` メソッドを削除。
+    * `setMutualTlsSenderConstrainedAccessTokens()` メソッドを削除。
+
+
 1.3.0 (2018 年 05 月 05 日)
 ---------------------------
 
