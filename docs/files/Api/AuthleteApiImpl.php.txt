@@ -211,7 +211,7 @@ class AuthleteApiImpl implements AuthleteApi
 
         // Set 'Content-Type' header.
         curl_setopt($curl, CURLOPT_HTTPHEADER,
-            array('Content-Type' => 'application/json;charset=UTF-8'));
+            array('Content-Type: application/json;charset=UTF-8'));
 
         if (!is_null($requestBody))
         {
@@ -319,6 +319,11 @@ class AuthleteApiImpl implements AuthleteApi
         if (is_null($value))
         {
             return '';
+        }
+
+        if (is_bool($value))
+        {
+            return ($value ? "true" : "false");
         }
 
         if (!is_string($value))

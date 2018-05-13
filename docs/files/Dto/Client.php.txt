@@ -103,7 +103,7 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
     private $modifiedAt             = null;  // string or (64-bit) integer
     private $extension              = null;  // \Authlete\Dto\ClientExtension
     private $tlsClientAuthSubjectDn = null;  // string
-    private $mutualTlsSenderConstrainedAccessTokens = false; // boolean
+    private $tlsClientCertificateBoundAccessTokens = false; // boolean
 
 
     /**
@@ -1863,46 +1863,50 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
 
     /**
      * Get the flag which indicates whether this client uses
-     * "Mutual TLS sender constrained access tokens".
+     * "TLS client certificate bound access tokens".
      *
      * If this method returns `true` (and if the service supports
-     * "Mutual Tls sender constrained access tokens"), this client must
+     * "TLS client certificate bound access tokens"), this client must
      * present its client certificate (1) when it makes token requests to
      * the authorization server and (2) when it makes API calls to the
      * resource server.
      *
      * @return boolean
-     *     `true` if this client uses "Mutual TLS sender constrained
+     *     `true` if this client uses "TLS client certificate bound
      *     access tokens".
+     *
+     * @since 1.4
      */
-    public function isMutualTlsSenderConstrainedAccessTokens()
+    public function isTlsClientCertificateBoundAccessTokens()
     {
-        return $this->clientIdAliasEnabled;
+        return $this->tlsClientCertificateBoundAccessTokens;
     }
 
 
     /**
      * Set the flag which indicates whether this client uses
-     * "Mutual TLS sender constrained access tokens".
+     * "TLS client certificate bound access tokens".
      *
      * If `true` is set to this property (and if the service supports
-     * "Mutual Tls sender constrained access tokens"), this client must
+     * "TLS client certificate bound access tokens"), this client must
      * present its client certificate (1) when it makes token requests to
      * the authorization server and (2) when it makes API calls to the
      * resource server.
      *
      * @param boolean $use
-     *     `true` to declare that this client uses "Mutual TLS sender
-     *     constrained access tokens".
+     *     `true` to declare that this client uses "TLS client certificate
+     *     bound access tokens".
      *
      * @return Client
      *     `$this` object.
+     *
+     * @since 1.4
      */
-    public function setMutualTlsSenderConstrainedAccessTokens($use)
+    public function setTlsClientCertificateBoundAccessTokens($use)
     {
         ValidationUtility::ensureBoolean('$use', $use);
 
-        $this->mutualTlsSenderConstrainedAccessTokens = $use;
+        $this->tlsClientCertificateBoundAccessTokens = $use;
 
         return $this;
     }
@@ -1964,7 +1968,7 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
         $array['modifiedAt']             = LanguageUtility::orZero($this->modifiedAt);
         $array['extension']              = LanguageUtility::convertArrayCopyableToArray($this->extension);
         $array['tlsClientAuthSubjectDn'] = $this->tlsClientAuthSubjectDn;
-        $array['mutualTlsSenderConstrainedAccessTokens'] = $this->mutualTlsSenderConstrainedAccessTokens;
+        $array['tlsClientCertificateBoundAccessTokens'] = $this->tlsClientCertificateBoundAccessTokens;
     }
 
 
@@ -2198,9 +2202,9 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
         $this->setTlsClientAuthSubjectDn(
             LanguageUtility::getFromArray('tlsClientAuthSubjectDn', $array));
 
-        // mutualTlsSenderConstrainedAccessTokens
-        $this->setMutualTlsSenderConstrainedAccessTokens(
-            LanguageUtility::getFromArrayAsBoolean('mutualTlsSenderConstrainedAccessTokens', $array));
+        // tlsClientCertificateBoundAccessTokens
+        $this->setTlsClientCertificateBoundAccessTokens(
+            LanguageUtility::getFromArrayAsBoolean('tlsClientCertificateBoundAccessTokens', $array));
     }
 }
 

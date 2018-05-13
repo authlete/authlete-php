@@ -74,14 +74,20 @@ class LanguageUtility
      *
      * @return string
      *     If the given `$value` is `null` or a `string` object,
-     *     the `$value` itself is returned. Otherwise,
-     *     `strval($value)` is returned.
+     *     the `$value` itself is returned. Otherwise, if it is
+     *     a boolean object, `"true"` or `"false"` is returned.
+     *     In other cases, `strval($value)` is returned.
      */
     public static function toString($value)
     {
         if (is_null($value) || is_string($value))
         {
             return $value;
+        }
+
+        if (is_bool($value))
+        {
+            return ($value ? "true" : "false");
         }
 
         return strval($value);
