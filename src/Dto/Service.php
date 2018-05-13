@@ -108,7 +108,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
     private $singleAccessTokenPerSubject                 = false; // boolean
     private $pkceRequired                                = false; // boolean
     private $supportedServiceProfiles                    = null;  // array of \Authlete\Types\ServiceProfile
-    private $mutualTlsSenderConstrainedAccessTokens      = false; // boolean
+    private $tlsClientCertificateBoundAccessTokens       = false; // boolean
     private $mutualTlsValidatePkiCertChain               = false; // boolean
     private $introspectionEndpoint                       = null;  // string
     private $supportedIntrospectionAuthMethods           = null;  // array of \Authlete\Types\ClientAuthMethod
@@ -2220,44 +2220,48 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
 
     /**
      * Get the flag which indicates whether this service supports
-     * "Mutual TLS sender constrained access tokens".
+     * "TLS client certificate bound access tokens".
      *
      * If this method returns `true`, client applications whose
-     * `isMutualTlsSenderConstrainedAccessTokens()` returns `true` are
+     * `isTlsClientCertificateBoundAccessTokens()` returns `true` are
      * required to present a client certificate on token requests to the
      * authorization server and on API calls to the resource server.
      *
      * @return boolean
-     *     `true` if this service supports "Mutual TLS sender constrained
+     *     `true` if this service supports "TLS client certificate bound
      *     access tokens".
+     *
+     * @since 1.4
      */
-    public function isMutualTlsSenderConstrainedAccessTokens()
+    public function isTlsClientCertificateBoundAccessTokens()
     {
-        return $this->mutualTlsSenderConstrainedAccessTokens;
+        return $this->tlsClientCertificateBoundAccessTokens;
     }
 
 
     /**
      * Set the flag which indicates whether this service supports
-     * "Mutual TLS sender constrained access tokens".
+     * "TLS client certificate bound access tokens".
      *
      * If `true` is set to this property, client applications whose
-     * `isMutualTlsSenderConstrainedAccessTokens()` returns `true` are
+     * `isTlsClientCertificateBoundAccessTokens()` returns `true` are
      * required to present a client certificate on token requests to the
      * authorization server and on API calls to the resource server.
      *
      * @param boolean $enabled
-     *     `true` to enable support of "Mutual TLS sender constrained
+     *     `true` to enable support of "TLS client certificate bound
      *     access tokens".
      *
      * @return Service
      *     `$this` object.
+     *
+     * @since 1.4
      */
-    public function setMutualTlsSenderConstrainedAccessTokens($enabled)
+    public function setTlsClientCertificateBoundAccessTokens($enabled)
     {
         ValidationUtility::ensureBoolean('$enabled', $enabled);
 
-        $this->mutualTlsSenderConstrainedAccessTokens = $enabled;
+        $this->tlsClientCertificateBoundAccessTokens = $enabled;
 
         return $this;
     }
@@ -2525,7 +2529,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
         $array['singleAccessTokenPerSubject']                 = $this->singleAccessTokenPerSubject;
         $array['pkceRequired']                                = $this->pkceRequired;
         $array['supportedServiceProfiles']                    = LanguageUtility::convertArrayToStringArray($this->supportedServiceProfiles);
-        $array['mutualTlsSenderConstrainedAccessTokens']      = $this->mutualTlsSenderConstrainedAccessTokens;
+        $array['tlsClientCertificateBoundAccessTokens']       = $this->tlsClientCertificateBoundAccessTokens;
         $array['mutualTlsValidatePkiCertChain']               = $this->mutualTlsValidatePkiCertChain;
         $array['introspectionEndpoint']                       = $this->introspectionEndpoint;
         $array['supportedIntrospectionAuthMethods']           = LanguageUtility::convertArrayToStringArray($this->supportedIntrospectionAuthMethods);
@@ -2794,9 +2798,9 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
             LanguageUtility::convertArray(
                 $supportedServiceProfiles, '\Authlete\Types\ServiceProfile::valueOf'));
 
-        // mutualTlsSenderConstrainedAccessTokens
-        $this->setMutualTlsSenderConstrainedAccessTokens(
-            LanguageUtility::getFromArrayAsBoolean('mutualTlsSenderConstrainedAccessTokens', $array));
+        // tlsClientCertificateBoundAccessTokens
+        $this->setTlsClientCertificateBoundAccessTokens(
+            LanguageUtility::getFromArrayAsBoolean('tlsClientCertificateBoundAccessTokens', $array));
 
         // mutualTlsValidatePkiCertChain
         $this->setMutualTlsValidatePkiCertChain(
