@@ -727,10 +727,12 @@ class AuthorizationResponse extends ApiResponse
      *
      * @return boolean
      *     The flag which indicates whether the client ID alias was used.
+     *
+     * @since 1.5
      */
-    public function isClientAliasUsed()
+    public function isClientIdAliasUsed()
     {
-        return $this->clientAliasUsed;
+        return $this->clientIdAliasUsed;
     }
 
 
@@ -744,12 +746,14 @@ class AuthorizationResponse extends ApiResponse
      *
      * @return AuthorizationResponse
      *     `$this` object.
+     *
+     * @since 1.5
      */
-    public function setClientAliasUsed($used)
+    public function setClientIdAliasUsed($used)
     {
         ValidationUtility::ensureBoolean('$used', $used);
 
-        $this->clientAliasUsed = $used;
+        $this->clientIdAliasUsed = $used;
 
         return $this;
     }
@@ -1378,9 +1382,10 @@ class AuthorizationResponse extends ApiResponse
             LanguageUtility::getFromArray('loginHint', $array));
 
         // prompts
+        $prompts = LanguageUtility::getFromArray('prompts', $array);
         $this->setPrompts(
             LanguageUtility::convertArray(
-                LanguageUtility::getFromArray('prompts', $array),
+                $prompts,
                 '\Authlete\Types\Prompt::valueOf'));
 
         // responseContent
