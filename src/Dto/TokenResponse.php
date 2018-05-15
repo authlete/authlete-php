@@ -25,6 +25,7 @@
 namespace Authlete\Dto;
 
 
+use Authlete\Types\GrantType;
 use Authlete\Util\LanguageUtility;
 use Authlete\Util\ValidationUtility;
 
