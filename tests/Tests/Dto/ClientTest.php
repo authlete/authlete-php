@@ -25,6 +25,7 @@ require_once('vendor/autoload.php');
 
 use PHPUnit\Framework\TestCase;
 use Authlete\Dto\Client;
+use Authlete\Dto\ClientExtension;
 use Authlete\Dto\TaggedValue;
 use Authlete\Types\ApplicationType;
 use Authlete\Types\ClientAuthMethod;
@@ -296,7 +297,7 @@ class ClientTest extends TestCase
     }
 
 
-    public function testResponseTypessValidValue()
+    public function testResponseTypesValidValue()
     {
         $obj = new Client();
 
@@ -348,7 +349,7 @@ class ClientTest extends TestCase
     }
 
 
-    public function testGrantTypessValidValue()
+    public function testGrantTypesValidValue()
     {
         $obj = new Client();
 
@@ -1355,6 +1356,157 @@ class ClientTest extends TestCase
     }
 
 
+    public function testAuthTimeRequiredValidValue()
+    {
+        $obj = new Client();
+        $obj->setAuthTimeRequired(true);
+
+        $this->assertEquals(true, $obj->isAuthTimeRequired());
+    }
+
+
+    /** @expectedException InvalidArgumentException */
+    public function testAuthTimeRequiredInvalidValue()
+    {
+        $obj = new Client();
+
+        $invalid = array();
+        $obj->setAuthTimeRequired($invalid);
+    }
+
+
+    /** @expectedException InvalidArgumentException */
+    public function testAuthTimeRequiredInvalidNull()
+    {
+        $obj = new Client();
+        $obj->setAuthTimeRequired(null);
+    }
+
+
+    public function testDefaultAcrsValidValue()
+    {
+        $obj = new Client();
+        $obj->setDefaultAcrs(array('acr0', 'acr1'));
+
+        $acrs = $obj->getDefaultAcrs();
+
+        $this->assertTrue(is_array($acrs));
+        $this->assertCount(2, $acrs);
+        $this->assertEquals('acr0', $acrs[0]);
+        $this->assertEquals('acr1', $acrs[1]);
+    }
+
+
+    public function testDefaultAcrsValidNull()
+    {
+        $obj = new Client();
+        $obj->setDefaultAcrs(null);
+
+        $this->assertNull($obj->getDefaultAcrs());
+    }
+
+
+    /**
+     * @expectedException Error
+     */
+    public function testDefaultAcrsInvalidString()
+    {
+        $obj = new Client();
+
+        $invalid = '__INVALID__';
+        $obj->setDefaultAcrs($invalid);
+    }
+
+
+    /**
+     * @expectedException InvalidArgumentException
+     */
+    public function testDefaultAcrsInvalidArray()
+    {
+        $obj = new Client();
+
+        $invalid = array(array(), array());
+        $obj->setDefaultAcrs($invalid);
+    }
+
+
+    public function testLoginUriValidValue()
+    {
+        $obj = new Client();
+        $obj->setLoginUri(self::LOGIN_URI);
+
+        $this->assertEquals(self::LOGIN_URI, $obj->getLoginUri());
+    }
+
+
+    public function testLoginUriValidNull()
+    {
+        $obj = new Client();
+        $obj->setLoginUri(null);
+
+        $this->assertNull($obj->getLoginUri());
+    }
+
+
+    /**
+     * @expectedException InvalidArgumentException
+     */
+    public function testLoginUriInvalidValue()
+    {
+        $obj = new Client();
+
+        $invalid = array('__INVALID__');
+        $obj->setLoginUri($invalid);
+    }
+
+
+    public function testRequestUrisValidValue()
+    {
+        $obj = new Client();
+        $obj->setRequestUris(array('uri0', 'uri1'));
+
+        $uris = $obj->getRequestUris();
+
+        $this->assertTrue(is_array($uris));
+        $this->assertCount(2, $uris);
+        $this->assertEquals('uri0', $uris[0]);
+        $this->assertEquals('uri1', $uris[1]);
+    }
+
+
+    public function testRequestUrisValidNull()
+    {
+        $obj = new Client();
+        $obj->setRequestUris(null);
+
+        $this->assertNull($obj->getRequestUris());
+    }
+
+
+    /**
+     * @expectedException Error
+     */
+    public function testRequestUrisInvalidString()
+    {
+        $obj = new Client();
+
+        $invalid = '__INVALID__';
+        $obj->setRequestUris($invalid);
+    }
+
+
+    /**
+     * @expectedException InvalidArgumentException
+     */
+    public function testRequestUrisInvalidArray()
+    {
+        $obj = new Client();
+
+        $invalid = array(array(), array());
+        $obj->setRequestUris($invalid);
+    }
+
+
     public function testDescriptionValidValue()
     {
         $obj = new Client();
@@ -1428,6 +1580,170 @@ class ClientTest extends TestCase
     }
 
 
+    public function testCreatedAtValidInt()
+    {
+        $obj = new Client();
+        $obj->setCreatedAt(self::CREATED_AT_INT);
+
+        $this->assertEquals(self::CREATED_AT_INT, $obj->getCreatedAt());
+    }
+
+
+    public function testCreatedAtValidStr()
+    {
+        $obj = new Client();
+        $obj->setCreatedAt(self::CREATED_AT_STR);
+
+        $this->assertEquals(self::CREATED_AT_STR, $obj->getCreatedAt());
+    }
+
+
+    public function testCreatedAtValidNull()
+    {
+        $obj = new Client();
+        $obj->setCreatedAt(null);
+
+        $this->assertNull($obj->getCreatedAt());
+    }
+
+
+    /**
+     * @expectedException InvalidArgumentException
+     */
+    public function testCreatedAtInvalidValue()
+    {
+        $obj = new Client();
+
+        $invalid = array();
+        $obj->setCreatedAt($invalid);
+    }
+
+
+    public function testModifiedAtValidInt()
+    {
+        $obj = new Client();
+        $obj->setModifiedAt(self::MODIFIED_AT_INT);
+
+        $this->assertEquals(self::MODIFIED_AT_INT, $obj->getModifiedAt());
+    }
+
+
+    public function testModifiedAtValidStr()
+    {
+        $obj = new Client();
+        $obj->setModifiedAt(self::MODIFIED_AT_STR);
+
+        $this->assertEquals(self::MODIFIED_AT_STR, $obj->getModifiedAt());
+    }
+
+
+    public function testModifiedAtValidNull()
+    {
+        $obj = new Client();
+        $obj->setModifiedAt(null);
+
+        $this->assertNull($obj->getModifiedAt());
+    }
+
+
+    /**
+     * @expectedException InvalidArgumentException
+     */
+    public function testModifiedAtInvalidValue()
+    {
+        $obj = new Client();
+
+        $invalid = array();
+        $obj->setModifiedAt($invalid);
+    }
+
+
+    public function testExtensionValidValue()
+    {
+        $extension = new ClientExtension();
+        $extension->setRequestableScopesEnabled(true);
+
+        $obj = new Client();
+        $obj->setExtension($extension);
+
+        $this->assertSame($extension, $obj->getExtension());
+    }
+
+
+    public function testExtensionValidNull()
+    {
+        $obj = new Client();
+        $obj->setExtension(null);
+
+        $this->assertNull($obj->getExtension());
+    }
+
+
+    /** @expectedException TypeError */
+    public function testExtensionInvalidValue()
+    {
+        $obj = new Client();
+
+        $invalid = array();
+        $obj->setExtension($invalid);
+    }
+
+
+    public function testTlsClientAuthSubjectDnValidValue()
+    {
+        $obj = new Client();
+        $obj->setTlsClientAuthSubjectDn(self::TLS_CLIENT_AUTH_SUBJECT_DN);
+
+        $this->assertEquals(self::TLS_CLIENT_AUTH_SUBJECT_DN, $obj->getTlsClientAuthSubjectDn());
+    }
+
+
+    public function testTlsClientAuthSubjectDnValidNull()
+    {
+        $obj = new Client();
+        $obj->setTlsClientAuthSubjectDn(null);
+
+        $this->assertNull($obj->getTlsClientAuthSubjectDn());
+    }
+
+
+    /** @expectedException InvalidArgumentException */
+    public function testTlsClientAuthSubjectDnInvalidValue()
+    {
+        $obj = new Client();
+
+        $invalid = array();
+        $obj->setTlsClientAuthSubjectDn($invalid);
+    }
+
+
+    public function testTlsClientCertificateBoundAccessTokensValidValue()
+    {
+        $obj = new Client();
+        $obj->setTlsClientCertificateBoundAccessTokens(true);
+
+        $this->assertEquals(true, $obj->isTlsClientCertificateBoundAccessTokens());
+    }
+
+
+    /** @expectedException InvalidArgumentException */
+    public function testTlsClientCertificateBoundAccessTokensInvalidValue()
+    {
+        $obj = new Client();
+
+        $invalid = array();
+        $obj->setTlsClientCertificateBoundAccessTokens($invalid);
+    }
+
+
+    /** @expectedException InvalidArgumentException */
+    public function testTlsClientCertificateBoundAccessTokensInvalidNull()
+    {
+        $obj = new Client();
+        $obj->setTlsClientCertificateBoundAccessTokens(null);
+    }
+
+
     public function testFromJsonInstanceValid()
     {
         $json = '{}';
@@ -1487,6 +1803,107 @@ class ClientTest extends TestCase
     }
 
 
+    public function testFromJsonClientIdValidInt()
+    {
+        $json = '{"clientId":1}';
+        $obj  = Client::fromJson($json);
+
+        $this->assertEquals(1, $obj->getClientId());
+    }
+
+
+    public function testFromJsonClientIdValidStr()
+    {
+        $json = '{"clientId":"2"}';
+        $obj  = Client::fromJson($json);
+
+        $this->assertEquals("2", $obj->getClientId());
+    }
+
+
+    public function testFromJsonClientIdValidNull()
+    {
+        $json = '{"clientId":null}';
+        $obj  = Client::fromJson($json);
+
+        $this->assertNull($obj->getClientId());
+    }
+
+
+    /** @expectedException InvalidArgumentException */
+    public function testFromJsonClientIdInvalidBool()
+    {
+        $json = '{"clientId":true}';
+        $obj  = Client::fromJson($json);
+    }
+
+
+    /** @expectedException InvalidArgumentException */
+    public function testFromJsonClientIdInvalidArray()
+    {
+        $json = '{"clientId":["a","b"]}';
+        $obj  = Client::fromJson($json);
+    }
+
+
+    /** @expectedException InvalidArgumentException */
+    public function testFromJsonClientIdInvalidObject()
+    {
+        $json = '{"clientId":{"a":"b"}}';
+        $obj  = Client::fromJson($json);
+    }
+
+
+    public function testFromJsonClientIdAliasValidValue()
+    {
+        $json = '{"clientIdAlias":"alias"}';
+        $obj  = Client::fromJson($json);
+
+        $this->assertEquals('alias', $obj->getClientIdAlias());
+    }
+
+
+    public function testFromJsonClientIdAliasValidNull()
+    {
+        $json = '{"clientIdAlias":null}';
+        $obj  = Client::fromJson($json);
+
+        $this->assertNull($obj->getClientIdAlias());
+    }
+
+
+    /** @expectedException InvalidArgumentException */
+    public function testFromJsonClientIdAliasInvalidBool()
+    {
+        $json = '{"clientIdAlias":true}';
+        $obj  = Client::fromJson($json);
+    }
+
+
+    /** @expectedException InvalidArgumentException */
+    public function testFromJsonClientIdAliasInvalidNumber()
+    {
+        $json = '{"clientIdAlias":123}';
+        $obj  = Client::fromJson($json);
+    }
+
+
+    /** @expectedException InvalidArgumentException */
+    public function testFromJsonClientIdAliasInvalidArray()
+    {
+        $json = '{"clientIdAlias":["a","b"]}';
+        $obj  = Client::fromJson($json);
+    }
+
+
+    /** @expectedException InvalidArgumentException */
+    public function testFromJsonClientIdAliasInvalidObject()
+    {
+        $json = '{"clientIdAlias":{"a":"b"}}';
+        $obj  = Client::fromJson($json);
+    }
+
+
     public function testFromJsonClientIdAliasEnabledValidValue()
     {
         $json = '{"clientIdAliasEnabled":true}';
@@ -1536,6 +1953,56 @@ class ClientTest extends TestCase
     public function testFromJsonClientIdAliasEnabledInvalidType()
     {
         $json = '{"clientIdAliasEnabled":["a","b"]}';
+        $obj  = Client::fromJson($json);
+    }
+
+
+    public function testFromJsonClientSecretValidValue()
+    {
+        $json = '{"clientSecret":"secret"}';
+        $obj  = Client::fromJson($json);
+
+        $this->assertEquals('secret', $obj->getClientSecret());
+    }
+
+
+    public function testFromJsonClientSecretValidNull()
+    {
+        $json = '{"clientSecret":null}';
+        $obj  = Client::fromJson($json);
+
+        $this->assertNull($obj->getClientSecret());
+    }
+
+
+    /** @expectedException InvalidArgumentException */
+    public function testFromJsonClientSecretInvalidBool()
+    {
+        $json = '{"clientSecret":true}';
+        $obj  = Client::fromJson($json);
+    }
+
+
+    /** @expectedException InvalidArgumentException */
+    public function testFromJsonClientSecretInvalidNumber()
+    {
+        $json = '{"clientSecret":123}';
+        $obj  = Client::fromJson($json);
+    }
+
+
+    /** @expectedException InvalidArgumentException */
+    public function testFromJsonClientSecretInvalidArray()
+    {
+        $json = '{"clientSecret":["a","b"]}';
+        $obj  = Client::fromJson($json);
+    }
+
+
+    /** @expectedException InvalidArgumentException */
+    public function testFromJsonClientSecretInvalidObject()
+    {
+        $json = '{"clientSecret":{"a":"b"}}';
         $obj  = Client::fromJson($json);
     }
 
@@ -1625,7 +2092,7 @@ class ClientTest extends TestCase
     public function testFromJsonRedirectUrisInvalidNumber()
     {
         $json = '{"redirectUris":123}';
-        $obj  = ClientExtension::fromJson($json);
+        $obj  = Client::fromJson($json);
     }
 
 
@@ -1824,7 +2291,7 @@ class ClientTest extends TestCase
     public function testFromJsonContactsInvalidNumber()
     {
         $json = '{"contacts":123}';
-        $obj  = ClientExtension::fromJson($json);
+        $obj  = Client::fromJson($json);
     }
 
 
@@ -2983,6 +3450,338 @@ class ClientTest extends TestCase
     }
 
 
+    public function testFromJsonTokenAuthMethodValidValue()
+    {
+        $json = '{"tokenAuthMethod":"CLIENT_SECRET_POST"}';
+        $obj  = Client::fromJson($json);
+
+        $this->assertSame(ClientAuthMethod::$CLIENT_SECRET_POST, $obj->getTokenAuthMethod());
+    }
+
+
+    public function testFromJsonTokenAuthMethodValidNull()
+    {
+        $json = '{"tokenAuthMethod":null}';
+        $obj  = Client::fromJson($json);
+
+        $this->assertNull($obj->getTokenAuthMethod());
+    }
+
+
+    /** @expectedException InvalidArgumentException */
+    public function testFromJsonTokenAuthMethodInvalidBool()
+    {
+        $json = '{"tokenAuthMethod":true}';
+        $obj  = Client::fromJson($json);
+    }
+
+
+    /** @expectedException InvalidArgumentException */
+    public function testFromJsonTokenAuthMethodInvalidNumber()
+    {
+        $json = '{"tokenAuthMethod":123}';
+        $obj  = Client::fromJson($json);
+    }
+
+
+    /** @expectedException InvalidArgumentException */
+    public function testFromJsonTokenAuthMethodInvalidArray()
+    {
+        $json = '{"tokenAuthMethod":["a","b"]}';
+        $obj  = Client::fromJson($json);
+    }
+
+
+    /** @expectedException InvalidArgumentException */
+    public function testFromJsonTokenAuthMethodInvalidObject()
+    {
+        $json = '{"tokenAuthSignAlg":{"a":"b"}}';
+        $obj  = Client::fromJson($json);
+    }
+
+
+    public function testFromJsonTokenAuthSignAlgValidValue()
+    {
+        $json = '{"tokenAuthSignAlg":"ES256"}';
+        $obj  = Client::fromJson($json);
+
+        $this->assertSame(JWSAlg::$ES256, $obj->getTokenAuthSignAlg());
+    }
+
+
+    public function testFromJsonTokenAuthSignAlgValidNull()
+    {
+        $json = '{"tokenAuthSignAlg":null}';
+        $obj  = Client::fromJson($json);
+
+        $this->assertNull($obj->getTokenAuthSignAlg());
+    }
+
+
+    /** @expectedException InvalidArgumentException */
+    public function testFromJsonTokenAuthSignAlgInvalidBool()
+    {
+        $json = '{"tokenAuthSignAlg":true}';
+        $obj  = Client::fromJson($json);
+    }
+
+
+    /** @expectedException InvalidArgumentException */
+    public function testFromJsonTokenAuthSignAlgInvalidNumber()
+    {
+        $json = '{"tokenAuthSignAlg":123}';
+        $obj  = Client::fromJson($json);
+    }
+
+
+    /** @expectedException InvalidArgumentException */
+    public function testFromJsonTokenAuthSignAlgInvalidArray()
+    {
+        $json = '{"tokenAuthSignAlg":["a","b"]}';
+        $obj  = Client::fromJson($json);
+    }
+
+
+    /** @expectedException InvalidArgumentException */
+    public function testFromJsonTokenAuthSignAlgInvalidObject()
+    {
+        $json = '{"tokenAuthSignAlg":{"a":"b"}}';
+        $obj  = Client::fromJson($json);
+    }
+
+
+    public function testFromJsonDefaultMaxAgeValidInt()
+    {
+        $json = '{"defaultMaxAge":1}';
+        $obj  = Client::fromJson($json);
+
+        $this->assertEquals(1, $obj->getDefaultMaxAge());
+    }
+
+
+    public function testFromJsonDefaultMaxAgeValidStr()
+    {
+        $json = '{"defaultMaxAge":"2"}';
+        $obj  = Client::fromJson($json);
+
+        $this->assertEquals("2", $obj->getDefaultMaxAge());
+    }
+
+
+    public function testFromJsonDefaultMaxAgeValidNull()
+    {
+        $json = '{"defaultMaxAge":null}';
+        $obj  = Client::fromJson($json);
+
+        $this->assertNull($obj->getDefaultMaxAge());
+    }
+
+
+    /** @expectedException InvalidArgumentException */
+    public function testFromJsonDefaultMaxAgeInvalidBool()
+    {
+        $json = '{"defaultMaxAge":true}';
+        $obj  = Client::fromJson($json);
+    }
+
+
+    /** @expectedException InvalidArgumentException */
+    public function testFromJsonDefaultMaxAgeInvalidArray()
+    {
+        $json = '{"defaultMaxAge":["a","b"]}';
+        $obj  = Client::fromJson($json);
+    }
+
+
+    /** @expectedException InvalidArgumentException */
+    public function testFromJsonDefaultMaxAgeInvalidObject()
+    {
+        $json = '{"defaultMaxAge":{"a":"b"}}';
+        $obj  = Client::fromJson($json);
+    }
+
+
+    public function testFromJsonAuthTimeRequiredValidValue()
+    {
+        $json = '{"authTimeRequired":true}';
+        $obj  = Client::fromJson($json);
+
+        $this->assertEquals(true, $obj->isAuthTimeRequired());
+    }
+
+
+    public function testFromJsonAuthTimeRequiredValidNull()
+    {
+        $json = '{"authTimeRequired":null}';
+        $obj  = Client::fromJson($json);
+
+        $this->assertEquals(false, $obj->isAuthTimeRequired());
+    }
+
+
+    public function testFromJsonAuthTimeRequiredValidStringTrue()
+    {
+        $json = '{"authTimeRequired":"true"}';
+        $obj  = Client::fromJson($json);
+
+        $this->assertEquals(true, $obj->isAuthTimeRequired());
+    }
+
+
+    public function testFromJsonAuthTimeRequiredValidStringFalse()
+    {
+        $json = '{"authTimeRequired":"false"}';
+        $obj  = Client::fromJson($json);
+
+        $this->assertEquals(false, $obj->isAuthTimeRequired());
+    }
+
+
+    public function testFromJsonAuthTimeRequiredInvalidString()
+    {
+        $json = '{"authTimeRequired":"__INVALID__"}';
+        $obj  = Client::fromJson($json);
+
+        $this->assertEquals(false, $obj->isAuthTimeRequired());
+    }
+
+
+    /** @expectedException InvalidArgumentException */
+    public function testFromJsonAuthTimeRequiredInvalidType()
+    {
+        $json = '{"authTimeRequired":["a","b"]}';
+        $obj  = Client::fromJson($json);
+    }
+
+
+    public function testFromJsonDefaultAcrsValidValue()
+    {
+        $json = '{"defaultAcrs":["acr0","acr1"]}';
+        $obj  = Client::fromJson($json);
+
+        $acrs = $obj->getDefaultAcrs();
+
+        $this->assertTrue(is_array($acrs));
+        $this->assertCount(2, $acrs);
+        $this->assertEquals('acr0', $acrs[0]);
+        $this->assertEquals('acr1', $acrs[1]);
+    }
+
+
+    public function testFromJsonDefaultAcrsValidNull()
+    {
+        $json = '{"defaultAcrs":null}';
+        $obj  = Client::fromJson($json);
+
+        $this->assertNull($obj->getDefaultAcrs());
+    }
+
+
+    /** @expectedException Error */
+    public function testFromJsonDefaultAcrsInvalidBool()
+    {
+        $json = '{"defaultAcrs":true}';
+        $obj  = Client::fromJson($json);
+    }
+
+
+    /** @expectedException Error */
+    public function testFromJsonDefaultAcrsInvalidNumber()
+    {
+        $json = '{"defaultAcrs":123}';
+        $obj  = Client::fromJson($json);
+    }
+
+
+    public function testFromJsonLoginUriValidValue()
+    {
+        $json = '{"loginUri":"' . self::LOGIN_URI . '"}';
+        $obj  = Client::fromJson($json);
+
+        $this->assertEquals(self::LOGIN_URI, $obj->getLoginUri());
+    }
+
+
+    public function testFromJsonLoginUriValidNull()
+    {
+        $json = '{"loginUri":null}';
+        $obj  = Client::fromJson($json);
+
+        $this->assertNull($obj->getLoginUri());
+    }
+
+
+    /** @expectedException InvalidArgumentException */
+    public function testFromJsonLoginUriInvalidBool()
+    {
+        $json = '{"loginUri":true}';
+        $obj  = Client::fromJson($json);
+    }
+
+
+    /** @expectedException InvalidArgumentException */
+    public function testFromJsonLoginUriInvalidNumber()
+    {
+        $json = '{"loginUri":123}';
+        $obj  = Client::fromJson($json);
+    }
+
+
+    /** @expectedException InvalidArgumentException */
+    public function testFromJsonLoginUriInvalidArray()
+    {
+        $json = '{"loginUri":["a","b"]}';
+        $obj  = Client::fromJson($json);
+    }
+
+
+    /** @expectedException InvalidArgumentException */
+    public function testFromJsonLoginUriInvalidObject()
+    {
+        $json = '{"loginUri":{"a":"b"}}';
+        $obj  = Client::fromJson($json);
+    }
+
+
+    public function testFromJsonRequestUrisValidValue()
+    {
+        $json = '{"requestUris":["uri0","uri1"]}';
+        $obj  = Client::fromJson($json);
+
+        $uris = $obj->getRequestUris();
+
+        $this->assertTrue(is_array($uris));
+        $this->assertCount(2, $uris);
+        $this->assertEquals('uri0', $uris[0]);
+        $this->assertEquals('uri1', $uris[1]);
+    }
+
+
+    public function testFromJsonRequestUrisValidNull()
+    {
+        $json = '{"requestUris":null}';
+        $obj  = Client::fromJson($json);
+
+        $this->assertNull($obj->getRequestUris());
+    }
+
+
+    /** @expectedException Error */
+    public function testFromJsonRequestUrisInvalidBool()
+    {
+        $json = '{"requestUris":true}';
+        $obj  = Client::fromJson($json);
+    }
+
+
+    /** @expectedException Error */
+    public function testFromJsonRequestUrisInvalidNumber()
+    {
+        $json = '{"requestUris":123}';
+        $obj  = Client::fromJson($json);
+    }
+
+
     public function testFromJsonDescriptionValidValue()
     {
         $json = '{"description":"' . self::DESCRIPTION . '"}';
@@ -3084,6 +3883,261 @@ class ClientTest extends TestCase
     }
 
 
+    public function testFromJsonCreatedAtValidInt()
+    {
+        $json = '{"createdAt":1}';
+        $obj  = Client::fromJson($json);
+
+        $this->assertEquals(1, $obj->getCreatedAt());
+    }
+
+
+    public function testFromJsonCreatedAtValidStr()
+    {
+        $json = '{"createdAt":"2"}';
+        $obj  = Client::fromJson($json);
+
+        $this->assertEquals("2", $obj->getCreatedAt());
+    }
+
+
+    public function testFromJsonCreatedAtValidNull()
+    {
+        $json = '{"createdAt":null}';
+        $obj  = Client::fromJson($json);
+
+        $this->assertNull($obj->getCreatedAt());
+    }
+
+
+    /** @expectedException InvalidArgumentException */
+    public function testFromJsonCreatedAtInvalidBool()
+    {
+        $json = '{"createdAt":true}';
+        $obj  = Client::fromJson($json);
+    }
+
+
+    /** @expectedException InvalidArgumentException */
+    public function testFromJsonCreatedAtInvalidArray()
+    {
+        $json = '{"createdAt":["a","b"]}';
+        $obj  = Client::fromJson($json);
+    }
+
+
+    /** @expectedException InvalidArgumentException */
+    public function testFromJsonCreatedAtInvalidObject()
+    {
+        $json = '{"createdAt":{"a":"b"}}';
+        $obj  = Client::fromJson($json);
+    }
+
+
+    public function testFromJsonModifiedAtValidInt()
+    {
+        $json = '{"modifiedAt":1}';
+        $obj  = Client::fromJson($json);
+
+        $this->assertEquals(1, $obj->getModifiedAt());
+    }
+
+
+    public function testFromJsonModifiedAtValidStr()
+    {
+        $json = '{"modifiedAt":"2"}';
+        $obj  = Client::fromJson($json);
+
+        $this->assertEquals("2", $obj->getModifiedAt());
+    }
+
+
+    public function testFromJsonModifiedAtValidNull()
+    {
+        $json = '{"modifiedAt":null}';
+        $obj  = Client::fromJson($json);
+
+        $this->assertNull($obj->getModifiedAt());
+    }
+
+
+    /** @expectedException InvalidArgumentException */
+    public function testFromJsonModifiedAtInvalidBool()
+    {
+        $json = '{"modifiedAt":true}';
+        $obj  = Client::fromJson($json);
+    }
+
+
+    /** @expectedException InvalidArgumentException */
+    public function testFromJsonModifiedAtInvalidArray()
+    {
+        $json = '{"modifiedAt":["a","b"]}';
+        $obj  = Client::fromJson($json);
+    }
+
+
+    /** @expectedException InvalidArgumentException */
+    public function testFromJsonModifiedAtInvalidObject()
+    {
+        $json = '{"modifiedAt":{"a":"b"}}';
+        $obj  = Client::fromJson($json);
+    }
+
+
+    public function testFromJsonExtensionValidValue()
+    {
+        $json = '{"extension":{"requestableScopesEnabled":true, "requestableScopes":["scope0","scope1"]}}';
+        $obj  = Client::fromJson($json);
+
+        $extension = $obj->getExtension();
+        $this->assertInstanceOf('\Authlete\Dto\ClientExtension', $extension);
+        $this->assertTrue($extension->isRequestableScopesEnabled());
+
+        $scopes = $extension->getRequestableScopes();
+        $this->assertTrue(is_array($scopes));
+        $this->assertCount(2, $scopes);
+        $this->assertEquals('scope0', $scopes[0]);
+        $this->assertEquals('scope1', $scopes[1]);
+    }
+
+
+    public function testFromJsonExtensionValidNull()
+    {
+        $json = '{"extension":null}';
+        $obj  = Client::fromJson($json);
+
+        $this->assertNull($obj->getExtension());
+    }
+
+
+    /** @expectedException Error */
+    public function testFromJsonExtensionInvalidBool()
+    {
+        $json = '{"extension":true}';
+        $obj  = Client::fromJson($json);
+    }
+
+
+    /** @expectedException Error */
+    public function testFromJsonExtensionInvalidNumber()
+    {
+        $json = '{"extension":123}';
+        $obj  = Client::fromJson($json);
+    }
+
+
+    /** @expectedException Error */
+    public function testFromJsonExtensionInvalidString()
+    {
+        $json = '{"extension":"__INVALID__"}';
+        $obj  = Client::fromJson($json);
+    }
+
+
+    public function testFromJsonTlsClientAuthSubjectDnValidValue()
+    {
+        $json = '{"tlsClientAuthSubjectDn":"' . self::TLS_CLIENT_AUTH_SUBJECT_DN . '"}';
+        $obj  = Client::fromJson($json);
+
+        $this->assertEquals(self::TLS_CLIENT_AUTH_SUBJECT_DN, $obj->getTlsClientAuthSubjectDn());
+    }
+
+
+    public function testFromJsonTlsClientAuthSubjectDnValidNull()
+    {
+        $json = '{"tlsClientAuthSubjectDn":null}';
+        $obj  = Client::fromJson($json);
+
+        $this->assertNull($obj->getTlsClientAuthSubjectDn());
+    }
+
+
+    /** @expectedException InvalidArgumentException */
+    public function testFromJsonTlsClientAuthSubjectDnInvalidBool()
+    {
+        $json = '{"tlsClientAuthSubjectDn":true}';
+        $obj  = Client::fromJson($json);
+    }
+
+
+    /** @expectedException InvalidArgumentException */
+    public function testFromJsonTlsClientAuthSubjectDnInvalidNumber()
+    {
+        $json = '{"tlsClientAuthSubjectDn":123}';
+        $obj  = Client::fromJson($json);
+    }
+
+
+    /** @expectedException InvalidArgumentException */
+    public function testFromJsonTlsClientAuthSubjectDnInvalidArray()
+    {
+        $json = '{"tlsClientAuthSubjectDn":["a","b"]}';
+        $obj  = Client::fromJson($json);
+    }
+
+
+    /** @expectedException InvalidArgumentException */
+    public function testFromJsonTlsClientAuthSubjectDnInvalidObject()
+    {
+        $json = '{"tlsClientAuthSubjectDn":{"a":"b"}}';
+        $obj  = Client::fromJson($json);
+    }
+
+
+    public function testFromJsonTlsClientCertificateBoundAccessTokensValidValue()
+    {
+        $json = '{"tlsClientCertificateBoundAccessTokens":true}';
+        $obj  = Client::fromJson($json);
+
+        $this->assertEquals(true, $obj->isTlsClientCertificateBoundAccessTokens());
+    }
+
+
+    public function testFromJsonTlsClientCertificateBoundAccessTokensValidNull()
+    {
+        $json = '{"tlsClientCertificateBoundAccessTokens":null}';
+        $obj  = Client::fromJson($json);
+
+        $this->assertEquals(false, $obj->isTlsClientCertificateBoundAccessTokens());
+    }
+
+
+    public function testFromJsonTlsClientCertificateBoundAccessTokensValidStringTrue()
+    {
+        $json = '{"tlsClientCertificateBoundAccessTokens":"true"}';
+        $obj  = Client::fromJson($json);
+
+        $this->assertEquals(true, $obj->isTlsClientCertificateBoundAccessTokens());
+    }
+
+
+    public function testFromJsonTlsClientCertificateBoundAccessTokensValidStringFalse()
+    {
+        $json = '{"tlsClientCertificateBoundAccessTokens":"false"}';
+        $obj  = Client::fromJson($json);
+
+        $this->assertEquals(false, $obj->isTlsClientCertificateBoundAccessTokens());
+    }
+
+
+    public function testFromJsonTlsClientCertificateBoundAccessTokensInvalidString()
+    {
+        $json = '{"tlsClientCertificateBoundAccessTokens":"__INVALID__"}';
+        $obj  = Client::fromJson($json);
+
+        $this->assertEquals(false, $obj->isTlsClientCertificateBoundAccessTokens());
+    }
+
+
+    /** @expectedException InvalidArgumentException */
+    public function testFromJsonTlsClientCertificateBoundAccessTokensInvalidType()
+    {
+        $json = '{"tlsClientCertificateBoundAccessTokens":["a","b"]}';
+        $obj  = Client::fromJson($json);
+    }
+
+
     public function testToJson()
     {
         $obj = new Client();
@@ -3132,6 +4186,57 @@ class ClientTest extends TestCase
                     new TaggedValue('logo-uri-tag-1', 'logo-uri-value-1')
                 )
             )
+            ->setClientUri(self::CLIENT_URI)
+            ->setClientUris(
+                array(
+                    new TaggedValue('client-uri-tag-0', 'client-uri-value-0'),
+                    new TaggedValue('client-uri-tag-1', 'client-uri-value-1')
+                )
+            )
+            ->setPolicyUri(self::POLICY_URI)
+            ->setPolicyUris(
+                array(
+                    new TaggedValue('policy-uri-tag-0', 'policy-uri-value-0'),
+                    new TaggedValue('policy-uri-tag-1', 'policy-uri-value-1')
+                )
+            )
+            ->setTosUri(self::TOS_URI)
+            ->setTosUris(
+                array(
+                    new TaggedValue('tos-uri-tag-0', 'tos-uri-value-0'),
+                    new TaggedValue('tos-uri-tag-1', 'tos-uri-value-1')
+                )
+            )
+            ->setJwksUri(self::JWKS_URI)
+            ->setJwks(self::JWKS)
+            ->setSectorIdentifierUri(self::SECTOR_IDENTIFIER_URI)
+            ->setSubjectType(SubjectType::$PUBLIC)
+            ->setIdTokenSignAlg(JWSAlg::$HS256)
+            ->setIdTokenEncryptionAlg(JWEAlg::$A128KW)
+            ->setIdTokenEncryptionEnc(JWEEnc::$A128CBC_HS256)
+            ->setUserInfoSignAlg(JWSAlg::$HS256)
+            ->setUserInfoEncryptionAlg(JWEAlg::$A128KW)
+            ->setUserInfoEncryptionEnc(JWEEnc::$A128CBC_HS256)
+            ->setRequestSignAlg(JWSAlg::$HS256)
+            ->setRequestEncryptionAlg(JWEAlg::$A128KW)
+            ->setRequestEncryptionEnc(JWEEnc::$A128CBC_HS256)
+            ->setTokenAuthMethod(ClientAuthMethod::$CLIENT_SECRET_POST)
+            ->setTokenAuthSignAlg(JWSAlg::$HS256)
+            ->setDefaultMaxAge(self::DEFAULT_MAX_AGE_INT)
+            ->setAuthTimeRequired(true)
+            ->setDefaultAcrs(
+                array(
+                    "acr-0",
+                    "acr-1"
+                )
+            )
+            ->setLoginUri(self::LOGIN_URI)
+            ->setRequestUris(
+                array(
+                    "request_uri-0",
+                    "request_uri-1"
+                )
+            )
             ->setDescription(self::DESCRIPTION)
             ->setDescriptions(
                 array(
@@ -3139,6 +4244,20 @@ class ClientTest extends TestCase
                     new TaggedValue('description-tag-1', 'description-value-1')
                 )
             )
+            ->setCreatedAt(self::CREATED_AT_INT)
+            ->setModifiedAt(self::MODIFIED_AT_INT)
+            ->setExtension(
+                (new ClientExtension())
+                    ->setRequestableScopesEnabled(true)
+                    ->setRequestableScopes(
+                        array(
+                            "requestable_scope-0",
+                            "requestable_scope-1"
+                        )
+                    )
+            )
+            ->setTlsClientAuthSubjectDn(self::TLS_CLIENT_AUTH_SUBJECT_DN)
+            ->setTlsClientCertificateBoundAccessTokens(true)
             ;
 
         $json  = $obj->toJson();
@@ -3258,6 +4377,171 @@ class ClientTest extends TestCase
         $this->assertEquals('logo-uri-tag-1',   $logoUri1['tag']);
         $this->assertEquals('logo-uri-value-1', $logoUri1['value']);
 
+        // clientUri
+        $this->assertArrayHasKey('clientUri', $array);
+        $this->assertEquals(self::CLIENT_URI, $array['clientUri']);
+
+        // clientUris
+        $this->assertArrayHasKey('clientUris', $array);
+        $clientUris = $array['clientUris'];
+
+        $this->assertTrue(is_array($clientUris));
+        $this->assertCount(2, $clientUris);
+
+        $clientUri0 = $clientUris[0];
+        $this->assertTrue(is_array($clientUri0));
+        $this->assertArrayHasKey('tag',   $clientUri0);
+        $this->assertArrayHasKey('value', $clientUri0);
+        $this->assertEquals('client-uri-tag-0',   $clientUri0['tag']);
+        $this->assertEquals('client-uri-value-0', $clientUri0['value']);
+
+        $clientUri1 = $clientUris[1];
+        $this->assertTrue(is_array($clientUri1));
+        $this->assertArrayHasKey('tag',   $clientUri1);
+        $this->assertArrayHasKey('value', $clientUri1);
+        $this->assertEquals('client-uri-tag-1',   $clientUri1['tag']);
+        $this->assertEquals('client-uri-value-1', $clientUri1['value']);
+
+        // policyUri
+        $this->assertArrayHasKey('policyUri', $array);
+        $this->assertEquals(self::POLICY_URI, $array['policyUri']);
+
+        // policyUris
+        $this->assertArrayHasKey('policyUris', $array);
+        $policyUris = $array['policyUris'];
+
+        $this->assertTrue(is_array($policyUris));
+        $this->assertCount(2, $policyUris);
+
+        $policyUri0 = $policyUris[0];
+        $this->assertTrue(is_array($policyUri0));
+        $this->assertArrayHasKey('tag',   $policyUri0);
+        $this->assertArrayHasKey('value', $policyUri0);
+        $this->assertEquals('policy-uri-tag-0',   $policyUri0['tag']);
+        $this->assertEquals('policy-uri-value-0', $policyUri0['value']);
+
+        $policyUri1 = $policyUris[1];
+        $this->assertTrue(is_array($policyUri1));
+        $this->assertArrayHasKey('tag',   $policyUri1);
+        $this->assertArrayHasKey('value', $policyUri1);
+        $this->assertEquals('policy-uri-tag-1',   $policyUri1['tag']);
+        $this->assertEquals('policy-uri-value-1', $policyUri1['value']);
+
+        // tosUri
+        $this->assertArrayHasKey('tosUri', $array);
+        $this->assertEquals(self::TOS_URI, $array['tosUri']);
+
+        // tosUris
+        $this->assertArrayHasKey('tosUris', $array);
+        $tosUris = $array['tosUris'];
+
+        $this->assertTrue(is_array($tosUris));
+        $this->assertCount(2, $tosUris);
+
+        $tosUri0 = $tosUris[0];
+        $this->assertTrue(is_array($tosUri0));
+        $this->assertArrayHasKey('tag',   $tosUri0);
+        $this->assertArrayHasKey('value', $tosUri0);
+        $this->assertEquals('tos-uri-tag-0',   $tosUri0['tag']);
+        $this->assertEquals('tos-uri-value-0', $tosUri0['value']);
+
+        $tosUri1 = $tosUris[1];
+        $this->assertTrue(is_array($tosUri1));
+        $this->assertArrayHasKey('tag',   $tosUri1);
+        $this->assertArrayHasKey('value', $tosUri1);
+        $this->assertEquals('tos-uri-tag-1',   $tosUri1['tag']);
+        $this->assertEquals('tos-uri-value-1', $tosUri1['value']);
+
+        // jwksUri
+        $this->assertArrayHasKey('jwksUri', $array);
+        $this->assertEquals(self::JWKS_URI, $array['jwksUri']);
+
+        // jwks
+        $this->assertArrayHasKey('jwks', $array);
+        $this->assertEquals(self::JWKS, $array['jwks']);
+
+        // sectorIdentifier
+        $this->assertArrayHasKey('sectorIdentifier', $array);
+        $this->assertEquals(self::SECTOR_IDENTIFIER_URI, $array['sectorIdentifier']);
+
+        // subjectType
+        $this->assertArrayHasKey('subjectType', $array);
+        $this->assertEquals('PUBLIC', $array['subjectType']);
+
+        // idTokenSignAlg
+        $this->assertArrayHasKey('idTokenSignAlg', $array);
+        $this->assertEquals('HS256', $array['idTokenSignAlg']);
+
+        // idTokenEncryptionAlg
+        $this->assertArrayHasKey('idTokenEncryptionAlg', $array);
+        $this->assertEquals('A128KW', $array['idTokenEncryptionAlg']);
+
+        // idTokenEncryptionEnc
+        $this->assertArrayHasKey('idTokenEncryptionEnc', $array);
+        $this->assertEquals('A128CBC_HS256', $array['idTokenEncryptionEnc']);
+
+        // userInfoSignAlg
+        $this->assertArrayHasKey('userInfoSignAlg', $array);
+        $this->assertEquals('HS256', $array['userInfoSignAlg']);
+
+        // userInfoEncryptionAlg
+        $this->assertArrayHasKey('userInfoEncryptionAlg', $array);
+        $this->assertEquals('A128KW', $array['userInfoEncryptionAlg']);
+
+        // userInfoEncryptionEnc
+        $this->assertArrayHasKey('userInfoEncryptionEnc', $array);
+        $this->assertEquals('A128CBC_HS256', $array['userInfoEncryptionEnc']);
+
+        // requestSignAlg
+        $this->assertArrayHasKey('requestSignAlg', $array);
+        $this->assertEquals('HS256', $array['requestSignAlg']);
+
+        // requestEncryptionAlg
+        $this->assertArrayHasKey('requestEncryptionAlg', $array);
+        $this->assertEquals('A128KW', $array['requestEncryptionAlg']);
+
+        // requestEncryptionEnc
+        $this->assertArrayHasKey('requestEncryptionEnc', $array);
+        $this->assertEquals('A128CBC_HS256', $array['requestEncryptionEnc']);
+
+        // tokenAuthMethod
+        $this->assertArrayHasKey('tokenAuthMethod', $array);
+        $this->assertEquals('CLIENT_SECRET_POST', $array['tokenAuthMethod']);
+
+        // tokenAuthSignAlg
+        $this->assertArrayHasKey('tokenAuthSignAlg', $array);
+        $this->assertEquals('HS256', $array['tokenAuthSignAlg']);
+
+        // defaultMaxAge
+        $this->assertArrayHasKey('defaultMaxAge', $array);
+        $this->assertEquals(self::DEFAULT_MAX_AGE_INT, $array['defaultMaxAge']);
+
+        // authTimeRequired
+        $this->assertArrayHasKey('authTimeRequired', $array);
+        $this->assertEquals(true, $array['authTimeRequired']);
+
+        // defaultAcrs
+        $this->assertArrayHasKey('defaultAcrs', $array);
+        $defaultAcrs = $array['defaultAcrs'];
+
+        $this->assertTrue(is_array($defaultAcrs));
+        $this->assertCount(2, $defaultAcrs);
+        $this->assertEquals("acr-0", $defaultAcrs[0]);
+        $this->assertEquals("acr-1", $defaultAcrs[1]);
+
+        // loginUri
+        $this->assertArrayHasKey('loginUri', $array);
+        $this->assertEquals(self::LOGIN_URI, $array['loginUri']);
+
+        // requestUris
+        $this->assertArrayHasKey('requestUris', $array);
+        $requestUris = $array['requestUris'];
+
+        $this->assertTrue(is_array($requestUris));
+        $this->assertCount(2, $requestUris);
+        $this->assertEquals("request_uri-0", $requestUris[0]);
+        $this->assertEquals("request_uri-1", $requestUris[1]);
+
         // description
         $this->assertArrayHasKey('description', $array);
         $this->assertEquals(self::DESCRIPTION, $array['description']);
@@ -3282,6 +4566,39 @@ class ClientTest extends TestCase
         $this->assertArrayHasKey('value', $description1);
         $this->assertEquals('description-tag-1',   $description1['tag']);
         $this->assertEquals('description-value-1', $description1['value']);
+
+        // createdAt
+        $this->assertArrayHasKey('createdAt', $array);
+        $this->assertEquals(self::CREATED_AT_INT, $array['createdAt']);
+
+        // modifiedAt
+        $this->assertArrayHasKey('modifiedAt', $array);
+        $this->assertEquals(self::MODIFIED_AT_INT, $array['modifiedAt']);
+
+        // extension
+        $this->assertArrayHasKey('extension', $array);
+        $extension = $array['extension'];
+
+        $this->assertTrue(is_array($extension));
+
+        $this->assertArrayHasKey('requestableScopesEnabled', $extension);
+        $this->assertEquals(true, $extension['requestableScopesEnabled']);
+
+        $this->assertArrayHasKey('requestableScopes', $extension);
+        $requestableScopes = $extension['requestableScopes'];
+
+        $this->assertTrue(is_array($requestableScopes));
+        $this->assertCount(2, $requestableScopes);
+        $this->assertEquals('requestable_scope-0', $requestableScopes[0]);
+        $this->assertEquals('requestable_scope-1', $requestableScopes[1]);
+
+        // tlsClientAuthSubjectDn
+        $this->assertArrayHasKey('tlsClientAuthSubjectDn', $array);
+        $this->assertEquals(self::TLS_CLIENT_AUTH_SUBJECT_DN, $array['tlsClientAuthSubjectDn']);
+
+        // tlsClientCertificateBoundAccessTokens
+        $this->assertArrayHasKey('tlsClientCertificateBoundAccessTokens', $array);
+        $this->assertEquals(true, $array['tlsClientCertificateBoundAccessTokens']);
     }
 
 
