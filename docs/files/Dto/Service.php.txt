@@ -2508,14 +2508,14 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
         $array['refreshTokenDuration']                        = $this->refreshTokenDuration;
         $array['idTokenDuration']                             = $this->idTokenDuration;
         $array['authenticationCallbackEndpoint']              = $this->authenticationCallbackEndpoint;
-        $array['authenticationCallbackApiApi']                = $this->authenticationCallbackApiKey;
+        $array['authenticationCallbackApiKey']                = $this->authenticationCallbackApiKey;
         $array['authenticationCallbackApiSecret']             = $this->authenticationCallbackApiSecret;
         $array['supportedSnses']                              = LanguageUtility::convertArrayToStringArray($this->supportedSnses);
         $array['snsCredentials']                              = LanguageUtility::convertArrayOfArrayCopyableToArray($this->snsCredentials);
         $array['createdAt']                                   = LanguageUtility::orZero($this->createdAt);
         $array['modifiedAt']                                  = LanguageUtility::orZero($this->modifiedAt);
         $array['developerAuthenticationCallbackEndpoint']     = $this->developerAuthenticationCallbackEndpoint;
-        $array['developerAuthenticationCallbackApiApi']       = $this->developerAuthenticationCallbackApiKey;
+        $array['developerAuthenticationCallbackApiKey']       = $this->developerAuthenticationCallbackApiKey;
         $array['developerAuthenticationCallbackApiSecret']    = $this->developerAuthenticationCallbackApiSecret;
         $array['supportedDeveloperSnses']                     = LanguageUtility::convertArrayToStringArray($this->supportedDeveloperSnses);
         $array['developerSnsCredentials']                     = LanguageUtility::convertArrayOfArrayCopyableToArray($this->developerSnsCredentials);
@@ -2606,7 +2606,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
 
         // supportedScopes
         $supportedScopes = LanguageUtility::getFromArray('supportedScopes', $array);
-        $this->setLogoUris(
+        $this->setSupportedScopes(
             LanguageUtility::convertArrayToArrayOfArrayCopyable(
                 $supportedScopes, __NAMESPACE__ . '\Scope'));
 
@@ -2688,12 +2688,6 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
         $this->setIdTokenDuration(
             LanguageUtility::getFromArray('idTokenDuration', $array));
 
-        // clientNames
-        $clientNames = LanguageUtility::getFromArray('clientNames', $array);
-        $this->setClientNames(
-            LanguageUtility::convertArrayToArrayOfArrayCopyable(
-                $clientNames, __NAMESPACE__ . '\TaggedValue'));
-
         // authenticationCallbackEndpoint
         $this->setAuthenticationCallbackEndpoint(
             LanguageUtility::getFromArray('authenticationCallbackEndpoint', $array));
@@ -2752,13 +2746,8 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
 
         // clientsPerDeveloper
         $this->setClientsPerDeveloper(
-            LanguageUtility::getFromArray('clientsPerDeveloper', $array));
-
-        // clientUris
-        $clientUris = LanguageUtility::getFromArray('clientUris', $array);
-        $this->setClientUris(
-            LanguageUtility::convertArrayToArrayOfArrayCopyable(
-                $clientUris, __NAMESPACE__ . '\TaggedValue'));
+            LanguageUtility::orZero(
+                LanguageUtility::getFromArray('clientsPerDeveloper', $array)));
 
         // directAuthorizationEndpointEnabled
         $this->setDirectAuthorizationEndpointEnabled(
