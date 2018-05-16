@@ -28,6 +28,7 @@ namespace Authlete\Dto;
 use Authlete\Types\Arrayable;
 use Authlete\Types\ArrayCopyable;
 use Authlete\Types\Jsonable;
+use Authlete\Types\Sns;
 use Authlete\Util\ArrayTrait;
 use Authlete\Util\JsonTrait;
 use Authlete\Util\LanguageUtility;
