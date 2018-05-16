@@ -104,6 +104,7 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
     private $extension              = null;  // \Authlete\Dto\ClientExtension
     private $tlsClientAuthSubjectDn = null;  // string
     private $tlsClientCertificateBoundAccessTokens = false; // boolean
+    private $selfSignedCertificateKeyId            = null;  // string
 
 
     /**
@@ -1913,6 +1914,41 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
 
 
     /**
+     * Get the key ID of the JWK which contains a self-signed certificate.
+     *
+     * @return string
+     *     The key ID of the JWK which contains a self-signed certificate.
+     *
+     * @since 1.5
+     */
+    public function getSelfSignedCertificateKeyId()
+    {
+        return $this->selfSignedCertificateKeyId;
+    }
+
+
+    /**
+     * Set the key ID of the JWK which contains a self-signed certificate.
+     *
+     * @param string $keyId
+     *     The key ID of the JWK which contains a self-signed certificate.
+     *
+     * @return Client
+     *     `$this` object.
+     *
+     * @since 1.5
+     */
+    public function setSelfSignedCertificateKeyId($keyId)
+    {
+        ValidationUtility::ensureNullOrString('$keyId', $keyId);
+
+        $this->selfSignedCertificateKeyId = $keyId;
+
+        return $this;
+    }
+
+
+    /**
      * {@inheritdoc}
      *
      * {@inheritdoc}
@@ -1970,6 +2006,7 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
         $array['extension']              = LanguageUtility::convertArrayCopyableToArray($this->extension);
         $array['tlsClientAuthSubjectDn'] = $this->tlsClientAuthSubjectDn;
         $array['tlsClientCertificateBoundAccessTokens'] = $this->tlsClientCertificateBoundAccessTokens;
+        $array['selfSignedCertificateKeyId']            = $this->selfSignedCertificateKeyId;
     }
 
 
@@ -2206,5 +2243,9 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
         // tlsClientCertificateBoundAccessTokens
         $this->setTlsClientCertificateBoundAccessTokens(
             LanguageUtility::getFromArrayAsBoolean('tlsClientCertificateBoundAccessTokens', $array));
+
+        // selfSignedCertificateKeyId
+        $this->setSelfSignedCertificateKeyId(
+            LanguageUtility::getFromArray('selfSignedCertificateKeyId', $array));
     }
 }

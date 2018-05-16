@@ -1744,6 +1744,24 @@ class ClientTest extends TestCase
     }
 
 
+    public function testSelfSignedCertificateKeyIdValidValue()
+    {
+        $obj = new Client();
+        $obj->setSelfSignedCertificateKeyId('keyId');
+
+        $this->assertEquals('keyId', $obj->getSelfSignedCertificateKeyId());
+    }
+
+
+    public function testSelfSignedCertificateKeyIdValidNull()
+    {
+        $obj = new Client();
+        $obj->setSelfSignedCertificateKeyId(null);
+
+        $this->assertNull($obj->getSelfSignedCertificateKeyId());
+    }
+
+
     public function testFromJsonInstanceValid()
     {
         $json = '{}';
@@ -1788,7 +1806,7 @@ class ClientTest extends TestCase
 
 
     /** @expectedException InvalidArgumentException */
-    public function testFromJsonDevelopernvalidArray()
+    public function testFromJsonDeveloperInvalidArray()
     {
         $json = '{"developer":["a","b"]}';
         $obj  = Client::fromJson($json);
@@ -4138,6 +4156,56 @@ class ClientTest extends TestCase
     }
 
 
+    public function testFromJsonSelfSignedCertificateKeyIdValidValue()
+    {
+        $json = '{"selfSignedCertificateKeyId":"keyId"}';
+        $obj  = Client::fromJson($json);
+
+        $this->assertEquals('keyId', $obj->getSelfSignedCertificateKeyId());
+    }
+
+
+    public function testFromJsonSelfSignedCertificateKeyIdValidNull()
+    {
+        $json = '{"selfSignedCertificateKeyId":null}';
+        $obj  = Client::fromJson($json);
+
+        $this->assertNull($obj->getSelfSignedCertificateKeyId());
+    }
+
+
+    /** @expectedException InvalidArgumentException */
+    public function testFromJsonSelfSignedCertificateKeyIdInvalidBool()
+    {
+        $json = '{"selfSignedCertificateKeyId":true}';
+        $obj  = Client::fromJson($json);
+    }
+
+
+    /** @expectedException InvalidArgumentException */
+    public function testFromJsonSelfSignedCertificateKeyIdInvalidNumber()
+    {
+        $json = '{"selfSignedCertificateKeyId":123}';
+        $obj  = Client::fromJson($json);
+    }
+
+
+    /** @expectedException InvalidArgumentException */
+    public function testFromJsonSelfSignedCertificateKeyIdInvalidArray()
+    {
+        $json = '{"selfSignedCertificateKeyId":["a","b"]}';
+        $obj  = Client::fromJson($json);
+    }
+
+
+    /** @expectedException InvalidArgumentException */
+    public function testFromJsonSelfSignedCertificateKeyIdInvalidObject()
+    {
+        $json = '{"selfSignedCertificateKeyId":{"a":"b"}}';
+        $obj  = Client::fromJson($json);
+    }
+
+
     public function testToJson()
     {
         $obj = new Client();
@@ -4258,6 +4326,7 @@ class ClientTest extends TestCase
             )
             ->setTlsClientAuthSubjectDn(self::TLS_CLIENT_AUTH_SUBJECT_DN)
             ->setTlsClientCertificateBoundAccessTokens(true)
+            ->setSelfSignedCertificateKeyId('keyId')
             ;
 
         $json  = $obj->toJson();
@@ -4599,6 +4668,10 @@ class ClientTest extends TestCase
         // tlsClientCertificateBoundAccessTokens
         $this->assertArrayHasKey('tlsClientCertificateBoundAccessTokens', $array);
         $this->assertEquals(true, $array['tlsClientCertificateBoundAccessTokens']);
+
+        // selfSignedCertificateKeyId
+        $this->assertArrayHasKey('selfSignedCertificateKeyId', $array);
+        $this->assertEquals('keyId', $array['selfSignedCertificateKeyId']);
     }
 
 
