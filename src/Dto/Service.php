@@ -2508,14 +2508,14 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
         $array['refreshTokenDuration']                        = $this->refreshTokenDuration;
         $array['idTokenDuration']                             = $this->idTokenDuration;
         $array['authenticationCallbackEndpoint']              = $this->authenticationCallbackEndpoint;
-        $array['authenticationCallbackApiApi']                = $this->authenticationCallbackApiKey;
+        $array['authenticationCallbackApiKey']                = $this->authenticationCallbackApiKey;
         $array['authenticationCallbackApiSecret']             = $this->authenticationCallbackApiSecret;
         $array['supportedSnses']                              = LanguageUtility::convertArrayToStringArray($this->supportedSnses);
         $array['snsCredentials']                              = LanguageUtility::convertArrayOfArrayCopyableToArray($this->snsCredentials);
         $array['createdAt']                                   = LanguageUtility::orZero($this->createdAt);
         $array['modifiedAt']                                  = LanguageUtility::orZero($this->modifiedAt);
         $array['developerAuthenticationCallbackEndpoint']     = $this->developerAuthenticationCallbackEndpoint;
-        $array['developerAuthenticationCallbackApiApi']       = $this->developerAuthenticationCallbackApiKey;
+        $array['developerAuthenticationCallbackApiKey']       = $this->developerAuthenticationCallbackApiKey;
         $array['developerAuthenticationCallbackApiSecret']    = $this->developerAuthenticationCallbackApiSecret;
         $array['supportedDeveloperSnses']                     = LanguageUtility::convertArrayToStringArray($this->supportedDeveloperSnses);
         $array['developerSnsCredentials']                     = LanguageUtility::convertArrayOfArrayCopyableToArray($this->developerSnsCredentials);
