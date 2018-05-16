@@ -1,6 +1,20 @@
 CHANGES (日本語)
 ================
 
+1.5.0 (2018 年 05 月 17 日)
+---------------------------
+
+- `AuthorizationResponse` クラス
+    * `isClientIdAliasUsed()` メソッドを追加。
+    * `setClientIdAliasUsed()` メソッドを追加。
+    * `isClientAliasUsed()` メソッドを削除。
+    * `setClientAliasUsed()` メソッドを削除。
+
+- `Client` クラス
+    * `getSelfSignedCertificateKeyId()` メソッドを追加。
+    * `setSelfSignedCertificateKeyId()` メソッドを追加。
+
+
 1.4.0 (2018 年 05 月 13 日)
 ---------------------------
 

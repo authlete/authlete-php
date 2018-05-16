@@ -1,6 +1,20 @@
 CHANGES
 =======
 
+1.5.0 (2018-05-17)
+------------------
+
+- `AuthorizationResponse` class
+    * Added `isClientIdAliasUsed()` method.
+    * Added `setClientIdAliasUsed()` method.
+    * Removed `isClientAliasUsed()` method.
+    * Removed `setClientAliasUsed()` method.
+
+- `Client` class
+    * Added `getSelfSignedCertificateKeyId()` method.
+    * Added `setSelfSignedCertificateKeyId()` method.
+
+
 1.4.0 (2018-05-13)
 ------------------
 
