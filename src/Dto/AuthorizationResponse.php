@@ -373,6 +373,12 @@ use Authlete\Util\ValidationUtility;
  *
  *       The claim values in this parameter will be embedded in an ID token.
  *
+ *       `getIdTokenClaims()` is available since version 1.7. The method
+ *       returns the value of the `id_token` property in the `claims`
+ *       request parameter or in the `claims` property in a request object.
+ *       The value returned from the method should be considered when you
+ *       prepare claim values. See the description of the method for details.
+ *
  *     * `properties` (optional): Extra properties to be associated with an
  *       access token and/or an authorization code that may be issued from
  *       the Authlete API. Note that the `properties` request parameter is
@@ -608,23 +614,26 @@ use Authlete\Util\ValidationUtility;
  */
 class AuthorizationResponse extends ApiResponse
 {
-    private $action            = null;  // \Authlete\Dto\AuthorizationAction
-    private $service           = null;  // \Authlete\Dto\Service
-    private $client            = null;  // \Authlete\Dto\Client
-    private $clientIdAliasUsed = false; // boolean
-    private $display           = null;  // \Authlete\Types\Display
-    private $maxAge            = null;  // string or (64-bit) integer
-    private $scopes            = null;  // array of \Authlete\Dto\Scope
-    private $uiLocales         = null;  // array of string
-    private $claimsLocales     = null;  // array of string
-    private $claims            = null;  // array of string
-    private $acrEssential      = false; // boolean
-    private $acrs              = null;  // array of string
-    private $subject           = null;  // string
-    private $loginHint         = null;  // string
-    private $prompts           = null;  // array of \Authlete\Types\Prompt
-    private $responseContent   = null;  // string
-    private $ticket            = null;  // string
+    private $action               = null;  // \Authlete\Dto\AuthorizationAction
+    private $service              = null;  // \Authlete\Dto\Service
+    private $client               = null;  // \Authlete\Dto\Client
+    private $clientIdAliasUsed    = false; // boolean
+    private $display              = null;  // \Authlete\Types\Display
+    private $maxAge               = null;  // string or (64-bit) integer
+    private $scopes               = null;  // array of \Authlete\Dto\Scope
+    private $uiLocales            = null;  // array of string
+    private $claimsLocales        = null;  // array of string
+    private $claims               = null;  // array of string
+    private $acrEssential         = false; // boolean
+    private $acrs                 = null;  // array of string
+    private $subject              = null;  // string
+    private $loginHint            = null;  // string
+    private $prompts              = null;  // array of \Authlete\Types\Prompt
+    private $requestObjectPayload = null;  // string
+    private $idTokenClaims        = null;  // string
+    private $userInfoClaims       = null;  // string
+    private $responseContent      = null;  // string
+    private $ticket               = null;  // string
 
 
     /**
@@ -1202,6 +1211,222 @@ class AuthorizationResponse extends ApiResponse
 
 
     /**
+     * Get the payload part of the request object.
+     *
+     * This method returns `null` if the authorization request does not
+     * include a request object.
+     *
+     * @return string
+     *     The payload part of the request object in JSON format.
+     *
+     * @since 1.7
+     */
+    public function getRequestObjectPayload()
+    {
+        return $this->requestObjectPayload;
+    }
+
+
+    /**
+     * Set the payload part of the request object.
+     *
+     * @param string $payload
+     *     The payload part of the request object.
+     *
+     * @return AuthorizationResponse
+     *     `$this` object.
+     *
+     * @since 1.7
+     */
+    public function setRequestObjectPayload($payload)
+    {
+        ValidationUtility::ensureNullOrString('$payload', $payload);
+
+        $this->requestObjectPayload = $payload;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the value of the "id_token" property in the "claims" request
+     * parameter or in the "claims" property in a request object.
+     *
+     * A client application may request certain claims be embedded in an
+     * ID token or in a response from the UserInfo endpoint. There are
+     * several ways. Including the `claims` request parameter and including
+     * the `claims` property in a request object are such examples. In both
+     * the cases, the value of the `claims` parameter/property is JSON. Its
+     * format is described in
+     * [5.5. Requesting Claims using the "claims" Request Parameter](https://openid.net/specs/openid-connect-core-1_0.html#ClaimsParameter)
+     * of
+     * [OpenID Connect Core 1.0](https://openid.net/specs/openid-connect-core-1_0.html).
+     *
+     * The following is an excerpt from the specification. You can find
+     * `userinfo` and `id_token` are top-level properties.
+     *
+     * ```
+     * {
+     *  "userinfo":
+     *   {
+     *    "given_name": {"essential": true},
+     *    "nickname": null,
+     *    "email": {"essential": true},
+     *    "email_verified": {"essential": true},
+     *    "picture": null,
+     *    "http://example.info/claims/groups": null
+     *   },
+     *  "id_token":
+     *   {
+     *    "auth_time": {"essential": true},
+     *    "acr": {"values": ["urn:mace:incommon:iap:silver"] }
+     *   }
+     * }
+     * ```
+     *
+     * This method (`getIdTokenClaims`) returns the value of the `id_token`
+     * property in JSON format. For example, if the JSON above is included
+     * in an authorization request, this method returns JSON equivalent to
+     * the following.
+     *
+     * ```
+     * {
+     *  "auth_time": {"essential": true},
+     *  "acr": {"values": ["urn:mace:incommon:iap:silver"] }
+     * }
+     * ```
+     *
+     * Note that if a request object is given and it contains the `claims`
+     * property and if the `claims` request parameter is also given, this
+     * method returns the value in the former.
+     *
+     * @return string
+     *     The value of the `id_token` property in the `claims` in JSON
+     *     format.
+     *
+     * @since 1.7
+     */
+    public function getIdTokenClaims()
+    {
+        return $this->idTokenClaims;
+    }
+
+
+    /**
+     * Set the value of the `id_token` property in the `claims` request
+     * parameter or in the `claims` property in a request object.
+     *
+     * @param string $claims
+     *     The value of the `id_token` property in the `claims` in JSON
+     *     format.
+     *
+     * @return AuthorizationResponse
+     *     `$this` object.
+     *
+     * @since 1.7
+     */
+    public function setIdTokenClaims($claims)
+    {
+        ValidationUtility::ensureNullOrString('$claims', $claims);
+
+        $this->idTokenClaims = $claims;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the value of the "userinfo" property in the "claims" request
+     * parameter or in the "claims" property in a request object.
+     *
+     * A client application may request certain claims be embedded in an
+     * ID token or in a response from the UserInfo endpoint. There are
+     * several ways. Including the `claims` request parameter and including
+     * the `claims` property in a request object are such examples. In both
+     * the cases, the value of the `claims` parameter/property is JSON. Its
+     * format is described in
+     * [5.5. Requesting Claims using the "claims" Request Parameter](https://openid.net/specs/openid-connect-core-1_0.html#ClaimsParameter)
+     * of
+     * [OpenID Connect Core 1.0](https://openid.net/specs/openid-connect-core-1_0.html).
+     *
+     * The following is an excerpt from the specification. You can find
+     * `userinfo` and `id_token` are top-level properties.
+     *
+     * ```
+     * {
+     *  "userinfo":
+     *   {
+     *    "given_name": {"essential": true},
+     *    "nickname": null,
+     *    "email": {"essential": true},
+     *    "email_verified": {"essential": true},
+     *    "picture": null,
+     *    "http://example.info/claims/groups": null
+     *   },
+     *  "id_token":
+     *   {
+     *    "auth_time": {"essential": true},
+     *    "acr": {"values": ["urn:mace:incommon:iap:silver"] }
+     *   }
+     * }
+     * ```
+     *
+     * This method (`getUserInfoClaims`) returns the value of the `userinfo`
+     * property in JSON format. For example, if the JSON above is included
+     * in an authorization request, this method returns JSON equivalent to
+     * the following.
+     *
+     * ```
+     * {
+     *  "given_name": {"essential": true},
+     *  "nickname": null,
+     *  "email": {"essential": true},
+     *  "email_verified": {"essential": true},
+     *  "picture": null,
+     *  "http://example.info/claims/groups": null
+     * }
+     * ```
+     *
+     * Note that if a request object is given and it contains the `claims`
+     * property and if the `claims` request parameter is also given, this
+     * method returns the value in the former.
+     *
+     * @return string
+     *     The value of the `userinfo` property in the `claims` in JSON
+     *     format.
+     *
+     * @since 1.7
+     */
+    public function getUserInfoClaims()
+    {
+        return $this->userInfoClaims;
+    }
+
+
+    /**
+     * Set the value of the `userinfo` property in the `claims` request
+     * parameter or in the `claims` property in a request object.
+     *
+     * @param string $claims
+     *     The value of the `userinfo` property in the `claims` in JSON
+     *     format.
+     *
+     * @return AuthorizationResponse
+     *     `$this` object.
+     *
+     * @since 1.7
+     */
+    public function setUserInfoClaims($claims)
+    {
+        ValidationUtility::ensureNullOrString('$claims', $claims);
+
+        $this->userInfoClaims = $claims;
+
+        return $this;
+    }
+
+
+    /**
      * Get the response content which can be used to generate a response to
      * the client application.
      *
@@ -1285,23 +1510,26 @@ class AuthorizationResponse extends ApiResponse
     {
         parent::copyToArray($array);
 
-        $array['action']            = LanguageUtility::toString($this->action);
-        $array['service']           = LanguageUtility::convertArrayCopyableToArray($this->service);
-        $array['client']            = LanguageUtility::convertArrayCopyableToArray($this->client);
-        $array['clientIdAliasUsed'] = $this->clientIdAliasUsed;
-        $array['display']           = LanguageUtility::toString($this->display);
-        $array['maxAge']            = LanguageUtility::orZero($this->maxAge);
-        $array['scopes']            = LanguageUtility::convertArrayOfArrayCopyableToArray($this->scopes);
-        $array['uiLocales']         = $this->uiLocales;
-        $array['claimsLocales']     = $this->claimsLocales;
-        $array['claims']            = $this->claims;
-        $array['acrEssential']      = $this->acrEssential;
-        $array['acrs']              = $this->acrs;
-        $array['subject']           = $this->subject;
-        $array['loginHint']         = $this->loginHint;
-        $array['prompts']           = LanguageUtility::convertArrayToStringArray($this->prompts);
-        $array['responseContent']   = $this->responseContent;
-        $array['ticket']            = $this->ticket;
+        $array['action']               = LanguageUtility::toString($this->action);
+        $array['service']              = LanguageUtility::convertArrayCopyableToArray($this->service);
+        $array['client']               = LanguageUtility::convertArrayCopyableToArray($this->client);
+        $array['clientIdAliasUsed']    = $this->clientIdAliasUsed;
+        $array['display']              = LanguageUtility::toString($this->display);
+        $array['maxAge']               = LanguageUtility::orZero($this->maxAge);
+        $array['scopes']               = LanguageUtility::convertArrayOfArrayCopyableToArray($this->scopes);
+        $array['uiLocales']            = $this->uiLocales;
+        $array['claimsLocales']        = $this->claimsLocales;
+        $array['claims']               = $this->claims;
+        $array['acrEssential']         = $this->acrEssential;
+        $array['acrs']                 = $this->acrs;
+        $array['subject']              = $this->subject;
+        $array['loginHint']            = $this->loginHint;
+        $array['prompts']              = LanguageUtility::convertArrayToStringArray($this->prompts);
+        $array['requestObjectPayload'] = $this->requestObjectPayload;
+        $array['idTokenClaims']        = $this->idTokenClaims;
+        $array['userInfoClaims']       = $this->userInfoClaims;
+        $array['responseContent']      = $this->responseContent;
+        $array['ticket']               = $this->ticket;
     }
 
 
@@ -1387,6 +1615,18 @@ class AuthorizationResponse extends ApiResponse
             LanguageUtility::convertArray(
                 $prompts,
                 '\Authlete\Types\Prompt::valueOf'));
+
+        // requestObjectPayload
+        $this->setRequestObjectPayload(
+            LanguageUtility::getFromArray('requestObjectPayload', $array));
+
+        // idTokenClaims
+        $this->setIdTokenClaims(
+            LanguageUtility::getFromArray('idTokenClaims', $array));
+
+        // userInfoClaims
+        $this->setUserInfoClaims(
+            LanguageUtility::getFromArray('userInfoClaims', $array));
 
         // responseContent
         $this->setResponseContent(

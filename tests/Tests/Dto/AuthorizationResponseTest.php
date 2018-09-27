@@ -618,6 +618,96 @@ class AuthorizationResponseTest extends TestCase
     }
 
 
+    public function testRequestObjectPayloadValidValue()
+    {
+        $obj = new AuthorizationResponse();
+
+        $requestObjectPayload = 'payload';
+        $obj->setRequestObjectPayload($requestObjectPayload);
+
+        $this->assertEquals($requestObjectPayload, $obj->getRequestObjectPayload());
+    }
+
+
+    public function testRequestObjectPayloadValidNull()
+    {
+        $obj = new AuthorizationResponse();
+        $obj->setRequestObjectPayload(null);
+
+        $this->assertNull($obj->getRequestObjectPayload());
+    }
+
+
+    /** @expectedException InvalidArgumentException */
+    public function testRequestObjectPayloadInvalidValue()
+    {
+        $obj = new AuthorizationResponse();
+
+        $invalid = array();
+        $obj->setRequestObjectPayload($invalid);
+    }
+
+
+    public function testIdTokenClaimsValidValue()
+    {
+        $obj = new AuthorizationResponse();
+
+        $claims = '{"myclaim":"myvalue"}';
+        $obj->setIdTokenClaims($claims);
+
+        $this->assertEquals($claims, $obj->getIdTokenClaims());
+    }
+
+
+    public function testIdTokenClaimsValidNull()
+    {
+        $obj = new AuthorizationResponse();
+        $obj->setIdTokenClaims(null);
+
+        $this->assertNull($obj->getIdTokenClaims());
+    }
+
+
+    /** @expectedException InvalidArgumentException */
+    public function testIdTokenClaimsInvalidValue()
+    {
+        $obj = new AuthorizationResponse();
+
+        $invalid = array();
+        $obj->setIdTokenClaims($invalid);
+    }
+
+
+    public function testUserInfoClaimsValidValue()
+    {
+        $obj = new AuthorizationResponse();
+
+        $claims = '{"myclaim":"myvalue"}';
+        $obj->setUserInfoClaims($claims);
+
+        $this->assertEquals($claims, $obj->getUserInfoClaims());
+    }
+
+
+    public function testUserInfoClaimsValidNull()
+    {
+        $obj = new AuthorizationResponse();
+        $obj->setUserInfoClaims(null);
+
+        $this->assertNull($obj->getUserInfoClaims());
+    }
+
+
+    /** @expectedException InvalidArgumentException */
+    public function testUserInfoClaimsInvalidValue()
+    {
+        $obj = new AuthorizationResponse();
+
+        $invalid = array();
+        $obj->setUserInfoClaims($invalid);
+    }
+
+
     public function testResponseContentValidValue()
     {
         $obj = new AuthorizationResponse();
@@ -1483,6 +1573,156 @@ class AuthorizationResponseTest extends TestCase
     }
 
 
+    public function testFromJsonRequestObjectPayloadValidValue()
+    {
+        $json = '{"requestObjectPayload":"payload"}';
+        $obj  = AuthorizationResponse::fromJson($json);
+
+        $this->assertEquals('payload', $obj->getRequestObjectPayload());
+    }
+
+
+    public function testFromJsonRequestObjectPayloadValidNull()
+    {
+        $json = '{"requestObjectPayload":null}';
+        $obj  = AuthorizationResponse::fromJson($json);
+
+        $this->assertNull($obj->getRequestObjectPayload());
+    }
+
+
+    /** @expectedException InvalidArgumentException */
+    public function testFromJsonRequestObjectPayloadInvalidBool()
+    {
+        $json = '{"requestObjectPayload":true}';
+        $obj  = AuthorizationResponse::fromJson($json);
+    }
+
+
+    /** @expectedException InvalidArgumentException */
+    public function testFromJsonRequestObjectPayloadInvalidNumber()
+    {
+        $json = '{"requestObjectPayload":123}';
+        $obj  = AuthorizationResponse::fromJson($json);
+    }
+
+
+    /** @expectedException InvalidArgumentException */
+    public function testFromJsonRequestObjectPayloadInvalidArray()
+    {
+        $json = '{"requestObjectPayload":["a","b"]}';
+        $obj  = AuthorizationResponse::fromJson($json);
+    }
+
+
+    /** @expectedException InvalidArgumentException */
+    public function testFromJsonRequestObjectPayloadInvalidObject()
+    {
+        $json = '{"requestObjectPayload":{"a":"b"}}';
+        $obj  = AuthorizationResponse::fromJson($json);
+    }
+
+
+    public function testFromJsonIdTokenClaimsValidValue()
+    {
+        $json = '{"idTokenClaims":"claims"}';
+        $obj  = AuthorizationResponse::fromJson($json);
+
+        $this->assertEquals('claims', $obj->getIdTokenClaims());
+    }
+
+
+    public function testFromJsonIdTokenClaimsValidNull()
+    {
+        $json = '{"idTokenClaims":null}';
+        $obj  = AuthorizationResponse::fromJson($json);
+
+        $this->assertNull($obj->getIdTokenClaims());
+    }
+
+
+    /** @expectedException InvalidArgumentException */
+    public function testFromJsonIdTokenClaimsInvalidBool()
+    {
+        $json = '{"idTokenClaims":true}';
+        $obj  = AuthorizationResponse::fromJson($json);
+    }
+
+
+    /** @expectedException InvalidArgumentException */
+    public function testFromJsonIdTokenClaimsInvalidNumber()
+    {
+        $json = '{"idTokenClaims":123}';
+        $obj  = AuthorizationResponse::fromJson($json);
+    }
+
+
+    /** @expectedException InvalidArgumentException */
+    public function testFromJsonIdTokenClaimsInvalidArray()
+    {
+        $json = '{"idTokenClaims":["a","b"]}';
+        $obj  = AuthorizationResponse::fromJson($json);
+    }
+
+
+    /** @expectedException InvalidArgumentException */
+    public function testFromJsonIdTokenClaimsInvalidObject()
+    {
+        $json = '{"idTokenClaims":{"a":"b"}}';
+        $obj  = AuthorizationResponse::fromJson($json);
+    }
+
+
+    public function testFromJsonUserInfoClaimsValidValue()
+    {
+        $json = '{"userInfoClaims":"claims"}';
+        $obj  = AuthorizationResponse::fromJson($json);
+
+        $this->assertEquals('claims', $obj->getUserInfoClaims());
+    }
+
+
+    public function testFromJsonUserInfoClaimsValidNull()
+    {
+        $json = '{"userInfoClaims":null}';
+        $obj  = AuthorizationResponse::fromJson($json);
+
+        $this->assertNull($obj->getUserInfoClaims());
+    }
+
+
+    /** @expectedException InvalidArgumentException */
+    public function testFromJsonUserInfoClaimsInvalidBool()
+    {
+        $json = '{"userInfoClaims":true}';
+        $obj  = AuthorizationResponse::fromJson($json);
+    }
+
+
+    /** @expectedException InvalidArgumentException */
+    public function testFromJsonUserInfoClaimsInvalidNumber()
+    {
+        $json = '{"userInfoClaims":123}';
+        $obj  = AuthorizationResponse::fromJson($json);
+    }
+
+
+    /** @expectedException InvalidArgumentException */
+    public function testFromJsonUserInfoClaimsInvalidArray()
+    {
+        $json = '{"userInfoClaims":["a","b"]}';
+        $obj  = AuthorizationResponse::fromJson($json);
+    }
+
+
+    /** @expectedException InvalidArgumentException */
+    public function testFromJsonUserInfoClaimsInvalidObject()
+    {
+        $json = '{"userInfoClaims":{"a":"b"}}';
+        $obj  = AuthorizationResponse::fromJson($json);
+    }
+
+
     public function testFromJsonResponseContentValidValue()
     {
         $json = '{"responseContent":"content"}';
@@ -1612,6 +1852,9 @@ class AuthorizationResponseTest extends TestCase
             ->setSubject('_subject_')
             ->setLoginHint('hint')
             ->setPrompts($prompts)
+            ->setRequestObjectPayload('request_object_payload')
+            ->setIdTokenClaims('id_token_claims')
+            ->setUserInfoClaims('user_info_claims')
             ->setResponseContent('content')
             ->setTicket('_ticket_')
             ;
@@ -1700,6 +1943,18 @@ class AuthorizationResponseTest extends TestCase
         $this->assertTrue(is_array($array['prompts']));
         $this->assertEquals('NONE',  $array['prompts'][0]);
         $this->assertEquals('LOGIN', $array['prompts'][1]);
+
+        // requestObjectPayload
+        $this->assertArrayHasKey('requestObjectPayload', $array);
+        $this->assertEquals('request_object_payload', $array['requestObjectPayload']);
+
+        // idTokenClaims
+        $this->assertArrayHasKey('idTokenClaims', $array);
+        $this->assertEquals('id_token_claims', $array['idTokenClaims']);
+
+        // userInfoClaims
+        $this->assertArrayHasKey('userInfoClaims', $array);
+        $this->assertEquals('user_info_claims', $array['userInfoClaims']);
 
         // responseContent
         $this->assertArrayHasKey('responseContent', $array);
