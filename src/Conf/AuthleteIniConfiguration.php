@@ -25,6 +25,9 @@
 namespace Authlete\Conf;
 
 
+use Authlete\Util\LanguageUtility;
+
+
 /**
  * An implementation of the \Authlete\Conf\AuthleteConfiguration interface
  * that refers to an ini file which parse_ini_file() can interpret.
@@ -87,7 +90,7 @@ class AuthleteIniConfiguration implements AuthleteConfiguration
             throw new \RuntimeException("Failed to parse '$file'.");
         }
 
-        setup($conf);
+        self::setup($conf);
     }
 
 
