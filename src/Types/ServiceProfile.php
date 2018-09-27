@@ -37,15 +37,28 @@ class ServiceProfile
 
 
     /**
-     * Financial API.
+     * Financial-grade API.
      *
      * @static
      * @var ServiceProfile
      *
-     * @see https://openid.net/wg/fapi/ Financial API Working Group Website
-     * @see https://bitbucket.org/openid/fapi/ Financial API Working Group Repository
+     * @see https://openid.net/wg/fapi/ Financial-grade API Working Group Website
+     * @see https://bitbucket.org/openid/fapi/ Financial-grade API Working Group Repository
      */
     public static $FAPI;
+
+
+    /**
+     * Open Banking.
+     *
+     * @static
+     * @var ServiceProfile
+     *
+     * @see https://www.openbanking.org.uk/ Open Banking
+     *
+     * @since 1.7
+     */
+    public static $OPEN_BANKING;
 }
 
 
