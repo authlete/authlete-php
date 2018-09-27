@@ -63,7 +63,6 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
     private $tokenEndpoint                               = null;  // string
     private $revocationEndpoint                          = null;  // string
     private $supportedRevocationAuthMethods              = null;  // array of \Authlete\Types\ClientAuthMethod
-    private $supportedRevocationAuthSigningAlgorithms    = null;  // array of \Authlete\Types\JWSAlg
     private $userInfoEndpoint                            = null;  // string
     private $jwksUri                                     = null;  // string
     private $jwks                                        = null;  // string
@@ -86,6 +85,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
     private $accessTokenDuration                         = null;  // string or (64-bit) integer
     private $refreshTokenDuration                        = null;  // string or (64-bit) integer
     private $idTokenDuration                             = null;  // string or (64-bit) integer
+    private $authorizationResponseDuration               = null;  // string or (64-bit) integer
     private $authenticationCallbackEndpoint              = null;  // string
     private $authenticationCallbackApiKey                = null;  // string
     private $authenticationCallbackApiSecret             = null;  // string
@@ -107,13 +107,19 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
     private $directIntrospectionEndpointEnabled          = false; // boolean
     private $singleAccessTokenPerSubject                 = false; // boolean
     private $pkceRequired                                = false; // boolean
+    private $refreshTokenKept                            = false; // boolean
+    private $errorDescriptionOmitted                     = false; // boolean
+    private $errorUriOmitted                             = false; // boolean
+    private $clientIdAliasEnabled                        = false; // boolean
     private $supportedServiceProfiles                    = null;  // array of \Authlete\Types\ServiceProfile
     private $tlsClientCertificateBoundAccessTokens       = false; // boolean
-    private $mutualTlsValidatePkiCertChain               = false; // boolean
     private $introspectionEndpoint                       = null;  // string
     private $supportedIntrospectionAuthMethods           = null;  // array of \Authlete\Types\ClientAuthMethod
-    private $supportedIntrospectionAuthSigningAlgorithms = null;  // array of \Authlete\Types\JWSAlg
+    private $mutualTlsValidatePkiCertChain               = false; // boolean
     private $trustedRootCertificates                     = null;  // array of string
+    private $authorizationSignatureKeyId                 = null;  // string
+    private $idTokenSignatureKeyId                       = null;  // string
+    private $userInfoSignatureKeyId                      = null;  // string
 
 
     /**
@@ -412,50 +418,6 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
             '$methods', $methods, '\Authlete\Types\ClientAuthMethod');
 
         $this->supportedRevocationAuthMethods = $methods;
-
-        return $this;
-    }
-
-
-    /**
-     * Get JWS signing algorithms ("alg" values) supported by the revocation
-     * endpoint for the signature on the JWT used to authenticate the client
-     * at the revocation endpoint for the "private_key_jwt" and
-     * "client_secret_jwt" authentication methods.
-     *
-     * This corresponds to the `revocation_endpoint_auth_signing_alg_values_supported`
-     * metadata defined in "OAuth 2.0 Authorization Server Metadata".
-     *
-     * @return JWSAlg[]
-     *     Supported JWS signing algorithms at the revocation endpoint.
-     */
-    public function getSupportedRevocationAuthSigningAlgorithms()
-    {
-        return $this->supportedRevocationAuthSigningAlgorithms;
-    }
-
-
-    /**
-     * Set JWS signing algorithms ("alg" values) supported by the revocation
-     * endpoint for the signature on the JWT used to authenticate the client
-     * at the revocation endpoint for the "private_key_jwt" and
-     * "client_secret_jwt" authentication methods.
-     *
-     * This corresponds to the `revocation_endpoint_auth_signing_alg_values_supported`
-     * metadata defined in "OAuth 2.0 Authorization Server Metadata".
-     *
-     * @param JWSAlg[] $algorithms
-     *     Supported JWS signing algorithms at the revocation endpoint.
-     *
-     * @return Service
-     *     `$this` object.
-     */
-    public function setSupportedRevocationAuthSigningAlgorithms(array $algorithms = null)
-    {
-        ValidationUtility::ensureNullOrArrayOfType(
-            '$algorithms', $algorithms, '\Authlete\Types\JWSAlg');
-
-        $this->supportedRevocationAuthSigningAlgorithms = $algorithms;
 
         return $this;
     }
@@ -1325,6 +1287,55 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
 
 
     /**
+     * Get the duration of authorization response JWTs in seconds.
+     *
+     * [Financial-grade API: JWT Secured Authorization Response Mode for OAuth 2.0 (JARM)](https://openid.net/specs/openid-financial-api-jarm.html)
+     * defines new values for the `response_mode` request parameter. They are
+     * `query.jwt`, `fragment.jwt`, `form_post.jwt` and `jwt`. If one of them
+     * is specified as the response mode, response parameters from the
+     * authorization endpoint will be packed into a JWT. This property is used
+     * to compute the value of the `exp` claim of the JWT.
+     *
+     * @return integer|string
+     *     The duration of authorization response JWTs in seconds.
+     *
+     * @since 1.7
+     */
+    public function getAuthorizationResponseDuration()
+    {
+        return $this->authorizationResponseDuration;
+    }
+
+
+    /**
+     * Set the duration of authorization response JWTs in seconds.
+     *
+     * [Financial-grade API: JWT Secured Authorization Response Mode for OAuth 2.0 (JARM)](https://openid.net/specs/openid-financial-api-jarm.html)
+     * defines new values for the `response_mode` request parameter. They are
+     * `query.jwt`, `fragment.jwt`, `form_post.jwt` and `jwt`. If one of them
+     * is specified as the response mode, response parameters from the
+     * authorization endpoint will be packed into a JWT. This property is used
+     * to compute the value of the `exp` claim of the JWT.
+     *
+     * @param integer|string $duration
+     *     The duration of authorization response JWTs in seconds.
+     *
+     * @return Service
+     *     `$this` object.
+     *
+     * @since 1.7
+     */
+    public function setAuthorizationResponseDuration($duration)
+    {
+        ValidationUtility::ensureNullOrStringOrInteger('$duration', $duration);
+
+        $this->authorizationResponseDuration = $duration;
+
+        return $this;
+    }
+
+
+    /**
      * Get the URI of the authentication callback endpoint.
      *
      * @return string
@@ -2187,6 +2198,177 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
 
 
     /**
+     * Get the flag which indicates whether a refresh token remains valid
+     * or gets renewed after its use.
+     *
+     * @return boolean
+     *     `true` if a refresh token remains valid after its use.
+     *     `false` if a new refresh token is issued after its use.
+     *
+     * @since 1.7
+     */
+    public function isRefreshTokenKept()
+    {
+        return $this->refreshTokenKept;
+    }
+
+
+    /**
+     * Set the flag which indicates whether a refresh token remains valid
+     * or gets renewed after its use.
+     *
+     * @param boolean $kept
+     *     `true` to keep a refresh token valid after its use.
+     *     `false` to renew a refresh token after its use.
+     *
+     * @return Service
+     *     `$this` object.
+     *
+     * @since 1.7
+     */
+    public function setRefreshTokenKept($kept)
+    {
+        ValidationUtility::ensureBoolean('$kept', $kept);
+
+        $this->refreshTokenKept = $kept;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the flag which indicates whether the error_description response
+     * parameter is omitted.
+     *
+     * According to RFC 6749, authorization servers may include the
+     * `error_description` response parameter in error responses. When this
+     * property is `true`, Authlete does not embed the `error_description`
+     * response parameter in error responses.
+     *
+     * @return boolean
+     *     `true` if the `error_description` response parameter is omitted.
+     *     `false` if the `error_description` response parameter is included
+     *     in error responses from the authorization server.
+     *
+     * @since 1.7
+     */
+    public function isErrorDescriptionOmitted()
+    {
+        return $this->errorDescriptionOmitted;
+    }
+
+
+    /**
+     * Omit or embed the error_description response parameter in error
+     * responses.
+     *
+     * @param boolean $omitted
+     *     `true` to omit the error_description response parameter.
+     *     `false` to embed the parameter.
+     *
+     * @return Service
+     *     `$this` object.
+     *
+     * @since 1.7
+     */
+    public function setErrorDescriptionOmitted($omitted)
+    {
+        ValidationUtility::ensureBoolean('$omitted', $omitted);
+
+        $this->errorDescriptionOmitted = $omitted;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the flag which indicates whether the error_uri response parameter
+     * is omitted.
+     *
+     * According to RFC 6749, authorization servers may include the
+     * `error_uri` response parameter in error responses. When this property is
+     * `true`, Authlete does not embed the `error_uri` response parameter in
+     * error responses.
+     *
+     * @return boolean
+     *     `true` if the `error_uri` response parameter is omitted.
+     *     `false` if the `error_uri` response parameter is included in error
+     *     responses from the authorization server.
+     *
+     * @since 1.7
+     */
+    public function isErrorUriOmitted()
+    {
+        return $this->errorUriOmitted;
+    }
+
+
+    /**
+     * Omit or embed the error_uri response parameter in error responses.
+     *
+     * @param boolean $omitted
+     *     `true` to omit the error_uri response parameter.
+     *     `false` to embed the parameter.
+     *
+     * @return Service
+     *     `$this` object.
+     *
+     * @since 1.7
+     */
+    public function setErrorUriOmitted($omitted)
+    {
+        ValidationUtility::ensureBoolean('$omitted', $omitted);
+
+        $this->errorUriOmitted = $omitted;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the flag which indicates whether the "Client ID Alias" feature is
+     * enabled or not.
+     *
+     * @return boolean
+     *     `true` if the "Client ID Alias" feature is enabled.
+     *     `false` if the feature is disabled.
+     *
+     * @since 1.7
+     */
+    public function isClientIdAliasEnabled()
+    {
+        return $this->clientIdAliasEnabled;
+    }
+
+
+    /**
+     * Enable/disable the "Client ID Alias" feature.
+     *
+     * When a new client is created, Authlete generates a numeric value and
+     * assigns it as a client ID to the newly created client. In addition to
+     * the client ID, each client can have a client ID alias. The client ID
+     * alias is, however, recognized only when this property is `true`.
+     *
+     * @param boolean $enabled
+     *     `true` to enable the "Client ID Alias" feature.
+     *     `falses` to disable the feature.
+     *
+     * @return Service
+     *     `$this` object.
+     *
+     * @since 1.7
+     */
+    public function setClientIdAliasEnabled($enabled)
+    {
+        ValidationUtility::ensureBoolean('$enabled', $enabled);
+
+        $this->clientIdAliasEnabled = $enabled;
+
+        return $this;
+    }
+
+
+    /**
      * Get the service profiles supported by this service.
      *
      * @return ServiceProfile[]
@@ -2382,50 +2564,6 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
 
 
     /**
-     * Get JWS signing algorithms ("alg" values) supported by the introspection
-     * endpoint for the signature on the JWT used to authenticate the client
-     * at the introspection endpoint for the "private_key_jwt" and
-     * "client_secret_jwt" authentication methods.
-     *
-     * This corresponds to the `introspection_endpoint_auth_signing_alg_values_supported`
-     * metadata defined in "OAuth 2.0 Authorization Server Metadata".
-     *
-     * @return JWSAlg[]
-     *     Supported JWS signing algorithms at the introspection endpoint.
-     */
-    public function getSupportedIntrospectionAuthSigningAlgorithms()
-    {
-        return $this->supportedIntrospectionAuthSigningAlgorithms;
-    }
-
-
-    /**
-     * Set JWS signing algorithms ("alg" values) supported by the revocation
-     * endpoint for the signature on the JWT used to authenticate the client
-     * at the revocation endpoint for the "private_key_jwt" and
-     * "client_secret_jwt" authentication methods.
-     *
-     * This corresponds to the `introspection_endpoint_auth_signing_alg_values_supported`
-     * metadata defined in "OAuth 2.0 Authorization Server Metadata".
-     *
-     * @param JWSAlg[] $algorithms
-     *     Supported JWS signing algorithms at the introspection endpoint.
-     *
-     * @return Service
-     *     `$this` object.
-     */
-    public function setSupportedIntrospectionAuthSigningAlgorithms(array $algorithms = null)
-    {
-        ValidationUtility::ensureNullOrArrayOfType(
-            '$algorithms', $algorithms, '\Authlete\Types\JWSAlg');
-
-        $this->supportedIntrospectionAuthSigningAlgorithms = $algorithms;
-
-        return $this;
-    }
-
-
-    /**
      * Get trusted root certificates.
      *
      * If `isMutualTlsValidatePkiCertChain()` returns `true`, pre-registered
@@ -2467,6 +2605,174 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
 
 
     /**
+     * Get the key ID to identify a JWK used for signing authorization
+     * responses using an asymmetric key.
+     *
+     * [Financial-grade API: JWT Secured Authorization Response Mode for OAuth 2.0 (JARM)](https://openid.net/specs/openid-financial-api-jarm.html)
+     * has added new values for the `response_mode` request parameter. They are
+     * `query.jwt`, `fragment.jwt`, `form_post.jwt` and `jwt`. If one of them
+     * is used, response parameters returned from the authorization endpoint
+     * will be packed into a JWT. The JWT is always signed. For the signature
+     * of the JWT, Authlete Server has to pick up one JWK from the service's
+     * JWK Set.
+     *
+     * Authlete Server searches the JWK Set for a JWK which satisifies
+     * conditions for authorization response signature. If the number of JWK
+     * candidates which satisify the conditions is 1, there is no problem. On
+     * the other hand, if there exist multiple condidates,
+     * [Key ID](https://tools.ietf.org/html/rfc7517#section-4.5) is needed to
+     * be specified so that Authlete Server can pick up one JWK from among the
+     * JWK candidates. This property exists to specify the key ID.
+     *
+     * @return string
+     *     A key ID of a JWK. This may be `null`.
+     *
+     * @since 1.7
+     */
+    public function getAuthorizationSignatureKeyId()
+    {
+        return $this->authorizationSignatureKeyId;
+    }
+
+
+    /**
+     * Set the key ID to identify a JWK used for signing authorization
+     * responses using an asymmetric key.
+     *
+     * See the description of `getAuthorizationSignatureKeyId()` for details.
+     *
+     * @param string $keyId
+     *     A key ID of a JWK. This may be `null`.
+     *
+     * @return Service
+     *     `$this` object.
+     *
+     * @since 1.7
+     */
+    public function setAuthorizationSignatureKeyId($keyId)
+    {
+        ValidationUtility::ensureNullOrString('$keyId', $keyId);
+
+        $this->authorizationSignatureKeyId = $keyId;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the key ID to identify a JWK used for ID token signature using an
+     * asymmetric key.
+     *
+     * A JWK Set can be registered as a property of a Service. A JWK Set can
+     * contain 0 or more JWKs (See [RFC 7517](https://tools.ietf.org/html/rfc7517)
+     * for details). Authlete Server has to pick up one JWK for signature from
+     * the JWK Set when it generates an ID token and signature using an
+     * asymmetric key. Authlete Server searches the registered JWK Set for a
+     * JWK which satisifies conditions for ID token signature. If the number
+     * of JWK candidates which satisfy the conditions is 1, there is no
+     * problem. On the other hand, if there exist multiple candidates, a
+     * [Key ID](https://tools.ietf.org/html/rfc7517#section-4.5) is needed to
+     * be specified so that Authlete Server can pick up one JWK from among
+     * the JWK candidates.
+     *
+     * This `idTokenSignatureKeyId` property exists for the purpose described
+     * above. For key rotation (OpenID Connect Core 1.0,
+     * [10.1.1. Rotation of Asymmetric Signing Keys](https://openid.net/specs/openid-connect-core-1_0.html#RotateSigKeys)),
+     * this mechanism is needed.
+     *
+     * @return string
+     *     A key ID of a JWK. This may be `null`.
+     *
+     * @since 1.7
+     */
+    public function getIdTokenSignatureKeyId()
+    {
+        return $this->idTokenSignatureKeyId;
+    }
+
+
+    /**
+     * Set the key ID to identify a JWK used for ID token signature using an
+     * asymmetric key.
+     *
+     * See the description of `getIdTokenSignatureKeyId()` for details.
+     *
+     * @param string $keyId
+     *     A key ID of a JWK. This may be `null`.
+     *
+     * @return Service
+     *     `$this` object.
+     *
+     * @since 1.7
+     */
+    public function setIdTokenSignatureKeyId($keyId)
+    {
+        ValidationUtility::ensureNullOrString('$keyId', $keyId);
+
+        $this->idTokenSignatureKeyId = $keyId;
+
+        return $this;
+    }
+
+
+   /**
+     * Get the key ID to identify a JWK used for ID user info signature using
+     * an asymmetric key.
+     *
+     * A JWK Set can be registered as a property of a Service. A JWK Set can
+     * contain 0 or more JWKs (See [RFC 7517](https://tools.ietf.org/html/rfc7517)
+     * for details). Authlete Server has to pick up one JWK for signature from
+     * the JWK Set when it is required to sign user info (which is returned
+     * from [UserInfo Endpoint](http://openid.net/specs/openid-connect-core-1_0.html#UserInfo))
+     * using an asymmetric key. Authlete Server searches the registered JWK
+     * Set for a JWK which satisifies conditions for user info signature. If
+     * the number of JWK candidates which satisfy the conditions is 1, there
+     * is no problem. On the other hand, if there exist multiple candidates,
+     * a [Key ID](https://tools.ietf.org/html/rfc7517#section-4.5) is needed
+     * to be specified so that Authlete Server can pick up one JWK from among
+     * the JWK candidates.
+     *
+     * This `userInfoSignatureKeyId` property exists for the purpose described
+     * above. For key rotation (OpenID Connect Core 1.0,
+     * [10.1.1. Rotation of Asymmetric Signing Keys](https://openid.net/specs/openid-connect-core-1_0.html#RotateSigKeys)),
+     * this mechanism is needed.
+     *
+     * @return string
+     *     A key ID of a JWK. This may be `null`.
+     *
+     * @since 1.7
+     */
+    public function getUserInfoSignatureKeyId()
+    {
+        return $this->userInfoSignatureKeyId;
+    }
+
+
+    /**
+     * Set the key ID to identify a JWK used for user info signature using
+     * an asymmetric key.
+     *
+     * See the description of `getUserInfoSignatureKeyId()` for details.
+     *
+     * @param string $keyId
+     *     A key ID of a JWK. This may be `null`.
+     *
+     * @return Service
+     *     `$this` object.
+     *
+     * @since 1.7
+     */
+    public function setUserInfoSignatureKeyId($keyId)
+    {
+        ValidationUtility::ensureNullOrString('$keyId', $keyId);
+
+        $this->userInfoSignatureKeyId = $keyId;
+
+        return $this;
+    }
+
+
+    /**
      * {@inheritdoc}
      *
      * {@inheritdoc}
@@ -2484,7 +2790,6 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
         $array['tokenEndpoint']                               = $this->tokenEndpoint;
         $array['revocationEndpoint']                          = $this->revocationEndpoint;
         $array['supportedRevocationAuthMethods']              = LanguageUtility::convertArrayToStringArray($this->supportedRevocationAuthMethods);
-        $array['supportedRevocationAuthSigningAlgorithms']    = LanguageUtility::convertArrayToStringArray($this->supportedRevocationAuthSigningAlgorithms);
         $array['userInfoEndpoint']                            = $this->userInfoEndpoint;
         $array['jwksUri']                                     = $this->jwksUri;
         $array['jwks']                                        = $this->jwks;
@@ -2507,6 +2812,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
         $array['accessTokenDuration']                         = $this->accessTokenDuration;
         $array['refreshTokenDuration']                        = $this->refreshTokenDuration;
         $array['idTokenDuration']                             = $this->idTokenDuration;
+        $array['authorizationResponseDuration']               = $this->authorizationResponseDuration;
         $array['authenticationCallbackEndpoint']              = $this->authenticationCallbackEndpoint;
         $array['authenticationCallbackApiKey']                = $this->authenticationCallbackApiKey;
         $array['authenticationCallbackApiSecret']             = $this->authenticationCallbackApiSecret;
@@ -2528,13 +2834,19 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
         $array['directIntrospectionEndpointEnabled']          = $this->directIntrospectionEndpointEnabled;
         $array['singleAccessTokenPerSubject']                 = $this->singleAccessTokenPerSubject;
         $array['pkceRequired']                                = $this->pkceRequired;
+        $array['refreshTokenKept']                            = $this->refreshTokenKept;
+        $array['errorDescriptionOmitted']                     = $this->errorDescriptionOmitted;
+        $array['errorUriOmitted']                             = $this->errorUriOmitted;
+        $array['clientIdAliasEnabled']                        = $this->clientIdAliasEnabled;
         $array['supportedServiceProfiles']                    = LanguageUtility::convertArrayToStringArray($this->supportedServiceProfiles);
         $array['tlsClientCertificateBoundAccessTokens']       = $this->tlsClientCertificateBoundAccessTokens;
         $array['mutualTlsValidatePkiCertChain']               = $this->mutualTlsValidatePkiCertChain;
         $array['introspectionEndpoint']                       = $this->introspectionEndpoint;
         $array['supportedIntrospectionAuthMethods']           = LanguageUtility::convertArrayToStringArray($this->supportedIntrospectionAuthMethods);
-        $array['supportedIntrospectionAuthSigningAlgorithms'] = LanguageUtility::convertArrayToStringArray($this->supportedIntrospectionAuthSigningAlgorithms);
         $array['trustedRootCertificates']                     = $this->trustedRootCertificates;
+        $array['authorizationSignatureKeyId']                 = $this->authorizationSignatureKeyId;
+        $array['idTokenSignatureKeyId']                       = $this->idTokenSignatureKeyId;
+        $array['userInfoSignatureKeyId']                      = $this->userInfoSignatureKeyId;
     }
 
 
@@ -2581,12 +2893,6 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
         $this->setSupportedRevocationAuthMethods(
             LanguageUtility::convertArray(
                 $supportedRevocationAuthMethods, '\Authlete\Types\ClientAuthMethod::valueOf'));
-
-        // supportedRevocationAuthSigningAlgorithms
-        $supportedRevocationAuthSigningAlgorithms = LanguageUtility::getFromArray('supportedRevocationAuthSigningAlgorithms', $array);
-        $this->setSupportedRevocationAuthSigningAlgorithms(
-            LanguageUtility::convertArray(
-                $supportedRevocationAuthSigningAlgorithms, '\Authlete\Types\JWSAlg::valueOf'));
 
         // userInfoEndpoint
         $this->setUserInfoEndpoint(
@@ -2688,6 +2994,10 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
         $this->setIdTokenDuration(
             LanguageUtility::getFromArray('idTokenDuration', $array));
 
+        // authorizationResponseDuration
+        $this->setAuthorizationResponseDuration(
+            LanguageUtility::getFromArray('authorizationResponseDuration', $array));
+
         // authenticationCallbackEndpoint
         $this->setAuthenticationCallbackEndpoint(
             LanguageUtility::getFromArray('authenticationCallbackEndpoint', $array));
@@ -2781,6 +3091,22 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
         $this->setPkceRequired(
             LanguageUtility::getFromArrayAsBoolean('pkceRequired', $array));
 
+        // refreshTokenKept
+        $this->setRefreshTokenKept(
+            LanguageUtility::getFromArrayAsBoolean('refreshTokenKept', $array));
+
+        // errorDescriptionOmitted
+        $this->setErrorDescriptionOmitted(
+            LanguageUtility::getFromArrayAsBoolean('errorDescriptionOmitted', $array));
+
+        // errorUriOmitted
+        $this->setErrorUriOmitted(
+            LanguageUtility::getFromArrayAsBoolean('errorUriOmitted', $array));
+
+        // clientIdAliasEnabled
+        $this->setClientIdAliasEnabled(
+            LanguageUtility::getFromArrayAsBoolean('clientIdAliasEnabled', $array));
+
         // supportedServiceProfiles
         $supportedServiceProfiles = LanguageUtility::getFromArray('supportedServiceProfiles', $array);
         $this->setSupportedServiceProfiles(
@@ -2805,14 +3131,20 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
             LanguageUtility::convertArray(
                 $supportedIntrospectionAuthMethods, '\Authlete\Types\ClientAuthMethod::valueOf'));
 
-        // supportedIntrospectionAuthSigningAlgorithms
-        $supportedIntrospectionAuthSigningAlgorithms = LanguageUtility::getFromArray('supportedIntrospectionAuthSigningAlgorithms', $array);
-        $this->setSupportedIntrospectionAuthSigningAlgorithms(
-            LanguageUtility::convertArray(
-                $supportedIntrospectionAuthSigningAlgorithms, '\Authlete\Types\JWSAlg::valueOf'));
-
         // trustedRootCertificates
         $this->setTrustedRootCertificates(
             LanguageUtility::getFromArray('trustedRootCertificates', $array));
+
+        // authorizationSignatureKeyId
+        $this->setAuthorizationSignatureKeyId(
+            LanguageUtility::getFromArray('authorizationSignatureKeyId', $array));
+
+        // idTokenSignatureKeyId
+        $this->setIdTokenSignatureKeyId(
+            LanguageUtility::getFromArray('idTokenSignatureKeyId', $array));
+
+        // userInfoSignatureKeyId
+        $this->setUserInfoSignatureKeyId(
+            LanguageUtility::getFromArray('userInfoSignatureKeyId', $array));
     }
 }

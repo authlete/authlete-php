@@ -310,58 +310,6 @@ class ServiceTest extends TestCase
     }
 
 
-    public function testSupportedRevocationAuthSigningAlgorithmsValidValue()
-    {
-        $obj = new Service();
-
-        $array = array(
-            JWSAlg::$HS256,
-            JWSAlg::$ES256
-        );
-        $obj->setSupportedRevocationAuthSigningAlgorithms($array);
-
-        $algs = $obj->getSupportedRevocationAuthSigningAlgorithms();
-
-        $this->assertTrue(is_array($algs));
-        $this->assertCount(2, $algs);
-        $this->assertSame(JWSAlg::$HS256, $algs[0]);
-        $this->assertSame(JWSAlg::$ES256, $algs[1]);
-    }
-
-
-    public function testSupportedRevocationAuthSigningAlgorithmsValidNull()
-    {
-        $obj = new Service();
-        $obj->setSupportedRevocationAuthSigningAlgorithms(null);
-
-        $this->assertNull($obj->getSupportedRevocationAuthSigningAlgorithms());
-    }
-
-
-    /**
-     * @expectedException Error
-     */
-    public function testSupportedRevocationAuthSigningAlgorithmsInvalidType()
-    {
-        $obj = new Service();
-
-        $invalid = '__INVALID__';
-        $obj->setSupportedRevocationAuthSigningAlgorithms($invalid);
-    }
-
-
-    /**
-     * @expectedException InvalidArgumentException
-     */
-    public function testSupportedRevocationAuthSigningAlgorithmsInvalidElement()
-    {
-        $obj = new Service();
-
-        $invalid = array('__INVALID__');
-        $obj->setSupportedRevocationAuthSigningAlgorithms($invalid);
-    }
-
-
     public function testUserInfoEndpointValidValue()
     {
         $obj = new Service();
@@ -897,61 +845,6 @@ class ServiceTest extends TestCase
     }
 
 
-    public function testFromJsonSupportedRevocationAuthSigningAlgorithmsValidValue()
-    {
-        $json = '{"supportedRevocationAuthSigningAlgorithms":["HS256","ES256"]}';
-        $obj  = Service::fromJson($json);
-
-        $algs = $obj->getSupportedRevocationAuthSigningAlgorithms();
-
-        $this->assertTrue(is_array($algs));
-        $this->assertCount(2, $algs);
-        $this->assertEquals(JWSAlg::$HS256, $algs[0]);
-        $this->assertEquals(JWSAlg::$ES256, $algs[1]);
-    }
-
-
-    public function testFromJsonSupportedRevocationAuthSigningAlgorithmsValidNull()
-    {
-        $json = '{"supportedRevocationAuthSigningAlgorithms":null}';
-        $obj  = Service::fromJson($json);
-
-        $this->assertNull($obj->getSupportedRevocationAuthSigningAlgorithms());
-    }
-
-
-    /** @expectedException Error */
-    public function testFromJsonSupportedRevocationAuthSigningAlgorithmsInvalidBool()
-    {
-        $json = '{"supportedRevocationAuthSigningAlgorithms":true}';
-        $obj  = Service::fromJson($json);
-    }
-
-
-    /** @expectedException Error */
-    public function testFromJsonSupportedRevocationAuthSigningAlgorithmsInvalidNumber()
-    {
-        $json = '{"supportedRevocationAuthSigningAlgorithms":123}';
-        $obj  = Service::fromJson($json);
-    }
-
-
-    /** @expectedException Error */
-    public function testFromJsonSupportedRevocationAuthSigningAlgorithmsInvalidString()
-    {
-        $json = '{"supportedRevocationAuthSigningAlgorithms":"__INVALID__"}';
-        $obj  = Service::fromJson($json);
-    }
-
-
-    /** @expectedException InvalidArgumentException */
-    public function testFromJsonSupportedRevocationAuthSigningAlgorithmsInvalidElement()
-    {
-        $json = '{"supportedRevocationAuthSigningAlgorithms":["__INVALID__"]}';
-        $obj  = Service::fromJson($json);
-    }
-
-
     public function testFromJsonUserInfoEndpointValidValue()
     {
         $json = '{"userInfoEndpoint":"endpoint"}';
@@ -1168,12 +1061,6 @@ class ServiceTest extends TestCase
                     ClientAuthMethod::$CLIENT_SECRET_JWT
                 )
             )
-            ->setSupportedRevocationAuthSigningAlgorithms(
-                array(
-                    JWSAlg::$HS256,
-                    JWSAlg::$ES256
-                )
-            )
             ->setUserInfoEndpoint('_userinfo_endpoint_')
             ->setJwksUri('_jwks_uri_')
             ->setJwks('_jwks_')
@@ -1246,6 +1133,7 @@ class ServiceTest extends TestCase
             ->setAccessTokenDuration(1234)
             ->setRefreshTokenDuration(5678)
             ->setIdTokenDuration(9012)
+            ->setAuthorizationResponseDuration(1111)
             ->setAuthenticationCallbackEndpoint('_authentication_callback_endpoint_')
             ->setAuthenticationCallbackApiKey('_authentication_callback_api_key_')
             ->setAuthenticationCallbackApiSecret('_authentication_callback_api_secret_')
@@ -1289,9 +1177,14 @@ class ServiceTest extends TestCase
             ->setDirectIntrospectionEndpointEnabled(true)
             ->setSingleAccessTokenPerSubject(true)
             ->setPkceRequired(true)
+            ->setRefreshTokenKept(true)
+            ->setErrorDescriptionOmitted(true)
+            ->setErrorUriOmitted(true)
+            ->setClientIdAliasEnabled(true)
             ->setSupportedServiceProfiles(
                 array(
-                    ServiceProfile::$FAPI
+                    ServiceProfile::$FAPI,
+                    ServiceProfile::$OPEN_BANKING
                 )
             )
             ->setTlsClientCertificateBoundAccessTokens(true)
@@ -1303,18 +1196,15 @@ class ServiceTest extends TestCase
                     ClientAuthMethod::$SELF_SIGNED_TLS_CLIENT_AUTH
                 )
             )
-            ->setSupportedIntrospectionAuthSigningAlgorithms(
-                array(
-                    JWSAlg::$HS384,
-                    JWSAlg::$ES384
-                )
-            )
             ->setTrustedRootCertificates(
                 array(
                     "root-certificate-0",
                     "root-certificate-1"
                 )
             )
+            ->setAuthorizationSignatureKeyId('authorization_signature_key_id')
+            ->setIdTokenSignatureKeyId('id_token_signature_key_id')
+            ->setUserInfoSignatureKeyId('userinfo_signature_key_id')
             ;
 
         $json  = $obj->toJson();
@@ -1356,15 +1246,6 @@ class ServiceTest extends TestCase
         $this->assertCount(2, $revocationAuthMethods);
         $this->assertEquals('CLIENT_SECRET_POST', $revocationAuthMethods[0]);
         $this->assertEquals('CLIENT_SECRET_JWT',  $revocationAuthMethods[1]);
-
-        // supportedRevocationAuthSigningAlgorithms
-        $this->assertArrayHasKey('supportedRevocationAuthSigningAlgorithms', $array);
-        $revocationAuthSigningAlgorithms = $array['supportedRevocationAuthSigningAlgorithms'];
-
-        $this->assertTrue(is_array($revocationAuthSigningAlgorithms));
-        $this->assertCount(2, $revocationAuthSigningAlgorithms);
-        $this->assertEquals('HS256', $revocationAuthSigningAlgorithms[0]);
-        $this->assertEquals('ES256', $revocationAuthSigningAlgorithms[1]);
 
         // userInfoEndpoint
         $this->assertArrayHasKey('userInfoEndpoint', $array);
@@ -1512,6 +1393,10 @@ class ServiceTest extends TestCase
         $this->assertArrayHasKey('idTokenDuration', $array);
         $this->assertEquals(9012, $array['idTokenDuration']);
 
+        // authorizationResponseDuration
+        $this->assertArrayHasKey('authorizationResponseDuration', $array);
+        $this->assertEquals(1111, $array['authorizationResponseDuration']);
+
         // authenticationCallbackEndpoint
         $this->assertArrayHasKey('authenticationCallbackEndpoint', $array);
         $this->assertEquals('_authentication_callback_endpoint_', $array['authenticationCallbackEndpoint']);
@@ -1628,13 +1513,30 @@ class ServiceTest extends TestCase
         $this->assertArrayHasKey('pkceRequired', $array);
         $this->assertTrue($array['pkceRequired']);
 
+        // refreshTokenKept
+        $this->assertArrayHasKey('refreshTokenKept', $array);
+        $this->assertTrue($array['refreshTokenKept']);
+
+        // errorDescriptionOmitted
+        $this->assertArrayHasKey('errorDescriptionOmitted', $array);
+        $this->assertTrue($array['errorDescriptionOmitted']);
+
+        // errorUriOmitted
+        $this->assertArrayHasKey('errorUriOmitted', $array);
+        $this->assertTrue($array['errorUriOmitted']);
+
+        // clientIdAliasEnabled
+        $this->assertArrayHasKey('clientIdAliasEnabled', $array);
+        $this->assertTrue($array['clientIdAliasEnabled']);
+
         // supportedServiceProfiles
         $this->assertArrayHasKey('supportedServiceProfiles', $array);
         $serviceProfiles = $array['supportedServiceProfiles'];
 
         $this->assertTrue(is_array($serviceProfiles));
-        $this->assertCount(1, $serviceProfiles);
+        $this->assertCount(2, $serviceProfiles);
         $this->assertEquals('FAPI', $serviceProfiles[0]);
+        $this->assertEquals('OPEN_BANKING', $serviceProfiles[1]);
 
         // tlsClientCertificateBoundAccessTokens
         $this->assertArrayHasKey('tlsClientCertificateBoundAccessTokens', $array);
@@ -1657,15 +1559,6 @@ class ServiceTest extends TestCase
         $this->assertEquals('TLS_CLIENT_AUTH',             $introspectionAuthMethods[0]);
         $this->assertEquals('SELF_SIGNED_TLS_CLIENT_AUTH', $introspectionAuthMethods[1]);
 
-        // supportedIntrospectionAuthSigningAlgorithms
-        $this->assertArrayHasKey('supportedIntrospectionAuthSigningAlgorithms', $array);
-        $introspectionAuthSigningAlgorithms = $array['supportedIntrospectionAuthSigningAlgorithms'];
-
-        $this->assertTrue(is_array($introspectionAuthSigningAlgorithms));
-        $this->assertCount(2, $introspectionAuthSigningAlgorithms);
-        $this->assertEquals('HS384', $introspectionAuthSigningAlgorithms[0]);
-        $this->assertEquals('ES384', $introspectionAuthSigningAlgorithms[1]);
-
         // trustedRootCertificates
         $this->assertArrayHasKey('trustedRootCertificates', $array);
         $rootCertificates = $array['trustedRootCertificates'];
@@ -1674,6 +1567,18 @@ class ServiceTest extends TestCase
         $this->assertCount(2, $rootCertificates);
         $this->assertEquals('root-certificate-0', $rootCertificates[0]);
         $this->assertEquals('root-certificate-1', $rootCertificates[1]);
+
+        // authorizationSignatureKeyId
+        $this->assertArrayHasKey('authorizationSignatureKeyId', $array);
+        $this->assertEquals('authorization_signature_key_id', $array['authorizationSignatureKeyId']);
+
+        // idTokenSignatureKeyId
+        $this->assertArrayHasKey('idTokenSignatureKeyId', $array);
+        $this->assertEquals('id_token_signature_key_id', $array['idTokenSignatureKeyId']);
+
+        // userInfoSignatureKeyId
+        $this->assertArrayHasKey('userInfoSignatureKeyId', $array);
+        $this->assertEquals('userinfo_signature_key_id', $array['userInfoSignatureKeyId']);
     }
 }
 ?>
