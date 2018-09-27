@@ -105,6 +105,11 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
     private $tlsClientAuthSubjectDn = null;  // string
     private $tlsClientCertificateBoundAccessTokens = false; // boolean
     private $selfSignedCertificateKeyId            = null;  // string
+    private $softwareId                            = null;  // string
+    private $softwareVersion                       = null;  // string
+    private $authorizationSignAlg                  = null;  // \Authlete\Types\JWSAlg
+    private $authorizationEncryptionAlg            = null;  // \Authlete\Types\JWEAlg
+    private $authorizationEncryptionEnc            = null;  // \Authlete\Types\JWEEnc
 
 
     /**
@@ -1949,6 +1954,225 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
 
 
     /**
+     * Get the unique identifier string assigned by the client developer or
+     * software publisher used by registration endpoints to identify the client
+     * software to be dynamically registered.
+     *
+     * This property corresponds to the `software_id` metadata defined in
+     * [2. Client Metadata](https://tools.ietf.org/html/rfc7591#section-2) of
+     * [RFC 7591](https://tools.ietf.org/html/rfc7591) (OAuth 2.0 Dynamic
+     * Client Registration Protocol).
+     *
+     * @return Client
+     *     The unique identifier of the client software.
+     *
+     * @since 1.7
+     */
+    public function getSoftwareId()
+    {
+        return $this->softwareId;
+    }
+
+
+    /**
+     * Set the unique identifier string assigned by the client developer or
+     * software publisher used by registration endpoints to identify the client
+     * software to be dynamically registered.
+     *
+     * This property corresponds to the `software_id` metadata defined in
+     * [2. Client Metadata](https://tools.ietf.org/html/rfc7591#section-2) of
+     * [RFC 7591](https://tools.ietf.org/html/rfc7591) (OAuth 2.0 Dynamic
+     * Client Registration Protocol).
+     *
+     * @param string $softwareId
+     *     The unique identifier of the client software.
+     *
+     * @return Client
+     *     `$this` object.
+     *
+     * @since 1.7
+     */
+    public function setSoftwareId($softwareId)
+    {
+        ValidationUtility::ensureNullOrString('$softwareId', $softwareId);
+
+        $this->softwareId = $softwareId;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the version identifier string for the client software identified by
+     * the software ID.
+     *
+     * This property corresponds to the `software_version` metadata defined in
+     * [2. Client Metadata](https://tools.ietf.org/html/rfc7591#section-2) of
+     * [RFC 7591](https://tools.ietf.org/html/rfc7591) (OAuth 2.0 Dynamic
+     * Client Registration Protocol).
+     *
+     * @return string
+     *     The version of the client software.
+     *
+     * @since 1.7
+     */
+    public function getSoftwareVersion()
+    {
+        return $this->softwareVersion;
+    }
+
+
+    /**
+     * Set the version identifier string for the client software identified by
+     * the software ID.
+     *
+     * This property corresponds to the `software_version` metadata defined in
+     * [2. Client Metadata](https://tools.ietf.org/html/rfc7591#section-2) of
+     * [RFC 7591](https://tools.ietf.org/html/rfc7591) (OAuth 2.0 Dynamic
+     * Client Registration Protocol).
+     *
+     * @param string $version
+     *     The version of the client software.
+     *
+     * @return Client
+     *     `$this` object.
+     *
+     * @since 1.7
+     */
+    public function setSoftwareVersion($version)
+    {
+        ValidationUtility::ensureNullOrString('$version', $version);
+
+        $this->softwareVersion = $version;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the JWS "alg" algorithm for signing authorization responses.
+     *
+     * This corresponds to the `authorization_signed_response_alg` in
+     * [5. Client Metadata](https://openid.net/specs/openid-financial-api-jarm.html#client-metadata)
+     * of [Financial-grade API: JWT Secured Authorization Response Mode for OAuth 2.0 (JARM)](https://openid.net/specs/openid-financial-api-jarm.html).
+     *
+     * @return JWSAlg
+     *     The JWS "alg" algorithm for signing authorization responses.
+     *
+     * @since 1.7
+     */
+    public function getAuthorizationSignAlg()
+    {
+        return $this->authorizationSignAlg;
+    }
+
+
+    /**
+     * Set the JWS "alg" algorithm for signing authorization responses.
+     *
+     * This corresponds to the `authorization_signed_response_alg` in
+     * [5. Client Metadata](https://openid.net/specs/openid-financial-api-jarm.html#client-metadata)
+     * of [Financial-grade API: JWT Secured Authorization Response Mode for OAuth 2.0 (JARM)](https://openid.net/specs/openid-financial-api-jarm.html).
+     *
+     * @param JWSAlg $alg
+     *     The JWS "alg" algorithm for signing authorization responses.
+     *
+     * @return Client
+     *     `$this` object.
+     *
+     * @since 1.7
+     */
+    public function setAuthorizationSignAlg(JWSAlg $alg = null)
+    {
+        $this->authorizationSignAlg = $alg;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the JWE "alg" algorithm for encrypting authorization responses.
+     *
+     * This corresponds to the `authorization_encrypted_response_alg` in
+     * [5. Client Metadata](https://openid.net/specs/openid-financial-api-jarm.html#client-metadata)
+     * of [Financial-grade API: JWT Secured Authorization Response Mode for OAuth 2.0 (JARM)](https://openid.net/specs/openid-financial-api-jarm.html).
+     *
+     * @return JWEAlg
+     *     The JWE "alg" algorithm for encrypting authorization responses.
+     *
+     * @since 1.7
+     */
+    public function getAuthorizationEncryptionAlg()
+    {
+        return $this->authorizationEncryptionAlg;
+    }
+
+
+    /**
+     * Set the JWE "alg" algorithm for encrypting authorization responses.
+     *
+     * This corresponds to the `authorization_encrypted_response_alg` in
+     * [5. Client Metadata](https://openid.net/specs/openid-financial-api-jarm.html#client-metadata)
+     * of [Financial-grade API: JWT Secured Authorization Response Mode for OAuth 2.0 (JARM)](https://openid.net/specs/openid-financial-api-jarm.html).
+     *
+     * @param JWEAlg $alg
+     *     The JWE "alg" algorithm for encrypting authorization responses.
+     *
+     * @return Client
+     *     `$this` object.
+     *
+     * @since 1.7
+     */
+    public function setAuthorizationEncryptionAlg(JWEAlg $alg = null)
+    {
+        $this->authorizationEncryptionAlg = $alg;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the JWE "enc" algorithm for encrypting authorization responses.
+     *
+     * This corresponds to the `authorization_encrypted_response_enc` in
+     * [5. Client Metadata](https://openid.net/specs/openid-financial-api-jarm.html#client-metadata)
+     * of [Financial-grade API: JWT Secured Authorization Response Mode for OAuth 2.0 (JARM)](https://openid.net/specs/openid-financial-api-jarm.html).
+     *
+     * @return JWEEnc
+     *     The JWE "enc" algorithm for encrypting authorization responses.
+     *
+     * @since 1.7
+     */
+    public function getAuthorizationEncryptionEnc()
+    {
+        return $this->authorizationEncryptionEnc;
+    }
+
+
+    /**
+     * Set the JWE "enc" algorithm for encrypting authorization responses.
+     *
+     * This corresponds to the `authorization_encrypted_response_enc` in
+     * [5. Client Metadata](https://openid.net/specs/openid-financial-api-jarm.html#client-metadata)
+     * of [Financial-grade API: JWT Secured Authorization Response Mode for OAuth 2.0 (JARM)](https://openid.net/specs/openid-financial-api-jarm.html).
+     *
+     * @param JWEEnc $enc
+     *     The JWE "enc" algorithm for encrypting authorization responses.
+     *
+     * @return Client
+     *     `$this` object.
+     *
+     * @since 1.7
+     */
+    public function setAuthorizationEncryptionEnc(JWEEnc $enc = null)
+    {
+        $this->authorizationEncryptionEnc = $enc;
+
+        return $this;
+    }
+
+
+    /**
      * {@inheritdoc}
      *
      * {@inheritdoc}
@@ -2007,6 +2231,11 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
         $array['tlsClientAuthSubjectDn'] = $this->tlsClientAuthSubjectDn;
         $array['tlsClientCertificateBoundAccessTokens'] = $this->tlsClientCertificateBoundAccessTokens;
         $array['selfSignedCertificateKeyId']            = $this->selfSignedCertificateKeyId;
+        $array['softwareId']                            = $this->softwareId;
+        $array['softwareVersion']                       = $this->softwareVersion;
+        $array['authorizationSignAlg']                  = LanguageUtility::toString($this->authorizationSignAlg);
+        $array['authorizationEncryptionAlg']            = LanguageUtility::toString($this->authorizationEncryptionAlg);
+        $array['authorizationEncryptionEnc']            = LanguageUtility::toString($this->authorizationEncryptionEnc);
     }
 
 
@@ -2247,6 +2476,29 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
         // selfSignedCertificateKeyId
         $this->setSelfSignedCertificateKeyId(
             LanguageUtility::getFromArray('selfSignedCertificateKeyId', $array));
+
+        // softwareId
+        $this->setSoftwareId(
+            LanguageUtility::getFromArray('softwareId', $array));
+
+        // softwareVersion
+        $this->setSoftwareVersion(
+            LanguageUtility::getFromArray('softwareVersion', $array));
+
+        // authorizationSignAlg
+        $this->setAuthorizationSignAlg(
+            JWSAlg::valueOf(
+                LanguageUtility::getFromArray('authorizationSignAlg', $array)));
+
+        // authorizationEncryptionAlg
+        $this->setAuthorizationEncryptionAlg(
+            JWEAlg::valueOf(
+                LanguageUtility::getFromArray('authorizationEncryptionAlg', $array)));
+
+        // authorizationEncryptionEnc
+        $this->setAuthorizationEncryptionEnc(
+            JWEEnc::valueOf(
+                LanguageUtility::getFromArray('authorizationEncryptionEnc', $array)));
     }
 }
 

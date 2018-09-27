@@ -144,28 +144,28 @@
                                 <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-982535193"></a>
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-877206079"></a>
                                 <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
             </div>
-            <div id="namespace-982535193" class="accordion-body collapse in">
+            <div id="namespace-877206079" class="accordion-body collapse in">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-768666254"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1053305355"></a>
                                 <a href="../namespaces/Authlete.html" style="margin-left: 30px; padding-left: 0">Authlete</a>
             </div>
-            <div id="namespace-768666254" class="accordion-body collapse ">
+            <div id="namespace-1053305355" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1042005333"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1952241356"></a>
                                 <a href="../namespaces/Authlete.Api.html" style="margin-left: 30px; padding-left: 0">Api</a>
             </div>
-            <div id="namespace-1042005333" class="accordion-body collapse ">
+            <div id="namespace-1952241356" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -184,10 +184,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1315799876"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1912860094"></a>
                                 <a href="../namespaces/Authlete.Conf.html" style="margin-left: 30px; padding-left: 0">Conf</a>
             </div>
-            <div id="namespace-1315799876" class="accordion-body collapse ">
+            <div id="namespace-1912860094" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -206,10 +206,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1024063823"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-989363852"></a>
                                 <a href="../namespaces/Authlete.Dto.html" style="margin-left: 30px; padding-left: 0">Dto</a>
             </div>
-            <div id="namespace-1024063823" class="accordion-body collapse ">
+            <div id="namespace-989363852" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -286,10 +286,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1017917807"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-671398127"></a>
                                 <a href="../namespaces/Authlete.Types.html" style="margin-left: 30px; padding-left: 0">Types</a>
             </div>
-            <div id="namespace-1017917807" class="accordion-body collapse ">
+            <div id="namespace-671398127" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -323,10 +323,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1276992789"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1578207490"></a>
                                 <a href="../namespaces/Authlete.Util.html" style="margin-left: 30px; padding-left: 0">Util</a>
             </div>
-            <div id="namespace-1276992789" class="accordion-body collapse ">
+            <div id="namespace-1578207490" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -345,10 +345,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-589505131"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1341859117"></a>
                                 <a href="../namespaces/Authlete.Web.html" style="margin-left: 30px; padding-left: 0">Web</a>
             </div>
-            <div id="namespace-589505131" class="accordion-body collapse ">
+            <div id="namespace-1341859117" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -710,6 +710,11 @@ and (2) that claim names may be followed by a language tag
 Read the specification of <a href="https://openid.net/specs/openid-connect-core-1_0.html">OpenID Connect Core 1.0</a>
 for details.</p>
 <p>The claim values in this parameter will be embedded in an ID token.</p>
+<p><code>getIdTokenClaims()</code> is available since version 1.7. The method
+returns the value of the <code>id_token</code> property in the <code>claims</code>
+request parameter or in the <code>claims</code> property in a request object.
+The value returned from the method should be considered when you
+prepare claim values. See the description of the method for details.</p>
 </li>
 <li>
 <p><code>properties</code> (optional): Extra properties to be associated with an
@@ -1011,6 +1016,12 @@ description for the case of <code>action=NO_INTERACTION</code>.</p>
                                                                     <a href="../classes/Authlete.Dto.AuthorizationResponse.html#method_setLoginHint" class="">setLoginHint()</a><br />
                                                                     <a href="../classes/Authlete.Dto.AuthorizationResponse.html#method_getPrompts" class="">getPrompts()</a><br />
                                                                     <a href="../classes/Authlete.Dto.AuthorizationResponse.html#method_setPrompts" class="">setPrompts()</a><br />
+                                                                    <a href="../classes/Authlete.Dto.AuthorizationResponse.html#method_getRequestObjectPayload" class="">getRequestObjectPayload()</a><br />
+                                                                    <a href="../classes/Authlete.Dto.AuthorizationResponse.html#method_setRequestObjectPayload" class="">setRequestObjectPayload()</a><br />
+                                                                    <a href="../classes/Authlete.Dto.AuthorizationResponse.html#method_getIdTokenClaims" class="">getIdTokenClaims()</a><br />
+                                                                    <a href="../classes/Authlete.Dto.AuthorizationResponse.html#method_setIdTokenClaims" class="">setIdTokenClaims()</a><br />
+                                                                    <a href="../classes/Authlete.Dto.AuthorizationResponse.html#method_getUserInfoClaims" class="">getUserInfoClaims()</a><br />
+                                                                    <a href="../classes/Authlete.Dto.AuthorizationResponse.html#method_setUserInfoClaims" class="">setUserInfoClaims()</a><br />
                                                                     <a href="../classes/Authlete.Dto.AuthorizationResponse.html#method_getResponseContent" class="">getResponseContent()</a><br />
                                                                     <a href="../classes/Authlete.Dto.AuthorizationResponse.html#method_setResponseContent" class="">setResponseContent()</a><br />
                                                                     <a href="../classes/Authlete.Dto.AuthorizationResponse.html#method_getTicket" class="">getTicket()</a><br />
@@ -2536,6 +2547,333 @@ of <a href="https://openid.net/specs/openid-connect-core-1_0.html">OpenID Connec
 
                                     <div class="row-fluid">
         <div class="span8 content class">
+            <a id="method_getRequestObjectPayload" name="method_getRequestObjectPayload" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getRequestObjectPayload()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getRequestObjectPayload() : string</pre>
+                <p><em>Get the payload part of the request object.</em></p>
+                <p>This method returns <code>null</code> if the authorization request does not
+include a request object.</p>
+
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>The payload part of the request object in JSON format.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            since
+                        </th>
+                        <td>
+                                                            1.7                                
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setRequestObjectPayload" name="method_setRequestObjectPayload" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setRequestObjectPayload()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setRequestObjectPayload(string  <span class="argument">$payload</span>) : \Authlete\Dto\AuthorizationResponse</pre>
+                <p><em>Set the payload part of the request object.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$payload </td>
+                                <td><p>The payload part of the request object.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Authlete.Dto.AuthorizationResponse.html">\Authlete\Dto\AuthorizationResponse</a>
+                                            &mdash; <p><code>$this</code> object.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            since
+                        </th>
+                        <td>
+                                                            1.7                                
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getIdTokenClaims" name="method_getIdTokenClaims" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getIdTokenClaims()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getIdTokenClaims() : string</pre>
+                <p><em>Get the value of the &quot;id_token&quot; property in the &quot;claims&quot; request
+parameter or in the &quot;claims&quot; property in a request object.</em></p>
+                <p>A client application may request certain claims be embedded in an
+ID token or in a response from the UserInfo endpoint. There are
+several ways. Including the <code>claims</code> request parameter and including
+the <code>claims</code> property in a request object are such examples. In both
+the cases, the value of the <code>claims</code> parameter/property is JSON. Its
+format is described in
+<a href="https://openid.net/specs/openid-connect-core-1_0.html#ClaimsParameter">5.5. Requesting Claims using the &quot;claims&quot; Request Parameter</a>
+of
+<a href="https://openid.net/specs/openid-connect-core-1_0.html">OpenID Connect Core 1.0</a>.</p>
+<p>The following is an excerpt from the specification. You can find
+<code>userinfo</code> and <code>id_token</code> are top-level properties.</p>
+<pre><code>{
+ "userinfo":
+  {
+   "given_name": {"essential": true},
+   "nickname": null,
+   "email": {"essential": true},
+   "email_verified": {"essential": true},
+   "picture": null,
+   "http://example.info/claims/groups": null
+  },
+ "id_token":
+  {
+   "auth_time": {"essential": true},
+   "acr": {"values": ["urn:mace:incommon:iap:silver"] }
+  }
+}</code></pre>
+<p>This method (<code>getIdTokenClaims</code>) returns the value of the <code>id_token</code>
+property in JSON format. For example, if the JSON above is included
+in an authorization request, this method returns JSON equivalent to
+the following.</p>
+<pre><code>{
+ "auth_time": {"essential": true},
+ "acr": {"values": ["urn:mace:incommon:iap:silver"] }
+}</code></pre>
+<p>Note that if a request object is given and it contains the <code>claims</code>
+property and if the <code>claims</code> request parameter is also given, this
+method returns the value in the former.</p>
+
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>The value of the <code>id_token</code> property in the <code>claims</code> in JSON
+format.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            since
+                        </th>
+                        <td>
+                                                            1.7                                
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setIdTokenClaims" name="method_setIdTokenClaims" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setIdTokenClaims()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setIdTokenClaims(string  <span class="argument">$claims</span>) : \Authlete\Dto\AuthorizationResponse</pre>
+                <p><em>Set the value of the `id_token` property in the `claims` request
+parameter or in the `claims` property in a request object.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$claims </td>
+                                <td><p>The value of the <code>id_token</code> property in the <code>claims</code> in JSON
+format.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Authlete.Dto.AuthorizationResponse.html">\Authlete\Dto\AuthorizationResponse</a>
+                                            &mdash; <p><code>$this</code> object.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            since
+                        </th>
+                        <td>
+                                                            1.7                                
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getUserInfoClaims" name="method_getUserInfoClaims" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getUserInfoClaims()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getUserInfoClaims() : string</pre>
+                <p><em>Get the value of the &quot;userinfo&quot; property in the &quot;claims&quot; request
+parameter or in the &quot;claims&quot; property in a request object.</em></p>
+                <p>A client application may request certain claims be embedded in an
+ID token or in a response from the UserInfo endpoint. There are
+several ways. Including the <code>claims</code> request parameter and including
+the <code>claims</code> property in a request object are such examples. In both
+the cases, the value of the <code>claims</code> parameter/property is JSON. Its
+format is described in
+<a href="https://openid.net/specs/openid-connect-core-1_0.html#ClaimsParameter">5.5. Requesting Claims using the &quot;claims&quot; Request Parameter</a>
+of
+<a href="https://openid.net/specs/openid-connect-core-1_0.html">OpenID Connect Core 1.0</a>.</p>
+<p>The following is an excerpt from the specification. You can find
+<code>userinfo</code> and <code>id_token</code> are top-level properties.</p>
+<pre><code>{
+ "userinfo":
+  {
+   "given_name": {"essential": true},
+   "nickname": null,
+   "email": {"essential": true},
+   "email_verified": {"essential": true},
+   "picture": null,
+   "http://example.info/claims/groups": null
+  },
+ "id_token":
+  {
+   "auth_time": {"essential": true},
+   "acr": {"values": ["urn:mace:incommon:iap:silver"] }
+  }
+}</code></pre>
+<p>This method (<code>getUserInfoClaims</code>) returns the value of the <code>userinfo</code>
+property in JSON format. For example, if the JSON above is included
+in an authorization request, this method returns JSON equivalent to
+the following.</p>
+<pre><code>{
+ "given_name": {"essential": true},
+ "nickname": null,
+ "email": {"essential": true},
+ "email_verified": {"essential": true},
+ "picture": null,
+ "http://example.info/claims/groups": null
+}</code></pre>
+<p>Note that if a request object is given and it contains the <code>claims</code>
+property and if the <code>claims</code> request parameter is also given, this
+method returns the value in the former.</p>
+
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>The value of the <code>userinfo</code> property in the <code>claims</code> in JSON
+format.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            since
+                        </th>
+                        <td>
+                                                            1.7                                
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setUserInfoClaims" name="method_setUserInfoClaims" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setUserInfoClaims()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setUserInfoClaims(string  <span class="argument">$claims</span>) : \Authlete\Dto\AuthorizationResponse</pre>
+                <p><em>Set the value of the `userinfo` property in the `claims` request
+parameter or in the `claims` property in a request object.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$claims </td>
+                                <td><p>The value of the <code>userinfo</code> property in the <code>claims</code> in JSON
+format.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Authlete.Dto.AuthorizationResponse.html">\Authlete\Dto\AuthorizationResponse</a>
+                                            &mdash; <p><code>$this</code> object.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            since
+                        </th>
+                        <td>
+                                                            1.7                                
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
             <a id="method_getResponseContent" name="method_getResponseContent" class="anchor"></a>
             <article class="method">
                 <h3 class="public ">getResponseContent()</h3>
@@ -2722,7 +3060,7 @@ to the authorization server implementation.</em></p>
                 <section class="span10 offset1">
                     <hr />
                     Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
-                    on May 18th, 2018 at 09:17.
+                    on September 27th, 2018 at 16:18.
                 </section>
             </section>
         </section>
