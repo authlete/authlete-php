@@ -62,6 +62,8 @@ class ClientTest extends TestCase
     private const MODIFIED_AT_INT            = 4000;
     private const MODIFIED_AT_STR            = '4001';
     private const TLS_CLIENT_AUTH_SUBJECT_DN = '_tls_client_auth_subject_dn_';
+    private const SOFTWARE_ID                = '_software_id_';
+    private const SOFTWARE_VERSION           = '_software_version_';
 
 
     public function testDeveloperValidValue()
@@ -4327,6 +4329,11 @@ class ClientTest extends TestCase
             ->setTlsClientAuthSubjectDn(self::TLS_CLIENT_AUTH_SUBJECT_DN)
             ->setTlsClientCertificateBoundAccessTokens(true)
             ->setSelfSignedCertificateKeyId('keyId')
+            ->setSoftwareId(self::SOFTWARE_ID)
+            ->setSoftwareVersion(self::SOFTWARE_VERSION)
+            ->setAuthorizationSignAlg(JWSAlg::$HS256)
+            ->setAuthorizationEncryptionAlg(JWEAlg::$A128KW)
+            ->setAuthorizationEncryptionEnc(JWEEnc::$A128CBC_HS256)
             ;
 
         $json  = $obj->toJson();
@@ -4672,6 +4679,26 @@ class ClientTest extends TestCase
         // selfSignedCertificateKeyId
         $this->assertArrayHasKey('selfSignedCertificateKeyId', $array);
         $this->assertEquals('keyId', $array['selfSignedCertificateKeyId']);
+
+        // softwareId
+        $this->assertArrayHasKey('softwareId', $array);
+        $this->assertEquals(self::SOFTWARE_ID, $array['softwareId']);
+
+        // softwareVersion
+        $this->assertArrayHasKey('softwareVersion', $array);
+        $this->assertEquals(self::SOFTWARE_VERSION, $array['softwareVersion']);
+
+        // authorizationSignAlg
+        $this->assertArrayHasKey('authorizationSignAlg', $array);
+        $this->assertEquals('HS256', $array['authorizationSignAlg']);
+
+        // authorizationEncryptionAlg
+        $this->assertArrayHasKey('authorizationEncryptionAlg', $array);
+        $this->assertEquals('A128KW', $array['authorizationEncryptionAlg']);
+
+        // authorizationEncryptionEnc
+        $this->assertArrayHasKey('authorizationEncryptionEnc', $array);
+        $this->assertEquals('A128CBC_HS256', $array['authorizationEncryptionEnc']);
     }
 
 
