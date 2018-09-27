@@ -1,6 +1,55 @@
 CHANGES (日本語)
 ================
 
+1.7.0 (2018 年 09 月 28 日)
+---------------------------
+
+- `AuthorizationResponse` クラス
+    * `getRequestObjectPayload()` メソッドを追加。
+    * `setRequestObjectPayload()` メソッドを追加。
+    * `getIdTokenClaims()` メソッドを追加。
+    * `setIdTokenClaims()` メソッドを追加。
+    * `getUserInfoClaims()` メソッドを追加。
+    * `setUserInfoClaims()` メソッドを追加。
+
+- `Client` クラス
+    * `getSoftwareId()` メソッドを追加。
+    * `setSoftwareId()` メソッドを追加。
+    * `getSoftwareVersion()` メソッドを追加。
+    * `setSoftwareVersion()` メソッドを追加。
+    * `getAuthorizationSignAlg()` メソッドを追加。
+    * `setAuthorizationSignAlg()` メソッドを追加。
+    * `getAuthorizationEncryptionAlg()` メソッドを追加。
+    * `setAuthorizationEncryptionAlg()` メソッドを追加。
+    * `getAuthorizationEncryptionEnc()` メソッドを追加。
+    * `setAuthorizationEncryptionEnc()` メソッドを追加。
+
+- `Service` クラス
+    * `getAuthorizationResponseDuration()` メソッドを追加。
+    * `setAuthorizationResponseDuration()` メソッドを追加。
+    * `getAuthorizationSignatureKeyId()` メソッドを追加。
+    * `setAuthorizationSignatureKeyId()` メソッドを追加。
+    * `isClientIdAliasEnabled()` メソッドを追加。
+    * `setClientIdAliasEnabled()` メソッドを追加。
+    * `isErrorDescriptionOmitted()` メソッドを追加。
+    * `setErrorDescriptionOmitted()` メソッドを追加。
+    * `isErrorUriOmitted()` メソッドを追加。
+    * `setErrorUriOmitted()` メソッドを追加。
+    * `getIdTokenSignatureKeyId()` メソッドを追加。
+    * `setIdTokenSignatureKeyId()` メソッドを追加。
+    * `isRefreshTokenKept()` メソッドを追加。
+    * `setRefreshTokenKept()` メソッドを追加。
+    * `getUserInfoSignatureKeyId()` メソッドを追加。
+    * `setUserInfoSignatureKeyId()` メソッドを追加。
+    * `getSupportedIntrospectionAuthSigningAlgorithms()` メソッドを削除。
+    * `setSupportedIntrospectionAuthSigningAlgorithms()` メソッドを削除。
+    * `getSupportedRevocationAuthSigningAlgorithms()` メソッドを削除。
+    * `setSupportedRevocationAuthSigningAlgorithms()` メソッドを削除。
+
+- `ServiceProfile` クラス
+    * `$OPEN_BANKING` を追加。
+
+
 1.6.0 (2018 年 05 月 18 日)
 ---------------------------
 

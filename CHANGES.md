@@ -1,6 +1,55 @@
 CHANGES
 =======
 
+1.7.0 (2018-09-28)
+------------------
+
+- `AuthorizationResponse` class
+    * Added `getRequestObjectPayload()` method.
+    * Added `setRequestObjectPayload()` method.
+    * Added `getIdTokenClaims()` method.
+    * Added `setIdTokenClaims()` method.
+    * Added `getUserInfoClaims()` method.
+    * Added `setUserInfoClaims()` method.
+
+- `Client` class
+    * Added `getSoftwareId()` method.
+    * Added `setSoftwareId()` method.
+    * Added `getSoftwareVersion()` method.
+    * Added `setSoftwareVersion()` method.
+    * Added `getAuthorizationSignAlg()` method.
+    * Added `setAuthorizationSignAlg()` method.
+    * Added `getAuthorizationEncryptionAlg()` method.
+    * Added `setAuthorizationEncryptionAlg()` method.
+    * Added `getAuthorizationEncryptionEnc()` method.
+    * Added `setAuthorizationEncryptionEnc()` method.
+
+- `Service` class
+    * Added `getAuthorizationResponseDuration()` method.
+    * Added `setAuthorizationResponseDuration()` method.
+    * Added `getAuthorizationSignatureKeyId()` method.
+    * Added `setAuthorizationSignatureKeyId()` method.
+    * Added `isClientIdAliasEnabled()` method.
+    * Added `setClientIdAliasEnabled()` method.
+    * Added `isErrorDescriptionOmitted()` method.
+    * Added `setErrorDescriptionOmitted()` method.
+    * Added `isErrorUriOmitted()` method.
+    * Added `setErrorUriOmitted()` method.
+    * Added `getIdTokenSignatureKeyId()` method.
+    * Added `setIdTokenSignatureKeyId()` method.
+    * Added `isRefreshTokenKept()` method.
+    * Added `setRefreshTokenKept()` method.
+    * Added `getUserInfoSignatureKeyId()` method.
+    * Added `setUserInfoSignatureKeyId()` method.
+    * Removed `getSupportedIntrospectionAuthSigningAlgorithms()` method.
+    * Removed `setSupportedIntrospectionAuthSigningAlgorithms()` method.
+    * Removed `getSupportedRevocationAuthSigningAlgorithms()` method.
+    * Removed `setSupportedRevocationAuthSigningAlgorithms()` method.
+
+- `ServiceProfile` class
+    * Added `$OPEN_BANKING`.
+
+
 1.6.0 (2018-05-18)
 ------------------
 
