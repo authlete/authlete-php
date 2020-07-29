@@ -1,6 +1,6 @@
 <?php
 //
-// Copyright (C) 2018 Authlete, Inc.
+// Copyright (C) 2018-2020 Authlete, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -108,7 +108,34 @@ class GrantType
     public static $REFRESH_TOKEN;
 
 
+    /**
+     * CIBA flow.
+     *
+     * A grant type to request an ID token, an access token, and optionally
+     * a refresh token.
+     *
+     * @static
+     * @var GrantType
+     *
+     * @see https://openid.net/specs/openid-client-initiated-backchannel-authentication-core-1_0.html OpenID Connect Client Initiated Backchannel Authentication Flow - Core 1.0
+     *
+     * @since 1.8
+     */
     public static $CIBA;
+
+
+    /**
+     * Device flow.
+     *
+     * A grant type to request an access token and optionally a refresh token.
+     *
+     * @static
+     * @var GrantType
+     *
+     * @see https://tools.ietf.org/html/rfc8628 OAuth 2.0 Device Authorization Grant
+     *
+     * @since 1.8
+     */
     public static $DEVICE_CODE;
 }
 
