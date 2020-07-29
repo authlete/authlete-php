@@ -7,6 +7,7 @@ CHANGES (日本語)
 
 - 新しい部品
     * `DeliveryMode` クラス
+    * `UserCodeCharset` クラス
 
 
 1.7.0 (2018 年 09 月 28 日)
