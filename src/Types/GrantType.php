@@ -106,6 +106,10 @@ class GrantType
      * @see https://tools.ietf.org/html/rfc6749#section-6 RFC 6749, 6. Refreshing an Access Token
      */
     public static $REFRESH_TOKEN;
+
+
+    public static $CIBA;
+    public static $DEVICE_CODE;
 }
 
 
