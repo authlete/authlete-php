@@ -1,6 +1,11 @@
 CHANGES
 =======
 
+- `GrantType` class
+    * Added `$CIBA`.
+    * Added `$DEVICE_CODE`.
+
+
 1.7.0 (2018-09-28)
 ------------------
 
