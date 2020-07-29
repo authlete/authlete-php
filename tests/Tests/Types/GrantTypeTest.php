@@ -1,6 +1,6 @@
 <?php
 //
-// Copyright (C) 2018 Authlete, Inc.
+// Copyright (C) 2018-2020 Authlete, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -111,6 +111,40 @@ class GrantTypeTest extends TestCase
 
         $this->assertSame($obj, GrantType::valueOf($obj));
         $this->assertSame($obj, GrantType::valueOf('REFRESH_TOKEN'));
+    }
+
+
+    public function testNameOfCiba()
+    {
+        $obj = GrantType::$CIBA;
+
+        $this->assertEquals('CIBA', $obj->name());
+    }
+
+
+    public function testValueOfCiba()
+    {
+        $obj = GrantType::$CIBA;
+
+        $this->assertSame($obj, GrantType::valueOf($obj));
+        $this->assertSame($obj, GrantType::valueOf('CIBA'));
+    }
+
+
+    public function testNameOfDeviceCode()
+    {
+        $obj = GrantType::$DEVICE_CODE;
+
+        $this->assertEquals('DEVICE_CODE', $obj->name());
+    }
+
+
+    public function testValueOfDeviceCode()
+    {
+        $obj = GrantType::$DEVICE_CODE;
+
+        $this->assertSame($obj, GrantType::valueOf($obj));
+        $this->assertSame($obj, GrantType::valueOf('DEVICE_CODE'));
     }
 
 
