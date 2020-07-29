@@ -5,6 +5,9 @@ CHANGES
     * Added `$CIBA`.
     * Added `$DEVICE_CODE`.
 
+- New parts
+    * `DeliveryMode` class
+
 
 1.7.0 (2018-09-28)
 ------------------
