@@ -1,6 +1,6 @@
 <?php
 //
-// Copyright (C) 2018 Authlete, Inc.
+// Copyright (C) 2018-2020 Authlete, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -358,6 +358,12 @@ class AuthorizationIssueResponseTest extends TestCase
             ->setResultMessage('message')
             ->setAction(AuthorizationIssueAction::$LOCATION)
             ->setResponseContent('content')
+            ->setAccessToken('access_token')
+            ->setAccessTokenExpiresAt(12345)
+            ->setAccessTokenDuration(67890)
+            ->setIdToken('id_token')
+            ->setAuthorizationCode('authorization_code')
+            ->setJwtAccessToken('jwt_access_token')
             ;
 
         $json  = $obj->toJson();
@@ -378,6 +384,30 @@ class AuthorizationIssueResponseTest extends TestCase
         // responseContent
         $this->assertArrayHasKey('responseContent', $array);
         $this->assertEquals('content', $array['responseContent']);
+
+        // accessToken
+        $this->assertArrayHasKey('accessToken', $array);
+        $this->assertEquals('access_token', $array['accessToken']);
+
+        // accessTokenExpiresAt
+        $this->assertArrayHasKey('accessTokenExpiresAt', $array);
+        $this->assertEquals(12345, $array['accessTokenExpiresAt']);
+
+        // accessTokenDuration
+        $this->assertArrayHasKey('accessTokenDuration', $array);
+        $this->assertEquals(67890, $array['accessTokenDuration']);
+
+        // idToken
+        $this->assertArrayHasKey('idToken', $array);
+        $this->assertEquals('id_token', $array['idToken']);
+
+        // authorizationCode
+        $this->assertArrayHasKey('authorizationCode', $array);
+        $this->assertEquals('authorization_code', $array['authorizationCode']);
+
+        // jwtAccessToken
+        $this->assertArrayHasKey('jwtAccessToken', $array);
+        $this->assertEquals('jwt_access_token', $array['jwtAccessToken']);
     }
 }
 ?>

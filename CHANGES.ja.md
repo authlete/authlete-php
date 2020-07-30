@@ -8,6 +8,20 @@ CHANGES (日本語)
     * `getIdtHeaderParams()` メソッドを追加。
     * `setIdtHeaderParams()` メソッドを追加。
 
+- `AuthorizationIssueResponse` クラス
+    * `getAccessToken()` メソッドを追加。
+    * `setAccessToken()` メソッドを追加。
+    * `getAccessTokenExpiresAt()` メソッドを追加。
+    * `setAccessTokenExpiresAt()` メソッドを追加。
+    * `getAccessTokenDuration()` メソッドを追加。
+    * `setAccessTokenDuration()` メソッドを追加。
+    * `getIdToken()` メソッドを追加。
+    * `setIdToken()` メソッドを追加。
+    * `getAuthorizationCode()` メソッドを追加。
+    * `setAuthorizationCode()` メソッドを追加。
+    * `getJwtAccessToken()` メソッドを追加。
+    * `setJwtAccessToken()` メソッドを追加。
+
 - `GrantType` クラス
     * `$CIBA` を追加。
     * `$DEVICE_CODE` を追加。

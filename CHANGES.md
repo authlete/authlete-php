@@ -8,6 +8,20 @@ CHANGES
     * Added `getIdtHeaderParams()` method.
     * Added `setIdtHeaderParams()` method.
 
+- `AuthorizationIssueResponse` class
+    * Added `getAccessToken()` method.
+    * Added `setAccessToken()` method.
+    * Added `getAccessTokenExpiresAt()` method.
+    * Added `setAccessTokenExpiresAt()` method.
+    * Added `getAccessTokenDuration()` method.
+    * Added `setAccessTokenDuration()` method.
+    * Added `getIdToken()` method.
+    * Added `setIdToken()` method.
+    * Added `getAuthorizationCode()` method.
+    * Added `setAuthorizationCode()` method.
+    * Added `getJwtAccessToken()` method.
+    * Added `setJwtAccessToken()` method.
+
 - `GrantType` class
     * Added `$CIBA`.
     * Added `$DEVICE_CODE`.
