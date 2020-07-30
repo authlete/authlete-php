@@ -1,6 +1,6 @@
 <?php
 //
-// Copyright (C) 2018 Authlete, Inc.
+// Copyright (C) 2018-2020 Authlete, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -230,6 +230,23 @@ class AuthorizationFailReasonTest extends TestCase
 
         $this->assertSame($action, AuthorizationFailReason::valueOf($action));
         $this->assertSame($action, AuthorizationFailReason::valueOf('INTERACTION_REQUIRED'));
+    }
+
+
+    public function testNameOfInvalidTarget()
+    {
+        $action = AuthorizationFailReason::$INVALID_TARGET;
+
+        $this->assertEquals('INVALID_TARGET', $action->name());
+    }
+
+
+    public function testValueOfInvalidTarget()
+    {
+        $action = AuthorizationFailReason::$INVALID_TARGET;
+
+        $this->assertSame($action, AuthorizationFailReason::valueOf($action));
+        $this->assertSame($action, AuthorizationFailReason::valueOf('INVALID_TARGET'));
     }
 
 

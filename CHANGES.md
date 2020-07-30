@@ -1,6 +1,9 @@
 CHANGES
 =======
 
+- `AuthorizationFailReason` class
+    * Added `$INVALID_TARGET`.
+
 - `GrantType` class
     * Added `$CIBA`.
     * Added `$DEVICE_CODE`.

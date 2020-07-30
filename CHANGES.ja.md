@@ -1,6 +1,9 @@
 CHANGES (日本語)
 ================
 
+- `AuthorizationFailReason` クラス
+    * `$INVALID_TARGET` を追加。
+
 - `GrantType` クラス
     * `$CIBA` を追加。
     * `$DEVICE_CODE` を追加。
