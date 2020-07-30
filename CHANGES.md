@@ -8,6 +8,7 @@ CHANGES
 - New parts
     * `DeliveryMode` class
     * `UserCodeCharset` class
+    * `UserIdentificationHintType` class
 
 
 1.7.0 (2018-09-28)
