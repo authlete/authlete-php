@@ -31,13 +31,14 @@ use Authlete\Dto\Property;
 
 class AuthorizationIssueRequestTest extends TestCase
 {
-    private const TICKET        = '_ticket_';
-    private const SUBJECT       = '_subject_';
-    private const SUB           = '_sub_';
-    private const AUTH_TIME_INT = 10000;
-    private const AUTH_TIME_STR = '20000';
-    private const ACR           = '_acr_';
-    private const CLAIMS        = '_claims_';
+    private const TICKET            = '_ticket_';
+    private const SUBJECT           = '_subject_';
+    private const SUB               = '_sub_';
+    private const AUTH_TIME_INT     = 10000;
+    private const AUTH_TIME_STR     = '20000';
+    private const ACR               = '_acr_';
+    private const CLAIMS            = '_claims_';
+    private const IDT_HEADER_PARAMS = '_idt_header_params_';
 
 
     public function testTicketValidValue()
@@ -762,6 +763,7 @@ class AuthorizationIssueRequestTest extends TestCase
             ->setClaims(self::CLAIMS)
             ->setProperties($properties)
             ->setScopes($scopes)
+            ->setIdtHeaderParams(self::IDT_HEADER_PARAMS)
             ;
 
         $json  = $obj->toJson();
@@ -826,6 +828,10 @@ class AuthorizationIssueRequestTest extends TestCase
 
         // scopes: the second entry
         $this->assertEquals('scope1', $subArray[1]);
+
+        // idtHeaderParams
+        $this->assertArrayHasKey('idtHeaderParams', $array);
+        $this->assertEquals(self::IDT_HEADER_PARAMS, $array['idtHeaderParams']);
     }
 }
 ?>

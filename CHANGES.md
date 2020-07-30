@@ -4,6 +4,10 @@ CHANGES
 - `AuthorizationFailReason` class
     * Added `$INVALID_TARGET`.
 
+- `AuthorizationIssueRequest` class
+    * Added `getIdtHeaderParams()` method.
+    * Added `setIdtHeaderParams()` method.
+
 - `GrantType` class
     * Added `$CIBA`.
     * Added `$DEVICE_CODE`.
