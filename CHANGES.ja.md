@@ -38,6 +38,14 @@ CHANGES (日本語)
     * `$CIBA` を追加。
     * `$DEVICE_CODE` を追加。
 
+- `IntrospectionRequest` クラス
+    * `getDpop()` メソッドを追加。
+    * `setDpop()` メソッドを追加。
+    * `getHtm()` メソッドを追加。
+    * `setHtm()` メソッドを追加。
+    * `getHtu()` メソッドを追加。
+    * `setHtu()` メソッドを追加。
+
 - 新しい部品
     * `DeliveryMode` クラス
     * `UserCodeCharset` クラス

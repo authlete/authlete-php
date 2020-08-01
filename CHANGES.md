@@ -38,6 +38,14 @@ CHANGES
     * Added `$CIBA`.
     * Added `$DEVICE_CODE`.
 
+- `IntrospectionRequest` class
+    * Added `getDpop()` method.
+    * Added `setDpop()` method.
+    * Added `getHtm()` method.
+    * Added `setHtm()` method.
+    * Added `getHtu()` method.
+    * Added `setHtu()` method.
+
 - New parts
     * `DeliveryMode` class
     * `UserCodeCharset` class

@@ -1,6 +1,6 @@
 <?php
 //
-// Copyright (C) 2018 Authlete, Inc.
+// Copyright (C) 2018-2020 Authlete, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -49,6 +49,9 @@ class IntrospectionRequest implements ArrayCopyable, Arrayable, Jsonable
     private $scopes            = null;  // array of string
     private $subject           = null;  // string
     private $clientCertificate = null;  // string
+    private $dpop              = null;  // string
+    private $htm               = null;  // string
+    private $htu               = null;  // string
 
 
     /**
@@ -203,6 +206,137 @@ class IntrospectionRequest implements ArrayCopyable, Arrayable, Jsonable
 
 
     /**
+     * Get the `DPoP` header presented by the client during the request to the
+     * resource server. This header contains a signed JWT which includes the
+     * public key that is paired with the private key used to sign it.
+     *
+     * See "OAuth 2.0 Demonstration of Proof-of-Possession at the Application
+     * Layer (DPoP)" for details.
+     *
+     * @return string
+     *     The value of the `DPoP` header.
+     *
+     * @since 1.8
+     */
+    public function getDpop()
+    {
+        return $this->dpop;
+    }
+
+
+    /**
+     * Set the `DPoP` header presented by the client during the request to the
+     * resource server. This header contains a signed JWT which includes the
+     * public key that is paired with the private key used to sign it.
+     *
+     * See "OAuth 2.0 Demonstration of Proof-of-Possession at the Application
+     * Layer (DPoP)" for details.
+     *
+     * @param string $dpop
+     *     The value of the `DPoP` header.
+     *
+     * @return IntrospectionRequest
+     *     `$this` object.
+     *
+     * @since 1.8
+     */
+    public function setDpop($dpop)
+    {
+        ValidationUtility::ensureNullOrString('$dpop', $dpop);
+
+        $this->dpop = $dpop;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the HTTP method of the request from the client to the protected
+     * resource endpoint. This property is used to validate the `DPoP` header.
+     *
+     * See "OAuth 2.0 Demonstration of Proof-of-Possession at the Application
+     * Layer (DPoP)" for details.
+     *
+     * @return string
+     *     The HTTP method. For example, `GET`.
+     *
+     * @since 1.8
+     */
+    public function getHtm()
+    {
+        return $this->htm;
+    }
+
+
+    /**
+     * Set the HTTP method of the request from the client to the protected
+     * resource endpoint. This property is used to validate the `DPoP` header.
+     *
+     * See "OAuth 2.0 Demonstration of Proof-of-Possession at the Application
+     * Layer (DPoP)" for details.
+     *
+     * @param string $htm
+     *     The HTTP method. For example, `GET`.
+     *
+     * @return IntrospectionRequest
+     *     `$this` object.
+     *
+     * @since 1.8
+     */
+    public function setHtm($htm)
+    {
+        ValidationUtility::ensureNullOrString('$htm', $htm);
+
+        $this->htm = $htm;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the URL of the request from the client to the protected resource
+     * endpoint. This property is used to validate the `DPoP` header.
+     *
+     * See "OAuth 2.0 Demonstration of Proof-of-Possession at the Application
+     * Layer (DPoP)" for details.
+     *
+     * @return string
+     *     The URL of the protected resource endpoint.
+     *
+     * @since 1.8
+     */
+    public function getHtu()
+    {
+        return $this->htu;
+    }
+
+
+    /**
+     * Set the URL of the request from the client to the protected resource
+     * endpoint. This property is used to validate the `DPoP` header.
+     *
+     * See "OAuth 2.0 Demonstration of Proof-of-Possession at the Application
+     * Layer (DPoP)" for details.
+     *
+     * @param string $htu
+     *     The URL of the protected resource endpoint.
+     *
+     * @return IntrospectionRequest
+     *     `$this` object.
+     *
+     * @since 1.8
+     */
+    public function setHtu($htu)
+    {
+        ValidationUtility::ensureNullOrString('$htu', $htu);
+
+        $this->htu = $htu;
+
+        return $this;
+    }
+
+
+    /**
      * {@inheritdoc}
      *
      * {@inheritdoc}
@@ -216,6 +350,9 @@ class IntrospectionRequest implements ArrayCopyable, Arrayable, Jsonable
         $array['scopes']            = $this->scopes;
         $array['subject']           = $this->subject;
         $array['clientCertificate'] = $this->clientCertificate;
+        $array['dpop']              = $this->dpop;
+        $array['htm']               = $this->htm;
+        $array['htu']               = $this->htu;
     }
 
 
@@ -244,6 +381,18 @@ class IntrospectionRequest implements ArrayCopyable, Arrayable, Jsonable
         // clientCertificate
         $this->setClientCertificate(
             LanguageUtility::getFromArray('clientCertificate', $array));
+
+        // dpop
+        $this->setDpop(
+            LanguageUtility::getFromArray('dpop', $array));
+
+        // htm
+        $this->setHtm(
+            LanguageUtility::getFromArray('htm', $array));
+
+        // htu
+        $this->setHtu(
+            LanguageUtility::getFromArray('htu', $array));
     }
 }
 ?>
