@@ -60,6 +60,9 @@ CHANGES
     * Added `getDpopKeyThumbprint()` method.
     * Added `setDpopKeyThumbprint()` method.
 
+- `TokenFailReason` class
+    * Added `$INVALID_TARGET`.
+
 - New parts
     * `DeliveryMode` class
     * `NamedUri` class

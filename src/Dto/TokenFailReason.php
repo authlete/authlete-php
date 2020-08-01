@@ -1,6 +1,6 @@
 <?php
 //
-// Copyright (C) 2018 Authlete, Inc.
+// Copyright (C) 2018-2020 Authlete, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -61,6 +61,21 @@ class TokenFailReason
      * @see https://tools.ietf.org/html/rfc6749#section-4.3 RFC 6749, 4.3. Resource Owner Password Credentials Grant
      */
     public static $INVALID_RESOURCE_OWNER_CREDENTIALS;
+
+
+    /**
+     * The requested resource is invalid, missing, unknown, or malformed.
+     *
+     * Using this reason will result in `error=invalid_target`.
+     *
+     * @static
+     * @var TokenFailReason
+     *
+     * @see https://www.rfc-editor.org/rfc/rfc8707.html RFC 8707 Resource Indicators for OAuth 2.0
+     *
+     * @since 1.8
+     */
+    public static $INVALID_TARGET;
 }
 
 

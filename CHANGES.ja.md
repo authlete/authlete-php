@@ -60,6 +60,9 @@ CHANGES (日本語)
     * `getDpopKeyThumbprint()` メソッドを追加。
     * `setDpopKeyThumbprint()` メソッドを追加。
 
+- `TokenFailReason` クラス
+    * `$INVALID_TARGET` を追加。
+
 - 新しい部品
     * `DeliveryMode` クラス
     * `NamedUri` クラス
