@@ -1,6 +1,6 @@
 <?php
 //
-// Copyright (C) 2018 Authlete, Inc.
+// Copyright (C) 2018-2020 Authlete, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -57,6 +57,9 @@ class TokenCreateRequest implements ArrayCopyable, Arrayable, Jsonable
     private $clientIdAliasUsed     = false; // boolean
     private $accessToken           = null;  // string
     private $refreshToken          = null;  // string
+    private $accessTokenPersistent = false; // boolean
+    private $certificateThumbprint = null;  // string
+    private $dpopKeyThumbprint     = null;  // string
 
 
     /**
@@ -455,6 +458,145 @@ class TokenCreateRequest implements ArrayCopyable, Arrayable, Jsonable
 
 
     /**
+     * Get whether the access token expires or not. By default, all access
+     * tokens expire after a period of time determined by their service.
+     * If this request parameter is `true` then the access token will not
+     * automatically expire.
+     *
+     * If this request parameter is `true`, the `accessTokenDuration` request
+     * parameter is ignored.
+     *
+     * @return boolean
+     *     `false` if the access token expires (default).
+     *     `true` if the access token does not expire.
+     *
+     * @since 1.8
+     */
+    public function isAccessTokenPersistent()
+    {
+        return $this->accessTokenPersistent;
+    }
+
+
+    /**
+     * Set whether the access token expires or not. By default, all access
+     * tokens expire after a period of time determined by their service.
+     * If this request parameter is `true` then the access token will not
+     * automatically expire.
+     *
+     * If this request parameter is `true`, the `accessTokenDuration` request
+     * parameter is ignored.
+     *
+     * @param boolean $persistent
+     *     `false` to make the access token expire (default).
+     *     `true` to make the access token be persistent.
+     *
+     * @return TokenCreateRequest
+     *     `$this` object.
+     *
+     * @since 1.8
+     */
+    public function setAccessTokenPersistent($persistent)
+    {
+        ValidationUtility::ensureBoolean('$persistent', $persistent);
+
+        $this->accessTokenPersistent = $persistent;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the thumbprint of the client certificate bound to the access token.
+     * If this request parameter is set, a certificate whose thumbprint matches
+     * the value must be presented when the client uses the access token.
+     *
+     * @return string
+     *     The base64url-encoded SHA-256 certificate thumbprint.
+     *
+     * @see https://www.rfc-editor.org/rfc/rfc8705.html RFC 8705 OAuth 2.0 Mutual-TLS Client Authentication and Certificate-Bound Access Tokens
+     *
+     * @since 1.8
+     */
+    public function getCertificateThumbprint()
+    {
+        return $this->certificateThumbprint;
+    }
+
+
+    /**
+     * Set the thumbprint of the client certificate bound to the access token.
+     * If this request parameter is set, a certificate whose thumbprint matches
+     * the value must be presented when the client uses the access token.
+     *
+     * @param string $thumbprint
+     *     The base64url-encoded SHA-256 certificate thumbprint.
+     *
+     * @return TokenCreateRequest
+     *     `$this` object.
+     *
+     * @see https://www.rfc-editor.org/rfc/rfc8705.html RFC 8705 OAuth 2.0 Mutual-TLS Client Authentication and Certificate-Bound Access Tokens
+     *
+     * @since 1.8
+     */
+    public function setCertificateThumbprint($thumbprint)
+    {
+        ValidationUtility::ensureNullOrString('$thumbprint', $thumbprint);
+
+        $this->certificateThumbprint = $thumbprint;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the thumbprint of the public key used for DPoP presentation of this
+     * access token. If this request parameter is set, a DPoP proof signed with
+     * the corresponding private key must be presented when the client uses the
+     * access token.
+     *
+     * See "OAuth 2.0 Demonstration of Proof-of-Possession at the Application
+     * Layer (DPoP)" for details.
+     *
+     * @return string
+     *     The JWK publick key thumbprint.
+     *
+     * @since 1.8
+     */
+    public function getDpopKeyThumbprint()
+    {
+        return $this->dpopKeyThumbprint;
+    }
+
+
+    /**
+     * Set the thumbprint of the public key used for DPoP presentation of this
+     * access token. If this request parameter is set, a DPoP proof signed with
+     * the corresponding private key must be presented when the client uses the
+     * access token.
+     *
+     * See "OAuth 2.0 Demonstration of Proof-of-Possession at the Application
+     * Layer (DPoP)" for details.
+     *
+     * @param string $thumbprint
+     *     The JWK publick key thumbprint.
+     *
+     * @return TokenCreateRequest
+     *     `$this` object.
+     *
+     * @since 1.8
+     */
+    public function setDpopKeyThumbprint($thumbprint)
+    {
+        ValidationUtility::ensureNullOrString('$thumbprint', $thumbprint);
+
+        $this->dpopKeyThumbprint = $thumbprint;
+
+        return $this;
+    }
+
+
+    /**
      * {@inheritdoc}
      *
      * {@inheritdoc}
@@ -464,16 +606,19 @@ class TokenCreateRequest implements ArrayCopyable, Arrayable, Jsonable
      */
     public function copyToArray(array &$array)
     {
-        $array['grantType']            = LanguageUtility::toString($this->grantType);
-        $array['clientId']             = LanguageUtility::orZero($this->clientId);
-        $array['subject']              = $this->subject;
-        $array['scopes']               = $this->scopes;
-        $array['accessTokenDuration']  = LanguageUtility::orZero($this->accessTokenDuration);
-        $array['refreshTokenDuration'] = LanguageUtility::orZero($this->refreshTokenDuration);
-        $array['properties']           = LanguageUtility::convertArrayOfArrayCopyableToArray($this->properties);
-        $array['clientIdAliasUsed']    = $this->clientIdAliasUsed;
-        $array['accessToken']          = $this->accessToken;
-        $array['refreshToken']         = $this->refreshToken;
+        $array['grantType']             = LanguageUtility::toString($this->grantType);
+        $array['clientId']              = LanguageUtility::orZero($this->clientId);
+        $array['subject']               = $this->subject;
+        $array['scopes']                = $this->scopes;
+        $array['accessTokenDuration']   = LanguageUtility::orZero($this->accessTokenDuration);
+        $array['refreshTokenDuration']  = LanguageUtility::orZero($this->refreshTokenDuration);
+        $array['properties']            = LanguageUtility::convertArrayOfArrayCopyableToArray($this->properties);
+        $array['clientIdAliasUsed']     = $this->clientIdAliasUsed;
+        $array['accessToken']           = $this->accessToken;
+        $array['refreshToken']          = $this->refreshToken;
+        $array['accessTokenPersistent'] = $this->accessTokenPersistent;
+        $array['certificateThumbprint'] = $this->certificateThumbprint;
+        $array['dpopKeyThumbprint']     = $this->dpopKeyThumbprint;
     }
 
 
@@ -529,6 +674,18 @@ class TokenCreateRequest implements ArrayCopyable, Arrayable, Jsonable
         // refreshToken
         $this->setRefreshToken(
             LanguageUtility::getFromArray('refreshToken', $array));
+
+        // accessTokenPersistent
+        $this->setAccessTokenPersistent(
+            LanguageUtility::getFromArrayAsBoolean('accessTokenPersistent', $array));
+
+        // certificateThumbprint
+        $this->setCertificateThumbprint(
+            LanguageUtility::getFromArray('certificateThumbprint', $array));
+
+        // dpopKeyThumbprint
+        $this->setDpopKeyThumbprint(
+            LanguageUtility::getFromArray('dpopKeyThumbprint', $array));
     }
 }
 ?>

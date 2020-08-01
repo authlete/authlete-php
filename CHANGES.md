@@ -52,6 +52,14 @@ CHANGES
     * Added `getAccessTokenResources()` method.
     * Added `setAccessTokenResources()` method.
 
+- `TokenCreateRequest` class
+    * Added `isAccessTokenPersistent()` method.
+    * Added `setAccessTokenPersistent()` method.
+    * Added `getCertificateThumbprint()` method.
+    * Added `setCertificateThumbprint()` method.
+    * Added `getDpopKeyThumbprint()` method.
+    * Added `setDpopKeyThumbprint()` method.
+
 - New parts
     * `DeliveryMode` class
     * `NamedUri` class
