@@ -54,6 +54,7 @@ CHANGES (日本語)
 
 - 新しい部品
     * `DeliveryMode` クラス
+    * `NamedUri` クラス
     * `UserCodeCharset` クラス
     * `UserIdentificationHintType` クラス
 

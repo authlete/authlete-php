@@ -54,6 +54,7 @@ CHANGES
 
 - New parts
     * `DeliveryMode` class
+    * `NamedUri` class
     * `UserCodeCharset` class
     * `UserIdentificationHintType` class
 
