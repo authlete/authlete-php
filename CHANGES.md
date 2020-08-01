@@ -69,6 +69,14 @@ CHANGES
     * Added `getAccessTokenResources()` method.
     * Added `setAccessTokenResources()` method.
 
+- `TokenRequest` class
+    * Added `getDpop()` method.
+    * Added `setDpop()` method.
+    * Added `getHtm()` method.
+    * Added `setHtm()` method.
+    * Added `getHtu()` method.
+    * Added `setHtu()` method.
+
 - New parts
     * `DeliveryMode` class
     * `NamedUri` class

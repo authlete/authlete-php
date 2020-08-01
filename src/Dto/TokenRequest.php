@@ -1,6 +1,6 @@
 <?php
 //
-// Copyright (C) 2018 Authlete, Inc.
+// Copyright (C) 2018-2020 Authlete, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -59,6 +59,9 @@ class TokenRequest implements ArrayCopyable, Arrayable, Jsonable
     private $clientCertificate     = null;  // string
     private $clientCertificatePath = null;  // array of string
     private $properties            = null;  // array of \Authlete\Dto\Property
+    private $dpop                  = null;  // string
+    private $htm                   = null;  // string
+    private $htu                   = null;  // string
 
 
     /**
@@ -353,6 +356,149 @@ class TokenRequest implements ArrayCopyable, Arrayable, Jsonable
 
 
     /**
+     * Get the `DPoP` header presented by the client during the request to the
+     * token endpoint. This header contains a signed JWT which includes the
+     * public key that is paired with the private key used to sign it.
+     *
+     * See "OAuth 2.0 Demonstration of Proof-of-Possession at the Application
+     * Layer (DPoP)" for details.
+     *
+     * @return string
+     *     The value of the `DPoP` header.
+     *
+     * @since 1.8
+     */
+    public function getDpop()
+    {
+        return $this->dpop;
+    }
+
+
+    /**
+     * Set the `DPoP` header presented by the client during the request to the
+     * token endpoint. This header contains a signed JWT which includes the
+     * public key that is paired with the private key used to sign it.
+     *
+     * See "OAuth 2.0 Demonstration of Proof-of-Possession at the Application
+     * Layer (DPoP)" for details.
+     *
+     * @param string $dpop
+     *     The value of the `DPoP` header.
+     *
+     * @return TokenRequest
+     *     `$this` object.
+     *
+     * @since 1.8
+     */
+    public function setDpop($dpop)
+    {
+        ValidationUtility::ensureNullOrString('$dpop', $dpop);
+
+        $this->dpop = $dpop;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the HTTP method of the token request. This property is used to
+     * validate the `DPoP` header.
+     *
+     * In normal cases, the value is `POST`. When this request parameter is
+     * omitted, `POST` is used as the default value.
+     *
+     * See "OAuth 2.0 Demonstration of Proof-of-Possession at the Application
+     * Layer (DPoP)" for details.
+     *
+     * @return string
+     *     The HTTP method. For example, `POST`.
+     *
+     * @since 1.8
+     */
+    public function getHtm()
+    {
+        return $this->htm;
+    }
+
+
+    /**
+     * Set the HTTP method of the token request. This property is used to
+     * validate the `DPoP` header.
+     *
+     * In normal cases, the value is `POST`. When this request parameter is
+     * omitted, `POST` is used as the default value.
+     *
+     * See "OAuth 2.0 Demonstration of Proof-of-Possession at the Application
+     * Layer (DPoP)" for details.
+     *
+     * @param string $htm
+     *     The HTTP method. For example, `POST`.
+     *
+     * @return TokenRequest
+     *     `$this` object.
+     *
+     * @since 1.8
+     */
+    public function setHtm($htm)
+    {
+        ValidationUtility::ensureNullOrString('$htm', $htm);
+
+        $this->htm = $htm;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the URL of the token endpoint. This property is used to validate
+     * the `DPoP` header.
+     *
+     * If this request parameter is omitted, the `tokenEndpoint` property of
+     * the `Service` is used as the default value.
+     *
+     * See "OAuth 2.0 Demonstration of Proof-of-Possession at the Application
+     * Layer (DPoP)" for details.
+     *
+     * @return string
+     *     The URL of the token endpoint.
+     *
+     * @since 1.8
+     */
+    public function getHtu()
+    {
+        return $this->htu;
+    }
+
+
+    /**
+     * Set the URL of the token endpoint. This property is used to validate
+     * the `DPoP` header.
+     *
+     * If this request parameter is omitted, the `tokenEndpoint` property of
+     * the `Service` is used as the default value.
+     *
+     * See "OAuth 2.0 Demonstration of Proof-of-Possession at the Application
+     * Layer (DPoP)" for details.
+     *
+     * @param string $htu
+     *     The URL of the token endpoint.
+     *
+     * @return TokenRequest
+     *     `$this` object.
+     *
+     * @since 1.8
+     */
+    public function setHtu($htu)
+    {
+        ValidationUtility::ensureNullOrString('$htu', $htu);
+
+        $this->htu = $htu;
+
+        return $this;
+    }
+
+
+    /**
      * {@inheritdoc}
      *
      * {@inheritdoc}
@@ -368,6 +514,9 @@ class TokenRequest implements ArrayCopyable, Arrayable, Jsonable
         $array['clientCertificate']     = $this->clientCertificate;
         $array['clientCertificatePath'] = $this->clientCertificatePath;
         $array['properties']            = LanguageUtility::convertArrayOfArrayCopyableToArray($this->properties);
+        $array['dpop']                  = $this->dpop;
+        $array['htm']                   = $this->htm;
+        $array['htu']                   = $this->htu;
     }
 
 
@@ -406,6 +555,18 @@ class TokenRequest implements ArrayCopyable, Arrayable, Jsonable
         $this->setProperties(
             LanguageUtility::convertArrayToArrayOfArrayCopyable(
                 $properties, __NAMESPACE__ . '\Property'));
+
+        // dpop
+        $this->setDpop(
+            LanguageUtility::getFromArray('dpop', $array));
+
+        // htm
+        $this->setHtm(
+            LanguageUtility::getFromArray('htm', $array));
+
+        // htu
+        $this->setHtu(
+            LanguageUtility::getFromArray('htu', $array));
     }
 }
 ?>

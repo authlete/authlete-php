@@ -69,6 +69,14 @@ CHANGES (日本語)
     * `getAccessTokenResources()` メソッドを追加。
     * `setAccessTokenResources()` メソッドを追加。
 
+- `TokenRequest` クラス
+    * `getDpop()` メソッドを追加。
+    * `setDpop()` メソッドを追加。
+    * `getHtm()` メソッドを追加。
+    * `setHtm()` メソッドを追加。
+    * `getHtu()` メソッドを追加。
+    * `setHtu()` メソッドを追加。
+
 - 新しい部品
     * `DeliveryMode` クラス
     * `NamedUri` クラス
