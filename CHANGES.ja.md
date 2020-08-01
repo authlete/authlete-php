@@ -22,6 +22,12 @@ CHANGES (日本語)
     * `getJwtAccessToken()` メソッドを追加。
     * `setJwtAccessToken()` メソッドを追加。
 
+- `AuthorizationResponse` クラス
+    * `getResources()` メソッドを追加。
+    * `setResources()` メソッドを追加。
+    * `getPurpose()` メソッドを追加。
+    * `setPurpose()` メソッドを追加。
+
 - `GrantType` クラス
     * `$CIBA` を追加。
     * `$DEVICE_CODE` を追加。

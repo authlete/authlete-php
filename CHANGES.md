@@ -22,6 +22,12 @@ CHANGES
     * Added `getJwtAccessToken()` method.
     * Added `setJwtAccessToken()` method.
 
+- `AuthorizationResponse` class
+    * Added `getResources()` method.
+    * Added `setResources()` method.
+    * Added `getPurpose()` method.
+    * Added `setPurpose()` method.
+
 - `GrantType` class
     * Added `$CIBA`.
     * Added `$DEVICE_CODE`.

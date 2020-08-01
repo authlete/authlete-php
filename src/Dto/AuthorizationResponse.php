@@ -1,6 +1,6 @@
 <?php
 //
-// Copyright (C) 2018 Authlete, Inc.
+// Copyright (C) 2018-2020 Authlete, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -632,6 +632,8 @@ class AuthorizationResponse extends ApiResponse
     private $requestObjectPayload = null;  // string
     private $idTokenClaims        = null;  // string
     private $userInfoClaims       = null;  // string
+    private $resources            = null;  // array of string
+    private $purpose              = null;  // string
     private $responseContent      = null;  // string
     private $ticket               = null;  // string
 
@@ -1427,6 +1429,86 @@ class AuthorizationResponse extends ApiResponse
 
 
     /**
+     * Get the resources specified by the `resource` request parameters or by
+     * the `resource` property in the request object. If both are given, the
+     * values in the request object take precedence.
+     *
+     * @return string[]
+     *     Resources to be associated with tokens being issued.
+     *
+     * @see https://tools.ietf.org/html/rfc8707 RFC 8707 Resource Indicators for OAuth 2.0
+     *
+     * @since 1.8
+     */
+    public function getResources()
+    {
+        return $this->resources;
+    }
+
+
+    /**
+     * Set the resources specified by the `resource` request parameters or by
+     * the `resource` property in the request object. If both are given, the
+     * values in the request object should be set.
+     *
+     * @param string[] $resources
+     *     Resources to be associated with tokens being issued.
+     *
+     * @return AuthorizationResponse
+     *     `$this` object.
+     *
+     * @since 1.8
+     */
+    public function setResources(array $resources = null)
+    {
+        ValidationUtility::ensureNullOrArrayOfString('$resources', $resources);
+
+        $this->resources = $resources;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the value of the `purpose` request parameter.
+     *
+     * @return string
+     *     The value of the `purpose` request parameter.
+     *
+     * @see https://openid.net/specs/openid-connect-4-identity-assurance-1_0.html OpenID Connect for Identity Assurance 1.0
+     *
+     * @since 1.8
+     */
+    public function getPurpose()
+    {
+        return $this->purpose;
+    }
+
+
+    /**
+     * Set the value of the `purpose` request parameter.
+     *
+     * @param string $purpose
+     *     The value of the `purpose` request parameter.
+     *
+     * @return AuthorizationResponse
+     *     `$this` object.
+     *
+     * @see https://openid.net/specs/openid-connect-4-identity-assurance-1_0.html OpenID Connect for Identity Assurance 1.0
+     *
+     * @since 1.8
+     */
+    public function setPurpose($purpose)
+    {
+        ValidationUtility::ensureNullOrString('$purpose', $purpose);
+
+        $this->purpose = $purpose;
+
+        return $this;
+    }
+
+
+    /**
      * Get the response content which can be used to generate a response to
      * the client application.
      *
@@ -1528,6 +1610,8 @@ class AuthorizationResponse extends ApiResponse
         $array['requestObjectPayload'] = $this->requestObjectPayload;
         $array['idTokenClaims']        = $this->idTokenClaims;
         $array['userInfoClaims']       = $this->userInfoClaims;
+        $array['resources']            = $this->resources;
+        $array['purpose']              = $this->purpose;
         $array['responseContent']      = $this->responseContent;
         $array['ticket']               = $this->ticket;
     }
@@ -1627,6 +1711,14 @@ class AuthorizationResponse extends ApiResponse
         // userInfoClaims
         $this->setUserInfoClaims(
             LanguageUtility::getFromArray('userInfoClaims', $array));
+
+        // resources
+        $this->setResources(
+            LanguageUtility::getFromArray('resources', $array));
+
+        // purpose
+        $this->setPurpose(
+            LanguageUtility::getFromArray('purpose', $array));
 
         // responseContent
         $this->setResponseContent(

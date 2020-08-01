@@ -1,6 +1,6 @@
 <?php
 //
-// Copyright (C) 2018 Authlete, Inc.
+// Copyright (C) 2018-2020 Authlete, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -1833,6 +1833,7 @@ class AuthorizationResponseTest extends TestCase
         $claims        = array('name', 'email');
         $acrs          = array('acr0', 'acr1');
         $prompts       = array(Prompt::$NONE, Prompt::$LOGIN);
+        $resources     = array('rsc0', 'rsc1');
 
         $obj = new AuthorizationResponse();
         $obj->setResultCode('code')
@@ -1855,6 +1856,8 @@ class AuthorizationResponseTest extends TestCase
             ->setRequestObjectPayload('request_object_payload')
             ->setIdTokenClaims('id_token_claims')
             ->setUserInfoClaims('user_info_claims')
+            ->setResources($resources)
+            ->setPurpose('_purpose_')
             ->setResponseContent('content')
             ->setTicket('_ticket_')
             ;
@@ -1955,6 +1958,16 @@ class AuthorizationResponseTest extends TestCase
         // userInfoClaims
         $this->assertArrayHasKey('userInfoClaims', $array);
         $this->assertEquals('user_info_claims', $array['userInfoClaims']);
+
+        // resources
+        $this->assertArrayHasKey('resources', $array);
+        $this->assertTrue(is_array($array['resources']));
+        $this->assertEquals('rsc0', $array['resources'][0]);
+        $this->assertEquals('rsc1', $array['resources'][1]);
+
+        // purpose
+        $this->assertArrayHasKey('purpose', $array);
+        $this->assertEquals('_purpose_', $array['purpose']);
 
         // responseContent
         $this->assertArrayHasKey('responseContent', $array);
