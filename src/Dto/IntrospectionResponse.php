@@ -1,6 +1,6 @@
 <?php
 //
-// Copyright (C) 2018 Authlete, Inc.
+// Copyright (C) 2018-2020 Authlete, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -172,6 +172,8 @@ class IntrospectionResponse extends ApiResponse
     private $clientIdAlias         = null;  // string
     private $clientIdAliasUsed     = false; // boolean
     private $certificateThumbprint = null;  // string
+    private $resources             = null;  // array of string
+    private $accessTokenResources  = null;  // array of string
 
 
     /**
@@ -655,6 +657,107 @@ class IntrospectionResponse extends ApiResponse
 
 
     /**
+     * Get the target resources. This represents the resources specified by
+     * the `resource` request parameters or by the `resource` property in
+     * the request object.
+     *
+     * @return string[]
+     *     The target resources.
+     *
+     * @see https://www.rfc-editor.org/rfc/rfc8707.html RFC 8707 Resource Indicators for OAuth 2.0
+     *
+     * @since 1.8
+     */
+    public function getResources()
+    {
+        return $this->resources;
+    }
+
+
+    /**
+     * Set the target resources. This represents the resources specified by
+     * the `resource` request parameters or by the `resource` property in
+     * the request object.
+     *
+     * @param string[] $resources
+     *     The target resources.
+     *
+     * @return IntrospectionResponse
+     *     `$this` object.
+     *
+     * @see https://www.rfc-editor.org/rfc/rfc8707.html RFC 8707 Resource Indicators for OAuth 2.0
+     *
+     * @since 1.8
+     */
+    public function setResources(array $resources = null)
+    {
+        ValidationUtility::ensureNullOrArrayOfString('$resources', $resources);
+
+        $this->resources = $resources;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the target resources of the access token.
+     *
+     * The target resources returned by this method may be the same as or
+     * different from the ones returned by `getResources()` method.
+     *
+     * In some flows, the initial request and the subsequent token request
+     * are sent to different endpoints. Example flows are the authorization
+     * code flow, the refresh token flow, the CIBA ping mode, the CIBA poll
+     * mode and the device flow. In these flows, not only the initial
+     * request but also the subsequent token request can include the
+     * `resource` request parameters. The purpose of the `resource` request
+     * parameters in the token request is to narrow the range of the target
+     * resources from the original set of target resources requested by the
+     * preceding initial request. If narrowing down is performed, the target
+     * resources returned by `getResources()` method and the ones returned
+     * by this method are different. This method returns the narrowed set
+     * of target resources.
+     *
+     * @return string[]
+     *     The target resources of the access token.
+     *
+     * @see https://www.rfc-editor.org/rfc/rfc8707.html RFC 8707 Resource Indicators for OAuth 2.0
+     *
+     * @since 1.8
+     */
+    public function getAccessTokenResources()
+    {
+        return $this->accessTokenResources;
+    }
+
+
+    /**
+     * Set the target resources of the access token.
+     *
+     * See the description of `getAccessTokenResources()` method for details
+     * about the target resources of the access token.
+     *
+     * @param string[] $resources
+     *     The target resources of the access token.
+     *
+     * @return IntrospectionResponse
+     *     `$this` object.
+     *
+     * @see https://www.rfc-editor.org/rfc/rfc8707.html RFC 8707 Resource Indicators for OAuth 2.0
+     *
+     * @since 1.8
+     */
+    public function setAccessTokenResources(array $resources = null)
+    {
+        ValidationUtility::ensureNullOrArrayOfString('$resources', $resources);
+
+        $this->accessTokenResources = $resources;
+
+        return $this;
+    }
+
+
+    /**
      * Get the flag which indicates whether the access token is active
      * (= exists and has not expired).
      *
@@ -721,6 +824,8 @@ class IntrospectionResponse extends ApiResponse
         $array['clientIdAlias']         = $this->clientIdAlias;
         $array['clientIdAliasUsed']     = $this->clientIdAliasUsed;
         $array['certificateThumbprint'] = $this->certificateThumbprint;
+        $array['resources']             = $this->resources;
+        $array['accessTokenResources']  = $this->accessTokenResources;
     }
 
 
@@ -794,6 +899,14 @@ class IntrospectionResponse extends ApiResponse
         // certificateThumbprint
         $this->setCertificateThumbprint(
             LanguageUtility::getFromArray('certificateThumbprint', $array));
+
+        // resources
+        $this->setResources(
+            LanguageUtility::getFromArray('resources', $array));
+
+        // accessTokenResources
+        $this->setAccessTokenResources(
+            LanguageUtility::getFromArray('accessTokenResources', $array));
     }
 }
 ?>

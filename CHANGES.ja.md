@@ -46,6 +46,12 @@ CHANGES (日本語)
     * `getHtu()` メソッドを追加。
     * `setHtu()` メソッドを追加。
 
+- `IntrospectionResponse` クラス
+    * `getResources()` メソッドを追加。
+    * `setResources()` メソッドを追加。
+    * `getAccessTokenResources()` メソッドを追加。
+    * `setAccessTokenResources()` メソッドを追加。
+
 - 新しい部品
     * `DeliveryMode` クラス
     * `UserCodeCharset` クラス
