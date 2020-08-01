@@ -28,6 +28,12 @@ CHANGES
     * Added `getPurpose()` method.
     * Added `setPurpose()` method.
 
+- `ClientExtension` class
+    * Added `getAccessTokenDuration()` method.
+    * Added `setAccessTokenDuration()` method.
+    * Added `getRefreshTokenDuration()` method.
+    * Added `setRefreshTokenDuration()` method.
+
 - `GrantType` class
     * Added `$CIBA`.
     * Added `$DEVICE_CODE`.

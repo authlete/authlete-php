@@ -1,6 +1,6 @@
 <?php
 //
-// Copyright (C) 2018 Authlete, Inc.
+// Copyright (C) 2018-2020 Authlete, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -209,6 +209,8 @@ class ClientExtensionTest extends TestCase
         $obj = new ClientExtension();
         $obj->setRequestableScopesEnabled(true)
             ->setRequestableScopes(array('scope0', 'scope1'))
+            ->setAccessTokenDuration(1234)
+            ->setRefreshTokenDuration(5678)
             ;
 
         $json  = $obj->toJson();
@@ -226,6 +228,14 @@ class ClientExtensionTest extends TestCase
         $this->assertCount(2, $scopes);
         $this->assertEquals('scope0', $scopes[0]);
         $this->assertEquals('scope1', $scopes[1]);
+
+        // accessTokenDuration
+        $this->assertArrayHasKey('accessTokenDuration', $array);
+        $this->assertEquals(1234, $array['accessTokenDuration']);
+
+        // refreshTokenDuration
+        $this->assertArrayHasKey('refreshTokenDuration', $array);
+        $this->assertEquals(5678, $array['refreshTokenDuration']);
     }
 }
 ?>

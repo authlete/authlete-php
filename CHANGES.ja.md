@@ -28,6 +28,12 @@ CHANGES (日本語)
     * `getPurpose()` メソッドを追加。
     * `setPurpose()` メソッドを追加。
 
+- `ClientExtension` クラス
+    * `getAccessTokenDuration()` メソッドを追加。
+    * `setAccessTokenDuration()` メソッドを追加。
+    * `getRefreshTokenDuration()` メソッドを追加。
+    * `setRefreshTokenDuration()` メソッドを追加。
+
 - `GrantType` クラス
     * `$CIBA` を追加。
     * `$DEVICE_CODE` を追加。

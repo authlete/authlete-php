@@ -1,6 +1,6 @@
 <?php
 //
-// Copyright (C) 2018 Authlete, Inc.
+// Copyright (C) 2018-2020 Authlete, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -57,6 +57,8 @@ class ClientExtension implements ArrayCopyable, Arrayable, Jsonable
 
     private $requestableScopesEnabled = false; // boolean
     private $requestableScopes        = null;  // array of string
+    private $accessTokenDuration      = null;  // string or (64-bit) integer
+    private $refreshTokenDuration     = null;  // string or (64-bit) integer
 
 
     /**
@@ -142,6 +144,120 @@ class ClientExtension implements ArrayCopyable, Arrayable, Jsonable
 
 
     /**
+     * Get the duration of access tokens per client in seconds.
+     *
+     * In normal cases, the values of the Service's `accessTokenDuration`
+     * property is used as the duration of access tokens issued by the
+     * service. However, if this `accessTokenDuration` property holds a
+     * non-zero positive number and its value is less than the duration
+     * configured by the service, the value is used as the duration of
+     * access tokens issued to the client application.
+     *
+     * Note that the duration of access tokens can be controlled by the
+     * scope attribute `access_token.duration`, too. Authlete chooses the
+     * minimum value among the candidates.
+     *
+     * @return integer|string
+     *     The duration of access tokens per client in seconds.
+     *
+     * @since 1.8
+     */
+    public function getAccessTokenDuration()
+    {
+        return $this->accessTokenDuration;
+    }
+
+
+    /**
+     * Set the duration of access tokens per client in seconds.
+     *
+     * In normal cases, the values of the Service's `accessTokenDuration`
+     * property is used as the duration of access tokens issued by the
+     * service. However, if this `accessTokenDuration` property holds a
+     * non-zero positive number and its value is less than the duration
+     * configured by the service, the value is used as the duration of
+     * access tokens issued to the client application.
+     *
+     * Note that the duration of access tokens can be controlled by the
+     * scope attribute `access_token.duration`, too. Authlete chooses the
+     * minimum value among the candidates.
+     *
+     * @param integer|string $duration
+     *     The duration of access tokens per client in seconds.
+     *
+     * @return ClientExtension
+     *     `$this` object.
+     *
+     * @since 1.8
+     */
+    public function setAccessTokenDuration($duration)
+    {
+        ValidationUtility::ensureNullOrStringOrInteger('$duration', $duration);
+
+        $this->accessTokenDuration = $duration;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the duration of refresh tokens per client in seconds.
+     *
+     * In normal cases, the values of the Service's `refreshTokenDuration`
+     * property is used as the duration of refresh tokens issued by the
+     * service. However, if this `refreshTokenDuration` property holds a
+     * non-zero positive number and its value is less than the duration
+     * configured by the service, the value is used as the duration of
+     * refresh tokens issued to the client application.
+     *
+     * Note that the duration of refresh tokens can be controlled by the
+     * scope attribute `refresh_token.duration`, too. Authlete chooses the
+     * minimum value among the candidates.
+     *
+     * @return integer|string
+     *     The duration of refresh tokens per client in seconds.
+     *
+     * @since 1.8
+     */
+    public function getRefreshTokenDuration()
+    {
+        return $this->refreshTokenDuration;
+    }
+
+
+    /**
+     * Set the duration of refresh tokens per client in seconds.
+     *
+     * In normal cases, the values of the Service's `refreshTokenDuration`
+     * property is used as the duration of refresh tokens issued by the
+     * service. However, if this `refreshTokenDuration` property holds a
+     * non-zero positive number and its value is less than the duration
+     * configured by the service, the value is used as the duration of
+     * refresh tokens issued to the client application.
+     *
+     * Note that the duration of refresh tokens can be controlled by the
+     * scope attribute `refresh_token.duration`, too. Authlete chooses the
+     * minimum value among the candidates.
+     *
+     * @param integer|string $duration
+     *     The duration of refresh tokens per client in seconds.
+     *
+     * @return ClientExtension
+     *     `$this` object.
+     *
+     * @since 1.8
+     */
+    public function setRefreshTokenDuration($duration)
+    {
+        ValidationUtility::ensureNullOrStringOrInteger('$duration', $duration);
+
+        $this->refreshTokenDuration = $duration;
+
+        return $this;
+    }
+
+
+    /**
      * {@inheritdoc}
      *
      * {@inheritdoc}
@@ -153,6 +269,8 @@ class ClientExtension implements ArrayCopyable, Arrayable, Jsonable
     {
         $array['requestableScopesEnabled'] = $this->requestableScopesEnabled;
         $array['requestableScopes']        = $this->requestableScopes;
+        $array['accessTokenDuration']      = $this->accessTokenDuration;
+        $array['refreshTokenDuration']     = $this->refreshTokenDuration;
     }
 
 
@@ -173,6 +291,14 @@ class ClientExtension implements ArrayCopyable, Arrayable, Jsonable
         // requestableScopes
         $this->setRequestableScopes(
             LanguageUtility::getFromArray('requestableScopes', $array));
+
+        // accessTokenDuration
+        $this->setAccessTokenDuration(
+            LanguageUtility::getFromArray('accessTokenDuration', $array));
+
+        // refreshTokenDuration
+        $this->setRefreshTokenDuration(
+            LanguageUtility::getFromArray('refreshTokenDuration', $array));
     }
 }
 ?>
