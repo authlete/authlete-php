@@ -77,6 +77,14 @@ CHANGES (日本語)
     * `getHtu()` メソッドを追加。
     * `setHtu()` メソッドを追加。
 
+- `TokenResponse` クラス
+    * `getJwtAccessToken()` メソッドを追加。
+    * `setJwtAccessToken()` メソッドを追加。
+    * `getResources()` メソッドを追加。
+    * `setResources()` メソッドを追加。
+    * `getAccessTokenResources()` メソッドを追加。
+    * `setAccessTokenResources()` メソッドを追加。
+
 - 新しい部品
     * `DeliveryMode` クラス
     * `NamedUri` クラス

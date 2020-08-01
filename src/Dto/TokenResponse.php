@@ -1,6 +1,6 @@
 <?php
 //
-// Copyright (C) 2018 Authlete, Inc.
+// Copyright (C) 2018-2020 Authlete, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -210,6 +210,9 @@ class TokenResponse extends ApiResponse
     private $subject               = null;  // string
     private $scopes                = null;  // array of string
     private $properties            = null;  // array of \Authlete\Dto\Property
+    private $jwtAccessToken        = null;  // string
+    private $resources             = null;  // array of string
+    private $accessTokenResources  = null;  // array of string
 
 
     /**
@@ -838,6 +841,145 @@ class TokenResponse extends ApiResponse
 
 
     /**
+     * Get the newly issued access token in JWT format.
+     *
+     * If the authorization server is configured to issue JWT-based access
+     * tokens (= if `Service.getAccessTokenSignAlg()` returns a non-null
+     * value), a JWT-based access token is issued along with the original
+     * random-string one.
+     *
+     * @return string
+     *     The newly issued access token in JWT format.
+     *
+     * @since 1.8
+     */
+    public function getJwtAccessToken()
+    {
+        return $this->jwtAccessToken;
+    }
+
+
+    /**
+     * Set the newly issued access token in JWT format.
+     *
+     * @param string $jwtAccessToken
+     *     The newly issued access token in JWT format.
+     *
+     * @return TokenResponse
+     *     `$this` object.
+     *
+     * @since 1.8
+     */
+    public function setJwtAccessToken($jwtAccessToken)
+    {
+        ValidationUtility::ensureNullOrString('$jwtAccessToken', $jwtAccessToken);
+
+        $this->jwtAccessToken = $jwtAccessToken;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the target resources. This represents the resources specified by
+     * the `resource` request parameters in the token request.
+     *
+     * @return string[]
+     *     The target resources.
+     *
+     * @see https://www.rfc-editor.org/rfc/rfc8707.html RFC 8707 Resource Indicators for OAuth 2.0
+     *
+     * @since 1.8
+     */
+    public function getResources()
+    {
+        return $this->resources;
+    }
+
+
+    /**
+     * Set the target resources. This represents the resources specified by
+     * the `resource` request parameters in the token request.
+     *
+     * @param string[] $resources
+     *     The target resources.
+     *
+     * @return TokenResponse
+     *     `$this` object.
+     *
+     * @see https://www.rfc-editor.org/rfc/rfc8707.html RFC 8707 Resource Indicators for OAuth 2.0
+     *
+     * @since 1.8
+     */
+    public function setResources(array $resources = null)
+    {
+        ValidationUtility::ensureNullOrArrayOfString('$resources', $resources);
+
+        $this->resources = $resources;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the target resources of the access token.
+     *
+     * The target resources returned by this method may be the same as or
+     * different from the ones returned by `getResources()` method.
+     *
+     * In some flows, the initial request and the subsequent token request
+     * are sent to different endpoints. Example flows are the authorization
+     * code flow, the refresh token flow, the CIBA ping mode, the CIBA poll
+     * mode and the device flow. In these flows, not only the initial
+     * request but also the subsequent token request can include the
+     * `resource` request parameters. The purpose of the `resource` request
+     * parameters in the token request is to narrow the range of the target
+     * resources from the original set of target resources requested by the
+     * preceding initial request. If narrowing down is performed, the target
+     * resources returned by `getResources()` method and the ones returned
+     * by this method are different. This method returns the narrowed set
+     * of target resources.
+     *
+     * @return string[]
+     *     The target resources of the access token.
+     *
+     * @see https://www.rfc-editor.org/rfc/rfc8707.html RFC 8707 Resource Indicators for OAuth 2.0
+     *
+     * @since 1.8
+     */
+    public function getAccessTokenResources()
+    {
+        return $this->accessTokenResources;
+    }
+
+
+    /**
+     * Set the target resources of the access token.
+     *
+     * See the description of `getAccessTokenResources()` method for details
+     * about the target resources of the access token.
+     *
+     * @param string[] $resources
+     *     The target resources of the access token.
+     *
+     * @return TokenResponse
+     *     `$this` object.
+     *
+     * @see https://www.rfc-editor.org/rfc/rfc8707.html RFC 8707 Resource Indicators for OAuth 2.0
+     *
+     * @since 1.8
+     */
+    public function setAccessTokenResources(array $resources = null)
+    {
+        ValidationUtility::ensureNullOrArrayOfString('$resources', $resources);
+
+        $this->accessTokenResources = $resources;
+
+        return $this;
+    }
+
+
+    /**
      * {@inheritdoc}
      *
      * {@inheritdoc}
@@ -868,6 +1010,9 @@ class TokenResponse extends ApiResponse
         $array['subject']               = $this->subject;
         $array['scopes']                = $this->scopes;
         $array['properties']            = LanguageUtility::convertArrayOfArrayCopyableToArray($this->properties);
+        $array['jwtAccessToken']        = $this->jwtAccessToken;
+        $array['resources']             = $this->resources;
+        $array['accessTokenResources']  = $this->accessTokenResources;
     }
 
 
@@ -962,6 +1107,18 @@ class TokenResponse extends ApiResponse
         $this->setProperties(
             LanguageUtility::convertArrayToArrayOfArrayCopyable(
                 $properties, __NAMESPACE__ . '\Property'));
+
+        // jwtAccessToken
+        $this->setJwtAccessToken(
+            LanguageUtility::getFromArray('jwtAccessToken', $array));
+
+        // resources
+        $this->setResources(
+            LanguageUtility::getFromArray('resources', $array));
+
+        // accessTokenResources
+        $this->setAccessTokenResources(
+            LanguageUtility::getFromArray('accessTokenResources', $array));
     }
 }
 ?>

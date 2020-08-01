@@ -77,6 +77,14 @@ CHANGES
     * Added `getHtu()` method.
     * Added `setHtu()` method.
 
+- `TokenResponse` class
+    * Added `getJwtAccessToken()` method.
+    * Added `setJwtAccessToken()` method.
+    * Added `getResources()` method.
+    * Added `setResources()` method.
+    * Added `getAccessTokenResources()` method.
+    * Added `setAccessTokenResources()` method.
+
 - New parts
     * `DeliveryMode` class
     * `NamedUri` class
