@@ -63,6 +63,12 @@ CHANGES
 - `TokenFailReason` class
     * Added `$INVALID_TARGET`.
 
+- `TokenIssueResponse` class
+    * Added `getJwtAccessToken()` method.
+    * Added `setJwtAccessToken()` method.
+    * Added `getAccessTokenResources()` method.
+    * Added `setAccessTokenResources()` method.
+
 - New parts
     * `DeliveryMode` class
     * `NamedUri` class

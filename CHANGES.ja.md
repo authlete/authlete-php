@@ -63,6 +63,12 @@ CHANGES (日本語)
 - `TokenFailReason` クラス
     * `$INVALID_TARGET` を追加。
 
+- `TokenIssueResponse` クラス
+    * `getJwtAccessToken()` メソッドを追加。
+    * `setJwtAccessToken()` メソッドを追加。
+    * `getAccessTokenResources()` メソッドを追加。
+    * `setAccessTokenResources()` メソッドを追加。
+
 - 新しい部品
     * `DeliveryMode` クラス
     * `NamedUri` クラス
