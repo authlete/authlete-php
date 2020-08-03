@@ -1,6 +1,6 @@
 <?php
 //
-// Copyright (C) 2018 Authlete, Inc.
+// Copyright (C) 2018-2020 Authlete, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -43,10 +43,16 @@ class TokenUpdateRequest implements ArrayCopyable, Arrayable, Jsonable
     use JsonTrait;
 
 
-    private $accessToken          = null;  // string
-    private $accessTokenExpiresAt = null;  // string or (64-bit) integer
-    private $scopes               = null;  // array of string
-    private $properties           = null;  // array of \Authlete\Dto\Property
+    private $accessToken                              = null;  // string
+    private $accessTokenExpiresAt                     = null;  // string or (64-bit) integer
+    private $scopes                                   = null;  // array of string
+    private $properties                               = null;  // array of \Authlete\Dto\Property
+    private $accessTokenExpiresAtUpdatedOnScopeUpdate = false; // boolean
+    private $accessTokenPersistent                    = false; // boolean
+    private $accessTokenHash                          = null;  // string
+    private $accessTokenValueUpdated                  = false; // boolean
+    private $certificateThumbprint                    = null;  // string
+    private $dpopKeyThumbprint                        = null;  // string
 
 
     /**
@@ -185,6 +191,284 @@ class TokenUpdateRequest implements ArrayCopyable, Arrayable, Jsonable
 
 
     /**
+     * Get the flag which indicates whether `/api/auth/token/update` API
+     * attempts to update the expiration date of the access token when the
+     * scopes linked to the access token are changed by this request.
+     *
+     * @return boolean
+     *     `true` if the expiration date of the access token is updated
+     *     as necessary when scopes are updated.
+     *
+     * @since 1.8
+     */
+    public function isAccessTokenExpiresAtUpdatedOnScopeUpdate()
+    {
+        return $this->accessTokenExpiresAtUpdatedOnScopeUpdate;
+    }
+
+
+    /**
+     * Set the flag which indicates whether `/api/auth/token/update` API
+     * attempts to update the expiration date of the access token when the
+     * scopes linked to the access token are changed by this request.
+     *
+     * This request parameter is optional and its default value is `false`.
+     * If this request parameter is set to `true` and all of the following
+     * conditions are satisfied, the API performs an update on the expiration
+     * date of the access token even if the `accessTokenExpiresAt` request
+     * parameter is not explicitly specified in the request.
+     *
+     * 1. The `accessTokenExpiresAt` request parameter is not included in the
+     *    request or its value is 0 (or negative).
+     *
+     * 2. The scopes linked to the access token are changed by the `scopes`
+     *    request parameter in the request.
+     *
+     * 3. Any of the new scopes to be linked to the access token has one or
+     *    more attributes specifying access token duration.
+     *
+     * When multiple access token duration values are found in the attributes
+     * of the specified scopes, the smallest value among them is used.
+     *
+     * @param boolean $updated
+     *     `true` to update the expiration date of the access token when the
+     *     scopes linked to the access token are changed by this request.
+     *
+     * @return TokenUpdateRequest
+     *     `$this` object.
+     *
+     * @since 1.8
+     */
+    public function setAccessTokenExpiresAtUpdatedOnScopeUpdate($updated)
+    {
+        ValidationUtility::ensureBoolean('$updated', $updated);
+
+        $this->accessTokenExpiresAtUpdatedOnScopeUpdate = $updated;
+
+        return $this;
+    }
+
+
+    /**
+     * Get whether the access token expires or not. By default, all access
+     * tokens expire after a period of time determined by their service.
+     * If this request parameter is `true` then the access token will not
+     * automatically expire.
+     *
+     * If this request parameter is `true`, the `accessTokenDuration` request
+     * parameter is ignored.
+     *
+     * @return boolean
+     *     `false` if the access token expires (default).
+     *     `true` if the access token does not expire.
+     *
+     * @since 1.8
+     */
+    public function isAccessTokenPersistent()
+    {
+        return $this->accsssTokenPersistent;
+    }
+
+
+    /**
+     * Get whether the access token expires or not. By default, all access
+     * tokens expire after a period of time determined by their service.
+     * If this request parameter is `true` then the access token will not
+     * automatically expire.
+     *
+     * If this request parameter is `true`, the `accessTokenDuration` request
+     * parameter is ignored.
+     *
+     * @param boolean $persistent
+     *     `false` to make the access token expire (default).
+     *     `true` to make the access token be persistent.
+     *
+     * @return TokenUpdateRequest
+     *     `$this` object.
+     *
+     * @since 1.8
+     */
+    public function setAccessTokenPersistent($persistent)
+    {
+        ValidationUtility::ensureBoolean('$persistent', $persistent);
+
+        $this->accessTokenPersistent = $persistent;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the hash of the the access token value. Used when the hash of the
+     * token is known (perhaps from lookup) but the value of the token itself
+     * is not.
+     *
+     * @return string
+     *     The hash of the access token value.
+     *
+     * @since 1.8
+     */
+    public function getAccessTokenHash()
+    {
+        return $this->accessTokenHash;
+    }
+
+
+    /**
+     * Set the hash of the the access token value. Used when the hash of the
+     * token is known (perhaps from lookup) but the value of the token itself
+     * is not.
+     *
+     * @param string $hash
+     *     The hash of the access token value.
+     *
+     * @return TokenUpdateRequest
+     *     `$this` object.
+     *
+     * @since 1.8
+     */
+    public function setAccessTokenHash($hash)
+    {
+        ValidationUtility::ensureNullOrString('$hash', $hash);
+
+        $this->accessTokenHash = $accessTokenHash;
+
+        return $this;
+    }
+
+
+    /**
+     * Get whether to update the value of the access token in the data store.
+     * If this parameter is set to `true` then a new access token value is
+     * generated by the server and returned in the response.
+     *
+     * @return boolean
+     *     `false` to keep the access token's current value (default).
+     *     `true` to have the server update the access token's value.
+     *
+     * @since 1.8
+     */
+    public function isAccessTokenValueUpdated()
+    {
+        return $this->accsssTokenValueUpdated;
+    }
+
+
+    /**
+     * Set whether to update the value of the access token in the data store.
+     * If this parameter is set to `true` then a new access token value is
+     * generated by the server and returned in the response.
+     *
+     * @param boolean $persistent
+     *     `false` to keep the access token's current value (default).
+     *     `true` to have the server update the access token's value.
+     *
+     * @return TokenUpdateRequest
+     *     `$this` object.
+     *
+     * @since 1.8
+     */
+    public function setAccessTokenValueUpdated($updated)
+    {
+        ValidationUtility::ensureBoolean('$updated', $updated);
+
+        $this->accessTokenValueUpdated = $updated;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the thumbprint of the client certificate bound to the access token.
+     * If this request parameter is set, a certificate whose thumbprint matches
+     * the value must be presented when the client uses the access token.
+     *
+     * @return string
+     *     The base64url-encoded SHA-256 certificate thumbprint.
+     *
+     * @see https://www.rfc-editor.org/rfc/rfc8705.html RFC 8705 OAuth 2.0 Mutual-TLS Client Authentication and Certificate-Bound Access Tokens
+     *
+     * @since 1.8
+     */
+    public function getCertificateThumbprint()
+    {
+        return $this->certificateThumbprint;
+    }
+
+
+    /**
+     * Set the thumbprint of the client certificate bound to the access token.
+     * If this request parameter is set, a certificate whose thumbprint matches
+     * the value must be presented when the client uses the access token.
+     *
+     * @param string $thumbprint
+     *     The base64url-encoded SHA-256 certificate thumbprint.
+     *
+     * @return TokenUpdateRequest
+     *     `$this` object.
+     *
+     * @see https://www.rfc-editor.org/rfc/rfc8705.html RFC 8705 OAuth 2.0 Mutual-TLS Client Authentication and Certificate-Bound Access Tokens
+     *
+     * @since 1.8
+     */
+    public function setCertificateThumbprint($thumbprint)
+    {
+        ValidationUtility::ensureNullOrString('$thumbprint', $thumbprint);
+
+        $this->certificateThumbprint = $thumbprint;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the thumbprint of the public key used for DPoP presentation of this
+     * access token. If this request parameter is set, a DPoP proof signed with
+     * the corresponding private key must be presented when the client uses the
+     * access token.
+     *
+     * See "OAuth 2.0 Demonstration of Proof-of-Possession at the Application
+     * Layer (DPoP)" for details.
+     *
+     * @return string
+     *     The JWK publick key thumbprint.
+     *
+     * @since 1.8
+     */
+    public function getDpopKeyThumbprint()
+    {
+        return $this->dpopKeyThumbprint;
+    }
+
+
+    /**
+     * Set the thumbprint of the public key used for DPoP presentation of this
+     * access token. If this request parameter is set, a DPoP proof signed with
+     * the corresponding private key must be presented when the client uses the
+     * access token.
+     *
+     * See "OAuth 2.0 Demonstration of Proof-of-Possession at the Application
+     * Layer (DPoP)" for details.
+     *
+     * @param string $thumbprint
+     *     The JWK publick key thumbprint.
+     *
+     * @return TokenUpdateRequest
+     *     `$this` object.
+     *
+     * @since 1.8
+     */
+    public function setDpopKeyThumbprint($thumbprint)
+    {
+        ValidationUtility::ensureNullOrString('$thumbprint', $thumbprint);
+
+        $this->dpopKeyThumbprint = $thumbprint;
+
+        return $this;
+    }
+
+
+    /**
      * {@inheritdoc}
      *
      * {@inheritdoc}
@@ -194,10 +478,16 @@ class TokenUpdateRequest implements ArrayCopyable, Arrayable, Jsonable
      */
     public function copyToArray(array &$array)
     {
-        $array['accessToken']          = $this->accessToken;
-        $array['accessTokenExpiresAt'] = LanguageUtility::orZero($this->accessTokenExpiresAt);
-        $array['scopes']               = $this->scopes;
-        $array['properties']           = LanguageUtility::convertArrayOfArrayCopyableToArray($this->properties);
+        $array['accessToken']                              = $this->accessToken;
+        $array['accessTokenExpiresAt']                     = LanguageUtility::orZero($this->accessTokenExpiresAt);
+        $array['scopes']                                   = $this->scopes;
+        $array['properties']                               = LanguageUtility::convertArrayOfArrayCopyableToArray($this->properties);
+        $array['accessTokenExpiresAtUpdatedOnScopeUpdate'] = $this->accessTokenExpiresAtUpdatedOnScopeUpdate;
+        $array['accessTokenPersistent']                    = $this->accessTokenPersistent;
+        $array['accessTokenHash']                          = $this->accessTokenHash;
+        $array['accessTokenValueUpdated']                  = $this->accessTokenValueUpdated;
+        $array['certificateThumbprint']                    = $this->certificateThumbprint;
+        $array['dpopKeyThumbprint']                        = $this->dpopKeyThumbprint;
     }
 
 
@@ -228,6 +518,30 @@ class TokenUpdateRequest implements ArrayCopyable, Arrayable, Jsonable
         $this->setProperties(
             LanguageUtility::convertArrayToArrayOfArrayCopyable(
                 $properties, __NAMESPACE__ . '\Property'));
+
+        // accessTokenExpiresAtUpdatedOnScopeUpdate
+        $this->setAccessTokenExpiresAtUpdatedOnScopeUpdate(
+            LanguageUtility::getFromArrayAsBoolean('accessTokenExpiresAtUpdatedOnScopeUpdate', $array));
+
+        // accessTokenPersistent
+        $this->setAccessTokenPersistent(
+            LanguageUtility::getFromArrayAsBoolean('accessTokenPersistent', $array));
+
+        // accessTokenHash
+        $this->setAccessTokenHash(
+            LanguageUtility::getFromArray('accessTokenHash', $array));
+
+        // accessTokenValueUpdated
+        $this->setAccessTokenValueUpdated(
+            LanguageUtility::getFromArrayAsBoolean('accessTokenValueUpdated', $array));
+
+        // certificateThumbprint
+        $this->setCertificateThumbprint(
+            LanguageUtility::getFromArray('certificateThumbprint', $array));
+
+        // dpopKeyThumbprint
+        $this->setDpopKeyThumbprint(
+            LanguageUtility::getFromArray('dpopKeyThumbprint', $array));
     }
 }
 ?>

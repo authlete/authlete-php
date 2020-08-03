@@ -85,6 +85,20 @@ CHANGES (日本語)
     * `getAccessTokenResources()` メソッドを追加。
     * `setAccessTokenResources()` メソッドを追加。
 
+- `TokenUpdateRequest` クラス
+    * `isAccessTokenExpiresAtUpdatedOnScopeUpdate()` メソッドを追加。
+    * `setAccessTokenExpiresAtUpdatedOnScopeUpdate()` メソッドを追加。
+    * `isAccessTokenPersistent()` メソッドを追加。
+    * `setAccessTokenPersistent()` メソッドを追加。
+    * `getAccessTokenHash()` メソッドを追加。
+    * `setAccessTokenHash()` メソッドを追加。
+    * `isAccessTokenValueUpdated()` メソッドを追加。
+    * `setAccessTokenValueUpdated()` メソッドを追加。
+    * `getCertificateThumbprint()` メソッドを追加。
+    * `setCertificateThumbprint()` メソッドを追加。
+    * `getDpopKeyThumbprint()` メソッドを追加。
+    * `setDpopKeyThumbprint()` メソッドを追加。
+
 - 新しい部品
     * `DeliveryMode` クラス
     * `NamedUri` クラス
