@@ -109,6 +109,10 @@ CHANGES (日本語)
     * `getHtu()` メソッドを追加。
     * `setHtu()` メソッドを追加。
 
+- `UserInfoResponse` クラス
+    * `getUserInfoClaims()` メソッドを追加。
+    * `setUserInfoClaims()` メソッドを追加。
+
 - 新しい部品
     * `DeliveryMode` クラス
     * `NamedUri` クラス

@@ -109,6 +109,10 @@ CHANGES
     * Added `getHtu()` method.
     * Added `setHtu()` method.
 
+- `UserInfoResponse` class
+    * Added `getUserInfoClaims()` method.
+    * Added `setUserInfoClaims()` method.
+
 - New parts
     * `DeliveryMode` class
     * `NamedUri` class

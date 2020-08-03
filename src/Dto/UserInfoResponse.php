@@ -1,6 +1,6 @@
 <?php
 //
-// Copyright (C) 2018 Authlete, Inc.
+// Copyright (C) 2018-2020 Authlete, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -179,6 +179,7 @@ class UserInfoResponse extends ApiResponse
     private $properties        = null;  // array of \Authlete\Dto\Property
     private $clientIdAlias     = null;  // string
     private $clientIdAliasUsed = false; // boolean
+    private $userInfoClaims    = null;  // string
 
 
     /**
@@ -523,6 +524,98 @@ class UserInfoResponse extends ApiResponse
 
 
     /**
+     * Get the value of the `userinfo` property in the `claims` request
+     * parameter or in the `claims` property in an authorization request
+     * object.
+     *
+     * A client application may request certain claims be embedded in an
+     * ID token or in a response from the UserInfo endpoint. There are
+     * several ways. Including the `claims` request parameter and including
+     * the `claims` property in a request object are such examples. In both
+     * the cases, the value of the `claims` parameter/property is JSON. Its
+     * format is described in
+     * [5.5. Requesting Claims using the "claims" Request Parameter](https://openid.net/specs/openid-connect-core-1_0.html#ClaimsParameter)
+     * of
+     * [OpenID Connect Core 1.0](https://openid.net/specs/openid-connect-core-1_0.html).
+     *
+     * The following is an excerpt from the specification. You can find
+     * `userinfo` and `id_token` are top-level properties.
+     *
+     * ```
+     * {
+     *  "userinfo":
+     *   {
+     *    "given_name": {"essential": true},
+     *    "nickname": null,
+     *    "email": {"essential": true},
+     *    "email_verified": {"essential": true},
+     *    "picture": null,
+     *    "http://example.info/claims/groups": null
+     *   },
+     *  "id_token":
+     *   {
+     *    "auth_time": {"essential": true},
+     *    "acr": {"values": ["urn:mace:incommon:iap:silver"] }
+     *   }
+     * }
+     * ```
+     *
+     * This method (`getUserInfoClaims`) returns the value of the `userinfo`
+     * property in JSON format. For example, if the JSON above is included
+     * in an authorization request, this method returns JSON equivalent to
+     * the following.
+     *
+     * ```
+     * {
+     *  "given_name": {"essential": true},
+     *  "nickname": null,
+     *  "email": {"essential": true},
+     *  "email_verified": {"essential": true},
+     *  "picture": null,
+     *  "http://example.info/claims/groups": null
+     * }
+     * ```
+     *
+     * Note that if a request object is given and it contains the `claims`
+     * property and if the `claims` request parameter is also given, this
+     * method returns the value in the former.
+     *
+     * @return string
+     *     The value of the `userinfo` property in the `claims` in JSON
+     *     format.
+     *
+     * @since 1.8
+     */
+    public function getUserInfoClaims()
+    {
+        return $this->userInfoClaims;
+    }
+
+
+    /**
+     * Set the value of the `userinfo` property in the `claims` request
+     * parameter or in the `claims` property in a request object.
+     *
+     * @param string $claims
+     *     The value of the `userinfo` property in the `claims` in JSON
+     *     format.
+     *
+     * @return UserInfoResponse
+     *     `$this` object.
+     *
+     * @since 1.8
+     */
+    public function setUserInfoClaims($claims)
+    {
+        ValidationUtility::ensureNullOrString('$claims', $claims);
+
+        $this->userInfoClaims = $claims;
+
+        return $this;
+    }
+
+
+    /**
      * {@inheritdoc}
      *
      * {@inheritdoc}
@@ -544,6 +637,7 @@ class UserInfoResponse extends ApiResponse
         $array['properties']        = LanguageUtility::convertArrayOfArrayCopyableToArray($this->properties);
         $array['clientIdAlias']     = $this->clientIdAlias;
         $array['clientIdAliasUsed'] = $this->clientIdAliasUsed;
+        $array['userInfoClaims']    = $this->userInfoClaims;
     }
 
 
@@ -601,6 +695,10 @@ class UserInfoResponse extends ApiResponse
         // clientIdAliasUsed
         $this->setClientIdAliasUsed(
             LanguageUtility::getFromArrayAsBoolean('clientIdAlias', $array));
+
+        // userInfoClaims
+        $this->setUserInfoClaims(
+            LanguageUtility::getFromArray('userInfoClaims', $array));
     }
 }
 ?>
