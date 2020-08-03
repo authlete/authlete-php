@@ -99,6 +99,16 @@ CHANGES (日本語)
     * `getDpopKeyThumbprint()` メソッドを追加。
     * `setDpopKeyThumbprint()` メソッドを追加。
 
+- `UserInfoRequest` クラス
+    * `getClientCertificate()` メソッドを追加。
+    * `setClientCertificate()` メソッドを追加。
+    * `getDpop()` メソッドを追加。
+    * `setDpop()` メソッドを追加。
+    * `getHtm()` メソッドを追加。
+    * `setHtm()` メソッドを追加。
+    * `getHtu()` メソッドを追加。
+    * `setHtu()` メソッドを追加。
+
 - 新しい部品
     * `DeliveryMode` クラス
     * `NamedUri` クラス

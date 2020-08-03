@@ -99,6 +99,16 @@ CHANGES
     * Added `getDpopKeyThumbprint()` method.
     * Added `setDpopKeyThumbprint()` method.
 
+- `UserInfoRequest` class
+    * Added `getClientCertificate()` method.
+    * Added `setClientCertificate()` method.
+    * Added `getDpop()` method.
+    * Added `setDpop()` method.
+    * Added `getHtm()` method.
+    * Added `setHtm()` method.
+    * Added `getHtu()` method.
+    * Added `setHtu()` method.
+
 - New parts
     * `DeliveryMode` class
     * `NamedUri` class
