@@ -28,6 +28,34 @@ CHANGES
     * Added `getPurpose()` method.
     * Added `setPurpose()` method.
 
+- `Client` class
+    * Added `getDerivedSectorIdentifier()` method.
+    * Added `setDerivedSectorIdentifier()` method.
+    * Added `getTlsClientAuthSanDns()` method.
+    * Added `setTlsClientAuthSanDns()` method.
+    * Added `getTlsClientAuthSanUri()` method.
+    * Added `setTlsClientAuthSanUri()` method.
+    * Added `getTlsClientAuthSanIp()` method.
+    * Added `setTlsClientAuthSanIp()` method.
+    * Added `getTlsClientAuthSanEmail()` method.
+    * Added `setTlsClientAuthSanEmail()` method.
+    * Added `getBcDeliveryMode()` method.
+    * Added `setBcDeliveryMode()` method.
+    * Added `getBcNotificationEndpoint()` method.
+    * Added `setBcNotificationEndpoint()` method.
+    * Added `getBcRequestSignAlg()` method.
+    * Added `setBcRequestSignAlg()` method.
+    * Added `isBcUserCodeRequired()` method.
+    * Added `setBcUserCodeRequired()` method.
+    * Added `isDynamicallyRegistered()` method.
+    * Added `setDynamicallyRegistered()` method.
+    * Added `getRegistrationAccessTokenHash()` method.
+    * Added `setRegistrationAccessTokenHash()` method.
+    * Added `getAuthorizationDataTypes()` method.
+    * Added `setAuthorizationDataTypes()` method.
+    * Added `isParRequired()` method.
+    * Added `setParRequired()` method.
+
 - `ClientExtension` class
     * Added `getAccessTokenDuration()` method.
     * Added `setAccessTokenDuration()` method.

@@ -1,6 +1,6 @@
 <?php
 //
-// Copyright (C) 2018 Authlete, Inc.
+// Copyright (C) 2018-2020 Authlete, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -30,6 +30,7 @@ use Authlete\Dto\TaggedValue;
 use Authlete\Types\ApplicationType;
 use Authlete\Types\ClientAuthMethod;
 use Authlete\Types\ClientType;
+use Authlete\Types\DeliveryMode;
 use Authlete\Types\GrantType;
 use Authlete\Types\JWEAlg;
 use Authlete\Types\JWEEnc;
@@ -40,30 +41,37 @@ use Authlete\Types\SubjectType;
 
 class ClientTest extends TestCase
 {
-    private const DEVELOPER                  = '_developer';
-    private const CLIENT_ID_INT              = 1000;
-    private const CLIENT_ID_STR              = '1001';
-    private const CLIENT_ID_ALIAS            = '_client_id_alias_';
-    private const CLIENT_SECRET              = '_client_secret_';
-    private const CLIENT_NAME                = '_client_name_';
-    private const LOGO_URI                   = '_logo_uri_';
-    private const CLIENT_URI                 = '_client_uri_';
-    private const POLICY_URI                 = '_policy_uri_';
-    private const TOS_URI                    = '_tos_uri_';
-    private const JWKS_URI                   = '_jwks_uri_';
-    private const JWKS                       = '_jwks_';
-    private const SECTOR_IDENTIFIER_URI      = '_sector_identifier_uri_';
-    private const DEFAULT_MAX_AGE_INT        = 2000;
-    private const DEFAULT_MAX_AGE_STR        = '2001';
-    private const LOGIN_URI                  = '_login_uri_';
-    private const DESCRIPTION                = '_description_';
-    private const CREATED_AT_INT             = 3000;
-    private const CREATED_AT_STR             = '3001';
-    private const MODIFIED_AT_INT            = 4000;
-    private const MODIFIED_AT_STR            = '4001';
-    private const TLS_CLIENT_AUTH_SUBJECT_DN = '_tls_client_auth_subject_dn_';
-    private const SOFTWARE_ID                = '_software_id_';
-    private const SOFTWARE_VERSION           = '_software_version_';
+    private const DEVELOPER                      = '_developer_';
+    private const CLIENT_ID_INT                  = 1000;
+    private const CLIENT_ID_STR                  = '1001';
+    private const CLIENT_ID_ALIAS                = '_client_id_alias_';
+    private const CLIENT_SECRET                  = '_client_secret_';
+    private const CLIENT_NAME                    = '_client_name_';
+    private const LOGO_URI                       = '_logo_uri_';
+    private const CLIENT_URI                     = '_client_uri_';
+    private const POLICY_URI                     = '_policy_uri_';
+    private const TOS_URI                        = '_tos_uri_';
+    private const JWKS_URI                       = '_jwks_uri_';
+    private const JWKS                           = '_jwks_';
+    private const DERIVED_SECTOR_IDENTIFIER      = '_derived_sector_identifier_';
+    private const SECTOR_IDENTIFIER_URI          = '_sector_identifier_uri_';
+    private const DEFAULT_MAX_AGE_INT            = 2000;
+    private const DEFAULT_MAX_AGE_STR            = '2001';
+    private const LOGIN_URI                      = '_login_uri_';
+    private const DESCRIPTION                    = '_description_';
+    private const CREATED_AT_INT                 = 3000;
+    private const CREATED_AT_STR                 = '3001';
+    private const MODIFIED_AT_INT                = 4000;
+    private const MODIFIED_AT_STR                = '4001';
+    private const TLS_CLIENT_AUTH_SUBJECT_DN     = '_tls_client_auth_subject_dn_';
+    private const TLS_CLIENT_AUTH_SAN_DNS        = '_tls_client_auth_san_dns_';
+    private const TLS_CLIENT_AUTH_SAN_URI        = '_tls_client_auth_san_uri_';
+    private const TLS_CLIENT_AUTH_SAN_IP         = '_tls_client_auth_san_ip_';
+    private const TLS_CLIENT_AUTH_SAN_EMAIL      = '_tls_client_auth_san_email_';
+    private const SOFTWARE_ID                    = '_software_id_';
+    private const SOFTWARE_VERSION               = '_software_version_';
+    private const BC_NOTIFICATION_ENDPOINT       = '_bc_notification_endpoint_';
+    private const REGISTRATION_ACCESS_TOKEN_HASH = '_registration_access_token_hash_';
 
 
     public function testDeveloperValidValue()
@@ -2922,7 +2930,7 @@ class ClientTest extends TestCase
 
     public function testFromJsonSectorIdentifierUriValidValue()
     {
-        $json = '{"sectorIdentifier":"' . self::SECTOR_IDENTIFIER_URI . '"}';
+        $json = '{"sectorIdentifierUri":"' . self::SECTOR_IDENTIFIER_URI . '"}';
         $obj  = Client::fromJson($json);
 
         $this->assertEquals(self::SECTOR_IDENTIFIER_URI, $obj->getSectorIdentifierUri());
@@ -2931,7 +2939,7 @@ class ClientTest extends TestCase
 
     public function testFromJsonSectorIdentifierUriValidNull()
     {
-        $json = '{"sectorIdentifier":null}';
+        $json = '{"sectorIdentifierUri":null}';
         $obj  = Client::fromJson($json);
 
         $this->assertNull($obj->getSectorIdentifierUri());
@@ -2941,7 +2949,7 @@ class ClientTest extends TestCase
     /** @expectedException InvalidArgumentException */
     public function testFromJsonSectorIdentifierUriInvalidBool()
     {
-        $json = '{"sectorIdentifier":true}';
+        $json = '{"sectorIdentifierUri":true}';
         $obj  = Client::fromJson($json);
     }
 
@@ -2949,7 +2957,7 @@ class ClientTest extends TestCase
     /** @expectedException InvalidArgumentException */
     public function testFromJsonSectorIdentifierUriInvalidNumber()
     {
-        $json = '{"sectorIdentifier":123}';
+        $json = '{"sectorIdentifierUri":123}';
         $obj  = Client::fromJson($json);
     }
 
@@ -2957,7 +2965,7 @@ class ClientTest extends TestCase
     /** @expectedException InvalidArgumentException */
     public function testFromJsonSectorIdentifierUriInvalidArray()
     {
-        $json = '{"sectorIdentifier":["a","b"]}';
+        $json = '{"sectorIdentifierUri":["a","b"]}';
         $obj  = Client::fromJson($json);
     }
 
@@ -2965,7 +2973,7 @@ class ClientTest extends TestCase
     /** @expectedException InvalidArgumentException */
     public function testFromJsonSectorIdentifierUriInvalidObject()
     {
-        $json = '{"sectorIdentifier":{"a":"b"}}';
+        $json = '{"sectorIdentifierUri":{"a":"b"}}';
         $obj  = Client::fromJson($json);
     }
 
@@ -4279,6 +4287,7 @@ class ClientTest extends TestCase
             )
             ->setJwksUri(self::JWKS_URI)
             ->setJwks(self::JWKS)
+            ->setDerivedSectorIdentifier(self::DERIVED_SECTOR_IDENTIFIER)
             ->setSectorIdentifierUri(self::SECTOR_IDENTIFIER_URI)
             ->setSubjectType(SubjectType::$PUBLIC)
             ->setIdTokenSignAlg(JWSAlg::$HS256)
@@ -4327,6 +4336,10 @@ class ClientTest extends TestCase
                     )
             )
             ->setTlsClientAuthSubjectDn(self::TLS_CLIENT_AUTH_SUBJECT_DN)
+            ->setTlsClientAuthSanDns(self::TLS_CLIENT_AUTH_SAN_DNS)
+            ->setTlsClientAuthSanUri(self::TLS_CLIENT_AUTH_SAN_URI)
+            ->setTlsClientAuthSanIp(self::TLS_CLIENT_AUTH_SAN_IP)
+            ->setTlsClientAuthSanEmail(self::TLS_CLIENT_AUTH_SAN_EMAIL)
             ->setTlsClientCertificateBoundAccessTokens(true)
             ->setSelfSignedCertificateKeyId('keyId')
             ->setSoftwareId(self::SOFTWARE_ID)
@@ -4334,6 +4347,19 @@ class ClientTest extends TestCase
             ->setAuthorizationSignAlg(JWSAlg::$HS256)
             ->setAuthorizationEncryptionAlg(JWEAlg::$A128KW)
             ->setAuthorizationEncryptionEnc(JWEEnc::$A128CBC_HS256)
+            ->setBcDeliveryMode(DeliveryMode::$POLL)
+            ->setBcNotificationEndpoint(self::BC_NOTIFICATION_ENDPOINT)
+            ->setBcRequestSignAlg(JWSAlg::$ES256)
+            ->setBcUserCodeRequired(true)
+            ->setDynamicallyRegistered(true)
+            ->setRegistrationAccessTokenHash(self::REGISTRATION_ACCESS_TOKEN_HASH)
+            ->setAuthorizationDataTypes(
+                array(
+                    "type-0",
+                    "type-1"
+                )
+            )
+            ->setParRequired(true)
             ;
 
         $json  = $obj->toJson();
@@ -4536,9 +4562,13 @@ class ClientTest extends TestCase
         $this->assertArrayHasKey('jwks', $array);
         $this->assertEquals(self::JWKS, $array['jwks']);
 
-        // sectorIdentifier
-        $this->assertArrayHasKey('sectorIdentifier', $array);
-        $this->assertEquals(self::SECTOR_IDENTIFIER_URI, $array['sectorIdentifier']);
+        // derivedSectorIdentifier
+        $this->assertArrayHasKey('derivedSectorIdentifier', $array);
+        $this->assertEquals(self::DERIVED_SECTOR_IDENTIFIER, $array['derivedSectorIdentifier']);
+
+        // sectorIdentifierUri
+        $this->assertArrayHasKey('sectorIdentifierUri', $array);
+        $this->assertEquals(self::SECTOR_IDENTIFIER_URI, $array['sectorIdentifierUri']);
 
         // subjectType
         $this->assertArrayHasKey('subjectType', $array);
@@ -4672,6 +4702,22 @@ class ClientTest extends TestCase
         $this->assertArrayHasKey('tlsClientAuthSubjectDn', $array);
         $this->assertEquals(self::TLS_CLIENT_AUTH_SUBJECT_DN, $array['tlsClientAuthSubjectDn']);
 
+        // tlsClientAuthSanDns
+        $this->assertArrayHasKey('tlsClientAuthSanDns', $array);
+        $this->assertEquals(self::TLS_CLIENT_AUTH_SAN_DNS, $array['tlsClientAuthSanDns']);
+
+        // tlsClientAuthSanUri
+        $this->assertArrayHasKey('tlsClientAuthSanUri', $array);
+        $this->assertEquals(self::TLS_CLIENT_AUTH_SAN_URI, $array['tlsClientAuthSanUri']);
+
+        // tlsClientAuthSanIp
+        $this->assertArrayHasKey('tlsClientAuthSanIp', $array);
+        $this->assertEquals(self::TLS_CLIENT_AUTH_SAN_IP, $array['tlsClientAuthSanIp']);
+
+        // tlsClientAuthSanEmail
+        $this->assertArrayHasKey('tlsClientAuthSanEmail', $array);
+        $this->assertEquals(self::TLS_CLIENT_AUTH_SAN_EMAIL, $array['tlsClientAuthSanEmail']);
+
         // tlsClientCertificateBoundAccessTokens
         $this->assertArrayHasKey('tlsClientCertificateBoundAccessTokens', $array);
         $this->assertEquals(true, $array['tlsClientCertificateBoundAccessTokens']);
@@ -4699,6 +4745,43 @@ class ClientTest extends TestCase
         // authorizationEncryptionEnc
         $this->assertArrayHasKey('authorizationEncryptionEnc', $array);
         $this->assertEquals('A128CBC_HS256', $array['authorizationEncryptionEnc']);
+
+        // bcDeliveryMode
+        $this->assertArrayHasKey('bcDeliveryMode', $array);
+        $this->assertEquals('POLL', $array['bcDeliveryMode']);
+
+        // bcNotificationEndpoint
+        $this->assertArrayHasKey('bcNotificationEndpoint', $array);
+        $this->assertEquals(self::BC_NOTIFICATION_ENDPOINT, $array['bcNotificationEndpoint']);
+
+        // bcRequestSignAlg
+        $this->assertArrayHasKey('bcRequestSignAlg', $array);
+        $this->assertEquals('ES256', $array['bcRequestSignAlg']);
+
+        // bcUserCodeRequired
+        $this->assertArrayHasKey('bcUserCodeRequired', $array);
+        $this->assertEquals(true, $array['bcUserCodeRequired']);
+
+        // dynamicallyRegistered
+        $this->assertArrayHasKey('dynamicallyRegistered', $array);
+        $this->assertEquals(true, $array['dynamicallyRegistered']);
+
+        // registrationAccessTokenHash
+        $this->assertArrayHasKey('registrationAccessTokenHash', $array);
+        $this->assertEquals(self::REGISTRATION_ACCESS_TOKEN_HASH, $array['registrationAccessTokenHash']);
+
+        // authorizationDataTypes
+        $this->assertArrayHasKey('authorizationDataTypes', $array);
+        $authorizationDataTypes = $array['authorizationDataTypes'];
+
+        $this->assertTrue(is_array($authorizationDataTypes));
+        $this->assertCount(2, $authorizationDataTypes);
+        $this->assertEquals("type-0", $authorizationDataTypes[0]);
+        $this->assertEquals("type-1", $authorizationDataTypes[1]);
+
+        // parRequired
+        $this->assertArrayHasKey('parRequired', $array);
+        $this->assertEquals(true, $array['parRequired']);
     }
 
 

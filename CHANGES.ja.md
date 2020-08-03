@@ -28,6 +28,34 @@ CHANGES (日本語)
     * `getPurpose()` メソッドを追加。
     * `setPurpose()` メソッドを追加。
 
+- `Client` クラス
+    * `getDerivedSectorIdentifier()` メソッドを追加。
+    * `setDerivedSectorIdentifier()` メソッドを追加。
+    * `getTlsClientAuthSanDns()` メソッドを追加。
+    * `setTlsClientAuthSanDns()` メソッドを追加。
+    * `getTlsClientAuthSanUri()` メソッドを追加。
+    * `setTlsClientAuthSanUri()` メソッドを追加。
+    * `getTlsClientAuthSanIp()` メソッドを追加。
+    * `setTlsClientAuthSanIp()` メソッドを追加。
+    * `getTlsClientAuthSanEmail()` メソッドを追加。
+    * `setTlsClientAuthSanEmail()` メソッドを追加。
+    * `getBcDeliveryMode()` メソッドを追加。
+    * `setBcDeliveryMode()` メソッドを追加。
+    * `getBcNotificationEndpoint()` メソッドを追加。
+    * `setBcNotificationEndpoint()` メソッドを追加。
+    * `getBcRequestSignAlg()` メソッドを追加。
+    * `setBcRequestSignAlg()` メソッドを追加。
+    * `isBcUserCodeRequired()` メソッドを追加。
+    * `setBcUserCodeRequired()` メソッドを追加。
+    * `isDynamicallyRegistered()` メソッドを追加。
+    * `setDynamicallyRegistered()` メソッドを追加。
+    * `getRegistrationAccessTokenHash()` メソッドを追加。
+    * `setRegistrationAccessTokenHash()` メソッドを追加。
+    * `getAuthorizationDataTypes()` メソッドを追加。
+    * `setAuthorizationDataTypes()` メソッドを追加。
+    * `isParRequired()` メソッドを追加。
+    * `setParRequired()` メソッドを追加。
+
 - `ClientExtension` クラス
     * `getAccessTokenDuration()` メソッドを追加。
     * `setAccessTokenDuration()` メソッドを追加。
