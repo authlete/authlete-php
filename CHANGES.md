@@ -210,6 +210,7 @@ CHANGES
 - New parts
     * `BackchannelAuthenticationCompleteAction` class
     * `BackchannelAuthenticationCompleteResult` class
+    * `BackchannelAuthenticationFailReason` class
     * `DeliveryMode` class
     * `NamedUri` class
     * `UserCodeCharset` class
