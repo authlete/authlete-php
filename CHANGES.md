@@ -215,6 +215,7 @@ CHANGES
     * `BackchannelAuthenticationFailReason` class
     * `BackchannelAuthenticationIssueAction` class
     * `DeliveryMode` class
+    * `DeviceAuthorizationAction` class
     * `NamedUri` class
     * `UserCodeCharset` class
     * `UserIdentificationHintType` class
