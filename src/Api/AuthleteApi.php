@@ -47,7 +47,7 @@ use Authlete\Dto\UserInfoRequest;
 
 /**
  * Authlete API.
- * 
+ *
  * @link https://docs.authlete.com/
  */
 interface AuthleteApi

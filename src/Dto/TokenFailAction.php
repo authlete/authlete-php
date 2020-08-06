@@ -39,7 +39,7 @@ class TokenFailAction
 
     /**
      * The request from your system was wrong or an error occurred in Authlete.
-     * 
+     *
      * The token endpoint implementation should return
      * `500 Internal Server Error` to the client application.
      *

@@ -52,7 +52,7 @@ class GrantType
 
     /**
      * Implicit flow.
-     * 
+     *
      * This is not a valid value for the `grant_type` request parameter
      * of token requests but is listed here because OpenID Connect
      * Dynamic Client Registration 1.0 uses `implicit` as a value

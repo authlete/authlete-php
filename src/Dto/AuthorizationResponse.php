@@ -357,7 +357,7 @@ use Authlete\Util\ValidationUtility;
  *       > tags when they employ this language and script. It is also
  *       > RECOMMENDED that Clients be written in a manner that they
  *       > can handle and utilize Claims using language tags."*
- * 
+ *
  *       If `getClaims()` method returns `null` or an empty array, the value
  *       of this parameter should be `null`.
  *
@@ -1083,7 +1083,7 @@ class AuthorizationResponse extends ApiResponse
     /**
      * Set the list of ACRs (Authentication Context Class References)
      * requested by the client application.
-     * 
+     *
      * @param string[] $acrs
      *     The ACRs requested by the client application.
      *

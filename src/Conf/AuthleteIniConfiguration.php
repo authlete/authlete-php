@@ -110,7 +110,7 @@ class AuthleteIniConfiguration implements AuthleteConfiguration
     private function setup($conf)
     {
         // baseUrl
-        $this->baseUrl = 
+        $this->baseUrl =
             LanguageUtility::getFromArray(
                 self::$KEY_BASE_URL, $conf);
 

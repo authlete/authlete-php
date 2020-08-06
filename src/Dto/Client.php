@@ -2100,7 +2100,7 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
      * This property corresponds to `tls_client_auth_san_email` defined in
      * [RFC 8705](https://www.rfc-editor.org/rfc/rfc8705.html).
      *
-     * @param string $ip
+     * @param string $email
      *     The expected email address subject alternative name.
      *
      * @return Client
@@ -3017,7 +3017,7 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
             ClientAuthMethod::valueOf(
                 LanguageUtility::getFromArray('tokenAuthMethod', $array)));
 
-        // tokenAuthSignAlog
+        // tokenAuthSignAlg
         $this->setTokenAuthSignAlg(
             JWSAlg::valueOf(
                 LanguageUtility::getFromArray('tokenAuthSignAlg', $array)));
