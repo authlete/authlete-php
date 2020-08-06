@@ -1,6 +1,6 @@
 <?php
 //
-// Copyright (C) 2018 Authlete, Inc.
+// Copyright (C) 2018-2020 Authlete, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -24,17 +24,20 @@ require_once('vendor/autoload.php');
 
 
 use PHPUnit\Framework\TestCase;
+use Authlete\Dto\NamedUri;
 use Authlete\Dto\Scope;
 use Authlete\Dto\Service;
 use Authlete\Dto\SnsCredentials;
 use Authlete\Types\ClaimType;
 use Authlete\Types\ClientAuthMethod;
+use Authlete\Types\DeliveryMode;
 use Authlete\Types\Display;
 use Authlete\Types\GrantType;
 use Authlete\Types\JWSAlg;
 use Authlete\Types\ResponseType;
 use Authlete\Types\ServiceProfile;
 use Authlete\Types\Sns;
+use Authlete\Types\UserCodeCharset;
 
 
 class ServiceTest extends TestCase
@@ -1045,7 +1048,7 @@ class ServiceTest extends TestCase
     }
 
 
-    public function testToJson()
+    private function buildService()
     {
         $obj = new Service();
         $obj->setServiceName('MyService')
@@ -1065,6 +1068,7 @@ class ServiceTest extends TestCase
             ->setJwksUri('_jwks_uri_')
             ->setJwks('_jwks_')
             ->setRegistrationEndpoint('_registration_endpoint_')
+            ->setRegistrationManagementEndpoint('_registration_management_endpoint_')
             ->setSupportedScopes(
                 array(
                     (new Scope())->setName('scope-0'),
@@ -1128,12 +1132,6 @@ class ServiceTest extends TestCase
             )
             ->setPolicyUri('_policy_uri_')
             ->setTosUri('_tos_uri_')
-            ->setDescription('_description_')
-            ->setAccessTokenType('Bearer')
-            ->setAccessTokenDuration(1234)
-            ->setRefreshTokenDuration(5678)
-            ->setIdTokenDuration(9012)
-            ->setAuthorizationResponseDuration(1111)
             ->setAuthenticationCallbackEndpoint('_authentication_callback_endpoint_')
             ->setAuthenticationCallbackApiKey('_authentication_callback_api_key_')
             ->setAuthenticationCallbackApiSecret('_authentication_callback_api_secret_')
@@ -1177,7 +1175,9 @@ class ServiceTest extends TestCase
             ->setDirectIntrospectionEndpointEnabled(true)
             ->setSingleAccessTokenPerSubject(true)
             ->setPkceRequired(true)
+            ->setPkceS256Required(true)
             ->setRefreshTokenKept(true)
+            ->setRefreshTokenDurationKept(true)
             ->setErrorDescriptionOmitted(true)
             ->setErrorUriOmitted(true)
             ->setClientIdAliasEnabled(true)
@@ -1188,7 +1188,6 @@ class ServiceTest extends TestCase
                 )
             )
             ->setTlsClientCertificateBoundAccessTokens(true)
-            ->setMutualTlsValidatePkiCertChain(true)
             ->setIntrospectionEndpoint('_introspection_endpoint_')
             ->setSupportedIntrospectionAuthMethods(
                 array(
@@ -1196,17 +1195,101 @@ class ServiceTest extends TestCase
                     ClientAuthMethod::$SELF_SIGNED_TLS_CLIENT_AUTH
                 )
             )
+            ->setMutualTlsValidatePkiCertChain(true)
             ->setTrustedRootCertificates(
                 array(
                     "root-certificate-0",
                     "root-certificate-1"
                 )
             )
+            ->setDynamicRegistrationSupported(true)
+            ->setEndSessionEndpoint('_end_session_endpoint_')
+            ->setDescription('_description_')
+            ->setAccessTokenType('Bearer')
+            ->setAccessTokenSignAlg(JWSAlg::$ES256)
+            ->setAccessTokenDuration(1234)
+            ->setRefreshTokenDuration(5678)
+            ->setIdTokenDuration(9012)
+            ->setAuthorizationResponseDuration(1111)
+            ->setPushedAuthReqDuration(2222)
+            ->setAccessTokenSignatureKeyId('access_token_signature_key_id')
             ->setAuthorizationSignatureKeyId('authorization_signature_key_id')
             ->setIdTokenSignatureKeyId('id_token_signature_key_id')
             ->setUserInfoSignatureKeyId('userinfo_signature_key_id')
+            ->setSupportedBackchannelTokenDeliveryModes(
+                array(
+                    DeliveryMode::$POLL,
+                    DeliveryMode::$PING,
+                    DeliveryMode::$PUSH
+                )
+            )
+            ->setBackchannelAuthenticationEndpoint('_backchannel_authentication_endpoint_')
+            ->setBackchannelUserCodeParameterSupported(true)
+            ->setBackchannelAuthReqIdDuration(3333)
+            ->setBackchannelPollingInterval(4444)
+            ->setBackchannelBindingMessageRequiredInFapi(true)
+            ->setAllowableClockSkew(60)
+            ->setDeviceAuthorizationEndpoint('_device_authorization_endpoint_')
+            ->setDeviceVerificationUri('_device_verification_uri_')
+            ->setDeviceVerificationUriComplete('_device_verification_uri_complete_')
+            ->setDeviceFlowCodeDuration(5555)
+            ->setDeviceFlowPollingInterval(6666)
+            ->setUserCodeCharset(UserCodeCharset::$BASE20)
+            ->setUserCodeLength(10)
+            ->setPushedAuthReqEndpoint('_pushed_auth_req_endpoint_')
+            ->setMtlsEndpointAliases(
+                array(
+                    (new NamedUri('name-0', 'uri-0')),
+                    (new NamedUri('name-1', 'uri-1'))
+                )
+            )
+            ->setSupportedAuthorizationDataTypes(
+                array(
+                    "type-0",
+                    "type-1"
+                )
+            )
+            ->setSupportedTrustFrameworks(
+                array(
+                    "framework-0",
+                    "framework-1"
+                )
+            )
+            ->setSupportedEvidence(
+                array(
+                    "evidence-0",
+                    "evidence-1"
+                )
+            )
+            ->setSupportedIdentityDocuments(
+                array(
+                    "document-0",
+                    "document-1"
+                )
+            )
+            ->setSupportedVerificationMethods(
+                array(
+                    "method-0",
+                    "method-1"
+                )
+            )
+            ->setSupportedVerifiedClaims(
+                array(
+                    "claim-0",
+                    "claim-1"
+                )
+            )
+            ->setMissingClientIdAllowed(true)
+            ->setParRequired(true)
             ;
 
+        return $obj;
+    }
+
+
+    public function testToJson()
+    {
+        $obj   = $this->buildService();
         $json  = $obj->toJson();
         $array = json_decode($json, true);
 
@@ -1262,6 +1345,10 @@ class ServiceTest extends TestCase
         // registrationEndpoint
         $this->assertArrayHasKey('registrationEndpoint', $array);
         $this->assertEquals('_registration_endpoint_', $array['registrationEndpoint']);
+
+        // registrationManagementEndpoint
+        $this->assertArrayHasKey('registrationManagementEndpoint', $array);
+        $this->assertEquals('_registration_management_endpoint_', $array['registrationManagementEndpoint']);
 
         // supportedScopes
         $this->assertArrayHasKey('supportedScopes', $array);
@@ -1372,30 +1459,6 @@ class ServiceTest extends TestCase
         // tosUri
         $this->assertArrayHasKey('tosUri', $array);
         $this->assertEquals('_tos_uri_', $array['tosUri']);
-
-        // description
-        $this->assertArrayHasKey('description', $array);
-        $this->assertEquals('_description_', $array['description']);
-
-        // accessTokenType
-        $this->assertArrayHasKey('accessTokenType', $array);
-        $this->assertEquals('Bearer', $array['accessTokenType']);
-
-        // accessTokenDuration
-        $this->assertArrayHasKey('accessTokenDuration', $array);
-        $this->assertEquals(1234, $array['accessTokenDuration']);
-
-        // refreshTokenDuration
-        $this->assertArrayHasKey('refreshTokenDuration', $array);
-        $this->assertEquals(5678, $array['refreshTokenDuration']);
-
-        // idTokenDuration
-        $this->assertArrayHasKey('idTokenDuration', $array);
-        $this->assertEquals(9012, $array['idTokenDuration']);
-
-        // authorizationResponseDuration
-        $this->assertArrayHasKey('authorizationResponseDuration', $array);
-        $this->assertEquals(1111, $array['authorizationResponseDuration']);
 
         // authenticationCallbackEndpoint
         $this->assertArrayHasKey('authenticationCallbackEndpoint', $array);
@@ -1513,9 +1576,17 @@ class ServiceTest extends TestCase
         $this->assertArrayHasKey('pkceRequired', $array);
         $this->assertTrue($array['pkceRequired']);
 
+        // pkceS256Required
+        $this->assertArrayHasKey('pkceS256Required', $array);
+        $this->assertTrue($array['pkceS256Required']);
+
         // refreshTokenKept
         $this->assertArrayHasKey('refreshTokenKept', $array);
         $this->assertTrue($array['refreshTokenKept']);
+
+        // refreshTokenDurationKept
+        $this->assertArrayHasKey('refreshTokenDurationKept', $array);
+        $this->assertTrue($array['refreshTokenDurationKept']);
 
         // errorDescriptionOmitted
         $this->assertArrayHasKey('errorDescriptionOmitted', $array);
@@ -1542,10 +1613,6 @@ class ServiceTest extends TestCase
         $this->assertArrayHasKey('tlsClientCertificateBoundAccessTokens', $array);
         $this->assertTrue($array['tlsClientCertificateBoundAccessTokens']);
 
-        // mutualTlsValidatePkiCertChain
-        $this->assertArrayHasKey('mutualTlsValidatePkiCertChain', $array);
-        $this->assertTrue($array['mutualTlsValidatePkiCertChain']);
-
         // introspectionEndpoint
         $this->assertArrayHasKey('introspectionEndpoint', $array);
         $this->assertEquals('_introspection_endpoint_', $array['introspectionEndpoint']);
@@ -1559,6 +1626,10 @@ class ServiceTest extends TestCase
         $this->assertEquals('TLS_CLIENT_AUTH',             $introspectionAuthMethods[0]);
         $this->assertEquals('SELF_SIGNED_TLS_CLIENT_AUTH', $introspectionAuthMethods[1]);
 
+        // mutualTlsValidatePkiCertChain
+        $this->assertArrayHasKey('mutualTlsValidatePkiCertChain', $array);
+        $this->assertTrue($array['mutualTlsValidatePkiCertChain']);
+
         // trustedRootCertificates
         $this->assertArrayHasKey('trustedRootCertificates', $array);
         $rootCertificates = $array['trustedRootCertificates'];
@@ -1567,6 +1638,50 @@ class ServiceTest extends TestCase
         $this->assertCount(2, $rootCertificates);
         $this->assertEquals('root-certificate-0', $rootCertificates[0]);
         $this->assertEquals('root-certificate-1', $rootCertificates[1]);
+
+        // dynamicRegistrationSupported
+        $this->assertArrayHasKey('dynamicRegistrationSupported', $array);
+        $this->assertTrue($array['dynamicRegistrationSupported']);
+
+        // endSessionEndpoint
+        $this->assertArrayHasKey('endSessionEndpoint', $array);
+        $this->assertEquals('_end_session_endpoint_', $array['endSessionEndpoint']);
+
+        // description
+        $this->assertArrayHasKey('description', $array);
+        $this->assertEquals('_description_', $array['description']);
+
+        // accessTokenType
+        $this->assertArrayHasKey('accessTokenType', $array);
+        $this->assertEquals('Bearer', $array['accessTokenType']);
+
+        // accessTokenSignAlg
+        $this->assertArrayHasKey('accessTokenSignAlg', $array);
+        $this->assertEquals('ES256', $array['accessTokenSignAlg']);
+
+        // accessTokenDuration
+        $this->assertArrayHasKey('accessTokenDuration', $array);
+        $this->assertEquals(1234, $array['accessTokenDuration']);
+
+        // refreshTokenDuration
+        $this->assertArrayHasKey('refreshTokenDuration', $array);
+        $this->assertEquals(5678, $array['refreshTokenDuration']);
+
+        // idTokenDuration
+        $this->assertArrayHasKey('idTokenDuration', $array);
+        $this->assertEquals(9012, $array['idTokenDuration']);
+
+        // authorizationResponseDuration
+        $this->assertArrayHasKey('authorizationResponseDuration', $array);
+        $this->assertEquals(1111, $array['authorizationResponseDuration']);
+
+        // pushedAuthReqDuration
+        $this->assertArrayHasKey('pushedAuthReqDuration', $array);
+        $this->assertEquals(2222, $array['pushedAuthReqDuration']);
+
+        // accessTokenSignatureKeyId
+        $this->assertArrayHasKey('accessTokenSignatureKeyId', $array);
+        $this->assertEquals('access_token_signature_key_id', $array['accessTokenSignatureKeyId']);
 
         // authorizationSignatureKeyId
         $this->assertArrayHasKey('authorizationSignatureKeyId', $array);
@@ -1579,6 +1694,597 @@ class ServiceTest extends TestCase
         // userInfoSignatureKeyId
         $this->assertArrayHasKey('userInfoSignatureKeyId', $array);
         $this->assertEquals('userinfo_signature_key_id', $array['userInfoSignatureKeyId']);
+
+        // supportedBackchannelTokenDeliveryModes
+        $this->assertArrayHasKey('supportedBackchannelTokenDeliveryModes', $array);
+        $deliveryModes = $array['supportedBackchannelTokenDeliveryModes'];
+
+        $this->assertTrue(is_array($deliveryModes));
+        $this->assertCount(3, $deliveryModes);
+        $this->assertEquals('POLL', $deliveryModes[0]);
+        $this->assertEquals('PING', $deliveryModes[1]);
+        $this->assertEquals('PUSH', $deliveryModes[2]);
+
+        // backchannelAuthenticationEndpoint
+        $this->assertArrayHasKey('backchannelAuthenticationEndpoint', $array);
+        $this->assertEquals('_backchannel_authentication_endpoint_', $array['backchannelAuthenticationEndpoint']);
+
+        // backchannelUserCodeParameterSupported
+        $this->assertArrayHasKey('backchannelUserCodeParameterSupported', $array);
+        $this->assertTrue($array['backchannelUserCodeParameterSupported']);
+
+        // backchannelAuthReqIdDuration
+        $this->assertArrayHasKey('backchannelAuthReqIdDuration', $array);
+        $this->assertEquals(3333, $array['backchannelAuthReqIdDuration']);
+
+        // backchannelPollingInterval
+        $this->assertArrayHasKey('backchannelPollingInterval', $array);
+        $this->assertEquals(4444, $array['backchannelPollingInterval']);
+
+        // backchannelBindingMessageRequiredInFapi
+        $this->assertArrayHasKey('backchannelBindingMessageRequiredInFapi', $array);
+        $this->assertTrue($array['backchannelBindingMessageRequiredInFapi']);
+
+        // allowableClockSkew
+        $this->assertArrayHasKey('allowableClockSkew', $array);
+        $this->assertEquals(60, $array['allowableClockSkew']);
+
+        // deviceAuthorizationEndpoint
+        $this->assertArrayHasKey('deviceAuthorizationEndpoint', $array);
+        $this->assertEquals('_device_authorization_endpoint_', $array['deviceAuthorizationEndpoint']);
+
+        // deviceVerificationUri
+        $this->assertArrayHasKey('deviceVerificationUri', $array);
+        $this->assertEquals('_device_verification_uri_', $array['deviceVerificationUri']);
+
+        // deviceVerificationUriComplete
+        $this->assertArrayHasKey('deviceVerificationUriComplete', $array);
+        $this->assertEquals('_device_verification_uri_complete_', $array['deviceVerificationUriComplete']);
+
+        // deviceFlowCodeDuration
+        $this->assertArrayHasKey('deviceFlowCodeDuration', $array);
+        $this->assertEquals(5555, $array['deviceFlowCodeDuration']);
+
+        // deviceFlowPollingInterval
+        $this->assertArrayHasKey('deviceFlowPollingInterval', $array);
+        $this->assertEquals(6666, $array['deviceFlowPollingInterval']);
+
+        // userCodeCharset
+        $this->assertArrayHasKey('userCodeCharset', $array);
+        $this->assertEquals('BASE20', $array['userCodeCharset']);
+
+        // userCodeLength
+        $this->assertArrayHasKey('userCodeLength', $array);
+        $this->assertEquals(10, $array['userCodeLength']);
+
+        // pushedAuthReqEndpoint
+        $this->assertArrayHasKey('pushedAuthReqEndpoint', $array);
+        $this->assertEquals('_pushed_auth_req_endpoint_', $array['pushedAuthReqEndpoint']);
+
+        // mtlsEndpointAliases
+        $this->assertArrayHasKey('mtlsEndpointAliases', $array);
+        $mtlsEndpointAliases = $array['mtlsEndpointAliases'];
+
+        $this->assertTrue(is_array($mtlsEndpointAliases));
+        $this->assertCount(2, $mtlsEndpointAliases);
+
+        $mtlsEndpointAliases0 = $mtlsEndpointAliases[0];
+        $this->assertTrue(is_array($mtlsEndpointAliases0));
+        $this->assertArrayHasKey('name', $mtlsEndpointAliases0);
+        $this->assertEquals('name-0', $mtlsEndpointAliases0['name']);
+        $this->assertArrayHasKey('uri', $mtlsEndpointAliases0);
+        $this->assertEquals('uri-0', $mtlsEndpointAliases0['uri']);
+
+        $mtlsEndpointAliases1 = $mtlsEndpointAliases[1];
+        $this->assertTrue(is_array($mtlsEndpointAliases1));
+        $this->assertArrayHasKey('name', $mtlsEndpointAliases1);
+        $this->assertEquals('name-1', $mtlsEndpointAliases1['name']);
+        $this->assertArrayHasKey('uri', $mtlsEndpointAliases1);
+        $this->assertEquals('uri-1', $mtlsEndpointAliases1['uri']);
+
+        // supportedAuthorizationDataTypes
+        $this->assertArrayHasKey('supportedAuthorizationDataTypes', $array);
+        $authorizationDataTypes = $array['supportedAuthorizationDataTypes'];
+
+        $this->assertTrue(is_array($authorizationDataTypes));
+        $this->assertCount(2, $authorizationDataTypes);
+        $this->assertEquals('type-0', $authorizationDataTypes[0]);
+        $this->assertEquals('type-1', $authorizationDataTypes[1]);
+
+        // supportedTrustFrameworks
+        $this->assertArrayHasKey('supportedTrustFrameworks', $array);
+        $trustFrameworks = $array['supportedTrustFrameworks'];
+
+        $this->assertTrue(is_array($trustFrameworks));
+        $this->assertCount(2, $trustFrameworks);
+        $this->assertEquals('framework-0', $trustFrameworks[0]);
+        $this->assertEquals('framework-1', $trustFrameworks[1]);
+
+        // supportedEvidence
+        $this->assertArrayHasKey('supportedEvidence', $array);
+        $evidence = $array['supportedEvidence'];
+
+        $this->assertTrue(is_array($evidence));
+        $this->assertCount(2, $evidence);
+        $this->assertEquals('evidence-0', $evidence[0]);
+        $this->assertEquals('evidence-1', $evidence[1]);
+
+        // supportedIdentityDocuments
+        $this->assertArrayHasKey('supportedIdentityDocuments', $array);
+        $idDocuments = $array['supportedIdentityDocuments'];
+
+        $this->assertTrue(is_array($idDocuments));
+        $this->assertCount(2, $idDocuments);
+        $this->assertEquals('document-0', $idDocuments[0]);
+        $this->assertEquals('document-1', $idDocuments[1]);
+
+        // supportedVerificationMethods
+        $this->assertArrayHasKey('supportedVerificationMethods', $array);
+        $verificationMethods = $array['supportedVerificationMethods'];
+
+        $this->assertTrue(is_array($verificationMethods));
+        $this->assertCount(2, $verificationMethods);
+        $this->assertEquals('method-0', $verificationMethods[0]);
+        $this->assertEquals('method-1', $verificationMethods[1]);
+
+        // supportedVerifiedClaims
+        $this->assertArrayHasKey('supportedVerifiedClaims', $array);
+        $verifiedClaims = $array['supportedVerifiedClaims'];
+
+        $this->assertTrue(is_array($verifiedClaims));
+        $this->assertCount(2, $verifiedClaims);
+        $this->assertEquals('claim-0', $verifiedClaims[0]);
+        $this->assertEquals('claim-1', $verifiedClaims[1]);
+
+        // missingClientIdAllowed
+        $this->assertArrayHasKey('missingClientIdAllowed', $array);
+        $this->assertTrue($array['missingClientIdAllowed']);
+
+        // parRequired
+        $this->assertArrayHasKey('parRequired', $array);
+        $this->assertTrue($array['parRequired']);
+    }
+
+
+    public function testGetters()
+    {
+        $obj = $this->buildService();
+
+        // serviceName
+        $this->assertEquals('MyService', $obj->getServiceName());
+
+        // apiKey
+        $this->assertEquals(1, $obj->getApiKey());
+
+        // apiSecret
+        $this->assertEquals('secret', $obj->getApiSecret());
+
+        // issuer
+        $this->assertEquals('_issuer_', $obj->getIssuer());
+
+        // authorizationEndpoint
+        $this->assertEquals('_authorization_endpoint_', $obj->getAuthorizationEndpoint());
+
+        // tokenEndpoint
+        $this->assertEquals('_token_endpoint_', $obj->getTokenEndpoint());
+
+        // revocationEndpoint
+        $this->assertEquals('_revocation_endpoint_', $obj->getRevocationEndpoint());
+
+        // supportedRevocationAuthMethods
+        $revocationAuthMethods = $obj->getSupportedRevocationAuthMethods();
+
+        $this->assertTrue(is_array($revocationAuthMethods));
+        $this->assertCount(2, $revocationAuthMethods);
+        $this->assertEquals(ClientAuthMethod::$CLIENT_SECRET_POST, $revocationAuthMethods[0]);
+        $this->assertEquals(ClientAuthMethod::$CLIENT_SECRET_JWT,  $revocationAuthMethods[1]);
+
+        // userInfoEndpoint
+        $this->assertEquals('_userinfo_endpoint_', $obj->getUserInfoEndpoint());
+
+        // jwksUri
+        $this->assertEquals('_jwks_uri_', $obj->getJwksUri());
+
+        // jwks
+        $this->assertEquals('_jwks_', $obj->getJwks());
+
+        // registrationEndpoint
+        $this->assertEquals('_registration_endpoint_', $obj->getRegistrationEndpoint());
+
+        // registrationManagementEndpoint
+        $this->assertEquals('_registration_management_endpoint_', $obj->getRegistrationManagementEndpoint());
+
+        // supportedScopes
+        $scopes = $obj->getSupportedScopes();
+
+        $this->assertTrue(is_array($scopes));
+        $this->assertCount(2, $scopes);
+
+        $scope0 = $scopes[0];
+        $this->assertEquals('scope-0', $scope0->getName());
+
+        $scope1 = $scopes[1];
+        $this->assertEquals('scope-1', $scope1->getName());
+
+        // supportedResponseTypes
+        $responseTypes = $obj->getSupportedResponseTypes();
+
+        $this->assertTrue(is_array($responseTypes));
+        $this->assertCount(2, $responseTypes);
+        $this->assertEquals(ResponseType::$CODE,  $responseTypes[0]);
+        $this->assertEquals(ResponseType::$TOKEN, $responseTypes[1]);
+
+        // supportedGrantTypes
+        $grantTypes = $obj->getSupportedGrantTypes();
+
+        $this->assertTrue(is_array($grantTypes));
+        $this->assertCount(2, $grantTypes);
+        $this->assertEquals(GrantType::$AUTHORIZATION_CODE, $grantTypes[0]);
+        $this->assertEquals(GrantType::$IMPLICIT,           $grantTypes[1]);
+
+        // supportedAcrs
+        $acrs = $obj->getSupportedAcrs();
+
+        $this->assertTrue(is_array($acrs));
+        $this->assertCount(2, $acrs);
+        $this->assertEquals('acr-0', $acrs[0]);
+        $this->assertEquals('acr-1', $acrs[1]);
+
+        // supportedTokenAuthMethods
+        $tokenAuthMethods = $obj->getSupportedTokenAuthMethods();
+
+        $this->assertTrue(is_array($tokenAuthMethods));
+        $this->assertCount(2, $tokenAuthMethods);
+        $this->assertEquals(ClientAuthMethod::$PRIVATE_KEY_JWT, $tokenAuthMethods[0]);
+        $this->assertEquals(ClientAuthMethod::$TLS_CLIENT_AUTH, $tokenAuthMethods[1]);
+
+        // supportedDisplays
+        $displays = $obj->getSupportedDisplays();
+
+        $this->assertTrue(is_array($displays));
+        $this->assertCount(2, $displays);
+        $this->assertEquals(Display::$PAGE,  $displays[0]);
+        $this->assertEquals(Display::$POPUP, $displays[1]);
+
+        // supportedClaimTypes
+        $claimTypes = $obj->getSupportedClaimTypes();
+
+        $this->assertTrue(is_array($claimTypes));
+        $this->assertCount(2, $claimTypes);
+        $this->assertEquals(ClaimType::$NORMAL,     $claimTypes[0]);
+        $this->assertEquals(ClaimType::$AGGREGATED, $claimTypes[1]);
+
+        // supportedClaims
+        $claims = $obj->getSupportedClaims();
+
+        $this->assertTrue(is_array($claims));
+        $this->assertCount(2, $claims);
+        $this->assertEquals('claim-0', $claims[0]);
+        $this->assertEquals('claim-1', $claims[1]);
+
+        // serviceDocumentation
+        $this->assertEquals('_service_documentation_', $obj->getServiceDocumentation());
+
+        // supportedClaimLocales
+        $claimLocales = $obj->getSupportedClaimLocales();
+
+        $this->assertTrue(is_array($claimLocales));
+        $this->assertCount(2, $claimLocales);
+        $this->assertEquals('claim-locale-0', $claimLocales[0]);
+        $this->assertEquals('claim-locale-1', $claimLocales[1]);
+
+        // supportedUiLocales
+        $uiLocales = $obj->getSupportedUiLocales();
+
+        $this->assertTrue(is_array($uiLocales));
+        $this->assertCount(2, $uiLocales);
+        $this->assertEquals('ui-locale-0', $uiLocales[0]);
+        $this->assertEquals('ui-locale-1', $uiLocales[1]);
+
+        // policyUri
+        $this->assertEquals('_policy_uri_', $obj->getPolicyUri());
+
+        // tosUri
+        $this->assertEquals('_tos_uri_', $obj->getTosUri());
+
+        // authenticationCallbackEndpoint
+        $this->assertEquals('_authentication_callback_endpoint_', $obj->getAuthenticationCallbackEndpoint());
+
+        // authenticationCallbackApiKey
+        $this->assertEquals('_authentication_callback_api_key_', $obj->getAuthenticationCallbackApiKey());
+
+        // authenticationCallbackApiSecret
+        $this->assertEquals('_authentication_callback_api_secret_', $obj->getAuthenticationCallbackApiSecret());
+
+        // supportedSnses
+        $snses = $obj->getSupportedSnses();
+
+        $this->assertTrue(is_array($snses));
+        $this->assertCount(1, $snses);
+        $this->assertEquals(Sns::$FACEBOOK, $snses[0]);
+
+        // snsCredentials
+        $snsCredentials = $obj->getSnsCredentials();
+
+        $this->assertTrue(is_array($snsCredentials));
+        $this->assertCount(1, $snsCredentials);
+
+        $snsCredentials0 = $snsCredentials[0];
+        $this->assertEquals(Sns::$FACEBOOK, $snsCredentials0->getSns());
+        $this->assertEquals('_sns_api_key_', $snsCredentials0->getApiKey());
+        $this->assertEquals('_sns_api_secret_', $snsCredentials0->getApiSecret());
+
+        // createdAt
+        $this->assertEquals(12345, $obj->getCreatedAt());
+
+        // modifiedAt
+        $this->assertEquals(67890, $obj->getModifiedAt());
+
+        // developerAuthenticationCallbackEndpoint
+        $this->assertEquals('_developer_authentication_callback_endpoint_', $obj->getDeveloperAuthenticationCallbackEndpoint());
+
+        // developerAuthenticationCallbackApiKey
+        $this->assertEquals('_developer_authentication_callback_api_key_', $obj->getDeveloperAuthenticationCallbackApiKey());
+
+        // developerAuthenticationCallbackApiSecret
+        $this->assertEquals('_developer_authentication_callback_api_secret_', $obj->getDeveloperAuthenticationCallbackApiSecret());
+
+        // supportedDeveloperSnses
+        $developerSnses = $obj->getSupportedDeveloperSnses();
+
+        $this->assertTrue(is_array($developerSnses));
+        $this->assertCount(1, $developerSnses);
+        $this->assertEquals(Sns::$FACEBOOK, $developerSnses[0]);
+
+        // developerSnsCredentials
+        $developerSnsCredentials = $obj->getDeveloperSnsCredentials();
+
+        $this->assertTrue(is_array($developerSnsCredentials));
+        $this->assertCount(1, $developerSnsCredentials);
+
+        $developerSnsCredentials0 = $developerSnsCredentials[0];
+        $this->assertEquals(Sns::$FACEBOOK, $developerSnsCredentials0->getSns());
+        $this->assertEquals('_developer_sns_api_key_', $developerSnsCredentials0->getApiKey());
+        $this->assertEquals('_developer_sns_api_secret_', $developerSnsCredentials0->getApiSecret());
+
+        // clientsPerDeveloper
+        $this->assertEquals(10, $obj->getClientsPerDeveloper());
+
+        // directAuthorizationEndpointEnabled
+        $this->assertTrue($obj->isDirectAuthorizationEndpointEnabled());
+
+        // directTokenEndpointEnabled
+        $this->assertTrue($obj->isDirectTokenEndpointEnabled());
+
+        // directRevocationEndpointEnabled
+        $this->assertTrue($obj->isDirectRevocationEndpointEnabled());
+
+        // directUserInfoEndpointEnabled
+        $this->assertTrue($obj->isDirectUserInfoEndpointEnabled());
+
+        // directJwksEndpointEnabled
+        $this->assertTrue($obj->isDirectJwksEndpointEnabled());
+
+        // directIntrospectionEndpointEnabled
+        $this->assertTrue($obj->isDirectIntrospectionEndpointEnabled());
+
+        // singleAccessTokenPerSubject
+        $this->assertTrue($obj->isSingleAccessTokenPerSubject());
+
+        // pkceRequired
+        $this->assertTrue($obj->isPkceRequired());
+
+        // pkceS256Required
+        $this->assertTrue($obj->isPkceS256Required());
+
+        // refreshTokenKept
+        $this->assertTrue($obj->isRefreshTokenKept());
+
+        // refreshTokenDurationKept
+        $this->assertTrue($obj->isRefreshTokenDurationKept());
+
+        // errorDescriptionOmitted
+        $this->assertTrue($obj->isErrorDescriptionOmitted());
+
+        // errorUriOmitted
+        $this->assertTrue($obj->isErrorUriOmitted());
+
+        // clientIdAliasEnabled
+        $this->assertTrue($obj->isClientIdAliasEnabled());
+
+        // supportedServiceProfiles
+        $serviceProfiles = $obj->getSupportedServiceProfiles();
+
+        $this->assertTrue(is_array($serviceProfiles));
+        $this->assertCount(2, $serviceProfiles);
+        $this->assertEquals(ServiceProfile::$FAPI, $serviceProfiles[0]);
+        $this->assertEquals(ServiceProfile::$OPEN_BANKING, $serviceProfiles[1]);
+
+        // tlsClientCertificateBoundAccessTokens
+        $this->assertTrue($obj->isTlsClientCertificateBoundAccessTokens());
+
+        // introspectionEndpoint
+        $this->assertEquals('_introspection_endpoint_', $obj->getIntrospectionEndpoint());
+
+        // supportedIntrospectionAuthMethods
+        $introspectionAuthMethods = $obj->getSupportedIntrospectionAuthMethods();
+
+        $this->assertTrue(is_array($introspectionAuthMethods));
+        $this->assertCount(2, $introspectionAuthMethods);
+        $this->assertEquals(ClientAuthMethod::$TLS_CLIENT_AUTH,             $introspectionAuthMethods[0]);
+        $this->assertEquals(ClientAuthMethod::$SELF_SIGNED_TLS_CLIENT_AUTH, $introspectionAuthMethods[1]);
+
+        // mutualTlsValidatePkiCertChain
+        $this->assertTrue($obj->isMutualTlsValidatePkiCertChain());
+
+        // trustedRootCertificates
+        $rootCertificates = $obj->getTrustedRootCertificates();
+
+        $this->assertTrue(is_array($rootCertificates));
+        $this->assertCount(2, $rootCertificates);
+        $this->assertEquals('root-certificate-0', $rootCertificates[0]);
+        $this->assertEquals('root-certificate-1', $rootCertificates[1]);
+
+        // dynamicRegistrationSupported
+        $this->assertTrue($obj->isDynamicRegistrationSupported());
+
+        // endSessionEndpoint
+        $this->assertEquals('_end_session_endpoint_', $obj->getEndSessionEndpoint());
+
+        // description
+        $this->assertEquals('_description_', $obj->getDescription());
+
+        // accessTokenType
+        $this->assertEquals('Bearer', $obj->getAccessTokenType());
+
+        // accessTokenSignAlg
+        $this->assertEquals(JWSAlg::$ES256, $obj->getAccessTokenSignAlg());
+
+        // accessTokenDuration
+        $this->assertEquals(1234, $obj->getAccessTokenDuration());
+
+        // refreshTokenDuration
+        $this->assertEquals(5678, $obj->getRefreshTokenDuration());
+
+        // idTokenDuration
+        $this->assertEquals(9012, $obj->getIdTokenDuration());
+
+        // authorizationResponseDuration
+        $this->assertEquals(1111, $obj->getAuthorizationResponseDuration());
+
+        // pushedAuthReqDuration
+        $this->assertEquals(2222, $obj->getPushedAuthReqDuration());
+
+        // accessTokenSignatureKeyId
+        $this->assertEquals('access_token_signature_key_id', $obj->getAccessTokenSignatureKeyId());
+
+        // authorizationSignatureKeyId
+        $this->assertEquals('authorization_signature_key_id', $obj->getAuthorizationSignatureKeyId());
+
+        // idTokenSignatureKeyId
+        $this->assertEquals('id_token_signature_key_id', $obj->getIdTokenSignatureKeyId());
+
+        // userInfoSignatureKeyId
+        $this->assertEquals('userinfo_signature_key_id', $obj->getUserInfoSignatureKeyId());
+
+        // supportedBackchannelTokenDeliveryModes
+        $deliveryModes = $obj->getSupportedBackchannelTokenDeliveryModes();
+
+        $this->assertTrue(is_array($deliveryModes));
+        $this->assertCount(3, $deliveryModes);
+        $this->assertEquals(DeliveryMode::$POLL, $deliveryModes[0]);
+        $this->assertEquals(DeliveryMode::$PING, $deliveryModes[1]);
+        $this->assertEquals(DeliveryMode::$PUSH, $deliveryModes[2]);
+
+        // backchannelAuthenticationEndpoint
+        $this->assertEquals('_backchannel_authentication_endpoint_', $obj->getBackchannelAuthenticationEndpoint());
+
+        // backchannelUserCodeParameterSupported
+        $this->assertTrue($obj->isBackchannelUserCodeParameterSupported());
+
+        // backchannelAuthReqIdDuration
+        $this->assertEquals(3333, $obj->getBackchannelAuthReqIdDuration());
+
+        // backchannelPollingInterval
+        $this->assertEquals(4444, $obj->getBackchannelPollingInterval());
+
+        // backchannelBindingMessageRequiredInFapi
+        $this->assertTrue($obj->isBackchannelBindingMessageRequiredInFapi());
+
+        // allowableClockSkew
+        $this->assertEquals(60, $obj->getAllowableClockSkew());
+
+        // deviceAuthorizationEndpoint
+        $this->assertEquals('_device_authorization_endpoint_', $obj->getDeviceAuthorizationEndpoint());
+
+        // deviceVerificationUri
+        $this->assertEquals('_device_verification_uri_', $obj->getDeviceVerificationUri());
+
+        // deviceVerificationUriComplete
+        $this->assertEquals('_device_verification_uri_complete_', $obj->getDeviceVerificationUriComplete());
+
+        // deviceFlowCodeDuration
+        $this->assertEquals(5555, $obj->getDeviceFlowCodeDuration());
+
+        // deviceFlowPollingInterval
+        $this->assertEquals(6666, $obj->getDeviceFlowPollingInterval());
+
+        // userCodeCharset
+        $this->assertEquals(UserCodeCharset::$BASE20, $obj->getUserCodeCharset());
+
+        // userCodeLength
+        $this->assertEquals(10, $obj->getUserCodeLength());
+
+        // pushedAuthReqEndpoint
+        $this->assertEquals('_pushed_auth_req_endpoint_', $obj->getPushedAuthReqEndpoint());
+
+        // mtlsEndpointAliases
+        $mtlsEndpointAliases = $obj->getMtlsEndpointAliases();
+
+        $this->assertTrue(is_array($mtlsEndpointAliases));
+        $this->assertCount(2, $mtlsEndpointAliases);
+
+        $mtlsEndpointAliases0 = $mtlsEndpointAliases[0];
+        $this->assertEquals('name-0', $mtlsEndpointAliases0->getName());
+        $this->assertEquals('uri-0', $mtlsEndpointAliases0->getUri());
+
+        $mtlsEndpointAliases1 = $mtlsEndpointAliases[1];
+        $this->assertEquals('name-1', $mtlsEndpointAliases1->getName());
+        $this->assertEquals('uri-1', $mtlsEndpointAliases1->getUri());
+
+        // supportedAuthorizationDataTypes
+        $authorizationDataTypes = $obj->getSupportedAuthorizationDataTypes();
+
+        $this->assertTrue(is_array($authorizationDataTypes));
+        $this->assertCount(2, $authorizationDataTypes);
+        $this->assertEquals('type-0', $authorizationDataTypes[0]);
+        $this->assertEquals('type-1', $authorizationDataTypes[1]);
+
+        // supportedTrustFrameworks
+        $trustFrameworks = $obj->getSupportedTrustFrameworks();
+
+        $this->assertTrue(is_array($trustFrameworks));
+        $this->assertCount(2, $trustFrameworks);
+        $this->assertEquals('framework-0', $trustFrameworks[0]);
+        $this->assertEquals('framework-1', $trustFrameworks[1]);
+
+        // supportedEvidence
+        $evidence = $obj->getSupportedEvidence();
+
+        $this->assertTrue(is_array($evidence));
+        $this->assertCount(2, $evidence);
+        $this->assertEquals('evidence-0', $evidence[0]);
+        $this->assertEquals('evidence-1', $evidence[1]);
+
+        // supportedIdentityDocuments
+        $idDocuments = $obj->getSupportedIdentityDocuments();
+
+        $this->assertTrue(is_array($idDocuments));
+        $this->assertCount(2, $idDocuments);
+        $this->assertEquals('document-0', $idDocuments[0]);
+        $this->assertEquals('document-1', $idDocuments[1]);
+
+        // supportedVerificationMethods
+        $verificationMethods = $obj->getSupportedVerificationMethods();
+
+        $this->assertTrue(is_array($verificationMethods));
+        $this->assertCount(2, $verificationMethods);
+        $this->assertEquals('method-0', $verificationMethods[0]);
+        $this->assertEquals('method-1', $verificationMethods[1]);
+
+        // supportedVerifiedClaims
+        $verifiedClaims = $obj->getSupportedVerifiedClaims();
+
+        $this->assertTrue(is_array($verifiedClaims));
+        $this->assertCount(2, $verifiedClaims);
+        $this->assertEquals('claim-0', $verifiedClaims[0]);
+        $this->assertEquals('claim-1', $verifiedClaims[1]);
+
+        // missingClientIdAllowed
+        $this->assertTrue($obj->isMissingClientIdAllowed());
+
+        // parRequired
+        $this->assertTrue($obj->isParRequired());
     }
 }
 ?>

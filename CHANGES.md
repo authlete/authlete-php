@@ -80,6 +80,72 @@ CHANGES
     * Added `getAccessTokenResources()` method.
     * Added `setAccessTokenResources()` method.
 
+- `Service` class
+    * Added `getRegistrationManagementEndpoint()` method.
+    * Added `setRegistrationManagementEndpoint()` method.
+    * Added `isPkceS256Required()` method.
+    * Added `setPkceS256Required()` method.
+    * Added `isRefreshTokenDurationKept()` method.
+    * Added `setRefreshTokenDurationKept()` method.
+    * Added `isDynamicRegistrationSupported()` method.
+    * Added `setDynamicRegistrationSupported()` method.
+    * Added `getEndSessionEndpoint()` method.
+    * Added `setEndSessionEndpoint()` method.
+    * Added `getAccessTokenSignAlg()` method.
+    * Added `setAccessTokenSignAlg()` method.
+    * Added `getPushedAuthReqDuration()` method.
+    * Added `setPushedAuthReqDuration()` method.
+    * Added `getAccessTokenSignatureKeyId()` method.
+    * Added `setAccessTokenSignatureKeyId()` method.
+    * Added `getSupportedBackchannelTokenDeliveryModes()` method.
+    * Added `setSupportedBackchannelTokenDeliveryModes()` method.
+    * Added `getBackchannelAuthenticationEndpoint()` method.
+    * Added `setBackchannelAuthenticationEndpoint()` method.
+    * Added `isBackchannelUserCodeParameterSupported()` method.
+    * Added `setBackchannelUserCodeParameterSupported()` method.
+    * Added `getBackchannelAuthReqIdDuration()` method.
+    * Added `setBackchannelAuthReqIdDuration()` method.
+    * Added `getBackchannelPollingInterval()` method.
+    * Added `setBackchannelPollingInterval()` method.
+    * Added `isBackchannelBindingMessageRequiredInFapi()` method.
+    * Added `setBackchannelBindingMessageRequiredInFapi()` method.
+    * Added `getAllowableClockSkew()` method.
+    * Added `setAllowableClockSkew()` method.
+    * Added `getDeviceAuthorizationEndpoint()` method.
+    * Added `setDeviceAuthorizationEndpoint()` method.
+    * Added `getDeviceVerificationUri()` method.
+    * Added `setDeviceVerificationUri()` method.
+    * Added `getDeviceVerificationUriComplete()` method.
+    * Added `setDeviceVerificationUriComplete()` method.
+    * Added `getDeviceFlowCodeDuration()` method.
+    * Added `setDeviceFlowCodeDuration()` method.
+    * Added `getDeviceFlowPollingInterval()` method.
+    * Added `setDeviceFlowPollingInterval()` method.
+    * Added `getUserCodeCharset()` method.
+    * Added `setUserCodeCharset()` method.
+    * Added `getUserCodeLength()` method.
+    * Added `setUserCodeLength()` method.
+    * Added `getPushedAuthReqEndpoint()` method.
+    * Added `setPushedAuthReqEndpoint()` method.
+    * Added `getMtlsEndpointAliases()` method.
+    * Added `setMtlsEndpointAliases()` method.
+    * Added `getSupportedAuthorizationDataTypes()` method.
+    * Added `setSupportedAuthorizationDataTypes()` method.
+    * Added `getSupportedTrustFrameworks()` method.
+    * Added `setSupportedTrustFrameworks()` method.
+    * Added `getSupportedEvidence()` method.
+    * Added `setSupportedEvidence()` method.
+    * Added `getSupportedIdentityDocuments()` method.
+    * Added `setSupportedIdentityDocuments()` method.
+    * Added `getSupportedVerificationMethods()` method.
+    * Added `setSupportedVerificationMethods()` method.
+    * Added `getSupportedVerifiedClaims()` method.
+    * Added `setSupportedVerifiedClaims()` method.
+    * Added `isMissingClientIdAllowed()` method.
+    * Added `setMissingClientIdAllowed()` method.
+    * Added `isParRequired()` method.
+    * Added `setParRequired()` method.
+
 - `TokenCreateRequest` class
     * Added `isAccessTokenPersistent()` method.
     * Added `setAccessTokenPersistent()` method.

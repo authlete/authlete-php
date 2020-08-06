@@ -80,6 +80,72 @@ CHANGES (日本語)
     * `getAccessTokenResources()` メソッドを追加。
     * `setAccessTokenResources()` メソッドを追加。
 
+- `Service` クラス
+    * `getRegistrationManagementEndpoint()` メソッドを追加。
+    * `setRegistrationManagementEndpoint()` メソッドを追加。
+    * `isPkceS256Required()` メソッドを追加。
+    * `setPkceS256Required()` メソッドを追加。
+    * `isRefreshTokenDurationKept()` メソッドを追加。
+    * `setRefreshTokenDurationKept()` メソッドを追加。
+    * `isDynamicRegistrationSupported()` メソッドを追加。
+    * `setDynamicRegistrationSupported()` メソッドを追加。
+    * `getEndSessionEndpoint()` メソッドを追加。
+    * `setEndSessionEndpoint()` メソッドを追加。
+    * `getAccessTokenSignAlg()` メソッドを追加。
+    * `setAccessTokenSignAlg()` メソッドを追加。
+    * `getPushedAuthReqDuration()` メソッドを追加。
+    * `setPushedAuthReqDuration()` メソッドを追加。
+    * `getAccessTokenSignatureKeyId()` メソッドを追加。
+    * `setAccessTokenSignatureKeyId()` メソッドを追加。
+    * `getSupportedBackchannelTokenDeliveryModes()` メソッドを追加。
+    * `setSupportedBackchannelTokenDeliveryModes()` メソッドを追加。
+    * `getBackchannelAuthenticationEndpoint()` メソッドを追加。
+    * `setBackchannelAuthenticationEndpoint()` メソッドを追加。
+    * `isBackchannelUserCodeParameterSupported()` メソッドを追加。
+    * `setBackchannelUserCodeParameterSupported()` メソッドを追加。
+    * `getBackchannelAuthReqIdDuration()` メソッドを追加。
+    * `setBackchannelAuthReqIdDuration()` メソッドを追加。
+    * `getBackchannelPollingInterval()` メソッドを追加。
+    * `setBackchannelPollingInterval()` メソッドを追加。
+    * `isBackchannelBindingMessageRequiredInFapi()` メソッドを追加。
+    * `setBackchannelBindingMessageRequiredInFapi()` メソッドを追加。
+    * `getAllowableClockSkew()` メソッドを追加。
+    * `setAllowableClockSkew()` メソッドを追加。
+    * `getDeviceAuthorizationEndpoint()` メソッドを追加。
+    * `setDeviceAuthorizationEndpoint()` メソッドを追加。
+    * `getDeviceVerificationUri()` メソッドを追加。
+    * `setDeviceVerificationUri()` メソッドを追加。
+    * `getDeviceVerificationUriComplete()` メソッドを追加。
+    * `setDeviceVerificationUriComplete()` メソッドを追加。
+    * `getDeviceFlowCodeDuration()` メソッドを追加。
+    * `setDeviceFlowCodeDuration()` メソッドを追加。
+    * `getDeviceFlowPollingInterval()` メソッドを追加。
+    * `setDeviceFlowPollingInterval()` メソッドを追加。
+    * `getUserCodeCharset()` メソッドを追加。
+    * `setUserCodeCharset()` メソッドを追加。
+    * `getUserCodeLength()` メソッドを追加。
+    * `setUserCodeLength()` メソッドを追加。
+    * `getPushedAuthReqEndpoint()` メソッドを追加。
+    * `setPushedAuthReqEndpoint()` メソッドを追加。
+    * `getMtlsEndpointAliases()` メソッドを追加。
+    * `setMtlsEndpointAliases()` メソッドを追加。
+    * `getSupportedAuthorizationDataTypes()` メソッドを追加。
+    * `setSupportedAuthorizationDataTypes()` メソッドを追加。
+    * `getSupportedTrustFrameworks()` メソッドを追加。
+    * `setSupportedTrustFrameworks()` メソッドを追加。
+    * `getSupportedEvidence()` メソッドを追加。
+    * `setSupportedEvidence()` メソッドを追加。
+    * `getSupportedIdentityDocuments()` メソッドを追加。
+    * `setSupportedIdentityDocuments()` メソッドを追加。
+    * `getSupportedVerificationMethods()` メソッドを追加。
+    * `setSupportedVerificationMethods()` メソッドを追加。
+    * `getSupportedVerifiedClaims()` メソッドを追加。
+    * `setSupportedVerifiedClaims()` メソッドを追加。
+    * `isMissingClientIdAllowed()` メソッドを追加。
+    * `setMissingClientIdAllowed()` メソッドを追加。
+    * `isParRequired()` メソッドを追加。
+    * `setParRequired()` メソッドを追加。
+
 - `TokenCreateRequest` クラス
     * `isAccessTokenPersistent()` メソッドを追加。
     * `setAccessTokenPersistent()` メソッドを追加。
