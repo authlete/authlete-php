@@ -210,6 +210,7 @@ CHANGES (日本語)
 - 新しい部品
     * `BackchannelAuthenticationCompleteAction` クラス
     * `BackchannelAuthenticationCompleteResult` クラス
+    * `BackchannelAuthenticationFailAction` クラス
     * `BackchannelAuthenticationFailReason` クラス
     * `DeliveryMode` クラス
     * `NamedUri` クラス
