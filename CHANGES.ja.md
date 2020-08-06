@@ -208,6 +208,7 @@ CHANGES (日本語)
     * `setUserInfoClaims()` メソッドを追加。
 
 - 新しい部品
+    * `BackchannelAuthenticationAction` クラス
     * `BackchannelAuthenticationCompleteAction` クラス
     * `BackchannelAuthenticationCompleteResult` クラス
     * `BackchannelAuthenticationFailAction` クラス
