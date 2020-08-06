@@ -216,6 +216,7 @@ CHANGES (日本語)
     * `BackchannelAuthenticationIssueAction` クラス
     * `DeliveryMode` クラス
     * `DeviceAuthorizationAction` クラス
+    * `DeviceAuthorizationRequest` クラス
     * `DeviceCompleteAction` クラス
     * `DeviceCompleteResult` クラス
     * `DeviceVerificationAction` クラス
