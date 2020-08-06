@@ -220,6 +220,7 @@ CHANGES
     * `DeviceCompleteResult` class
     * `DeviceVerificationAction` class
     * `NamedUri` class
+    * `PushedAuthReqAction` class
     * `UserCodeCharset` class
     * `UserIdentificationHintType` class
 

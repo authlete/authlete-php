@@ -220,6 +220,7 @@ CHANGES (日本語)
     * `DeviceCompleteResult` クラス
     * `DeviceVerificationAction` クラス
     * `NamedUri` クラス
+    * `PushedAuthReqAction` クラス
     * `UserCodeCharset` クラス
     * `UserIdentificationHintType` クラス
 
