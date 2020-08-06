@@ -218,6 +218,7 @@ CHANGES
     * `DeviceAuthorizationAction` class
     * `DeviceCompleteAction` class
     * `DeviceCompleteResult` class
+    * `DeviceVerificationAction` class
     * `NamedUri` class
     * `UserCodeCharset` class
     * `UserIdentificationHintType` class

@@ -218,6 +218,7 @@ CHANGES (日本語)
     * `DeviceAuthorizationAction` クラス
     * `DeviceCompleteAction` クラス
     * `DeviceCompleteResult` クラス
+    * `DeviceVerificationAction` クラス
     * `NamedUri` クラス
     * `UserCodeCharset` クラス
     * `UserIdentificationHintType` クラス
