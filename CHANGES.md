@@ -216,6 +216,7 @@ CHANGES
     * `BackchannelAuthenticationIssueAction` class
     * `DeliveryMode` class
     * `DeviceAuthorizationAction` class
+    * `DeviceCompleteResult` class
     * `NamedUri` class
     * `UserCodeCharset` class
     * `UserIdentificationHintType` class
