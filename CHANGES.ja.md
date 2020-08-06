@@ -212,6 +212,7 @@ CHANGES (日本語)
     * `BackchannelAuthenticationCompleteResult` クラス
     * `BackchannelAuthenticationFailAction` クラス
     * `BackchannelAuthenticationFailReason` クラス
+    * `BackchannelAuthenticationIssueAction` クラス
     * `DeliveryMode` クラス
     * `NamedUri` クラス
     * `UserCodeCharset` クラス

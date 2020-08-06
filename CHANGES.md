@@ -212,6 +212,7 @@ CHANGES
     * `BackchannelAuthenticationCompleteResult` class
     * `BackchannelAuthenticationFailAction` class
     * `BackchannelAuthenticationFailReason` class
+    * `BackchannelAuthenticationIssueAction` class
     * `DeliveryMode` class
     * `NamedUri` class
     * `UserCodeCharset` class
