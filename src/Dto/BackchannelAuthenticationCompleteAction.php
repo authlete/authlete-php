@@ -71,7 +71,7 @@ class BackchannelAuthenticationCompleteAction
      * If an error occurred after Authlete succeeded in retrieving data
      * associated with the ticket from the database and if the backchannel
      * token delivery mode is `ping` or `push`, `NOTIFICATION` is used as
-     * the value of `action` insteadof `SERVER_ERROR`. In the case,
+     * the value of `action` instead of `SERVER_ERROR`. In the case,
      * `responseContent` contains `"error":"server_error"`.
      *
      * @static
