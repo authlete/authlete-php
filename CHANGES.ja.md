@@ -208,6 +208,7 @@ CHANGES (日本語)
     * `setUserInfoClaims()` メソッドを追加。
 
 - 新しい部品
+    * `BackchannelAuthenticationCompleteResult` クラス
     * `DeliveryMode` クラス
     * `NamedUri` クラス
     * `UserCodeCharset` クラス

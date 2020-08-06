@@ -208,6 +208,7 @@ CHANGES
     * Added `setUserInfoClaims()` method.
 
 - New parts
+    * `BackchannelAuthenticationCompleteResult` class
     * `DeliveryMode` class
     * `NamedUri` class
     * `UserCodeCharset` class
