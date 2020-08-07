@@ -224,6 +224,7 @@ CHANGES (日本語)
     * `DeviceCompleteResult` クラス
     * `DeviceVerificationAction` クラス
     * `DeviceVerificationRequest` クラス
+    * `DeviceVerificationResponse` クラス
     * `NamedUri` クラス
     * `PushedAuthReqAction` クラス
     * `UserCodeCharset` クラス
