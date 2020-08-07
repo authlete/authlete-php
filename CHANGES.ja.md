@@ -217,6 +217,7 @@ CHANGES (日本語)
     * `DeliveryMode` クラス
     * `DeviceAuthorizationAction` クラス
     * `DeviceAuthorizationRequest` クラス
+    * `DeviceAuthorizationResponse` クラス
     * `DeviceCompleteAction` クラス
     * `DeviceCompleteResult` クラス
     * `DeviceVerificationAction` クラス

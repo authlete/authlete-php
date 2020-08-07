@@ -217,6 +217,7 @@ CHANGES
     * `DeliveryMode` class
     * `DeviceAuthorizationAction` class
     * `DeviceAuthorizationRequest` class
+    * `DeviceAuthorizationResponse` class
     * `DeviceCompleteAction` class
     * `DeviceCompleteResult` class
     * `DeviceVerificationAction` class
