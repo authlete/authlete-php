@@ -1,6 +1,6 @@
 <?php
 //
-// Copyright (C) 2018 Authlete, Inc.
+// Copyright (C) 2018-2020 Authlete, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -42,6 +42,12 @@ use Authlete\Dto\ClientListResponse;
 use Authlete\Dto\ClientSecretRefreshResponse;
 use Authlete\Dto\ClientSecretUpdateRequest;
 use Authlete\Dto\ClientSecretUpdateResponse;
+use Authlete\Dto\DeviceAuthorizationRequest;
+use Authlete\Dto\DeviceAuthorizationResponse;
+use Authlete\Dto\DeviceCompleteRequest;
+use Authlete\Dto\DeviceCompleteResponse;
+use Authlete\Dto\DeviceVerificationRequest;
+use Authlete\Dto\DeviceVerificationResponse;
 use Authlete\Dto\GrantedScopesDeleteRequest;
 use Authlete\Dto\GrantedScopesGetRequest;
 use Authlete\Dto\GrantedScopesGetResponse;
@@ -112,6 +118,9 @@ class AuthleteApiImpl implements AuthleteApi
     private static $CLIENT_AUTHORIZATION_DELETE_API_PATH   = '/api/client/authorization/delete/';  // + {clientId}
     private static $CLIENT_AUTHORIZATION_GET_LIST_API_PATH = '/api/client/authorization/get/list';
     private static $CLIENT_AUTHORIZATION_UPDATE_API_PATH   = '/api/client/authorization/update/';  // + {clientId}
+    private static $DEVICE_AUTHORIZATION_API_PATH          = '/api/device/authorization';
+    private static $DEVICE_COMPLETE_API_PATH               = '/api/device/complete';
+    private static $DEVICE_VERIFICATION_API_PATH           = '/api/device/verification';
 
 
     private $serviceOwnerCredentials = null;  // \Authlete\Web\BasicCredentials
@@ -1105,6 +1114,57 @@ class AuthleteApiImpl implements AuthleteApi
         return $this->callServicePostApi(
             '\Authlete\Dto\ClientSecretUpdateResponse::fromJson',
             self::$CLIENT_SECRET_UPDATE_API_PATH . $clientId,
+            null, $request);
+    }
+
+
+    /**
+     * {@inheritdoc}
+     *
+     * {@inheritdoc}
+     *
+     * @param DeviceAuthorizationRequest $request
+     *     {@inheritdoc}
+     */
+    public function deviceAuthorization(DeviceAuthorizationRequest $request)
+    {
+        return $this->callServicePostApi(
+            '\Authlete\Dto\DeviceAuthorizationResponse::fromJson',
+            self::$DEVICE_AUTHORIZATION_API_PATH,
+            null, $request);
+    }
+
+
+    /**
+     * {@inheritdoc}
+     *
+     * {@inheritdoc}
+     *
+     * @param DeviceCompleteRequest $request
+     *     {@inheritdoc}
+     */
+    public function deviceComplete(DeviceCompleteRequest $request)
+    {
+        return $this->callServicePostApi(
+            '\Authlete\Dto\DeviceCompleteResponse::fromJson',
+            self::$DEVICE_COMPLETE_API_PATH,
+            null, $request);
+    }
+
+
+    /**
+     * {@inheritdoc}
+     *
+     * {@inheritdoc}
+     *
+     * @param DeviceVerificationRequest $request
+     *     {@inheritdoc}
+     */
+    public function deviceVerification(DeviceVerificationRequest $request)
+    {
+        return $this->callServicePostApi(
+            '\Authlete\Dto\DeviceVerificationResponse::fromJson',
+            self::$DEVICE_VERIFICATION_API_PATH,
             null, $request);
     }
 

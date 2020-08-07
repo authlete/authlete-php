@@ -1,6 +1,11 @@
 CHANGES
 =======
 
+- `AuthleteApi` interface
+    * Added `deviceAuthorization()` method.
+    * Added `deviceComplete()` method.
+    * Added `deviceVerification()` method.
+
 - `AuthorizationFailReason` class
     * Added `$INVALID_TARGET`.
 

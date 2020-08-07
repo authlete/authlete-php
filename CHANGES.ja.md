@@ -1,6 +1,11 @@
 CHANGES (日本語)
 ================
 
+- `AuthleteApi` インターフェース
+    * `deviceAuthorization()` メソッドを追加。
+    * `deviceComplete()` メソッドを追加。
+    * `deviceVerification()` メソッドを追加。
+
 - `AuthorizationFailReason` クラス
     * `$INVALID_TARGET` を追加。
 

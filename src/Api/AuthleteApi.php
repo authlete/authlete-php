@@ -1,6 +1,6 @@
 <?php
 //
-// Copyright (C) 2018 Authlete, Inc.
+// Copyright (C) 2018-2020 Authlete, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -32,6 +32,9 @@ use Authlete\Dto\Client;
 use Authlete\Dto\ClientAuthorizationDeleteRequest;
 use Authlete\Dto\ClientAuthorizationGetListRequest;
 use Authlete\Dto\ClientAuthorizationUpdateRequest;
+use Authlete\Dto\DeviceAuthorizationRequest;
+use Authlete\Dto\DeviceCompleteRequest;
+use Authlete\Dto\DeviceVerificationRequest;
 use Authlete\Dto\IntrospectionRequest;
 use Authlete\Dto\RevocationRequest;
 use Authlete\Dto\Service;
@@ -635,6 +638,54 @@ interface AuthleteApi
      * @throws AuthleteApiException
      */
     public function updateClientSecret($clientId, $clientSecret);
+
+
+    /**
+     * Call Authlete's /api/device/authorization API.
+     *
+     * @param DeviceAuthorizationRequest $request
+     *     Request parameters passed to the API.
+     *
+     * @return \Authlete\Dto\DeviceAuthorizationResponse
+     *     Response from the API.
+     *
+     * @throws AuthleteApiException
+     *
+     * @since 1.8
+     */
+    public function deviceAuthorization(DeviceAuthorizationRequest $request);
+
+
+    /**
+     * Call Authlete's /api/device/complete API.
+     *
+     * @param DeviceCompleteRequest $request
+     *     Request parameters passed to the API.
+     *
+     * @return \Authlete\Dto\DeviceCompleteResponse
+     *     Response from the API.
+     *
+     * @throws AuthleteApiException
+     *
+     * @since 1.8
+     */
+    public function deviceComplete(DeviceCompleteRequest $request);
+
+
+    /**
+     * Call Authlete's /api/device/verification API.
+     *
+     * @param DeviceVerificationRequest $request
+     *     Request parameters passed to the API.
+     *
+     * @return \Authlete\Dto\DeviceVerificationResponse
+     *     Response from the API.
+     *
+     * @throws AuthleteApiException
+     *
+     * @since 1.8
+     */
+    public function deviceVerification(DeviceVerificationRequest $request);
 
 
     /**
