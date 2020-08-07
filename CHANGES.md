@@ -223,6 +223,7 @@ CHANGES
     * `DeviceCompleteResponse` class
     * `DeviceCompleteResult` class
     * `DeviceVerificationAction` class
+    * `DeviceVerificationRequest` class
     * `NamedUri` class
     * `PushedAuthReqAction` class
     * `UserCodeCharset` class
