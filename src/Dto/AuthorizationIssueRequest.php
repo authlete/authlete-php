@@ -408,7 +408,7 @@ class AuthorizationIssueRequest implements ArrayCopyable, Arrayable, Jsonable
 
 
     /**
-     * Get scopes that should be associated with an authorization code
+     * Set scopes that should be associated with an authorization code
      * and/or an access token.
      *
      * If `null` (the default value) is set, the scopes specified in the
