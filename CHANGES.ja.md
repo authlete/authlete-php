@@ -219,6 +219,7 @@ CHANGES (日本語)
     * `DeviceAuthorizationRequest` クラス
     * `DeviceAuthorizationResponse` クラス
     * `DeviceCompleteAction` クラス
+    * `DeviceCompleteRequest` クラス
     * `DeviceCompleteResult` クラス
     * `DeviceVerificationAction` クラス
     * `NamedUri` クラス

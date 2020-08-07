@@ -219,6 +219,7 @@ CHANGES
     * `DeviceAuthorizationRequest` class
     * `DeviceAuthorizationResponse` class
     * `DeviceCompleteAction` class
+    * `DeviceCompleteRequest` class
     * `DeviceCompleteResult` class
     * `DeviceVerificationAction` class
     * `NamedUri` class
