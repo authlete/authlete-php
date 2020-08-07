@@ -643,7 +643,7 @@ class TokenResponse extends ApiResponse
      * Get the ID of the client application associated with the access token.
      *
      * @return integer|string
-     *     The ID client.
+     *     The client ID.
      */
     public function getClientId()
     {
@@ -655,7 +655,7 @@ class TokenResponse extends ApiResponse
      * Set the ID of the client application associated with the access token.
      *
      * @param integer|string $clientId
-     *     The ID client.
+     *     The client ID.
      *
      * @return TokenResponse
      *     `$this` object.
