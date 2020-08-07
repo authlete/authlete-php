@@ -220,6 +220,7 @@ CHANGES
     * `DeviceAuthorizationResponse` class
     * `DeviceCompleteAction` class
     * `DeviceCompleteRequest` class
+    * `DeviceCompleteResponse` class
     * `DeviceCompleteResult` class
     * `DeviceVerificationAction` class
     * `NamedUri` class

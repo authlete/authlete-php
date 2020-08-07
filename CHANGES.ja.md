@@ -220,6 +220,7 @@ CHANGES (日本語)
     * `DeviceAuthorizationResponse` クラス
     * `DeviceCompleteAction` クラス
     * `DeviceCompleteRequest` クラス
+    * `DeviceCompleteResponse` クラス
     * `DeviceCompleteResult` クラス
     * `DeviceVerificationAction` クラス
     * `NamedUri` クラス
