@@ -134,7 +134,7 @@ class TokenFailResponse extends ApiResponse
      * Set the response content which can be used as the entity body of the
      * response returned to the client application.
      *
-     * @param string
+     * @param string $responseContent
      *     The response content.
      *
      * @return TokenFailResponse
