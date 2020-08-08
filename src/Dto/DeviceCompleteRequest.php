@@ -549,9 +549,6 @@ class DeviceCompleteRequest implements ArrayCopyable, Arrayable, Jsonable
      * value of the `error_uri` property, but it is used only when the result
      * is not `AUTHORIZED`.
      *
-     * To comply with the specification strictly, the description must not
-     * include characters outside the set %x20-21 / %x23-5B / %x5D-7E.
-     *
      * @param string $uri
      *     The URI of a document which describes the error in detail.
      *
