@@ -53,6 +53,8 @@ use Authlete\Dto\GrantedScopesGetRequest;
 use Authlete\Dto\GrantedScopesGetResponse;
 use Authlete\Dto\IntrospectionRequest;
 use Authlete\Dto\IntrospectionResponse;
+use Authlete\Dto\PushedAuthReqRequest;
+use Authlete\Dto\PushedAuthReqResponse;
 use Authlete\Dto\RevocationRequest;
 use Authlete\Dto\RevocationResponse;
 use Authlete\Dto\Service;
@@ -121,6 +123,7 @@ class AuthleteApiImpl implements AuthleteApi
     private static $DEVICE_AUTHORIZATION_API_PATH          = '/api/device/authorization';
     private static $DEVICE_COMPLETE_API_PATH               = '/api/device/complete';
     private static $DEVICE_VERIFICATION_API_PATH           = '/api/device/verification';
+    private static $PUSHED_AUTH_REQ_API_PATH               = '/api/pushed_auth_req';
 
 
     private $serviceOwnerCredentials = null;  // \Authlete\Web\BasicCredentials
@@ -1165,6 +1168,23 @@ class AuthleteApiImpl implements AuthleteApi
         return $this->callServicePostApi(
             '\Authlete\Dto\DeviceVerificationResponse::fromJson',
             self::$DEVICE_VERIFICATION_API_PATH,
+            null, $request);
+    }
+
+
+    /**
+     * {@inheritdoc}
+     *
+     * {@inheritdoc}
+     *
+     * @param PushedAuthReqRequest $request
+     *     {@inheritdoc}
+     */
+    public function pushAuthorizationRequest(PushedAuthReqRequest $request)
+    {
+        return $this->callServicePostApi(
+            '\Authlete\Dto\PushedAuthReqResponse::fromJson',
+            self::$PUSHED_AUTH_REQ_API_PATH,
             null, $request);
     }
 

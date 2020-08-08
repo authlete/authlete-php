@@ -5,6 +5,7 @@ CHANGES
     * Added `deviceAuthorization()` method.
     * Added `deviceComplete()` method.
     * Added `deviceVerification()` method.
+    * Added `pushAuthorizationRequest()` method.
 
 - `AuthorizationFailReason` class
     * Added `$INVALID_TARGET`.

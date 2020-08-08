@@ -5,6 +5,7 @@ CHANGES (日本語)
     * `deviceAuthorization()` メソッドを追加。
     * `deviceComplete()` メソッドを追加。
     * `deviceVerification()` メソッドを追加。
+    * `pushAuthorizationRequest()` メソッドを追加。
 
 - `AuthorizationFailReason` クラス
     * `$INVALID_TARGET` を追加。

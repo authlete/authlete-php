@@ -36,6 +36,7 @@ use Authlete\Dto\DeviceAuthorizationRequest;
 use Authlete\Dto\DeviceCompleteRequest;
 use Authlete\Dto\DeviceVerificationRequest;
 use Authlete\Dto\IntrospectionRequest;
+use Authlete\Dto\PushedAuthReqRequest;
 use Authlete\Dto\RevocationRequest;
 use Authlete\Dto\Service;
 use Authlete\Dto\StandardIntrospectionRequest;
@@ -686,6 +687,22 @@ interface AuthleteApi
      * @since 1.8
      */
     public function deviceVerification(DeviceVerificationRequest $request);
+
+
+    /**
+     * Call Authlete's /api/pushed_auth_req API.
+     *
+     * @param PushedAuthReqRequest $request
+     *     Request parameters passed to the API.
+     *
+     * @return \Authlete\Dto\PushedAuthReqResponse
+     *     Response from the API.
+     *
+     * @throws AuthleteApiException
+     *
+     * @since 1.8
+     */
+    public function pushAuthorizationRequest(PushedAuthReqRequest $request);
 
 
     /**
