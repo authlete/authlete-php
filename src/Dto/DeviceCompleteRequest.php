@@ -279,15 +279,13 @@ class DeviceCompleteRequest implements ArrayCopyable, Arrayable, Jsonable
 
 
     /**
-     * Get the time when the authentication of the end-user occurred.
+     * Set the time when the authentication of the end-user occurred.
      *
      * The value should represent the elapsed time since the Unix epoch
      * (1970-Jan-1) in seconds.
      *
      * @param integer|string $authTime
      *     The time when the authentication of the end-user occurred.
-     *     The value should represent the elapsed time since the Unix
-     *     epoch (1970-Jan-1) in seconds.
      *
      * @return DeviceCompleteRequest
      *     `$this` object.
