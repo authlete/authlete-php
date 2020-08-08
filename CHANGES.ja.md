@@ -233,6 +233,7 @@ CHANGES (日本語)
     * `NamedUri` クラス
     * `PushedAuthReqAction` クラス
     * `PushedAuthReqRequest` クラス
+    * `PushedAuthReqResponse` クラス
     * `UserCodeCharset` クラス
     * `UserIdentificationHintType` クラス
 

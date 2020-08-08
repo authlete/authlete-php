@@ -233,6 +233,7 @@ CHANGES
     * `NamedUri` class
     * `PushedAuthReqAction` class
     * `PushedAuthReqRequest` class
+    * `PushedAuthReqResponse` class
     * `UserCodeCharset` class
     * `UserIdentificationHintType` class
 
