@@ -217,6 +217,7 @@ CHANGES
     * `BackchannelAuthenticationAction` class
     * `BackchannelAuthenticationCompleteAction` class
     * `BackchannelAuthenticationCompleteRequest` class
+    * `BackchannelAuthenticationCompleteResponse` class
     * `BackchannelAuthenticationCompleteResult` class
     * `BackchannelAuthenticationFailAction` class
     * `BackchannelAuthenticationFailReason` class
