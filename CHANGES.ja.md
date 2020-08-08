@@ -221,6 +221,7 @@ CHANGES (日本語)
     * `BackchannelAuthenticationCompleteResult` クラス
     * `BackchannelAuthenticationFailAction` クラス
     * `BackchannelAuthenticationFailReason` クラス
+    * `BackchannelAuthenticationFailRequest` クラス
     * `BackchannelAuthenticationIssueAction` クラス
     * `DeliveryMode` クラス
     * `DeviceAuthorizationAction` クラス
