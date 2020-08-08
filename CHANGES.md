@@ -216,6 +216,7 @@ CHANGES
 - New parts
     * `BackchannelAuthenticationAction` class
     * `BackchannelAuthenticationCompleteAction` class
+    * `BackchannelAuthenticationCompleteRequest` class
     * `BackchannelAuthenticationCompleteResult` class
     * `BackchannelAuthenticationFailAction` class
     * `BackchannelAuthenticationFailReason` class

@@ -216,6 +216,7 @@ CHANGES (日本語)
 - 新しい部品
     * `BackchannelAuthenticationAction` クラス
     * `BackchannelAuthenticationCompleteAction` クラス
+    * `BackchannelAuthenticationCompleteRequest` クラス
     * `BackchannelAuthenticationCompleteResult` クラス
     * `BackchannelAuthenticationFailAction` クラス
     * `BackchannelAuthenticationFailReason` クラス
