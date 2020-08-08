@@ -232,6 +232,7 @@ CHANGES
     * `DeviceVerificationResponse` class
     * `NamedUri` class
     * `PushedAuthReqAction` class
+    * `PushedAuthReqRequest` class
     * `UserCodeCharset` class
     * `UserIdentificationHintType` class
 

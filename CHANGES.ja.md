@@ -232,6 +232,7 @@ CHANGES (日本語)
     * `DeviceVerificationResponse` クラス
     * `NamedUri` クラス
     * `PushedAuthReqAction` クラス
+    * `PushedAuthReqRequest` クラス
     * `UserCodeCharset` クラス
     * `UserIdentificationHintType` クラス
 
