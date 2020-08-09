@@ -227,6 +227,7 @@ CHANGES
     * `BackchannelAuthenticationIssueRequest` class
     * `BackchannelAuthenticationIssueResponse` class
     * `BackchannelAuthenticationRequest` class
+    * `BackchannelAuthenticationResponse` class
     * `DeliveryMode` class
     * `DeviceAuthorizationAction` class
     * `DeviceAuthorizationRequest` class

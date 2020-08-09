@@ -227,6 +227,7 @@ CHANGES (日本語)
     * `BackchannelAuthenticationIssueRequest` クラス
     * `BackchannelAuthenticationIssueResponse` クラス
     * `BackchannelAuthenticationRequest` クラス
+    * `BackchannelAuthenticationResponse` クラス
     * `DeliveryMode` クラス
     * `DeviceAuthorizationAction` クラス
     * `DeviceAuthorizationRequest` クラス
