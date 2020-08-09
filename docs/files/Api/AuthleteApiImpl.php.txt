@@ -1,6 +1,6 @@
 <?php
 //
-// Copyright (C) 2018 Authlete, Inc.
+// Copyright (C) 2018-2020 Authlete, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -34,6 +34,14 @@ use Authlete\Dto\AuthorizationIssueResponse;
 use Authlete\Dto\AuthorizationRequest;
 use Authlete\Dto\AuthorizationResponse;
 use Authlete\Dto\AuthorizedClientListResponse;
+use Authlete\Dto\BackchannelAuthenticationCompleteRequest;
+use Authlete\Dto\BackchannelAuthenticationCompleteResponse;
+use Authlete\Dto\BackchannelAuthenticationFailRequest;
+use Authlete\Dto\BackchannelAuthenticationFailResponse;
+use Authlete\Dto\BackchannelAuthenticationIssueRequest;
+use Authlete\Dto\BackchannelAuthenticationIssueResponse;
+use Authlete\Dto\BackchannelAuthenticationRequest;
+use Authlete\Dto\BackchannelAuthenticationResponse;
 use Authlete\Dto\Client;
 use Authlete\Dto\ClientAuthorizationDeleteRequest;
 use Authlete\Dto\ClientAuthorizationGetListRequest;
@@ -42,11 +50,19 @@ use Authlete\Dto\ClientListResponse;
 use Authlete\Dto\ClientSecretRefreshResponse;
 use Authlete\Dto\ClientSecretUpdateRequest;
 use Authlete\Dto\ClientSecretUpdateResponse;
+use Authlete\Dto\DeviceAuthorizationRequest;
+use Authlete\Dto\DeviceAuthorizationResponse;
+use Authlete\Dto\DeviceCompleteRequest;
+use Authlete\Dto\DeviceCompleteResponse;
+use Authlete\Dto\DeviceVerificationRequest;
+use Authlete\Dto\DeviceVerificationResponse;
 use Authlete\Dto\GrantedScopesDeleteRequest;
 use Authlete\Dto\GrantedScopesGetRequest;
 use Authlete\Dto\GrantedScopesGetResponse;
 use Authlete\Dto\IntrospectionRequest;
 use Authlete\Dto\IntrospectionResponse;
+use Authlete\Dto\PushedAuthReqRequest;
+use Authlete\Dto\PushedAuthReqResponse;
 use Authlete\Dto\RevocationRequest;
 use Authlete\Dto\RevocationResponse;
 use Authlete\Dto\Service;
@@ -112,6 +128,14 @@ class AuthleteApiImpl implements AuthleteApi
     private static $CLIENT_AUTHORIZATION_DELETE_API_PATH   = '/api/client/authorization/delete/';  // + {clientId}
     private static $CLIENT_AUTHORIZATION_GET_LIST_API_PATH = '/api/client/authorization/get/list';
     private static $CLIENT_AUTHORIZATION_UPDATE_API_PATH   = '/api/client/authorization/update/';  // + {clientId}
+    private static $BC_AUTHENTICATION_API_PATH             = '/api/backchannel/authentication';
+    private static $BC_AUTHENTICATION_COMPLETE_API_PATH    = '/api/backchannel/authentication/complete';
+    private static $BC_AUTHENTICATION_FAIL_API_PATH        = '/api/backchannel/authentication/fail';
+    private static $BC_AUTHENTICATION_ISSUE_API_PATH       = '/api/backchannel/authentication/issue';
+    private static $DEVICE_AUTHORIZATION_API_PATH          = '/api/device/authorization';
+    private static $DEVICE_COMPLETE_API_PATH               = '/api/device/complete';
+    private static $DEVICE_VERIFICATION_API_PATH           = '/api/device/verification';
+    private static $PUSHED_AUTH_REQ_API_PATH               = '/api/pushed_auth_req';
 
 
     private $serviceOwnerCredentials = null;  // \Authlete\Web\BasicCredentials
@@ -1105,6 +1129,142 @@ class AuthleteApiImpl implements AuthleteApi
         return $this->callServicePostApi(
             '\Authlete\Dto\ClientSecretUpdateResponse::fromJson',
             self::$CLIENT_SECRET_UPDATE_API_PATH . $clientId,
+            null, $request);
+    }
+
+
+    /**
+     * {@inheritdoc}
+     *
+     * {@inheritdoc}
+     *
+     * @param BackchannelAuthenticationRequest $request
+     *     {@inheritdoc}
+     */
+    public function backchannelAuthentication(BackchannelAuthenticationRequest $request)
+    {
+        return $this->callServicePostApi(
+            '\Authlete\Dto\BackchannelAuthenticationResponse::fromJson',
+            self::$BC_AUTHENTICATION_API_PATH,
+            null, $request);
+    }
+
+
+    /**
+     * {@inheritdoc}
+     *
+     * {@inheritdoc}
+     *
+     * @param BackchannelAuthenticationIssueRequest $request
+     *     {@inheritdoc}
+     */
+    public function backchannelAuthenticationIssue(BackchannelAuthenticationIssueRequest $request)
+    {
+        return $this->callServicePostApi(
+            '\Authlete\Dto\BackchannelAuthenticationIssueResponse::fromJson',
+            self::$BC_AUTHENTICATION_ISSUE_API_PATH,
+            null, $request);
+    }
+
+
+    /**
+     * {@inheritdoc}
+     *
+     * {@inheritdoc}
+     *
+     * @param BackchannelAuthenticationFailRequest $request
+     *     {@inheritdoc}
+     */
+    public function backchannelAuthenticationFail(BackchannelAuthenticationFailRequest $request)
+    {
+        return $this->callServicePostApi(
+            '\Authlete\Dto\BackchannelAuthenticationFailResponse::fromJson',
+            self::$BC_AUTHENTICATION_FAIL_API_PATH,
+            null, $request);
+    }
+
+
+    /**
+     * {@inheritdoc}
+     *
+     * {@inheritdoc}
+     *
+     * @param BackchannelAuthenticationCompleteRequest $request
+     *     {@inheritdoc}
+     */
+    public function backchannelAuthenticationComplete(BackchannelAuthenticationCompleteRequest $request)
+    {
+        return $this->callServicePostApi(
+            '\Authlete\Dto\BackchannelAuthenticationCompleteResponse::fromJson',
+            self::$BC_AUTHENTICATION_COMPLETE_API_PATH,
+            null, $request);
+    }
+
+
+    /**
+     * {@inheritdoc}
+     *
+     * {@inheritdoc}
+     *
+     * @param DeviceAuthorizationRequest $request
+     *     {@inheritdoc}
+     */
+    public function deviceAuthorization(DeviceAuthorizationRequest $request)
+    {
+        return $this->callServicePostApi(
+            '\Authlete\Dto\DeviceAuthorizationResponse::fromJson',
+            self::$DEVICE_AUTHORIZATION_API_PATH,
+            null, $request);
+    }
+
+
+    /**
+     * {@inheritdoc}
+     *
+     * {@inheritdoc}
+     *
+     * @param DeviceCompleteRequest $request
+     *     {@inheritdoc}
+     */
+    public function deviceComplete(DeviceCompleteRequest $request)
+    {
+        return $this->callServicePostApi(
+            '\Authlete\Dto\DeviceCompleteResponse::fromJson',
+            self::$DEVICE_COMPLETE_API_PATH,
+            null, $request);
+    }
+
+
+    /**
+     * {@inheritdoc}
+     *
+     * {@inheritdoc}
+     *
+     * @param DeviceVerificationRequest $request
+     *     {@inheritdoc}
+     */
+    public function deviceVerification(DeviceVerificationRequest $request)
+    {
+        return $this->callServicePostApi(
+            '\Authlete\Dto\DeviceVerificationResponse::fromJson',
+            self::$DEVICE_VERIFICATION_API_PATH,
+            null, $request);
+    }
+
+
+    /**
+     * {@inheritdoc}
+     *
+     * {@inheritdoc}
+     *
+     * @param PushedAuthReqRequest $request
+     *     {@inheritdoc}
+     */
+    public function pushAuthorizationRequest(PushedAuthReqRequest $request)
+    {
+        return $this->callServicePostApi(
+            '\Authlete\Dto\PushedAuthReqResponse::fromJson',
+            self::$PUSHED_AUTH_REQ_API_PATH,
             null, $request);
     }
 

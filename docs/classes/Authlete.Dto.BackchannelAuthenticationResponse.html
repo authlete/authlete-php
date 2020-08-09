@@ -1,0 +1,2868 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>API Documentation</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+    <link href="../css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="../css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/prism.css" rel="stylesheet" media="all"/>
+    <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+    <!--[if lt IE 9]>
+    <script src="../js/html5.js"></script>
+    <![endif]-->
+    <script src="../js/jquery-1.11.0.min.js"></script>
+    <script src="../js/ui/1.10.4/jquery-ui.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery.smooth-scroll.js"></script>
+    <script src="../js/prism.min.js"></script>
+    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
+    <script type="text/javascript">
+    function loadExternalCodeSnippets() {
+        Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
+            var src = pre.getAttribute('data-src');
+            var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
+            var language = 'php';
+
+            var code = document.createElement('code');
+            code.className = 'language-' + language;
+
+            pre.textContent = '';
+
+            code.textContent = 'Loading…';
+
+            pre.appendChild(code);
+
+            var xhr = new XMLHttpRequest();
+
+            xhr.open('GET', src, true);
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+
+                    if (xhr.status < 400 && xhr.responseText) {
+                        code.textContent = xhr.responseText;
+
+                        Prism.highlightElement(code);
+                    }
+                    else if (xhr.status >= 400) {
+                        code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                    }
+                    else {
+                        code.textContent = '✖ Error: File does not exist or is empty';
+                    }
+                }
+            };
+
+            xhr.send(null);
+        });
+    }
+
+    $(document).ready(function(){
+        loadExternalCodeSnippets();
+    });
+    $('#source-view').on('shown', function () {
+        loadExternalCodeSnippets();
+    })
+</script>
+
+    <link rel="shortcut icon" href="../images/favicon.ico"/>
+    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png"/>
+</head>
+<body>
+
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <i class="icon-ellipsis-vertical"></i>
+            </a>
+            <a class="brand" href="../index.html">API Documentation</a>
+
+            <div class="nav-collapse">
+                <ul class="nav pull-right">
+                                        <li class="dropdown">
+                        <a href="../index.html" class="dropdown-toggle" data-toggle="dropdown">
+                            API Documentation <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                                                        <li><a href="../namespaces/Authlete.html">\Authlete</a></li>
+                                                    </ul>
+                    </li>
+                                        <li class="dropdown" id="charts-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Charts <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../graphs/class.html">
+                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" id="reports-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Reports <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../reports/errors.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/markers.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/deprecated.html">
+                                                                                                            <i class="icon-list-alt"></i>&#160;Deprecated <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--<div class="go_to_top">-->
+    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
+    <!--</div>-->
+</div>
+
+<div id="___" class="container-fluid">
+        <section class="row-fluid">
+        <div class="span2 sidebar">
+                                <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1893789999"></a>
+                                <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
+            </div>
+            <div id="namespace-1893789999" class="accordion-body collapse in">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1081410089"></a>
+                                <a href="../namespaces/Authlete.html" style="margin-left: 30px; padding-left: 0">Authlete</a>
+            </div>
+            <div id="namespace-1081410089" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1707001082"></a>
+                                <a href="../namespaces/Authlete.Api.html" style="margin-left: 30px; padding-left: 0">Api</a>
+            </div>
+            <div id="namespace-1707001082" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/Authlete.Api.AuthleteApi.html">AuthleteApi</a></li>
+                                                    <li class="interface"><a href="../classes/Authlete.Api.Settings.html">Settings</a></li>
+                                                                                                    <li class="class"><a href="../classes/Authlete.Api.AuthleteApiException.html">AuthleteApiException</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Api.AuthleteApiImpl.html">AuthleteApiImpl</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Api.SettingsImpl.html">SettingsImpl</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2133581862"></a>
+                                <a href="../namespaces/Authlete.Conf.html" style="margin-left: 30px; padding-left: 0">Conf</a>
+            </div>
+            <div id="namespace-2133581862" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/Authlete.Conf.AuthleteConfiguration.html">AuthleteConfiguration</a></li>
+                                                                            <li class="trait"><a href="../classes/Authlete.Conf.AuthleteConfigurationTrait.html">AuthleteConfigurationTrait</a></li>
+                                                                            <li class="class"><a href="../classes/Authlete.Conf.AuthleteEnvConfiguration.html">AuthleteEnvConfiguration</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Conf.AuthleteIniConfiguration.html">AuthleteIniConfiguration</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Conf.AuthleteSimpleConfiguration.html">AuthleteSimpleConfiguration</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-209036885"></a>
+                                <a href="../namespaces/Authlete.Dto.html" style="margin-left: 30px; padding-left: 0">Dto</a>
+            </div>
+            <div id="namespace-209036885" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Authlete.Dto.Address.html">Address</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.ApiResponse.html">ApiResponse</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.AuthorizationAction.html">AuthorizationAction</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.AuthorizationFailAction.html">AuthorizationFailAction</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.AuthorizationFailReason.html">AuthorizationFailReason</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.AuthorizationFailRequest.html">AuthorizationFailRequest</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.AuthorizationFailResponse.html">AuthorizationFailResponse</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.AuthorizationIssueAction.html">AuthorizationIssueAction</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.AuthorizationIssueRequest.html">AuthorizationIssueRequest</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.AuthorizationIssueResponse.html">AuthorizationIssueResponse</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.AuthorizationRequest.html">AuthorizationRequest</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.AuthorizationResponse.html">AuthorizationResponse</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.AuthorizedClientListResponse.html">AuthorizedClientListResponse</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.BackchannelAuthenticationAction.html">BackchannelAuthenticationAction</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.BackchannelAuthenticationCompleteAction.html">BackchannelAuthenticationCompleteAction</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.BackchannelAuthenticationCompleteRequest.html">BackchannelAuthenticationCompleteRequest</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.BackchannelAuthenticationCompleteResponse.html">BackchannelAuthenticationCompleteResponse</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.BackchannelAuthenticationCompleteResult.html">BackchannelAuthenticationCompleteResult</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.BackchannelAuthenticationFailAction.html">BackchannelAuthenticationFailAction</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.BackchannelAuthenticationFailReason.html">BackchannelAuthenticationFailReason</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.BackchannelAuthenticationFailRequest.html">BackchannelAuthenticationFailRequest</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.BackchannelAuthenticationFailResponse.html">BackchannelAuthenticationFailResponse</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.BackchannelAuthenticationIssueAction.html">BackchannelAuthenticationIssueAction</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.BackchannelAuthenticationIssueRequest.html">BackchannelAuthenticationIssueRequest</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.BackchannelAuthenticationIssueResponse.html">BackchannelAuthenticationIssueResponse</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.BackchannelAuthenticationRequest.html">BackchannelAuthenticationRequest</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.BackchannelAuthenticationResponse.html">BackchannelAuthenticationResponse</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.Client.html">Client</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.ClientAuthorizationDeleteRequest.html">ClientAuthorizationDeleteRequest</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.ClientAuthorizationGetListRequest.html">ClientAuthorizationGetListRequest</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.ClientAuthorizationUpdateRequest.html">ClientAuthorizationUpdateRequest</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.ClientExtension.html">ClientExtension</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.ClientListResponse.html">ClientListResponse</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.ClientSecretRefreshResponse.html">ClientSecretRefreshResponse</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.ClientSecretUpdateRequest.html">ClientSecretUpdateRequest</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.ClientSecretUpdateResponse.html">ClientSecretUpdateResponse</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.DeviceAuthorizationAction.html">DeviceAuthorizationAction</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.DeviceAuthorizationRequest.html">DeviceAuthorizationRequest</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.DeviceAuthorizationResponse.html">DeviceAuthorizationResponse</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.DeviceCompleteAction.html">DeviceCompleteAction</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.DeviceCompleteRequest.html">DeviceCompleteRequest</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.DeviceCompleteResponse.html">DeviceCompleteResponse</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.DeviceCompleteResult.html">DeviceCompleteResult</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.DeviceVerificationAction.html">DeviceVerificationAction</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.DeviceVerificationRequest.html">DeviceVerificationRequest</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.DeviceVerificationResponse.html">DeviceVerificationResponse</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.GrantedScopesDeleteRequest.html">GrantedScopesDeleteRequest</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.GrantedScopesGetRequest.html">GrantedScopesGetRequest</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.GrantedScopesGetResponse.html">GrantedScopesGetResponse</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.IntrospectionAction.html">IntrospectionAction</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.IntrospectionRequest.html">IntrospectionRequest</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.IntrospectionResponse.html">IntrospectionResponse</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.NamedUri.html">NamedUri</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.Pair.html">Pair</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.Property.html">Property</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.PushedAuthReqAction.html">PushedAuthReqAction</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.PushedAuthReqRequest.html">PushedAuthReqRequest</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.PushedAuthReqResponse.html">PushedAuthReqResponse</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.RevocationAction.html">RevocationAction</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.RevocationRequest.html">RevocationRequest</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.RevocationResponse.html">RevocationResponse</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.Scope.html">Scope</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.Service.html">Service</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.ServiceListResponse.html">ServiceListResponse</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.SnsCredentials.html">SnsCredentials</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.StandardIntrospectionAction.html">StandardIntrospectionAction</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.StandardIntrospectionRequest.html">StandardIntrospectionRequest</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.StandardIntrospectionResponse.html">StandardIntrospectionResponse</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.TaggedValue.html">TaggedValue</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.TokenAction.html">TokenAction</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.TokenCreateAction.html">TokenCreateAction</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.TokenCreateRequest.html">TokenCreateRequest</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.TokenCreateResponse.html">TokenCreateResponse</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.TokenFailAction.html">TokenFailAction</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.TokenFailReason.html">TokenFailReason</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.TokenFailRequest.html">TokenFailRequest</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.TokenFailResponse.html">TokenFailResponse</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.TokenIssueAction.html">TokenIssueAction</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.TokenIssueRequest.html">TokenIssueRequest</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.TokenIssueResponse.html">TokenIssueResponse</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.TokenRequest.html">TokenRequest</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.TokenResponse.html">TokenResponse</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.TokenUpdateAction.html">TokenUpdateAction</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.TokenUpdateRequest.html">TokenUpdateRequest</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.TokenUpdateResponse.html">TokenUpdateResponse</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.UserInfoAction.html">UserInfoAction</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.UserInfoIssueAction.html">UserInfoIssueAction</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.UserInfoIssueRequest.html">UserInfoIssueRequest</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.UserInfoIssueResponse.html">UserInfoIssueResponse</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.UserInfoRequest.html">UserInfoRequest</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.UserInfoResponse.html">UserInfoResponse</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-155415092"></a>
+                                <a href="../namespaces/Authlete.Types.html" style="margin-left: 30px; padding-left: 0">Types</a>
+            </div>
+            <div id="namespace-155415092" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/Authlete.Types.Arrayable.html">Arrayable</a></li>
+                                                    <li class="interface"><a href="../classes/Authlete.Types.ArrayCopyable.html">ArrayCopyable</a></li>
+                                                    <li class="interface"><a href="../classes/Authlete.Types.Jsonable.html">Jsonable</a></li>
+                                                                            <li class="trait"><a href="../classes/Authlete.Types.EnumTrait.html">EnumTrait</a></li>
+                                                                            <li class="class"><a href="../classes/Authlete.Types.ApplicationType.html">ApplicationType</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Types.ClaimType.html">ClaimType</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Types.ClientAuthMethod.html">ClientAuthMethod</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Types.ClientType.html">ClientType</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Types.CodeChallengeMethod.html">CodeChallengeMethod</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Types.DeliveryMode.html">DeliveryMode</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Types.Display.html">Display</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Types.GrantType.html">GrantType</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Types.JWEAlg.html">JWEAlg</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Types.JWEEnc.html">JWEEnc</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Types.JWSAlg.html">JWSAlg</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Types.Prompt.html">Prompt</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Types.ResponseType.html">ResponseType</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Types.ServiceProfile.html">ServiceProfile</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Types.Sns.html">Sns</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Types.StandardClaims.html">StandardClaims</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Types.SubjectType.html">SubjectType</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Types.UserCodeCharset.html">UserCodeCharset</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Types.UserIdentificationHintType.html">UserIdentificationHintType</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1539694781"></a>
+                                <a href="../namespaces/Authlete.Util.html" style="margin-left: 30px; padding-left: 0">Util</a>
+            </div>
+            <div id="namespace-1539694781" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                            <li class="trait"><a href="../classes/Authlete.Util.ArrayTrait.html">ArrayTrait</a></li>
+                                                    <li class="trait"><a href="../classes/Authlete.Util.JsonTrait.html">JsonTrait</a></li>
+                                                                            <li class="class"><a href="../classes/Authlete.Util.LanguageUtility.html">LanguageUtility</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Util.MaxAgeValidator.html">MaxAgeValidator</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Util.ValidationUtility.html">ValidationUtility</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-480332538"></a>
+                                <a href="../namespaces/Authlete.Web.html" style="margin-left: 30px; padding-left: 0">Web</a>
+            </div>
+            <div id="namespace-480332538" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Authlete.Web.BasicCredentials.html">BasicCredentials</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Web.HttpHeaders.html">HttpHeaders</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Web.HttpMethod.html">HttpMethod</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        </div>
+    </section>
+    <section class="row-fluid">
+        <div class="span10 offset2">
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <nav>
+                                                <a href="../namespaces/Authlete.Dto.html">\Authlete\Dto</a> <i class="icon-level-up"></i>
+                                            </nav>
+                    <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
+
+                    <h1><small>\Authlete\Dto</small>BackchannelAuthenticationResponse</h1>
+                    <p><em>Response from Authlete&#039;s /api/backchannel/authentication API.</em></p>
+                    <p>Authlete's <code>/api/backchannel/authentication</code> API returns JSON which can be
+mapped to this class. The authorization server implementation should
+retrieve the value of the <code>action</code> response parameter (which can be obtained
+by <code>getAction()</code> method) from the response and take the following steps
+according to the value.</p>
+<hr />
+<p>When the value returned from <code>getAction()</code> method is
+<code>BackchannelAuthenticationAction::$BAD_REQUEST</code>, it means that the
+backchannel authentication request from the client application was wrong.</p>
+<p>The authorization server implementation should generate a response to the
+client application with <code>400 Bad Request</code> and <code>application/json</code>.</p>
+<p>The <code>getResponseContent()</code> method returns a JSON string which describes the
+error, so it can be used as the entity body of the response.</p>
+<p>The following illustrates the response which the authorization server
+implementation should generate and return to the client application.</p>
+<pre><code>HTTP/1.1 400 Bad Request
+Content-Type: application/json
+Cache-Control: no-store
+Pragma: no-cache
+
+(The value returned from getResponseContent())</code></pre>
+<hr />
+<p>When the value returned from <code>getAction()</code> method is
+<code>BackchannelAuthenticationAction::$UNAUTHORIZED</code>, it means that client
+authentication of the backchannel authentication request failed. Note that
+client authentication is always required at the backchannel authentication
+endpoint. This implies that public clients are not allowed to use the
+backchannel authentication endpoint.</p>
+<p>The authorization server implementation should generate a response to the
+client application with <code>401 Unauthorized</code> and <code>application/json</code>.</p>
+<p>The <code>getResponseContent()</code> method returns a JSON string which describes the
+error, so it can be used as the entity body of the response.</p>
+<p>The following illustrates the response which the authorization server
+implementation should generate and return to the client application.</p>
+<pre><code>HTTP/1.1 401 Unauthorized
+WWW-Authenticate: (challenge)
+Content-Type: application/json
+Cache-Control: no-store
+Pragma: no-cache
+
+(The value returned from getResponseContent())</code></pre>
+<hr />
+<p>When the value returned from <code>getAction()</code> method is
+<code>BackchannelAuthenticationAction::$INTERNAL_SERVER_ERROR</code>, it means that the
+API call from the authorization server implementation was wrong or that an
+error occurred in Authlete.</p>
+<p>In either case, from a viewpoint of the client application, it is an error
+on the server side. Therefore, the authorization server implementation
+should generate a response to the client application with
+<code>500 Internal Server Error</code> and <code>application/json</code>.</p>
+<p>The <code>getResponseContent()</code> method returns a JSON string which describes the
+error, so it can be used as the entity body of the response.</p>
+<p>The following illustrates the response which the authorization server
+implementation should generate and return to the client application.</p>
+<pre><code>HTTP/1.1 500 Internal Server Error
+Content-Type: application/json
+Cache-Control: no-store
+Pragma: no-cache
+
+(The value returned from getResponseContent())</code></pre>
+<hr />
+<p>When the value returned from <code>getAction()</code> method is
+<code>BackchannelAuthenticationAction::$USER_IDENTIFICATION</code>, it means that the
+backchannel authentication request from the client application is valid. The
+authorization server implementation has to follow the steps below.</p>
+<ul>
+<li>
+<p><strong>[END-USER IDENTIFICATION]</strong></p>
+<p>The first step is to determine the subject (= unique identifier) of the
+end-user from whom the client application wants to get authorization.</p>
+<p>According to the CIBA specification, a backchannel authentication
+request contains one (and only one) of the <code>login_hint_token</code>,
+<code>id_token_hint</code> and <code>login_hint</code> request parameters as a hint by which
+the authorization server identifies the subject of an end-user.</p>
+<p>The authorization server implementation can know which hint is included
+in the backchannel authentication request by calling the <code>getHintType()</code>
+method. The method returns a <code>UserIdentificationHintType</code> instance that
+indicates which hint is included. For example, when the method returns
+<code>UserIdentificationHintType::$LOGIN_HINT</code>, it means that the backchannel
+authentication request contains the <code>login_hint</code> request parameter as a
+hint.</p>
+<p>The <code>getHint()</code> method returns the value of the hint. For example, when
+the <code>getHintType()</code> method returns <code>LOGIN_HINT</code>, the <code>getHint()</code> method
+returns the value of the <code>login_hint</code> request parameter.</p>
+<p>It is up to the authorization server implementation how to determine the
+subject of the end-user from the hint. There are few things Authlete can
+help. Only one thing Authlete can do is to let the <code>getSub()</code> method
+return the value of the <code>sub</code> claim in the <code>id_token_hint</code> request
+parameter when the request parameter is used.</p>
+</li>
+</ul>
+<p><br/></p>
+<ul>
+<li>
+<p><strong>[END-USER IDENTIFICATION ERROR]</strong></p>
+<p>There are some cases where the authorization server implementation
+encounters an error during the user identification process. In any error
+case, the authorization server implementation has to return an HTTP
+response with the <code>error</code> response parameter to the client application.
+The following is an example of such error responses.</p>
+<pre><code>HTTP/1.1 400 Bad Request
+Content-Type: application/json
+Cache-Control: no-store
+Pragma: no-cache
+
+{"error":"unknown_user_id"}</code></pre>
+<p>Authlete provides <code>/api/backchannel/authentication/fail</code> API that builds
+the response body (JSON) of an error response. However, because it is
+easy to build an error response manually, you may choose not to call the
+API. One good thing in using the API is that the API call can trigger
+deletion of the ticket which has been issued from Authlete's
+<code>/api/backchannel/authentication</code> API. If you don't call
+<code>/api/backchannel/authentication/fail</code> API, the ticket will continue to
+exist in the database until it is cleaned up by the batch program after
+the ticket expires.</p>
+<p>Possible error cases that the authorization server implementation itself
+has to handle are as follows. Other error cases have already been
+covered by <code>/api/backchannel/authentication</code> API.</p>
+<ol>
+<li>
+<p><code>expired_login_hint_token</code>:
+The authorization server implementation detected that the hint
+presented by the <code>login_hint_token</code> request parameter has expired.
+Note that the format of <code>login_hint_token</code> is not described in the
+CIBA Core spec at all and so there is no consensus on how to detect
+expiration of <code>login_hint_token</code>. Interpretation of
+<code>login_hint_token</code> is left to each authorization server
+implementation.</p>
+</li>
+<li>
+<p><code>unknown_user_id</code>:
+The authorization server implementation could not determine the
+subject of the end-user by the presented hint.</p>
+</li>
+<li>
+<p><code>unauthorized_client</code>:
+The authorization server implementation has custom rules to reject
+backchannel authentication requests from some particular clients and
+found that the client which has made the backchannel authentication
+request is one of the particular clients.
+Note that <code>/api/backchannel/authentication</code> API does not return
+<code>"action":"USER_IDENTIFICATION"</code> in cases where the client does not
+exist or client authentication has failed. Therefore, the
+authorization server implementation will never have to use the error
+code <code>unauthorized_client</code> unless the server has intentionally
+implemented custom rules to reject backchannel authentication
+requests based on clients.</p>
+</li>
+<li>
+<p><code>missing_user_code</code>:
+The authorization server implementation has custom rules to require
+that a backchannel authentication request include a user code for
+some particular users and found that the user identified by the hint
+is one of the particular users.
+Note that <code>/api/backchannel/authentication</code> API does not return
+<code>"action":"USER_IDENTIFICATION"</code> when both the
+<code>backchannel_user_code_parameter_supported</code> metadata of the serveer
+and the <code>backchannel_user_code_parameter</code> metadata of the client are
+<code>true</code> and the backchannel authentication request does not include
+the <code>user_code</code> request parameter. In this case,
+<code>/api/backchannel/authentication</code> API returns
+<code>"action":"BAD_REQUEST"</code> with JSON containing
+<code>"error":"missing_user_code"</code>. Therefore, the authorization server
+implementation will never have to use the error code
+<code>missing_user_code</code> unless the server has intentionally implemented
+custom rules to require a user code based on users even in the case
+where the <code>backchannel_user_code_parameter</code> metadata of the client
+which has made the backchannel authentication request is <code>false</code>.</p>
+</li>
+<li>
+<p><code>invalid_user_code</code>:
+The authorization server implementation detected that the presented
+user code is invalid.
+Note that the format of <code>user_code</code> is not described in the CIBA
+Core spec at all and so there is no consensus on how to judge
+whether a user code is valid or not. It is up to each authorization
+server implementation how to handle user codes.</p>
+</li>
+<li>
+<p><code>invalid_binding_message</code>:
+The authorization server implementation detected that the presented
+binding message is invalid.
+Note that the format of <code>binding_message</code> is not described in the
+CIBA Core spec at all and so there is no consensus on how to judge
+whether a binding message is valid or not. It is up to each
+authorization server implementation how to handle binding messages.</p>
+</li>
+<li>
+<p><code>invalid_target</code>:
+The authorization server implementation rejects the requested target
+resources.
+The error code <code>invalid_target</code> is from RFC 8707 (Resource
+Indicators for OAuth 2.0). The specification defines the <code>resource</code>
+request parameter. By using the parameter, client applications can
+request target resources that should be bound to the access token
+being issued. If the authorization server wants to reject the
+request, call <code>/api/backchannel/authentication/fail</code> API with
+<code>INVALID_TARGET</code>.
+Note that RFC 8707 is supported since Authlete 2.2. Older versions
+don't recognize the <code>resource</code> request parameter, so
+<code>getResources()</code> always returns null if the Authlete server you are
+using is older than 2.2.</p>
+</li>
+<li><code>access_denined</code>:
+The authorization server implementation has custom rules to reject
+backchannel authentication requests without asking the end-user and
+respond to the client as if the end-user had rejected the request in
+some particular cases and found that the backchannel authentication
+request is one of the particular cases.
+The authorization server implementation will never have to use the
+error code <code>access_denied</code> at this timing unless the server has
+intentionally implemented custom rules to reject backchannel
+authentication requests without asking the end-user and respond to
+the client as if the end-user had rejected the request.</li>
+</ol>
+</li>
+</ul>
+<p><br/></p>
+<ul>
+<li>
+<p><strong>[AUTH_REQ_ID ISSUE]</strong></p>
+<p>If the authorization server implementation has successfully determined
+the subject of the end-user, the next action is to return an HTTP
+response to the client application which contains <code>auth_req_id</code>.</p>
+<p>Authlete provides <code>/api/backchannel/authentication/issue</code> API which
+generates a JSON containing <code>auth_req_id</code>, so, your next action is (1)
+call the API, (2) receive the response from the API, (3) build a
+response to the client application using the content of the API
+response, and (4) return the response to the client application. See the
+description <code>/api/backchannel/authentication/issue</code> API for details.</p>
+</li>
+</ul>
+<p><br/></p>
+<ul>
+<li>
+<p><strong>[END-USER AUTHENTICATION AND AUTHORIZATION]</strong></p>
+<p>After sending a JSON containing <code>auth_req_id</code> back to the client
+application, the authorization server implementation starts to
+communicate with an authentication device of the end-user. It is assumed
+that end-user authentication is performed on the authentication device
+and the end-user confirms the content of the backchannel authentication
+request and grants authorization to the client application if everything
+is okay. The authorization server implementation must be able to receive
+the result of the end-user authentication and authorization from the
+authentication device.</p>
+<p>How to communicate with an authentication device and achieve end-user
+authentication and authorization is up to each authorization server
+implementation, but the following request parameters of the backchannel
+authentication request should be taken into consideration in any
+implementation.</p>
+<ol>
+<li>
+<p><code>acr_values</code>:
+A backchannel authentication request may contain an array of ACRs
+(Authentication Context Class References) in preference order. If
+multiple authentication devices are registered for the end-user,
+the authorization server implementation should take the ACRs into
+consideration when selecting the best authentication device.</p>
+</li>
+<li>
+<p><code>scope</code>:
+A backchannel authentication request always contains a list of
+scopes. At least, <code>openid</code> is included in the list (otherwise
+<code>/api/backchannel/authentication</code> API returns
+<code>"action":"BAD_REQUEST"</code>). It would be better to show the requested
+scopes to the end-user on the authentication device or somewhere
+appropriate.
+If the <code>scope</code> request parameter contains <code>address</code>, <code>email</code>,
+<code>phone</code> and/or <code>profile</code>, they are interpreted as defined in
+&quot;5.4. Requesting Claims using Scope Values&quot; of OpenID Connect Core
+1.0. That is, they are expanded into a list of claim names.
+The <code>getClaimNames()</code> method returns the expanded result.</p>
+</li>
+<li>
+<p><code>binding_message</code>:
+A backchannel authentication request may contain a binding message.
+It is a human readable identifier or message intended to be
+displayed on both the consumption device (client application) and
+the authentication device.</p>
+</li>
+<li><code>user_code</code>:
+A backchannel authentication request may contain a user code.
+It is a secret code, such as password or pin, known only to the
+end-user but verifiable by the authorization server. The user code
+should be used to authorize sending a request to the authentication
+device.</li>
+</ol>
+</li>
+</ul>
+<p><br/></p>
+<ul>
+<li>
+<p><strong>[END-USER AUTHENTICATION AND AUTHORIZATION COMPLETION]</strong></p>
+<p>After receiving the result of end-user authentication and authorization,
+the authorization server implementation must call Authlete's
+<code>/api/backchannel/authentication/complete</code> API to tell Authlete the
+result and pass necessary data so that Authlete can generate an ID
+token, an access token and optionally a refresh token. See the
+description of the API for details.</p>
+</li>
+</ul>
+<p><br/></p>
+<ul>
+<li>
+<p><strong>[CLIENT NOTIFICATION]</strong></p>
+<p>When the backchannel token delivery mode is either &quot;ping&quot; or &quot;push&quot;, the
+authorization server implementation must send a notification to the
+pre-registered notification endpoint of the client after the end-user
+authentication and authorization. In this case, the <code>getAction()</code> method
+<code>BackchannelAuthenticationCompleteResponse</code> (a response from
+<code>/api/backchannel/authentication/complete</code> API) returns <code>NOTIFICATION</code>.
+See the description of <code>/api/backchannel/authentication/complete</code> API
+for details.</p>
+</li>
+</ul>
+<p><br/></p>
+<ul>
+<li>
+<p><strong>[TOKEN REQUEST]</strong></p>
+<p>When the backchannel token delivery mode is either &quot;ping&quot; or &quot;poll&quot;, the
+client application will make a token request to the token endpoint to
+get an ID token, an access token and optionally a refresh token.</p>
+<p>A token request that corresponds to a backchannel authentication request
+uses <code>urn:openid:params:grant-type:ciba</code> as the value of the
+<code>grant_type</code> request parameter. Authlete's <code>/api/auth/token</code> API
+recognizes the grant type automatically and behaves properly, so the
+existing token endpoint implementation does not have to be changed to
+support CIBA.</p>
+</li>
+</ul>
+                    
+                                        
+                    <section id="summary">
+                        <h2>Summary</h2>
+                        <section class="row-fluid heading">
+                            <section class="span4">
+                                <a href="#methods">Methods</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#properties">Properties</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#constants">Constants</a>
+                            </section>
+                        </section>
+                        <section class="row-fluid public">
+                            <section class="span4">
+                                                                    <a href="../classes/Authlete.Dto.ApiResponse.html#method_getResultCode" class="">getResultCode()</a><br />
+                                                                    <a href="../classes/Authlete.Dto.ApiResponse.html#method_setResultCode" class="">setResultCode()</a><br />
+                                                                    <a href="../classes/Authlete.Dto.ApiResponse.html#method_getResultMessage" class="">getResultMessage()</a><br />
+                                                                    <a href="../classes/Authlete.Dto.ApiResponse.html#method_setResultMessage" class="">setResultMessage()</a><br />
+                                                                    <a href="../classes/Authlete.Dto.BackchannelAuthenticationResponse.html#method_copyToArray" class="">copyToArray()</a><br />
+                                                                    <a href="../classes/Authlete.Dto.BackchannelAuthenticationResponse.html#method_copyFromArray" class="">copyFromArray()</a><br />
+                                                                    <a href="../classes/Authlete.Util.ArrayTrait.html#method_toArray" class="">toArray()</a><br />
+                                                                    <a href="../classes/Authlete.Util.ArrayTrait.html#method_fromArray" class="">fromArray()</a><br />
+                                                                    <a href="../classes/Authlete.Util.JsonTrait.html#method_toJson" class="">toJson()</a><br />
+                                                                    <a href="../classes/Authlete.Util.JsonTrait.html#method_fromJson" class="">fromJson()</a><br />
+                                                                    <a href="../classes/Authlete.Dto.BackchannelAuthenticationResponse.html#method_getAction" class="">getAction()</a><br />
+                                                                    <a href="../classes/Authlete.Dto.BackchannelAuthenticationResponse.html#method_setAction" class="">setAction()</a><br />
+                                                                    <a href="../classes/Authlete.Dto.BackchannelAuthenticationResponse.html#method_getResponseContent" class="">getResponseContent()</a><br />
+                                                                    <a href="../classes/Authlete.Dto.BackchannelAuthenticationResponse.html#method_setResponseContent" class="">setResponseContent()</a><br />
+                                                                    <a href="../classes/Authlete.Dto.BackchannelAuthenticationResponse.html#method_getClientId" class="">getClientId()</a><br />
+                                                                    <a href="../classes/Authlete.Dto.BackchannelAuthenticationResponse.html#method_setClientId" class="">setClientId()</a><br />
+                                                                    <a href="../classes/Authlete.Dto.BackchannelAuthenticationResponse.html#method_getClientIdAlias" class="">getClientIdAlias()</a><br />
+                                                                    <a href="../classes/Authlete.Dto.BackchannelAuthenticationResponse.html#method_setClientIdAlias" class="">setClientIdAlias()</a><br />
+                                                                    <a href="../classes/Authlete.Dto.BackchannelAuthenticationResponse.html#method_isClientIdAliasUsed" class="">isClientIdAliasUsed()</a><br />
+                                                                    <a href="../classes/Authlete.Dto.BackchannelAuthenticationResponse.html#method_setClientIdAliasUsed" class="">setClientIdAliasUsed()</a><br />
+                                                                    <a href="../classes/Authlete.Dto.BackchannelAuthenticationResponse.html#method_getClientName" class="">getClientName()</a><br />
+                                                                    <a href="../classes/Authlete.Dto.BackchannelAuthenticationResponse.html#method_setClientName" class="">setClientName()</a><br />
+                                                                    <a href="../classes/Authlete.Dto.BackchannelAuthenticationResponse.html#method_getDeliveryMode" class="">getDeliveryMode()</a><br />
+                                                                    <a href="../classes/Authlete.Dto.BackchannelAuthenticationResponse.html#method_setDeliveryMode" class="">setDeliveryMode()</a><br />
+                                                                    <a href="../classes/Authlete.Dto.BackchannelAuthenticationResponse.html#method_getScopes" class="">getScopes()</a><br />
+                                                                    <a href="../classes/Authlete.Dto.BackchannelAuthenticationResponse.html#method_setScopes" class="">setScopes()</a><br />
+                                                                    <a href="../classes/Authlete.Dto.BackchannelAuthenticationResponse.html#method_getClaimNames" class="">getClaimNames()</a><br />
+                                                                    <a href="../classes/Authlete.Dto.BackchannelAuthenticationResponse.html#method_setClaimNames" class="">setClaimNames()</a><br />
+                                                                    <a href="../classes/Authlete.Dto.BackchannelAuthenticationResponse.html#method_getClientNotificationToken" class="">getClientNotificationToken()</a><br />
+                                                                    <a href="../classes/Authlete.Dto.BackchannelAuthenticationResponse.html#method_setClientNotificationToken" class="">setClientNotificationToken()</a><br />
+                                                                    <a href="../classes/Authlete.Dto.BackchannelAuthenticationResponse.html#method_getAcrs" class="">getAcrs()</a><br />
+                                                                    <a href="../classes/Authlete.Dto.BackchannelAuthenticationResponse.html#method_setAcrs" class="">setAcrs()</a><br />
+                                                                    <a href="../classes/Authlete.Dto.BackchannelAuthenticationResponse.html#method_getHintType" class="">getHintType()</a><br />
+                                                                    <a href="../classes/Authlete.Dto.BackchannelAuthenticationResponse.html#method_setHintType" class="">setHintType()</a><br />
+                                                                    <a href="../classes/Authlete.Dto.BackchannelAuthenticationResponse.html#method_getHint" class="">getHint()</a><br />
+                                                                    <a href="../classes/Authlete.Dto.BackchannelAuthenticationResponse.html#method_setHint" class="">setHint()</a><br />
+                                                                    <a href="../classes/Authlete.Dto.BackchannelAuthenticationResponse.html#method_getSub" class="">getSub()</a><br />
+                                                                    <a href="../classes/Authlete.Dto.BackchannelAuthenticationResponse.html#method_setSub" class="">setSub()</a><br />
+                                                                    <a href="../classes/Authlete.Dto.BackchannelAuthenticationResponse.html#method_getBindingMessage" class="">getBindingMessage()</a><br />
+                                                                    <a href="../classes/Authlete.Dto.BackchannelAuthenticationResponse.html#method_setBindingMessage" class="">setBindingMessage()</a><br />
+                                                                    <a href="../classes/Authlete.Dto.BackchannelAuthenticationResponse.html#method_getUserCode" class="">getUserCode()</a><br />
+                                                                    <a href="../classes/Authlete.Dto.BackchannelAuthenticationResponse.html#method_setUserCode" class="">setUserCode()</a><br />
+                                                                    <a href="../classes/Authlete.Dto.BackchannelAuthenticationResponse.html#method_isUserCodeRequired" class="">isUserCodeRequired()</a><br />
+                                                                    <a href="../classes/Authlete.Dto.BackchannelAuthenticationResponse.html#method_setUserCodeRequired" class="">setUserCodeRequired()</a><br />
+                                                                    <a href="../classes/Authlete.Dto.BackchannelAuthenticationResponse.html#method_getRequestedExpiry" class="">getRequestedExpiry()</a><br />
+                                                                    <a href="../classes/Authlete.Dto.BackchannelAuthenticationResponse.html#method_setRequestedExpiry" class="">setRequestedExpiry()</a><br />
+                                                                    <a href="../classes/Authlete.Dto.BackchannelAuthenticationResponse.html#method_getRequestContext" class="">getRequestContext()</a><br />
+                                                                    <a href="../classes/Authlete.Dto.BackchannelAuthenticationResponse.html#method_setRequestContext" class="">setRequestContext()</a><br />
+                                                                    <a href="../classes/Authlete.Dto.BackchannelAuthenticationResponse.html#method_getResources" class="">getResources()</a><br />
+                                                                    <a href="../classes/Authlete.Dto.BackchannelAuthenticationResponse.html#method_setResources" class="">setResources()</a><br />
+                                                                    <a href="../classes/Authlete.Dto.BackchannelAuthenticationResponse.html#method_getWarnings" class="">getWarnings()</a><br />
+                                                                    <a href="../classes/Authlete.Dto.BackchannelAuthenticationResponse.html#method_setWarnings" class="">setWarnings()</a><br />
+                                                                    <a href="../classes/Authlete.Dto.BackchannelAuthenticationResponse.html#method_getTicket" class="">getTicket()</a><br />
+                                                                    <a href="../classes/Authlete.Dto.BackchannelAuthenticationResponse.html#method_setTicket" class="">setTicket()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No public properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No constants found</em>
+                                                            </section>
+                        </section>
+                        <section class="row-fluid protected">
+                            <section class="span4">
+                                                                    <em>No protected methods found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No protected properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                        <section class="row-fluid private">
+                            <section class="span4">
+                                                                    <em>No private methods found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No private properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                    </section>
+                </div>
+                <aside class="span4 detailsbar">
+                                        
+                    
+                    <dl>
+                        <dt>File</dt>
+                            <dd><a href="../files/Dto.BackchannelAuthenticationResponse.html"><div class="path-wrapper">Dto/BackchannelAuthenticationResponse.php</div></a></dd>
+                                                <dt>Package</dt>
+                            <dd><div class="namespace-wrapper">Default</div></dd>
+                                                <dt>Class hierarchy</dt>
+                            <dd class="hierarchy">
+                                                                                                                                                                                                                                                                                                
+                                        <div class="namespace-wrapper"><a href="../classes/Authlete.Dto.ApiResponse.html">\Authlete\Dto\ApiResponse</a></div>
+                                                                                                    <div class="namespace-wrapper">\Authlete\Dto\BackchannelAuthenticationResponse</div>
+                            </dd>
+
+                        
+                        
+                        
+                        
+                                                                        </dl>
+                    <h2>Tags</h2>
+                    <table class="table table-condensed">
+                                            <tr>
+                            <th>
+                                since
+                            </th>
+                            <td>
+                                                                    
+                                                            </td>
+                        </tr>
+                                        </table>
+                </aside>
+            </div>
+
+                        
+                        
+                                    <a id="methods" name="methods"></a>
+            <div class="row-fluid">
+                <div class="span8 content class"><h2>Methods</h2></div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getResultCode" name="method_getResultCode" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getResultCode()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getResultCode() : string</pre>
+                <p><em>Get the code of the result of an Authlete API call.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>The result code.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/Authlete.Dto.ApiResponse.html"><div class="path-wrapper">\Authlete\Dto\ApiResponse</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setResultCode" name="method_setResultCode" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setResultCode()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setResultCode(string  <span class="argument">$resultCode</span>) : \Authlete\Dto\ApiResponse</pre>
+                <p><em>Set the code of the result of an Authlete API call.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$resultCode </td>
+                                <td><p>The result code.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Authlete.Dto.ApiResponse.html">\Authlete\Dto\ApiResponse</a>
+                                            &mdash; <p><code>$this</code> object.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/Authlete.Dto.ApiResponse.html"><div class="path-wrapper">\Authlete\Dto\ApiResponse</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getResultMessage" name="method_getResultMessage" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getResultMessage()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getResultMessage() : string</pre>
+                <p><em>Get the message of the result of an Authlete API call.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>The result message.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/Authlete.Dto.ApiResponse.html"><div class="path-wrapper">\Authlete\Dto\ApiResponse</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setResultMessage" name="method_setResultMessage" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setResultMessage()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setResultMessage(string  <span class="argument">$resultMessage</span>) : \Authlete\Dto\ApiResponse</pre>
+                <p><em>Set the message of the result of an Authlete API call.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$resultMessage </td>
+                                <td><p>The result message.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Authlete.Dto.ApiResponse.html">\Authlete\Dto\ApiResponse</a>
+                                            &mdash; <p><code>$this</code> object.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/Authlete.Dto.ApiResponse.html"><div class="path-wrapper">\Authlete\Dto\ApiResponse</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_copyToArray" name="method_copyToArray" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">copyToArray()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">copyToArray(array  <span class="argument">$array</span>) </pre>
+                <p><em>Copy the content of this object into the given array.</em></p>
+                <p>As necessary, types of properties in this object are converted
+into other types which are friendly to <code>json_encode()</code>.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$array </td>
+                                <td><p>A reference of an array into which properties of this object
+are copied.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_copyFromArray" name="method_copyFromArray" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">copyFromArray()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">copyFromArray(array  <span class="argument">$array</span>) </pre>
+                <p><em>Copy the content of the given array into this object.</em></p>
+                <p>As necessary, types of elements in the given array are converted
+into other types which are suitable for properties of this object.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$array </td>
+                                <td><p>A reference of an array whose elements are used to set up
+properties of this object.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_toArray" name="method_toArray" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">toArray()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">toArray() : array</pre>
+                <p><em>Convert this object into an array.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>An array.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/Authlete.Util.ArrayTrait.html"><div class="path-wrapper">\Authlete\Util\ArrayTrait</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_fromArray" name="method_fromArray" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">fromArray()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">fromArray(array  <span class="argument">$array = null</span>) : static</pre>
+                <p><em>Convert an array into an instance of this class.</em></p>
+                <p>This static function returns a new instance of this class.
+If <code>$array</code> is <code>null</code>, <code>null</code> is returned.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$array </td>
+                                <td><p>An array</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    static
+                                            &mdash; <p>An instance of this class.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/Authlete.Util.ArrayTrait.html"><div class="path-wrapper">\Authlete\Util\ArrayTrait</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_toJson" name="method_toJson" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">toJson()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">toJson(integer  <span class="argument">$options</span>) : string</pre>
+                <p><em>Convert this object into a JSON string.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$options </td>
+                                <td><p>Options passed to <code>json_encode()</code>. This parameter
+is optional and its default value is 0.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>A JSON string.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/Authlete.Util.JsonTrait.html"><div class="path-wrapper">\Authlete\Util\JsonTrait</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_fromJson" name="method_fromJson" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">fromJson()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">fromJson(string  <span class="argument">$json</span>) : static</pre>
+                <p><em>Convert a JSON string into an instance of this class.</em></p>
+                <p>This static function returns a new instance of this class.
+If <code>$json</code> is <code>null</code> or the type of <code>$json</code> is not <code>string</code>,
+<code>null</code> is returned.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$json </td>
+                                <td><p>A JSON string.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    static
+                                            &mdash; <p>An instance of this class.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/Authlete.Util.JsonTrait.html"><div class="path-wrapper">\Authlete\Util\JsonTrait</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getAction" name="method_getAction" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getAction()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getAction() : \Authlete\Dto\BackchannelAuthenticationAction</pre>
+                <p><em>Get the next action that the implementation of the backchannel
+authentication endpoint should take.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Authlete.Dto.BackchannelAuthenticationAction.html">\Authlete\Dto\BackchannelAuthenticationAction</a>
+                                            &mdash; <p>The next action.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setAction" name="method_setAction" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setAction()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setAction(\Authlete\Dto\BackchannelAuthenticationAction  <span class="argument">$action = null</span>) : \Authlete\Dto\BackchannelAuthenticationResponse</pre>
+                <p><em>Set the next action that the implementation of the backchannel
+authentication endpoint should take.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td><a href="../classes/Authlete.Dto.BackchannelAuthenticationAction.html">\Authlete\Dto\BackchannelAuthenticationAction</a></td>
+                                <td>$action </td>
+                                <td><p>The next action.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Authlete.Dto.BackchannelAuthenticationResponse.html">\Authlete\Dto\BackchannelAuthenticationResponse</a>
+                                            &mdash; <p><code>$this</code> object.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getResponseContent" name="method_getResponseContent" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getResponseContent()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getResponseContent() : string</pre>
+                <p><em>Get the content that can be used to generate a response to the client
+application.</em></p>
+                <p>When this method returns a non-null value, it is JSON containing error
+information. When <code>getAction()</code> returns <code>USER_IDENTIFICATION</code>, this
+method returns null.</p>
+
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>The content of a response to the client.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setResponseContent" name="method_setResponseContent" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setResponseContent()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setResponseContent(string  <span class="argument">$responseContent</span>) : \Authlete\Dto\BackchannelAuthenticationResponse</pre>
+                <p><em>Set the content that can be used to generate a response to the client
+application.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$responseContent </td>
+                                <td><p>The content of a response to the client.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Authlete.Dto.BackchannelAuthenticationResponse.html">\Authlete\Dto\BackchannelAuthenticationResponse</a>
+                                            &mdash; <p><code>$this</code> object.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getClientId" name="method_getClientId" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getClientId()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getClientId() : integer|string</pre>
+                <p><em>Get the client ID of the client application that has made the
+backchannel authentication request.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    integer|string
+                                            &mdash; <p>The client ID.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setClientId" name="method_setClientId" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setClientId()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setClientId(integer|string  <span class="argument">$clientId</span>) : \Authlete\Dto\BackchannelAuthenticationResponse</pre>
+                <p><em>Set the client ID of the client application that has made the
+backchannel authentication request.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer|string</td>
+                                <td>$clientId </td>
+                                <td><p>The client ID.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Authlete.Dto.BackchannelAuthenticationResponse.html">\Authlete\Dto\BackchannelAuthenticationResponse</a>
+                                            &mdash; <p><code>$this</code> object.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getClientIdAlias" name="method_getClientIdAlias" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getClientIdAlias()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getClientIdAlias() : string</pre>
+                <p><em>Get the client ID alias of the client application that has made the
+backchannel authentication request.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>The client ID alias.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setClientIdAlias" name="method_setClientIdAlias" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setClientIdAlias()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setClientIdAlias(string  <span class="argument">$alias</span>) : \Authlete\Dto\BackchannelAuthenticationResponse</pre>
+                <p><em>Set the client ID alias of the client application that has made the
+backchannel authentication request.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$alias </td>
+                                <td><p>The client ID alias.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Authlete.Dto.BackchannelAuthenticationResponse.html">\Authlete\Dto\BackchannelAuthenticationResponse</a>
+                                            &mdash; <p><code>$this</code> object.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_isClientIdAliasUsed" name="method_isClientIdAliasUsed" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">isClientIdAliasUsed()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">isClientIdAliasUsed() : boolean</pre>
+                <p><em>Get the flag which indicates whether the client ID alias was used in
+the backchannel authentication request.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    boolean
+                                            &mdash; <p><code>true</code> if the client ID alias was used in the request.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setClientIdAliasUsed" name="method_setClientIdAliasUsed" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setClientIdAliasUsed()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setClientIdAliasUsed(boolean  <span class="argument">$used</span>) : \Authlete\Dto\BackchannelAuthenticationResponse</pre>
+                <p><em>Set the flag which indicates whether the client ID alias was used in
+the backchannel authentication request.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>boolean</td>
+                                <td>$used </td>
+                                <td><p><code>true</code> to indicate that the client ID alias was used in the request.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Authlete.Dto.BackchannelAuthenticationResponse.html">\Authlete\Dto\BackchannelAuthenticationResponse</a>
+                                            &mdash; <p><code>$this</code> object.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getClientName" name="method_getClientName" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getClientName()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getClientName() : string</pre>
+                <p><em>Get the name of the client application which has made the backchannel
+authentication request.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>The name of the client application.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setClientName" name="method_setClientName" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setClientName()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setClientName(string  <span class="argument">$name</span>) : \Authlete\Dto\BackchannelAuthenticationResponse</pre>
+                <p><em>Set the name of the client application which has made the backchannel
+authentication request.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$name </td>
+                                <td><p>The name of the client application.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Authlete.Dto.BackchannelAuthenticationResponse.html">\Authlete\Dto\BackchannelAuthenticationResponse</a>
+                                            &mdash; <p><code>$this</code> object.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getDeliveryMode" name="method_getDeliveryMode" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getDeliveryMode()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getDeliveryMode() : \Authlete\Types\DeliveryMode</pre>
+                <p><em>Get the backchannel token delivery mode of the client application.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Authlete.Types.DeliveryMode.html">\Authlete\Types\DeliveryMode</a>
+                                            &mdash; <p>The backchannel token delivery mode.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setDeliveryMode" name="method_setDeliveryMode" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setDeliveryMode()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setDeliveryMode(\Authlete\Types\DeliveryMode  <span class="argument">$mode = null</span>) : \Authlete\Dto\BackchannelAuthenticationResponse</pre>
+                <p><em>Set the backchannel token delivery mode of the client application.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td><a href="../classes/Authlete.Types.DeliveryMode.html">\Authlete\Types\DeliveryMode</a></td>
+                                <td>$mode </td>
+                                <td><p>The backchannel token delivery mode.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Authlete.Dto.BackchannelAuthenticationResponse.html">\Authlete\Dto\BackchannelAuthenticationResponse</a>
+                                            &mdash; <p><code>$this</code> object.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getScopes" name="method_getScopes" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getScopes()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getScopes() : array&lt;mixed,\Authlete\Dto\Scope&gt;</pre>
+                <p><em>Get the scopes requested by the backchannel authentication request.</em></p>
+                <p>Basically, this method returns the value of the <code>scope</code> request parameter
+in the backchannel authentication request. However, because unregistered
+scopes are dropped on Authlete side, if the <code>scope</code> request parameter
+contains unknown scopes, the list returned by this method becomes
+different from the value of the <code>scope</code> request parameter.</p>
+<p>Note that <code>Scope.getDescription()</code> method and <code>Scope.getDescriptions()</code>
+method of each element (<code>Scope</code> instance) in the array returned from
+this method always return <code>null</code> even if descriptions of the scopes are
+registered.</p>
+
+                
+                
+                                    <h4>Returns</h4>
+                    array&lt;mixed,<a href="../classes/Authlete.Dto.Scope.html">\Authlete\Dto\Scope</a>&gt;
+                                            &mdash; <p>The requested scopes.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setScopes" name="method_setScopes" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setScopes()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setScopes(array&lt;mixed,\Authlete\Dto\Scope&gt;  <span class="argument">$scopes = null</span>) : \Authlete\Dto\BackchannelAuthenticationResponse</pre>
+                <p><em>Set the scopes requested by the backchannel authentication request.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array&lt;mixed,<a href="../classes/Authlete.Dto.Scope.html">\Authlete\Dto\Scope</a>&gt;</td>
+                                <td>$scopes </td>
+                                <td><p>The requested scopes.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Authlete.Dto.BackchannelAuthenticationResponse.html">\Authlete\Dto\BackchannelAuthenticationResponse</a>
+                                            &mdash; <p><code>$this</code> object.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getClaimNames" name="method_getClaimNames" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getClaimNames()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getClaimNames() : array&lt;mixed,string&gt;</pre>
+                <p><em>Get the names of the claims which were requested indirectly via some
+special scopes. See [5.4. Requesting Claims using Scope Values](https://openid.net/specs/openid-connect-core-1_0.html#ScopeClaims)
+in [OpenID Connect Core 1.0](https://openid.net/specs/openid-connect-core-1_0.html#ScopeClaims)
+for details.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    array&lt;mixed,string&gt;
+                                            &mdash; <p>The names of the requested claims.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setClaimNames" name="method_setClaimNames" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setClaimNames()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setClaimNames(array&lt;mixed,string&gt;  <span class="argument">$names = null</span>) : \Authlete\Dto\BackchannelAuthenticationResponse</pre>
+                <p><em>Set the names of the claims which were requested indirectly via some
+special scopes.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array&lt;mixed,string&gt;</td>
+                                <td>$names </td>
+                                <td><p>The names of the requested claims.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Authlete.Dto.BackchannelAuthenticationResponse.html">\Authlete\Dto\BackchannelAuthenticationResponse</a>
+                                            &mdash; <p><code>$this</code> object.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getClientNotificationToken" name="method_getClientNotificationToken" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getClientNotificationToken()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getClientNotificationToken() : string</pre>
+                <p><em>Get the client notification token included in the backchannel
+authentication request. It is the value of the
+`client_notification_token` request parameter.</em></p>
+                <p>When the backchannel token delivery mode is &quot;ping&quot; or &quot;push&quot;, the
+backchannel authentication request must include a client notification
+token.</p>
+
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>The client notification token.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setClientNotificationToken" name="method_setClientNotificationToken" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setClientNotificationToken()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setClientNotificationToken(string  <span class="argument">$token</span>) : \Authlete\Dto\BackchannelAuthenticationResponse</pre>
+                <p><em>Set the client notification token included in the backchannel
+authentication request. It is the value of the
+`client_notification_token` request parameter.</em></p>
+                <p>When the backchannel token delivery mode is &quot;ping&quot; or &quot;push&quot;, the
+backchannel authentication request must include a client notification
+token.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$token </td>
+                                <td><p>The client notification token.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Authlete.Dto.BackchannelAuthenticationResponse.html">\Authlete\Dto\BackchannelAuthenticationResponse</a>
+                                            &mdash; <p><code>$this</code> object.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getAcrs" name="method_getAcrs" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getAcrs()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getAcrs() : array&lt;mixed,string&gt;</pre>
+                <p><em>Get the list of ACR values requestsed by the backchannel authentication
+request.</em></p>
+                <p>Basically, this method returns the value of the <code>acr_values</code> request
+parameter in the backchannel authentication request. However, because
+unsupported ACR values are dropped on Authlete side, if the <code>acr_values</code>
+request parameter contains unrecognized ACR values, the list returned
+by this method becomes different from the value of the <code>acr_values</code>
+request parameter.</p>
+
+                
+                
+                                    <h4>Returns</h4>
+                    array&lt;mixed,string&gt;
+                                            &mdash; <p>The list of requested ACR values.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setAcrs" name="method_setAcrs" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setAcrs()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setAcrs(array&lt;mixed,string&gt;  <span class="argument">$acrs = null</span>) : \Authlete\Dto\BackchannelAuthenticationResponse</pre>
+                <p><em>Set the list of ACR values requestsed by the backchannel authentication
+request.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array&lt;mixed,string&gt;</td>
+                                <td>$acrs </td>
+                                <td><p>The list of requested ACR values.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Authlete.Dto.BackchannelAuthenticationResponse.html">\Authlete\Dto\BackchannelAuthenticationResponse</a>
+                                            &mdash; <p><code>$this</code> object.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getHintType" name="method_getHintType" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getHintType()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getHintType() : \Authlete\Types\DeliveryMode</pre>
+                <p><em>Get the type of the hint for end-user identification which was
+included in the backchannel authentication request.</em></p>
+                <p>When the backchannel authentication request contains <code>id_token_hint</code>,
+this method returns <code>UserIdentificationHintType::$ID_TOKEN_HINT</code>.
+Likewise, this method returns <code>UserIndentificationHintType::$LOGIN_HINT</code>
+when the request contains <code>login_hint</code>, or returns
+<code>UserIdentificationHintType::$LOGIN_HINT_TOKEN</code> when the request
+contains <code>login_hint_token</code>.</p>
+<p>Note that a backchannel authentication request must include one and
+only one hint among <code>id_token_hint</code>, <code>login_hint</code> and
+<code>login_hint_token</code>.</p>
+
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Authlete.Types.DeliveryMode.html">\Authlete\Types\DeliveryMode</a>
+                                            &mdash; <p>The type of the hint for end-user identification.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setHintType" name="method_setHintType" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setHintType()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setHintType(\Authlete\Types\UserIdentificationHintType  <span class="argument">$hintType = null</span>) : \Authlete\Dto\BackchannelAuthenticationResponse</pre>
+                <p><em>Set the type of the hint for end-user identification which was
+included in the backchannel authentication request.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td><a href="../classes/Authlete.Types.UserIdentificationHintType.html">\Authlete\Types\UserIdentificationHintType</a></td>
+                                <td>$hintType </td>
+                                <td><p>The type of the hint for end-user identification.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Authlete.Dto.BackchannelAuthenticationResponse.html">\Authlete\Dto\BackchannelAuthenticationResponse</a>
+                                            &mdash; <p><code>$this</code> object.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getHint" name="method_getHint" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getHint()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getHint() : string</pre>
+                <p><em>Get the value of the hint for end-user identification.</em></p>
+                <p>When <code>getHintType()</code> returns
+<code>UserIdentificationHintType::$ID_TOKEN_HINT</code>, this method returns the
+value of the <code>id_token_hint</code> request parameter. Likewise, this method
+returns the value of the <code>login_hint</code> request parameter when
+<code>getHintType()</code> returns <code>UserIdentificationHintType::$LOGIN_HINT</code>, or
+returns the value of the <code>login_hint_token</code> request parameter when
+<code>getHintType()</code> returns <code>UserIdentificationHintType::$LOGIN_HINT_TOKEN</code>.</p>
+
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>The value of the hint for end-user identification.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setHint" name="method_setHint" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setHint()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setHint(string  <span class="argument">$hint</span>) : \Authlete\Dto\BackchannelAuthenticationResponse</pre>
+                <p><em>Set the value of the hint for end-user identification.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$hint </td>
+                                <td><p>The value of the hint for end-user identification.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Authlete.Dto.BackchannelAuthenticationResponse.html">\Authlete\Dto\BackchannelAuthenticationResponse</a>
+                                            &mdash; <p><code>$this</code> object.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getSub" name="method_getSub" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getSub()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getSub() : string</pre>
+                <p><em>Get the value of the `sub` claim contained in the ID token hint
+included in the backchannel authentication request.</em></p>
+                <p>This method works only when the backchannel authentication request
+contains the <code>id_token_hint</code> request parameter.</p>
+
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>The value of the <code>sub</code> claim contained in the ID token hint.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setSub" name="method_setSub" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setSub()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setSub(string  <span class="argument">$sub</span>) : \Authlete\Dto\BackchannelAuthenticationResponse</pre>
+                <p><em>Set the value of the `sub` claim contained in the ID token hint
+included in the backchannel authentication request.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$sub </td>
+                                <td><p>The value of the <code>sub</code> claim contained in the ID token hint.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Authlete.Dto.BackchannelAuthenticationResponse.html">\Authlete\Dto\BackchannelAuthenticationResponse</a>
+                                            &mdash; <p><code>$this</code> object.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getBindingMessage" name="method_getBindingMessage" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getBindingMessage()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getBindingMessage() : string</pre>
+                <p><em>Get the binding message included in the backchannel authentication
+request. It is the value of the `binding_message` request parameter.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>The binding message.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setBindingMessage" name="method_setBindingMessage" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setBindingMessage()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setBindingMessage(string  <span class="argument">$message</span>) : \Authlete\Dto\BackchannelAuthenticationResponse</pre>
+                <p><em>Set the binding message included in the backchannel authentication
+request. It is the value of the `binding_message` request parameter.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$message </td>
+                                <td><p>The binding message.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Authlete.Dto.BackchannelAuthenticationResponse.html">\Authlete\Dto\BackchannelAuthenticationResponse</a>
+                                            &mdash; <p><code>$this</code> object.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getUserCode" name="method_getUserCode" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getUserCode()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getUserCode() : string</pre>
+                <p><em>Get the user code included in the backchannel authentication request.</em></p>
+                <p>It is the value of the <code>user_code</code> request parameter.</p>
+
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>The user code.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setUserCode" name="method_setUserCode" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setUserCode()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setUserCode(string  <span class="argument">$code</span>) : \Authlete\Dto\BackchannelAuthenticationResponse</pre>
+                <p><em>Set the user code included in the backchannel authentication request.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$code </td>
+                                <td><p>The user code.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Authlete.Dto.BackchannelAuthenticationResponse.html">\Authlete\Dto\BackchannelAuthenticationResponse</a>
+                                            &mdash; <p><code>$this</code> object.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_isUserCodeRequired" name="method_isUserCodeRequired" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">isUserCodeRequired()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">isUserCodeRequired() : boolean</pre>
+                <p><em>Get the flag which indicates whether a user code is required.</em></p>
+                <p>This method returns <code>true</code> when both the
+<code>backchannel_user_code_parameter</code> metadata of the client
+(<code>Client.bcUserCodeRequired</code> property) and the
+<code>backchannel_user_code_parameter_supported</code> metadata of the service
+(<code>Service.backchannelUserCodeParameterSupported</code> property) are <code>true</code>.</p>
+
+                
+                
+                                    <h4>Returns</h4>
+                    boolean
+                                            &mdash; <p><code>true</code> when a user code is required.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setUserCodeRequired" name="method_setUserCodeRequired" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setUserCodeRequired()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setUserCodeRequired(boolean  <span class="argument">$required</span>) : \Authlete\Dto\BackchannelAuthenticationResponse</pre>
+                <p><em>Set the flag which indicates whether a user code is required.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>boolean</td>
+                                <td>$required </td>
+                                <td><p><code>true</code> to indicate that a user code is required.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Authlete.Dto.BackchannelAuthenticationResponse.html">\Authlete\Dto\BackchannelAuthenticationResponse</a>
+                                            &mdash; <p><code>$this</code> object.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getRequestedExpiry" name="method_getRequestedExpiry" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getRequestedExpiry()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getRequestedExpiry() : integer</pre>
+                <p><em>Get the requested expiry for the authentication request ID
+(`auth_req_id`). It is the value of the `requested_expiry` request
+parameter.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    integer
+                                            &mdash; <p>The requested expiry in seconds.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setRequestedExpiry" name="method_setRequestedExpiry" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setRequestedExpiry()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setRequestedExpiry(integer  <span class="argument">$seconds</span>) : \Authlete\Dto\BackchannelAuthenticationResponse</pre>
+                <p><em>Set the requested expiry for the authentication request ID
+(`auth_req_id`). It is the value of the `requested_expiry` request
+parameter.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$seconds </td>
+                                <td><p>The requested expiry in seconds.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Authlete.Dto.BackchannelAuthenticationResponse.html">\Authlete\Dto\BackchannelAuthenticationResponse</a>
+                                            &mdash; <p><code>$this</code> object.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getRequestContext" name="method_getRequestContext" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getRequestContext()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getRequestContext() : string</pre>
+                <p><em>Get the request context of the backchannel authentication request. It
+is the value of the `request_context` claim in the signed authentication
+request and its format is JSON. `request_context` is a new claim added
+by the FAPI-CIBA profile.</em></p>
+                <p>This method returns null if the backchannel authentication request does
+not include a <code>request</code> request parameter or the JWT specified by the
+request parameter does not include a <code>request_context</code> claim.</p>
+
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>The request context in JSON format.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setRequestContext" name="method_setRequestContext" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setRequestContext()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setRequestContext(string  <span class="argument">$context</span>) : \Authlete\Dto\BackchannelAuthenticationResponse</pre>
+                <p><em>Set the request context of the backchannel authentication request. It
+is the value of the `request_context` claim in the signed authentication
+request and its format is JSON. `request_context` is a new claim added
+by the FAPI-CIBA profile.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$context </td>
+                                <td><p>The request context in JSON format.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Authlete.Dto.BackchannelAuthenticationResponse.html">\Authlete\Dto\BackchannelAuthenticationResponse</a>
+                                            &mdash; <p><code>$this</code> object.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getResources" name="method_getResources" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getResources()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getResources() : array&lt;mixed,string&gt;</pre>
+                <p><em>Get the resources specified by the `resource` request parameters or by
+the `resource` property in the request object. If both are given, the
+values in the request object take precedence.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    array&lt;mixed,string&gt;
+                                            &mdash; <p>The target resources.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href=""><span class="namespace-wrapper">RFC 8707 Resource Indicators for OAuth 2.0</span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setResources" name="method_setResources" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setResources()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setResources(array&lt;mixed,string&gt;  <span class="argument">$resources = null</span>) : \Authlete\Dto\BackchannelAuthenticationResponse</pre>
+                <p><em>Set the resources specified by the `resource` request parameters or by
+the `resource` property in the request object. If both are given, the
+values in the request object take precedence.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array&lt;mixed,string&gt;</td>
+                                <td>$resources </td>
+                                <td><p>The target resources.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Authlete.Dto.BackchannelAuthenticationResponse.html">\Authlete\Dto\BackchannelAuthenticationResponse</a>
+                                            &mdash; <p><code>$this</code> object.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href=""><span class="namespace-wrapper">RFC 8707 Resource Indicators for OAuth 2.0</span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getWarnings" name="method_getWarnings" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getWarnings()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getWarnings() : array&lt;mixed,string&gt;</pre>
+                <p><em>Get the warnings raised during processing the backchannel authentication
+request.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    array&lt;mixed,string&gt;
+                                            &mdash; <p>Warnings. This may be null.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setWarnings" name="method_setWarnings" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setWarnings()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setWarnings(array&lt;mixed,string&gt;  <span class="argument">$warnings = null</span>) : \Authlete\Dto\BackchannelAuthenticationResponse</pre>
+                <p><em>Set the warnings raised during processing the backchannel authentication
+request.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array&lt;mixed,string&gt;</td>
+                                <td>$warnings </td>
+                                <td><p>Warnings</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Authlete.Dto.BackchannelAuthenticationResponse.html">\Authlete\Dto\BackchannelAuthenticationResponse</a>
+                                            &mdash; <p><code>$this</code> object.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getTicket" name="method_getTicket" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getTicket()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getTicket() : string</pre>
+                <p><em>Get the ticket that is necessary for the implementation of the
+backchannel authentication endpoint to call
+`/api/backchannel/authentication/*` API.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>The ticket issued from <code>/api/backchannel/authentication</code> API.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setTicket" name="method_setTicket" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setTicket()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setTicket(string  <span class="argument">$ticket</span>) : \Authlete\Dto\BackchannelAuthenticationResponse</pre>
+                <p><em>Set the ticket that is necessary for the implementation of the
+backchannel authentication endpoint to call
+`/api/backchannel/authentication/*` API.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$ticket </td>
+                                <td><p>The ticket issued from <code>/api/backchannel/authentication</code> API.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Authlete.Dto.BackchannelAuthenticationResponse.html">\Authlete\Dto\BackchannelAuthenticationResponse</a>
+                                            &mdash; <p><code>$this</code> object.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                                    </div>
+    </section>
+
+    <div id="source-view" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="source-view-label" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="source-view-label">BackchannelAuthenticationResponse.php</h3>
+        </div>
+        <div class="modal-body">
+            <pre data-src="../files/Dto/BackchannelAuthenticationResponse.php.txt" class="language-php line-numbers"></pre>
+        </div>
+    </div>
+
+    <footer class="row-fluid">
+        <section class="span10 offset2">
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <section class="row-fluid footer-sections">
+                        <section class="span4">
+                                                        <h1><i class="icon-code"></i></h1>
+                            <div>
+                                <ul>
+                                                                            <li><a href="../namespaces/Authlete.html">\Authlete</a></li>
+                                                                    </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-bar-chart"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../graphs/class.html">Class Hierarchy Diagram</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-pushpin"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../reports/errors.html">Errors</a></li>
+                                    <li><a href="../reports/markers.html">Markers</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <hr />
+                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
+                    on August 9th, 2020 at 09:53.
+                </section>
+            </section>
+        </section>
+    </footer>
+</div>
+
+</body>
+</html>

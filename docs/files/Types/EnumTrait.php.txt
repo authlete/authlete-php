@@ -55,7 +55,7 @@ trait EnumTrait
             //
             //   self::$PROPERTY_NAME = new CLASS('PROPERTY_NAME');
             //
- 
+
             // The name of the property.
             $propertyName = $property->getName();
 

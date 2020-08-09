@@ -1,6 +1,6 @@
 <?php
 //
-// Copyright (C) 2018 Authlete, Inc.
+// Copyright (C) 2018-2020 Authlete, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -29,12 +29,15 @@ use Authlete\Types\Arrayable;
 use Authlete\Types\ArrayCopyable;
 use Authlete\Types\ClaimType;
 use Authlete\Types\ClientAuthMethod;
+use Authlete\Types\DeliveryMode;
 use Authlete\Types\Display;
 use Authlete\Types\GrantType;
 use Authlete\Types\Jsonable;
+use Authlete\Types\JWSAlg;
 use Authlete\Types\ResponseType;
 use Authlete\Types\ServiceProfile;
 use Authlete\Types\Sns;
+use Authlete\Types\UserCodeCharset;
 use Authlete\Util\ArrayTrait;
 use Authlete\Util\JsonTrait;
 use Authlete\Util\LanguageUtility;
@@ -67,6 +70,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
     private $jwksUri                                     = null;  // string
     private $jwks                                        = null;  // string
     private $registrationEndpoint                        = null;  // string
+    private $registrationManagementEndpoint              = null;  // string
     private $supportedScopes                             = null;  // array of \Authlete\Dto\Scope
     private $supportedResponseTypes                      = null;  // array of \Authlete\Types\ResponseType
     private $supportedGrantTypes                         = null;  // array of \Authlete\Types\GrantType
@@ -80,12 +84,6 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
     private $supportedUiLocales                          = null;  // array of string
     private $policyUri                                   = null;  // string
     private $tosUri                                      = null;  // string
-    private $description                                 = null;  // string
-    private $accessTokenType                             = null;  // string
-    private $accessTokenDuration                         = null;  // string or (64-bit) integer
-    private $refreshTokenDuration                        = null;  // string or (64-bit) integer
-    private $idTokenDuration                             = null;  // string or (64-bit) integer
-    private $authorizationResponseDuration               = null;  // string or (64-bit) integer
     private $authenticationCallbackEndpoint              = null;  // string
     private $authenticationCallbackApiKey                = null;  // string
     private $authenticationCallbackApiSecret             = null;  // string
@@ -107,7 +105,9 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
     private $directIntrospectionEndpointEnabled          = false; // boolean
     private $singleAccessTokenPerSubject                 = false; // boolean
     private $pkceRequired                                = false; // boolean
+    private $pkceS256Required                            = false; // boolean
     private $refreshTokenKept                            = false; // boolean
+    private $refreshTokenDurationKept                    = false; // boolean
     private $errorDescriptionOmitted                     = false; // boolean
     private $errorUriOmitted                             = false; // boolean
     private $clientIdAliasEnabled                        = false; // boolean
@@ -117,9 +117,44 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
     private $supportedIntrospectionAuthMethods           = null;  // array of \Authlete\Types\ClientAuthMethod
     private $mutualTlsValidatePkiCertChain               = false; // boolean
     private $trustedRootCertificates                     = null;  // array of string
+    private $dynamicRegistrationSupported                = false; // boolean
+    private $endSessionEndpoint                          = null;  // string
+    private $description                                 = null;  // string
+    private $accessTokenType                             = null;  // string
+    private $accessTokenSignAlg                          = null;  // \Authlete\Types\JWSAlg
+    private $accessTokenDuration                         = null;  // string or (64-bit) integer
+    private $refreshTokenDuration                        = null;  // string or (64-bit) integer
+    private $idTokenDuration                             = null;  // string or (64-bit) integer
+    private $authorizationResponseDuration               = null;  // string or (64-bit) integer
+    private $pushedAuthReqDuration                       = null;  // string or (64-bit) integer
+    private $accessTokenSignatureKeyId                   = null;  // string
     private $authorizationSignatureKeyId                 = null;  // string
     private $idTokenSignatureKeyId                       = null;  // string
     private $userInfoSignatureKeyId                      = null;  // string
+    private $supportedBackchannelTokenDeliveryModes      = null;  // array of \Authlete\Types\DeliveryMode
+    private $backchannelAuthenticationEndpoint           = null;  // string
+    private $backchannelUserCodeParameterSupported       = false; // boolean
+    private $backchannelAuthReqIdDuration                = null;  // string or (64-bit) integer
+    private $backchannelPollingInterval                  = 0;     // integer
+    private $backchannelBindingMessageRequiredInFapi     = false; // boolean
+    private $allowableClockSkew                          = 0;     // integer
+    private $deviceAuthorizationEndpoint                 = null;  // string
+    private $deviceVerificationUri                       = null;  // string
+    private $deviceVerificationUriComplete               = null;  // string
+    private $deviceFlowCodeDuration                      = null;  // string or (64-bit) integer
+    private $deviceFlowPollingInterval                   = 0;     // integer
+    private $userCodeCharset                             = null;  // \Authlete\Types\UserCodeCharset
+    private $userCodeLength                              = 0;     // integer
+    private $pushedAuthReqEndpoint                       = null;  // string
+    private $mtlsEndpointAliases                         = null;  // array of \Authlete\Dto\NamedUri
+    private $supportedAuthorizationDataTypes             = null;  // array of string
+    private $supportedTrustFrameworks                    = null;  // array of string
+    private $supportedEvidence                           = null;  // array of string
+    private $supportedIdentityDocuments                  = null;  // array of string
+    private $supportedVerificationMethods                = null;  // array of string
+    private $supportedVerifiedClaims                     = null;  // array of string
+    private $missingClientIdAllowed                      = false; // boolean
+    private $parRequired                                 = false; // boolean
 
 
     /**
@@ -580,6 +615,53 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
 
 
     /**
+     * Get the URI of the registration management endpoint.
+     *
+     * If dynamic client registration is supported and this property is set,
+     * this URI will be used as the base of the client's management endpoint
+     * by appending `/clientID/` to it as a path element. If this property
+     * is not set, the value of `registrationEndpoint` will be used as the
+     * URI base instead.
+     *
+     * @return string
+     *     The URI of the registration management endpoint.
+     *
+     * @since 1.8
+     */
+    public function getRegistrationManagementEndpoint()
+    {
+        return $this->registrationManagementEndpoint;
+    }
+
+
+    /**
+     * Set the URI of the registration management endpoint.
+     *
+     * If dynamic client registration is supported and this property is set,
+     * this URI will be used as the base of the client's management endpoint
+     * by appending `/clientID/` to it as a path element. If this property
+     * is not set, the value of `registrationEndpoint` will be used as the
+     * URI base instead.
+     *
+     * @param string $endpoint
+     *     The URI of the registration management endpoint.
+     *
+     * @return Service
+     *     `$this` object.
+     *
+     * @since 1.8
+     */
+    public function setRegistrationManagementEndpoint($endpoint)
+    {
+        ValidationUtility::ensureNullOrString('$endpoint', $endpoint);
+
+        $this->registrationManagementEndpoint = $endpoint;
+
+        return $this;
+    }
+
+
+    /**
      * Get the scopes supported by this service.
      *
      * This corresponds to the `scopes_supported` metadata defined in
@@ -951,7 +1033,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
 
 
     /**
-     * Get language and scripts for claim values supported by this service. 
+     * Get language and scripts for claim values supported by this service.
      *
      * This corresponds to the `claims_locales_supported` metadata defined in
      * [3. OpenID Provider Metadata](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata)
@@ -1109,227 +1191,6 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
         ValidationUtility::ensureNullOrString('$uri', $uri);
 
         $this->tosUri = $uri;
-
-        return $this;
-    }
-
-
-    /**
-     * Get the description about this service.
-     *
-     * @return string
-     *     The description about this service.
-     */
-    public function getDescription()
-    {
-        return $this->description;
-    }
-
-
-    /**
-     * Set the description about this service.
-     *
-     * @param string $description
-     *     The description about this service.
-     *
-     * @return Service
-     *     `$this` object.
-     */
-    public function setDescription($description)
-    {
-        ValidationUtility::ensureNullOrString('$description', $description);
-
-        $this->description = $description;
-
-        return $this;
-    }
-
-
-    /**
-     * Get the token type of access tokens issued by this authorization server.
-     *
-     * It is the value of the `token_type` parameter in access token responses.
-     *
-     * @return string
-     *     The token type of access tokens.
-     *
-     * @see https://tools.ietf.org/html/rfc6749#section-5.1 RFC 6749, 5.1. Successful Response
-     */
-    public function getAccessTokenType()
-    {
-        return $this->accessTokenType;
-    }
-
-
-    /**
-     * Set the token type of access tokens issued by this authorization server.
-     *
-     * It is the value of the `token_type` parameter in access token responses.
-     * `Bearer` is recommended.
-     *
-     * @param string $type
-     *     The token type of access tokens.
-     *
-     * @return Service
-     *     `$this` object.
-     *
-     * @see https://tools.ietf.org/html/rfc6749#section-5.1 RFC 6749, 5.1. Successful Response
-     */
-    public function setAccessTokenType($type)
-    {
-        ValidationUtility::ensureNullOrString('$type', $type);
-
-        $this->accessTokenType = $type;
-
-        return $this;
-    }
-
-
-    /**
-     * Get the duration of access tokens in seconds.
-     *
-     * It is the value of the `expires_in` parameter in access token responses.
-     *
-     * @return integer|string
-     *     The duration of access tokens.
-     *
-     * @see https://tools.ietf.org/html/rfc6749#section-5.1 RFC 6749, 5.1. Successful Response
-     */
-    public function getAccessTokenDuration()
-    {
-        return $this->accessTokenDuration;
-    }
-
-
-    /**
-     * Set the duration of access tokens in seconds.
-     *
-     * It is the value of the `expires_in` parameter in access token responses.
-     *
-     * @param integer|string $duration
-     *     The duration of access tokens.
-     *
-     * @return Service
-     *     `$this` object.
-     *
-     * @see https://tools.ietf.org/html/rfc6749#section-5.1 RFC 6749, 5.1. Successful Response
-     */
-    public function setAccessTokenDuration($duration)
-    {
-        ValidationUtility::ensureNullOrStringOrInteger('$duration', $duration);
-
-        $this->accessTokenDuration = $duration;
-
-        return $this;
-    }
-
-
-    /**
-     * Get the duration of refresh tokens in seconds.
-     *
-     * @return integer|string
-     *     The duration of refresh tokens.
-     */
-    public function getRefreshTokenDuration()
-    {
-        return $this->refreshTokenDuration;
-    }
-
-
-    /**
-     * Set the duration of refresh tokens in seconds.
-     *
-     * @param integer|string $duration
-     *     The duration of refresh tokens.
-     *
-     * @return Service
-     *     `$this` object.
-     */
-    public function setRefreshTokenDuration($duration)
-    {
-        ValidationUtility::ensureNullOrStringOrInteger('$duration', $duration);
-
-        $this->refreshTokenDuration = $duration;
-
-        return $this;
-    }
-
-
-    /**
-     * Get the duration of ID tokens in seconds.
-     *
-     * @return integer|string
-     *     The duration of ID tokens.
-     */
-    public function getIdTokenDuration()
-    {
-        return $this->idTokenDuration;
-    }
-
-
-    /**
-     * Set the duration of ID tokens in seconds.
-     *
-     * @param integer|string $duration
-     *     The duration of ID tokens.
-     *
-     * @return Service
-     *     `$this` object.
-     */
-    public function setIdTokenDuration($duration)
-    {
-        ValidationUtility::ensureNullOrStringOrInteger('$duration', $duration);
-
-        $this->idTokenDuration = $duration;
-
-        return $this;
-    }
-
-
-    /**
-     * Get the duration of authorization response JWTs in seconds.
-     *
-     * [Financial-grade API: JWT Secured Authorization Response Mode for OAuth 2.0 (JARM)](https://openid.net/specs/openid-financial-api-jarm.html)
-     * defines new values for the `response_mode` request parameter. They are
-     * `query.jwt`, `fragment.jwt`, `form_post.jwt` and `jwt`. If one of them
-     * is specified as the response mode, response parameters from the
-     * authorization endpoint will be packed into a JWT. This property is used
-     * to compute the value of the `exp` claim of the JWT.
-     *
-     * @return integer|string
-     *     The duration of authorization response JWTs in seconds.
-     *
-     * @since 1.7
-     */
-    public function getAuthorizationResponseDuration()
-    {
-        return $this->authorizationResponseDuration;
-    }
-
-
-    /**
-     * Set the duration of authorization response JWTs in seconds.
-     *
-     * [Financial-grade API: JWT Secured Authorization Response Mode for OAuth 2.0 (JARM)](https://openid.net/specs/openid-financial-api-jarm.html)
-     * defines new values for the `response_mode` request parameter. They are
-     * `query.jwt`, `fragment.jwt`, `form_post.jwt` and `jwt`. If one of them
-     * is specified as the response mode, response parameters from the
-     * authorization endpoint will be packed into a JWT. This property is used
-     * to compute the value of the `exp` claim of the JWT.
-     *
-     * @param integer|string $duration
-     *     The duration of authorization response JWTs in seconds.
-     *
-     * @return Service
-     *     `$this` object.
-     *
-     * @since 1.7
-     */
-    public function setAuthorizationResponseDuration($duration)
-    {
-        ValidationUtility::ensureNullOrStringOrInteger('$duration', $duration);
-
-        $this->authorizationResponseDuration = $duration;
 
         return $this;
     }
@@ -1756,7 +1617,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
 
 
     /**
-     * set the number of client applications that one developer can have.
+     * Set the number of client applications that one developer can have.
      *
      * @param integer $count
      *     The number of client applications that one developer can have.
@@ -2166,7 +2027,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      * @return boolean
      *     `true` if PKCE is always required for the authorization code flow.
      *
-     * @see https://tools.ietf.org/html/rfc7636 RFC 7636 (Proof Key for Code Exchange by OAuth Public Clients)
+     * @see https://tools.ietf.org/html/rfc7636 RFC 7636 Proof Key for Code Exchange by OAuth Public Clients
      */
     public function isPkceRequired()
     {
@@ -2185,13 +2046,66 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      * @return Service
      *     `$this` object.
      *
-     * @see https://tools.ietf.org/html/rfc7636 RFC 7636 (Proof Key for Code Exchange by OAuth Public Clients)
+     * @see https://tools.ietf.org/html/rfc7636 RFC 7636 Proof Key for Code Exchange by OAuth Public Clients
      */
     public function setPkceRequired($required)
     {
         ValidationUtility::ensureBoolean('$required', $required);
 
         $this->pkceRequired = $required;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the flag which indicates whether `S256` is always required as the
+     * code challenge method whenever PKCE is used.
+     *
+     * If this flag is `true`, `code_challenge_method=S256` must be included
+     * in the authorization request whenever it includes the `code_challenge`
+     * request parameter. Neither omission of `code_challenge_method` request
+     * parameter nor use of `plain` (`code_challenge_method=plain`) is allowed.
+     *
+     * @return boolean
+     *     `true` if `S256` is always required as the code challenge method
+     *     whenever PKCE is used.
+     *
+     * @see https://tools.ietf.org/html/rfc7636 RFC 7636 Proof Key for Code Exchange by OAuth Public Clients
+     *
+     * @since 1.8
+     */
+    public function isPkceS256Required()
+    {
+        return $this->pkceS256Required;
+    }
+
+
+    /**
+     * Set the flag which indicates whether `S256` is always required as the
+     * code challenge method whenever PKCE is used.
+     *
+     * If this flag is `true`, `code_challenge_method=S256` must be included
+     * in the authorization request whenever it includes the `code_challenge`
+     * request parameter. Neither omission of `code_challenge_method` request
+     * parameter nor use of `plain` (`code_challenge_method=plain`) is allowed.
+     *
+     * @param boolean $required
+     *     `true` to require `S256` as the code challenge method whenever PKCE
+     *     is used.
+     *
+     * @return Service
+     *     `$this` object.
+     *
+     * @see https://tools.ietf.org/html/rfc7636 RFC 7636 Proof Key for Code Exchange by OAuth Public Clients
+     *
+     * @since 1.8
+     */
+    public function setPkceS256Required($required)
+    {
+        ValidationUtility::ensureBoolean('$required', $required);
+
+        $this->pkceS256Required = $required;
 
         return $this;
     }
@@ -2231,6 +2145,45 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
         ValidationUtility::ensureBoolean('$kept', $kept);
 
         $this->refreshTokenKept = $kept;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the flag which indicates whether the remaining duration of the used
+     * refresh token is taken over to the newly issued one.
+     *
+     * @return boolean
+     *     `true` if the remaining duration of the used refresh token is taken
+     *     over to the newly issued one.
+     *
+     * @since 1.8
+     */
+    public function isRefreshTokenDurationKept()
+    {
+        return $this->refreshTokenDurationKept;
+    }
+
+
+    /**
+     * Set the flag which indicates whether the remaining duration of the used
+     * refresh token is taken over to the newly issued one.
+     *
+     * @param boolean $kept
+     *     `true` to indicate that the remaining duration of the used refresh
+     *     token is taken over to the newly issued one.
+     *
+     * @return Service
+     *     `$this` object.
+     *
+     * @since 1.8
+     */
+    public function setRefreshTokenDurationKept($kept)
+    {
+        ValidationUtility::ensureBoolean('$kept', $kept);
+
+        $this->refreshTokenDurationKept = $kept;
 
         return $this;
     }
@@ -2376,7 +2329,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      */
     public function getSupportedServiceProfiles()
     {
-        return $this->supportedResponseTypes;
+        return $this->supportedServiceProfiles;
     }
 
 
@@ -2450,49 +2403,12 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
 
 
     /**
-     * Get the flag which indicates whether to check if client certificates
-     * can be reached from pre-registered trusted root certificates.
-     *
-     * @return boolean
-     *     `true` if validation of client certificates is performed.
-     *
-     * @since 1.3
-     */
-    public function isMutualTlsValidatePkiCertChain()
-    {
-        return $this->mutualTlsValidatePkiCertChain;
-    }
-
-
-    /**
-     * Set the flag which indicates whether to check if client certificates
-     * can be reached from pre-registered trusted root certificates.
-     *
-     * @param boolean $enabled
-     *     `true` to perform validation of client certificates.
-     *
-     * @return Service
-     *     `$this` object.
-     *
-     * @since 1.3
-     */
-    public function setMutualTlsValidatePkiCertChain($enabled)
-    {
-        ValidationUtility::ensureBoolean('$enabled', $enabled);
-
-        $this->mutualTlsValidatePkiCertChain = $enabled;
-
-        return $this;
-    }
-
-
-    /**
      * Get the URI of the introspection endpoint.
      *
      * @return string
      *     The URI of the introspection endpoint.
      *
-     * @see https://tools.ietf.org/html/rfc7662 RFC 7662 (OAuth 2.0 Token Introspection)
+     * @see https://tools.ietf.org/html/rfc7662 RFC 7662 OAuth 2.0 Token Introspection
      */
     public function getIntrospectionEndpoint()
     {
@@ -2509,7 +2425,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      * @return Service
      *     `$this` object.
      *
-     * @see https://tools.ietf.org/html/rfc7662 RFC 7662 (OAuth 2.0 Token Introspection)
+     * @see https://tools.ietf.org/html/rfc7662 RFC 7662 OAuth 2.0 Token Introspection
      */
     public function setIntrospectionEndpoint($endpoint)
     {
@@ -2564,6 +2480,43 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
 
 
     /**
+     * Get the flag which indicates whether to check if client certificates
+     * can be reached from pre-registered trusted root certificates.
+     *
+     * @return boolean
+     *     `true` if validation of client certificates is performed.
+     *
+     * @since 1.3
+     */
+    public function isMutualTlsValidatePkiCertChain()
+    {
+        return $this->mutualTlsValidatePkiCertChain;
+    }
+
+
+    /**
+     * Set the flag which indicates whether to check if client certificates
+     * can be reached from pre-registered trusted root certificates.
+     *
+     * @param boolean $enabled
+     *     `true` to perform validation of client certificates.
+     *
+     * @return Service
+     *     `$this` object.
+     *
+     * @since 1.3
+     */
+    public function setMutualTlsValidatePkiCertChain($enabled)
+    {
+        ValidationUtility::ensureBoolean('$enabled', $enabled);
+
+        $this->mutualTlsValidatePkiCertChain = $enabled;
+
+        return $this;
+    }
+
+
+    /**
      * Get trusted root certificates.
      *
      * If `isMutualTlsValidatePkiCertChain()` returns `true`, pre-registered
@@ -2599,6 +2552,459 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
         ValidationUtility::ensureNullOrArrayOfString('$certificates', $certificates);
 
         $this->trustedRootCertificates = $certificates;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the flag which indicates whether dynamic client registration is
+     * supported.
+     *
+     * @return boolean
+     *     `true` if dynamic client registration is supported.
+     *
+     * @since 1.8
+     */
+    public function isDynamicRegistrationSupported()
+    {
+        return $this->dynamicRegistrationSupported;
+    }
+
+
+    /**
+     * Set the flag which indicates whether dynamic client registration is
+     * supported.
+     *
+     * @param boolean $supported
+     *     `true` to indicate that dynamic client registration is supported.
+     *
+     * @return Service
+     *     `$this` object.
+     *
+     * @since 1.8
+     */
+    public function setDynamicRegistrationSupported($supported)
+    {
+        ValidationUtility::ensureBoolean('$supported', $supported);
+
+        $this->dynamicRegistrationSupported = $supported;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the end session endpoint for the service. This endpoint is used
+     * by clients to signal to the IdP that the user's session should be
+     * terminated.
+     *
+     * @return string
+     *     The end session endpoint.
+     *
+     * @since 1.8
+     */
+    public function getEndSessionEndpoint()
+    {
+        return $this->endSessionEndpoint;
+    }
+
+
+    /**
+     * Set the end session endpoint for the service. This endpoint is used
+     * by clients to signal to the IdP that the user's session should be
+     * terminated.
+     *
+     * @param string $endpoint
+     *     The end session endpoint.
+     *
+     * @return Service
+     *     `$this` object.
+     *
+     * @since 1.8
+     */
+    public function setEndSessionEndpoint($endpoint)
+    {
+        ValidationUtility::ensureNullOrString('$endpoint', $endpoint);
+
+        $this->endSessionEndpoint = $endpoint;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the description about this service.
+     *
+     * @return string
+     *     The description about this service.
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+
+    /**
+     * Set the description about this service.
+     *
+     * @param string $description
+     *     The description about this service.
+     *
+     * @return Service
+     *     `$this` object.
+     */
+    public function setDescription($description)
+    {
+        ValidationUtility::ensureNullOrString('$description', $description);
+
+        $this->description = $description;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the token type of access tokens issued by this authorization server.
+     *
+     * It is the value of the `token_type` parameter in access token responses.
+     *
+     * @return string
+     *     The token type of access tokens.
+     *
+     * @see https://tools.ietf.org/html/rfc6749#section-5.1 RFC 6749, 5.1. Successful Response
+     */
+    public function getAccessTokenType()
+    {
+        return $this->accessTokenType;
+    }
+
+
+    /**
+     * Set the token type of access tokens issued by this authorization server.
+     *
+     * It is the value of the `token_type` parameter in access token responses.
+     * `Bearer` is recommended.
+     *
+     * @param string $type
+     *     The token type of access tokens.
+     *
+     * @return Service
+     *     `$this` object.
+     *
+     * @see https://tools.ietf.org/html/rfc6749#section-5.1 RFC 6749, 5.1. Successful Response
+     */
+    public function setAccessTokenType($type)
+    {
+        ValidationUtility::ensureNullOrString('$type', $type);
+
+        $this->accessTokenType = $type;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the signature algorithm of access tokens.
+     *
+     * When this method returns null, access tokens issued by this service
+     * are just random strings. On the other hand, when this method returns a
+     * non-null value, access tokens issued by this service are JWTs and the
+     * value returned from this method represents the signature algorithm of
+     * the JWTs.
+     *
+     * @return JWSAlg
+     *     The signature algorithm of JWT-based access tokens.
+     *
+     * @since 1.8
+     */
+    public function getAccessTokenSignAlg()
+    {
+        return $this->accessTokenSignAlg;
+    }
+
+
+    /**
+     * Set the signature algorithm of access tokens.
+     *
+     * When null is set, access tokens issued by this service are just random
+     * strings. On the other hand, when a non-null value is set, access tokens
+     * issued by this service are JWTs and the value set by this method is used
+     * as the signature algorithm of the JWTs.
+     *
+     * @param JWSAlg $alg
+     *     The signature algorithm of JWT-based access tokens. Note that
+     *     symmetric algorithms (`HS256`, `HS384` and `HS512`) are not
+     *     supported.
+     *
+     * @return Service
+     *     `$this` object.
+     *
+     * @since 1.8
+     */
+    public function setAccessTokenSignAlg(JWSAlg $alg = null)
+    {
+        $this->accessTokenSignAlg = $alg;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the duration of access tokens in seconds.
+     *
+     * It is the value of the `expires_in` parameter in access token responses.
+     *
+     * @return integer|string
+     *     The duration of access tokens.
+     *
+     * @see https://tools.ietf.org/html/rfc6749#section-5.1 RFC 6749, 5.1. Successful Response
+     */
+    public function getAccessTokenDuration()
+    {
+        return $this->accessTokenDuration;
+    }
+
+
+    /**
+     * Set the duration of access tokens in seconds.
+     *
+     * It is the value of the `expires_in` parameter in access token responses.
+     *
+     * @param integer|string $duration
+     *     The duration of access tokens.
+     *
+     * @return Service
+     *     `$this` object.
+     *
+     * @see https://tools.ietf.org/html/rfc6749#section-5.1 RFC 6749, 5.1. Successful Response
+     */
+    public function setAccessTokenDuration($duration)
+    {
+        ValidationUtility::ensureNullOrStringOrInteger('$duration', $duration);
+
+        $this->accessTokenDuration = $duration;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the duration of refresh tokens in seconds.
+     *
+     * @return integer|string
+     *     The duration of refresh tokens.
+     */
+    public function getRefreshTokenDuration()
+    {
+        return $this->refreshTokenDuration;
+    }
+
+
+    /**
+     * Set the duration of refresh tokens in seconds.
+     *
+     * @param integer|string $duration
+     *     The duration of refresh tokens.
+     *
+     * @return Service
+     *     `$this` object.
+     */
+    public function setRefreshTokenDuration($duration)
+    {
+        ValidationUtility::ensureNullOrStringOrInteger('$duration', $duration);
+
+        $this->refreshTokenDuration = $duration;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the duration of ID tokens in seconds.
+     *
+     * @return integer|string
+     *     The duration of ID tokens.
+     */
+    public function getIdTokenDuration()
+    {
+        return $this->idTokenDuration;
+    }
+
+
+    /**
+     * Set the duration of ID tokens in seconds.
+     *
+     * @param integer|string $duration
+     *     The duration of ID tokens.
+     *
+     * @return Service
+     *     `$this` object.
+     */
+    public function setIdTokenDuration($duration)
+    {
+        ValidationUtility::ensureNullOrStringOrInteger('$duration', $duration);
+
+        $this->idTokenDuration = $duration;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the duration of authorization response JWTs in seconds.
+     *
+     * [Financial-grade API: JWT Secured Authorization Response Mode for OAuth 2.0 (JARM)](https://openid.net/specs/openid-financial-api-jarm.html)
+     * defines new values for the `response_mode` request parameter. They are
+     * `query.jwt`, `fragment.jwt`, `form_post.jwt` and `jwt`. If one of them
+     * is specified as the response mode, response parameters from the
+     * authorization endpoint will be packed into a JWT. This property is used
+     * to compute the value of the `exp` claim of the JWT.
+     *
+     * @return integer|string
+     *     The duration of authorization response JWTs in seconds.
+     *
+     * @since 1.7
+     */
+    public function getAuthorizationResponseDuration()
+    {
+        return $this->authorizationResponseDuration;
+    }
+
+
+    /**
+     * Set the duration of authorization response JWTs in seconds.
+     *
+     * [Financial-grade API: JWT Secured Authorization Response Mode for OAuth 2.0 (JARM)](https://openid.net/specs/openid-financial-api-jarm.html)
+     * defines new values for the `response_mode` request parameter. They are
+     * `query.jwt`, `fragment.jwt`, `form_post.jwt` and `jwt`. If one of them
+     * is specified as the response mode, response parameters from the
+     * authorization endpoint will be packed into a JWT. This property is used
+     * to compute the value of the `exp` claim of the JWT.
+     *
+     * @param integer|string $duration
+     *     The duration of authorization response JWTs in seconds.
+     *
+     * @return Service
+     *     `$this` object.
+     *
+     * @since 1.7
+     */
+    public function setAuthorizationResponseDuration($duration)
+    {
+        ValidationUtility::ensureNullOrStringOrInteger('$duration', $duration);
+
+        $this->authorizationResponseDuration = $duration;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the duration of pushed authorization requests in seconds.
+     *
+     * "OAuth 2.0 Pushed Authorization Requests" (PAR) defines an endpoint
+     * (called "pushed authorization request endpoint") which client
+     * applications can register authorization requests into and get
+     * corresponding URIs (called "request URIs") from. The issued URIs
+     * represent the registered authorization requests. client applications
+     * can use the URIs as the value of the `request_uri` request parameter
+     * in an authorization request.
+     *
+     * The value returned from this method represents the duration of
+     * registered authorization requests and is used as the value of the
+     * `expires_in` parameter in responses from the pushed authorization
+     * request endpoint.
+     *
+     * @return integer|string
+     *     The duration of pushed authorization requests in seconds.
+     *
+     * @since 1.8
+     */
+    public function getPushedAuthReqDuration()
+    {
+        return $this->pushedAuthReqDuration;
+    }
+
+
+    /**
+     * Set the duration of pushed authorization requests in seconds.
+     *
+     * "OAuth 2.0 Pushed Authorization Requests" (PAR) defines an endpoint
+     * (called "pushed authorization request endpoint") which client
+     * applications can register authorization requests into and get
+     * corresponding URIs (called "request URIs") from. The issued URIs
+     * represent the registered authorization requests. client applications
+     * can use the URIs as the value of the `request_uri` request parameter
+     * in an authorization request.
+     *
+     * The value given to this method represents the duration of registered
+     * authorization requests and is used as the value of the `expires_in`
+     * parameter in responses from the pushed authorization request endpoint.
+     *
+     * @param integer|string $duration
+     *     The duration of pushed authorization requests in seconds.
+     *
+     * @return Service
+     *     `$this` object.
+     *
+     * @since 1.8
+     */
+    public function setPushedAuthReqDuration($duration)
+    {
+        ValidationUtility::ensureNullOrStringOrInteger('$duration', $duration);
+
+        $this->pushedAuthReqDuration = $duration;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the key ID to identify a JWK used for signing access tokens.
+     *
+     * A JWK Set can be registered as a property of a `Service`. A JWK Set
+     * can contain 0 or more JWKs. Authlete Server has to pick one JWK for
+     * signing from the JWK Set when it generates a JWT-based access token.
+     * Authlete Server searches the registered JWK Set for a JWK which
+     * satisfies conditions for access token signature. If the number of
+     * JWK candidates which satisfy the conditions is 1, there is no problem.
+     * On the other hand, if there exist multiple candidates, a Key ID is
+     * needed to be specified so that Authlete Server can pick up one JWK
+     * from among the JWK candidates.
+     *
+     * This `accessTokenSignatureKeyId` property exists for the purpose
+     * described above.
+     *
+     * @return string
+     *     A key ID of a JWK. This may be `null`.
+     *
+     * @since 1.8
+     */
+    public function getAccessTokenSignatureKeyId()
+    {
+        return $this->accessTokenSignatureKeyId;
+    }
+
+
+    /**
+     * Set the key ID to identify a JWK used for signing access tokens.
+     *
+     * See the description of `getAccessTokenSignatureKeyId()` for details.
+     *
+     * @param string $keyId
+     *     A key ID of a JWK. This may be `null`.
+     *
+     * @return Service
+     *     `$this` object.
+     *
+     * @since 1.8
+     */
+    public function setAccessTokenSignatureKeyId($keyId)
+    {
+        ValidationUtility::ensureNullOrString('$keyId', $keyId);
+
+        $this->accessTokenSignatureKeyId = $keyId;
 
         return $this;
     }
@@ -2715,7 +3121,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
     }
 
 
-   /**
+    /**
      * Get the key ID to identify a JWK used for ID user info signature using
      * an asymmetric key.
      *
@@ -2773,6 +3179,1071 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
 
 
     /**
+     * Get the supported backchannel token delivery modes. This property
+     * corresponds to the `backchannel_token_delivery_modes_supported`
+     * metadata defined in CIBA.
+     *
+     * @return DeliveryMode[]
+     *     Supported backchannel token delivery modes.
+     *
+     * @see https://openid.net/specs/openid-client-initiated-backchannel-authentication-core-1_0.html Client Initiated Backchannel Authentication
+     *
+     * @since 1.8
+     */
+    public function getSupportedBackchannelTokenDeliveryModes()
+    {
+        return $this->supportedBackchannelTokenDeliveryModes;
+    }
+
+
+    /**
+     * Set the supported backchannel token delivery modes. This property
+     * corresponds to the `backchannel_token_delivery_modes_supported`
+     * metadata defined in CIBA.
+     *
+     * @param DeliveryMode[] $modes
+     *     Supported backchannel token delivery modes.
+     *
+     * @return Service
+     *     `$this` object.
+     *
+     * @see https://openid.net/specs/openid-client-initiated-backchannel-authentication-core-1_0.html Client Initiated Backchannel Authentication
+     *
+     * @since 1.8
+     */
+    public function setSupportedBackchannelTokenDeliveryModes(array $modes = null)
+    {
+        ValidationUtility::ensureNullOrArrayOfType(
+            '$modes', $modes, '\Authlete\Types\DeliveryMode');
+
+        $this->supportedBackchannelTokenDeliveryModes = $modes;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the URI of the backchannel authentication endpoint.
+     *
+     * @return string
+     *     The URI of the backchannel authentication endpoint.
+     *
+     * @see https://openid.net/specs/openid-client-initiated-backchannel-authentication-core-1_0.html Client Initiated Backchannel Authentication
+     *
+     * @since 1.8
+     */
+    public function getBackchannelAuthenticationEndpoint()
+    {
+        return $this->backchannelAuthenticationEndpoint;
+    }
+
+
+    /**
+     * Set the URI of the backchannel authentication endpoint.
+     *
+     * @param string $endpoint
+     *     The URI of the backchannel authentication endpoint.
+     *
+     * @return Service
+     *     `$this` object.
+     *
+     * @see https://openid.net/specs/openid-client-initiated-backchannel-authentication-core-1_0.html Client Initiated Backchannel Authentication
+     *
+     * @since 1.8
+     */
+    public function setBackchannelAuthenticationEndpoint($endpoint)
+    {
+        ValidationUtility::ensureNullOrString('$endpoint', $endpoint);
+
+        $this->backchannelAuthenticationEndpoint = $endpoint;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the flag which indicates whether the `user_code` request parameter
+     * is supported at the backchannel authentication endpoint. This property
+     * corresponds to the `backchannel_user_code_parameter_supported` metadata.
+     *
+     * @return boolean
+     *     `true` if the `user_code` request parameter is supported at the
+     *     backchannel authentication endpoint.
+     *
+     * @see https://openid.net/specs/openid-client-initiated-backchannel-authentication-core-1_0.html Client Initiated Backchannel Authentication
+     *
+     * @since 1.8
+     */
+    public function isBackchannelUserCodeParameterSupported()
+    {
+        return $this->backchannelUserCodeParameterSupported;
+    }
+
+
+    /**
+     * Set the flag which indicates whether the `user_code` request parameter
+     * is supported at the backchannel authentication endpoint. This property
+     * corresponds to the `backchannel_user_code_parameter_supported` metadata.
+     *
+     * @param boolean $supported
+     *     `true` to indicate that the `user_code` request parameter is
+     *     supported at the backchannel authentication endpoint.
+     *
+     * @return Service
+     *     `$this` object.
+     *
+     * @see https://openid.net/specs/openid-client-initiated-backchannel-authentication-core-1_0.html Client Initiated Backchannel Authentication
+     *
+     * @since 1.8
+     */
+    public function setBackchannelUserCodeParameterSupported($supported)
+    {
+        ValidationUtility::ensureBoolean('$supported', $supported);
+
+        $this->backchannelUserCodeParameterSupported = $supported;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the duration of backchannel authentication request IDs issued from
+     * the backchannel authentication endpoint in seconds. This is used as the
+     * value of the `expires_in` property in responses from the backchannel
+     * authentication endpoint.
+     *
+     * @return integer|string
+     *     The duration of backchannel authentication request IDs in seconds.
+     *
+     * @see https://openid.net/specs/openid-client-initiated-backchannel-authentication-core-1_0.html Client Initiated Backchannel Authentication
+     *
+     * @since 1.8
+     */
+    public function getBackchannelAuthReqIdDuration()
+    {
+        return $this->backchannelAuthReqIdDuration;
+    }
+
+
+    /**
+     * Set the duration of backchannel authentication request IDs issued from
+     * the backchannel authentication endpoint in seconds. This is used as the
+     * value of the `expires_in` property in responses from the backchannel
+     * authentication endpoint.
+     *
+     * @param integer|string $duration
+     *     The duration of backchannel authentication request IDs in seconds.
+     *
+     * @return Service
+     *     `$this` object.
+     *
+     * @see https://openid.net/specs/openid-client-initiated-backchannel-authentication-core-1_0.html Client Initiated Backchannel Authentication
+     *
+     * @since 1.8
+     */
+    public function setBackchannelAuthReqIdDuration($duration)
+    {
+        ValidationUtility::ensureNullOrStringOrInteger('$duration', $duration);
+
+        $this->backchannelAuthReqIdDuration = $duration;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the minimum interval between polling requests to the token endpoint
+     * from client applications in seconds. This is used as the value of the
+     * `interval` property in responses from the backchannel authentication
+     * endpoint.
+     *
+     * @return integer
+     *     The minimum interval between polling requests in seconds.
+     *
+     * @see https://openid.net/specs/openid-client-initiated-backchannel-authentication-core-1_0.html Client Initiated Backchannel Authentication
+     *
+     * @since 1.8
+     */
+    public function getBackchannelPollingInterval()
+    {
+        return $this->backchannelPollingInterval;
+    }
+
+
+    /**
+     * Set the minimum interval between polling requests to the token endpoint
+     * from client applications in seconds. This is used as the value of the
+     * `interval` property in responses from the backchannel authentication
+     * endpoint.
+     *
+     * @param integer $interval
+     *     The minimum interval between polling requests in seconds.
+     *
+     * @return Service
+     *     `$this` object.
+     *
+     * @see https://openid.net/specs/openid-client-initiated-backchannel-authentication-core-1_0.html Client Initiated Backchannel Authentication
+     *
+     * @since 1.8
+     */
+    public function setBackchannelPollingInterval($interval)
+    {
+        ValidationUtility::ensureInteger('$interval', $interval);
+
+        $this->backchannelPollingInterval = $interval;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the flag which indicates whether the `binding_message` request
+     * parameter is always required whenever a backchannel authentication
+     * request is judged as a request for Financial-grade API.
+     *
+     * @return boolean
+     *     `true` if the `binding_message` request parameter is required
+     *     whenever a backchannel authentication request is judged as a
+     *     request for Financial-grade API.
+     *
+     * @since 1.8
+     */
+    public function isBackchannelBindingMessageRequiredInFapi()
+    {
+        return $this->backchannelBindingMessageRequiredInFapi;
+    }
+
+
+    /**
+     * Set the flag which indicates whether the `binding_message` request
+     * parameter is always required whenever a backchannel authentication
+     * request is judged as a request for Financial-grade API.
+     *
+     * The FAPI-CIBA profile requires that the authorization server <i>"shall
+     * ensure unique authorization context exists in the authorization request
+     * or require a `binding_message` in the authorization request"</i>
+     * (FAPI-CIBA, 5.2.2., 2). The simplest way to fulfill this requirement
+     * is to set `true` to this property.
+     *
+     * If `false` is set to this property, the `binding_message` request
+     * parameter remains optional even in FAPI context, but in exchange,
+     * your authorization server must implement a custom mechanism that
+     * ensures each backchannel authentication request has unique context.
+     *
+     * @param boolean $required
+     *     `true` to require the `binding_message` request parameter whenever
+     *     a backchannel authentication request is judged as a request for
+     *     Financial-grade API.
+     *
+     * @return Service
+     *     `$this` object.
+     *
+     * @since 1.8
+     */
+    public function setBackchannelBindingMessageRequiredInFapi($required)
+    {
+        ValidationUtility::ensureBoolean('$required', $required);
+
+        $this->backchannelBindingMessageRequiredInFapi = $required;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the allowable clock skew between the server and clients in seconds.
+     *
+     * The clock skew is taken into consideration when time-related claims in
+     * a JWT (e.g. `exp`, `iat` and `nbf`) are verified.
+     *
+     * @return integer
+     *     Allowable clock skew in seconds.
+     *
+     * @since 1.8
+     */
+    public function getAllowableClockSkew()
+    {
+        return $this->allowableClockSkew;
+    }
+
+
+    /**
+     * Get the allowable clock skew between the server and clients in seconds.
+     *
+     * The clock skew is taken into consideration when time-related claims in
+     * a JWT (e.g. `exp`, `iat` and `nbf`) are verified.
+     *
+     * @param integer $seconds
+     *     Allowable clock skew in seconds. Must be in between 0 and 65535.
+     *
+     * @return Service
+     *     `$this` object.
+     *
+     * @since 1.8
+     */
+    public function setAllowableClockSkew($seconds)
+    {
+        ValidationUtility::ensureInteger('$seconds', $seconds);
+
+        $this->allowableClockSkew = $seconds;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the URI of the device authorization endpoint.
+     *
+     * @return string
+     *     The URI of the device authorization endpoint.
+     *
+     * @see https://tools.ietf.org/html/rfc8628 RFC 8628 OAuth 2.0 Device Authorization Grant
+     *
+     * @since 1.8
+     */
+    public function getDeviceAuthorizationEndpoint()
+    {
+        return $this->deviceAuthorizationEndpoint;
+    }
+
+
+    /**
+     * Set the URI of the device authorization endpoint.
+     *
+     * @param string $endpoint
+     *     The URI of the device authorization endpoint.
+     *
+     * @return Service
+     *     `$this` object.
+     *
+     * @see https://tools.ietf.org/html/rfc8628 RFC 8628 OAuth 2.0 Device Authorization Grant
+     *
+     * @since 1.8
+     */
+    public function setDeviceAuthorizationEndpoint($endpoint)
+    {
+        ValidationUtility::ensureNullOrString('$endpoint', $endpoint);
+
+        $this->deviceAuthorizationEndpoint = $endpoint;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the verification URI for the device flow. This URI is used as the
+     * value of the `verification_uri` parameter in responses from the device
+     * authorization endpoint.
+     *
+     * @return string
+     *     The verification URI.
+     *
+     * @see https://tools.ietf.org/html/rfc8628 RFC 8628 OAuth 2.0 Device Authorization Grant
+     *
+     * @since 1.8
+     */
+    public function getDeviceVerificationUri()
+    {
+        return $this->deviceVerificationUri;
+    }
+
+
+    /**
+     * Set the verification URI for the device flow. This URI is used as the
+     * value of the `verification_uri` parameter in responses from the device
+     * authorization endpoint.
+     *
+     * @param string $uri
+     *     The verification URI.
+     *
+     * @return Service
+     *     `$this` object.
+     *
+     * @see https://tools.ietf.org/html/rfc8628 RFC 8628 OAuth 2.0 Device Authorization Grant
+     *
+     * @since 1.8
+     */
+    public function setDeviceVerificationUri($uri)
+    {
+        ValidationUtility::ensureNullOrString('$uri', $uri);
+
+        $this->deviceVerificationUri = $uri;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the verification URI for the device flow with a placeholder for a
+     * user code. This URI is used to build the value of the
+     * `verification_uri_complete` parameter in responses from the device
+     * authorization endpoint.
+     *
+     * @return string
+     *     The verification URI with a placeholder for a user code.
+     *
+     * @see https://tools.ietf.org/html/rfc8628 RFC 8628 OAuth 2.0 Device Authorization Grant
+     *
+     * @since 1.8
+     */
+    public function getDeviceVerificationUriComplete()
+    {
+        return $this->deviceVerificationUriComplete;
+    }
+
+
+    /**
+     * Set the verification URI for the device flow with a placeholder for a
+     * user code. This URI is used to build the value of the
+     * `verification_uri_complete` parameter in responses from the device
+     * authorization endpoint.
+     *
+     * It is expected that the URI contains a fixed string `USER_CODE`
+     * somewhere as a placeholder for a user code. For example,
+     * `https://example.com/device?user_code=USER_CODE`.
+     *
+     * The fixed string is replaced with an actual user code when Authlete
+     * builds a verification URI with a user code for the
+     * `verification_uri_complete` parameter.
+     *
+     * If this URI is not set, the `verification_uri_complete` parameter won't
+     * appear in device authorization responses.
+     *
+     * @param string $uri
+     *     The verification URI with a placeholder for a user code.
+     *
+     * @return Service
+     *     `$this` object.
+     *
+     * @see https://tools.ietf.org/html/rfc8628 RFC 8628 OAuth 2.0 Device Authorization Grant
+     *
+     * @since 1.8
+     */
+    public function setDeviceVerificationUriComplete($uri)
+    {
+        ValidationUtility::ensureNullOrString('$uri', $uri);
+
+        $this->deviceVerificationUriComplete = $uri;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the duration of device verification codes and end-user verification
+     * codes issued from the device authorization endpoint in seconds. This is
+     * used as the value of the `expires_in` property in responses from the
+     * device authorization endpoint.
+     *
+     * @return integer|string
+     *     The duration of device verification codes and end-user verification
+     *     codes in seconds.
+     *
+     * @see https://tools.ietf.org/html/rfc8628 RFC 8628 OAuth 2.0 Device Authorization Grant
+     *
+     * @since 1.8
+     */
+    public function getDeviceFlowCodeDuration()
+    {
+        return $this->deviceFlowCodeDuration;
+    }
+
+
+    /**
+     * Set the duration of device verification codes and end-user verification
+     * codes issued from the device authorization endpoint in seconds. This is
+     * used as the value of the `expires_in` property in responses from the
+     * device authorization endpoint.
+     *
+     * @param integer|string $duration
+     *     The duration of device verification codes and end-user verification
+     *     codes in seconds.
+     *
+     * @return Service
+     *     `$this` object.
+     *
+     * @see https://tools.ietf.org/html/rfc8628 RFC 8628 OAuth 2.0 Device Authorization Grant
+     *
+     * @since 1.8
+     */
+    public function setDeviceFlowCodeDuration($duration)
+    {
+        ValidationUtility::ensureNullOrStringOrInteger('$duration', $duration);
+
+        $this->deviceFlowCodeDuration = $duration;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the minimum interval between polling requests to the token endpoint
+     * from client applications in seconds. This is used as the value of the
+     * `interval` property in responses from the device authorization endpoint.
+     *
+     * @return integer
+     *     The minimum interval between polling requests in seconds.
+     *
+     * @see https://tools.ietf.org/html/rfc8628 RFC 8628 OAuth 2.0 Device Authorization Grant
+     *
+     * @since 1.8
+     */
+    public function getDeviceFlowPollingInterval()
+    {
+        return $this->deviceFlowPollingInterval;
+    }
+
+
+    /**
+     * Set the minimum interval between polling requests to the token endpoint
+     * from client applications in seconds. This is used as the value of the
+     * `interval` property in responses from the device authorization endpoint.
+     *
+     * @param integer $interval
+     *     The minimum interval between polling requests in seconds.
+     *
+     * @return Service
+     *     `$this` object.
+     *
+     * @see https://tools.ietf.org/html/rfc8628 RFC 8628 OAuth 2.0 Device Authorization Grant
+     *
+     * @since 1.8
+     */
+    public function setDeviceFlowPollingInterval($interval)
+    {
+        ValidationUtility::ensureInteger('$interval', $interval);
+
+        $this->deviceFlowPollingInterval = $interval;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the character set for end-user verification codes (`user_code`)
+     * for the device flow.
+     *
+     * @return UserCodeCharset
+     *     The character set for end-user verification codes.
+     *
+     * @see https://tools.ietf.org/html/rfc8628 RFC 8628 OAuth 2.0 Device Authorization Grant
+     *
+     * @since 1.8
+     */
+    public function getUserCodeCharset()
+    {
+        return $this->userCodeCharset;
+    }
+
+
+    /**
+     * Set the character set for end-user verification codes (`user_code`)
+     * for the device flow.
+     *
+     * @param UserCodeCharset $charset
+     *     The character set for end-user verification codes.
+     *
+     * @return Service
+     *     `$this` object.
+     *
+     * @see https://tools.ietf.org/html/rfc8628 RFC 8628 OAuth 2.0 Device Authorization Grant
+     *
+     * @since 1.8
+     */
+    public function setUserCodeCharset(UserCodeCharset $charset = null)
+    {
+        $this->userCodeCharset = $charset;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the length of end-user verification codes (`user_code`) for the
+     * device flow.
+     *
+     * @return integer
+     *     The length of end-user verification codes.
+     *
+     * @see https://tools.ietf.org/html/rfc8628 RFC 8628 OAuth 2.0 Device Authorization Grant
+     *
+     * @since 1.8
+     */
+    public function getUserCodeLength()
+    {
+        return $this->userCodeLength;
+    }
+
+
+    /**
+     * Set the length of end-user verification codes (`user_code`) for the
+     * device flow.
+     *
+     * @param integer $length
+     *     The length of end-user verification codes. The value must not be
+     *     negative and must not be greater than 255.
+     *
+     * @return Service
+     *     `$this` object.
+     *
+     * @see https://tools.ietf.org/html/rfc8628 RFC 8628 OAuth 2.0 Device Authorization Grant
+     *
+     * @since 1.8
+     */
+    public function setUserCodeLength($length)
+    {
+        ValidationUtility::ensureInteger('$length', $length);
+
+        $this->userCodeLength = $length;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the URI of the pushed authorization request endpoint. This property
+     * corresponds to the `pushed_authorization_request_endpoint` metadata
+     * defined in "OAuth 2.0 Pushed Authorization Requests".
+     *
+     * @return string
+     *     The URI of the pushed authorization request endpoint.
+     *
+     * @since 1.8
+     */
+    public function getPushedAuthReqEndpoint()
+    {
+        return $this->pushedAuthReqEndpoint;
+    }
+
+
+    /**
+     * Set the URI of the pushed authorization request endpoint. This property
+     * corresponds to the `pushed_authorization_request_endpoint` metadata
+     * defined in "OAuth 2.0 Pushed Authorization Requests".
+     *
+     * @param string $endpoint
+     *     The URI of the pushed authorization request endpoint.
+     *
+     * @return Service
+     *     `$this` object.
+     *
+     * @since 1.8
+     */
+    public function setPushedAuthReqEndpoint($endpoint)
+    {
+        ValidationUtility::ensureNullOrString('$endpoint', $endpoint);
+
+        $this->pushedAuthReqEndpoint = $endpoint;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the MTLS endpoint aliases.
+     *
+     * This property corresponds to the `mtls_endpoint_aliases` metadata
+     * defined in [RFC 8705](https://www.rfc-editor.org/rfc/rfc8705.html).
+     *
+     * @return NamedUri[]
+     *     MTLS endpoint aliases.
+     *
+     * @see https://www.rfc-editor.org/rfc/rfc8705.html RFC 8705 OAuth 2.0 Mutual-TLS Client Authentication and Certificate-Bound Access Tokens
+     *
+     * @since 1.8
+     */
+    public function getMtlsEndpointAliases()
+    {
+        return $this->mtlsEndpointAliases;
+    }
+
+
+    /**
+     * Set the MTLS endpoint aliases.
+     *
+     * This property corresponds to the `mtls_endpoint_aliases` metadata
+     * defined in [RFC 8705](https://www.rfc-editor.org/rfc/rfc8705.html).
+     *
+     * @param NamedUri[] $aliases
+     *     MTLS endpoint aliases.
+     *
+     * @return Service
+     *     `$this` object.
+     *
+     * @see https://www.rfc-editor.org/rfc/rfc8705.html RFC 8705 OAuth 2.0 Mutual-TLS Client Authentication and Certificate-Bound Access Tokens
+     *
+     * @since 1.8
+     */
+    public function setMtlsEndpointAliases(array $aliases = null)
+    {
+        ValidationUtility::ensureNullOrArrayOfType(
+            '$aliases', $aliases, __NAMESPACE__ . '\NamedUri');
+
+        $this->mtlsEndpointAliases = $aliases;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the supported data types that can be used as values of the `type`
+     * field in `authorization_details`.
+     *
+     * This property corresponds to the `authorization_data_types_supported`
+     * metadata defined in "OAuth 2.0 Rich Authorization Requests".
+     *
+     * @return string[]
+     *     Supported data types.
+     *
+     * @since 1.8
+     */
+    public function getSupportedAuthorizationDataTypes()
+    {
+        return $this->supportedAuthorizationDataTypes;
+    }
+
+
+    /**
+     * Set the supported data types that can be used as values of the `type`
+     * field in `authorization_details`.
+     *
+     * This property corresponds to the `authorization_data_types_supported`
+     * metadata defined in "OAuth 2.0 Rich Authorization Requests".
+     *
+     * @param string[] $types
+     *     Supported data types.
+     *
+     * @return Service
+     *     `$this` object.
+     *
+     * @since 1.8
+     */
+    public function setSupportedAuthorizationDataTypes(array $types = null)
+    {
+        ValidationUtility::ensureNullOrArrayOfString('$types', $types);
+
+        $this->supportedAuthorizationDataTypes = $types;
+
+        return $this;
+    }
+
+
+    /**
+     * Get trust frameworks supported by this service.
+     *
+     * This property corresponds to the `trust_frameworks_supported`
+     * metadata defined in "OpenID Connect for Identity Assurance 1.0".
+     *
+     * @return string[]
+     *     Supported trust frameworks.
+     *
+     * @see https://openid.net/specs/openid-connect-4-identity-assurance-1_0.html OpenID Connect for Identity Assurance 1.0
+     *
+     * @since 1.8
+     */
+    public function getSupportedTrustFrameworks()
+    {
+        return $this->supportedTrustFrameworks;
+    }
+
+
+    /**
+     * Set trust frameworks supported by this service.
+     *
+     * This property corresponds to the `trust_frameworks_supported`
+     * metadata defined in "OpenID Connect for Identity Assurance 1.0".
+     *
+     * @param string[] $frameworks
+     *     Supported trust frameworks.
+     *
+     * @return Service
+     *     `$this` object.
+     *
+     * @see https://openid.net/specs/openid-connect-4-identity-assurance-1_0.html OpenID Connect for Identity Assurance 1.0
+     *
+     * @since 1.8
+     */
+    public function setSupportedTrustFrameworks(array $frameworks = null)
+    {
+        ValidationUtility::ensureNullOrArrayOfString('$frameworks', $frameworks);
+
+        $this->supportedTrustFrameworks = $frameworks;
+
+        return $this;
+    }
+
+
+    /**
+     * Get evidence supported by this service.
+     *
+     * This property corresponds to the `evidence_supported`
+     * metadata defined in "OpenID Connect for Identity Assurance 1.0".
+     *
+     * @return string[]
+     *     Supported evidence.
+     *
+     * @see https://openid.net/specs/openid-connect-4-identity-assurance-1_0.html OpenID Connect for Identity Assurance 1.0
+     *
+     * @since 1.8
+     */
+    public function getSupportedEvidence()
+    {
+        return $this->supportedEvidence;
+    }
+
+
+    /**
+     * Set evidence supported by this service.
+     *
+     * This property corresponds to the `evidence_supported`
+     * metadata defined in "OpenID Connect for Identity Assurance 1.0".
+     *
+     * @param string[] $evidence
+     *     Supported evidence.
+     *
+     * @return Service
+     *     `$this` object.
+     *
+     * @see https://openid.net/specs/openid-connect-4-identity-assurance-1_0.html OpenID Connect for Identity Assurance 1.0
+     *
+     * @since 1.8
+     */
+    public function setSupportedEvidence(array $evidence = null)
+    {
+        ValidationUtility::ensureNullOrArrayOfString('$evidence', $evidence);
+
+        $this->supportedEvidence = $evidence;
+
+        return $this;
+    }
+
+
+    /**
+     * Get identity documents supported by this service.
+     *
+     * This property corresponds to the `id_documents_supported`
+     * metadata defined in "OpenID Connect for Identity Assurance 1.0".
+     *
+     * @return string[]
+     *     Supported identity documents.
+     *
+     * @see https://openid.net/specs/openid-connect-4-identity-assurance-1_0.html OpenID Connect for Identity Assurance 1.0
+     *
+     * @since 1.8
+     */
+    public function getSupportedIdentityDocuments()
+    {
+        return $this->supportedIdentityDocuments;
+    }
+
+
+    /**
+     * Set identity documents supported by this service.
+     *
+     * This property corresponds to the `id_documents_supported`
+     * metadata defined in "OpenID Connect for Identity Assurance 1.0".
+     *
+     * @param string[] $documents
+     *     Supported identity documents.
+     *
+     * @return Service
+     *     `$this` object.
+     *
+     * @see https://openid.net/specs/openid-connect-4-identity-assurance-1_0.html OpenID Connect for Identity Assurance 1.0
+     *
+     * @since 1.8
+     */
+    public function setSupportedIdentityDocuments(array $documents = null)
+    {
+        ValidationUtility::ensureNullOrArrayOfString('$documents', $documents);
+
+        $this->supportedIdentityDocuments = $documents;
+
+        return $this;
+    }
+
+
+    /**
+     * Get verification methods supported by this service.
+     *
+     * This property corresponds to the `id_documents_verification_methods_supported`
+     * metadata defined in "OpenID Connect for Identity Assurance 1.0".
+     *
+     * @return string[]
+     *     Supported verification methods.
+     *
+     * @see https://openid.net/specs/openid-connect-4-identity-assurance-1_0.html OpenID Connect for Identity Assurance 1.0
+     *
+     * @since 1.8
+     */
+    public function getSupportedVerificationMethods()
+    {
+        return $this->supportedVerificationMethods;
+    }
+
+
+    /**
+     * Set verification methods supported by this service.
+     *
+     * This property corresponds to the `id_documents_verification_methods_supported`
+     * metadata defined in "OpenID Connect for Identity Assurance 1.0".
+     *
+     * @param string[] $methods
+     *     Supported verification methods.
+     *
+     * @return Service
+     *     `$this` object.
+     *
+     * @see https://openid.net/specs/openid-connect-4-identity-assurance-1_0.html OpenID Connect for Identity Assurance 1.0
+     *
+     * @since 1.8
+     */
+    public function setSupportedVerificationMethods(array $methods = null)
+    {
+        ValidationUtility::ensureNullOrArrayOfString('$methods', $methods);
+
+        $this->supportedVerificationMethods = $methods;
+
+        return $this;
+    }
+
+
+    /**
+     * Get verified claims supported by this service.
+     *
+     * This property corresponds to the `claims_in_verified_claims_supported`
+     * metadata defined in "OpenID Connect for Identity Assurance 1.0".
+     *
+     * @return string[]
+     *     Supported verified claims.
+     *
+     * @see https://openid.net/specs/openid-connect-4-identity-assurance-1_0.html OpenID Connect for Identity Assurance 1.0
+     *
+     * @since 1.8
+     */
+    public function getSupportedVerifiedClaims()
+    {
+        return $this->supportedVerifiedClaims;
+    }
+
+
+    /**
+     * Set verified claims supported by this service.
+     *
+     * This property corresponds to the `claims_in_verified_claims_supported`
+     * metadata defined in "OpenID Connect for Identity Assurance 1.0".
+     *
+     * @param string[] $claims
+     *     Supported verified claims.
+     *
+     * @return Service
+     *     `$this` object.
+     *
+     * @see https://openid.net/specs/openid-connect-4-identity-assurance-1_0.html OpenID Connect for Identity Assurance 1.0
+     *
+     * @since 1.8
+     */
+    public function setSupportedVerifiedClaims(array $claims = null)
+    {
+        ValidationUtility::ensureNullOrArrayOfString('$claims', $claims);
+
+        $this->supportedVerifiedClaims = $claims;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the flag which indicates whether token requests from public clients
+     * without the `client_id` request parameter are allowed when the client
+     * can be guessed from `authorization_code` or `refresh_token`.
+     *
+     * This flag should not be set unless you have special reasons.
+     *
+     * @return boolean
+     *     `true` if token requests from public clients without the `client_id`
+     *     request parameter are allowed in the authorization code flow and the
+     *     refresh token flow.
+     *
+     * @since 1.8
+     */
+    public function isMissingClientIdAllowed()
+    {
+        return $this->missingClientIdAllowed;
+    }
+
+
+    /**
+     * Set the flag which indicates whether token requests from public clients
+     * without the `client_id` request parameter are allowed when the client
+     * can be guessed from `authorization_code` or `refresh_token`.
+     *
+     * This flag should not be set unless you have special reasons.
+     *
+     * @param boolean $allowed
+     *     `true` to allow token requests from public clients without the
+     *     `client_id` request parameter are allowed in the authorization code
+     *     flow and the refresh token flow.
+     *
+     * @return Service
+     *     `$this` object.
+     *
+     * @since 1.8
+     */
+    public function setMissingClientIdAllowed($allowed)
+    {
+        ValidationUtility::ensureBoolean('$allowed', $allowed);
+
+        $this->missingClientIdAllowed = $allowed;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the flag which indicates whether this service requires that clients
+     * use PAR.
+     *
+     * This property corresponds to the `require_pushed_authorization_requests`
+     * metadata defined in "OAuth 2.0 Pushed Authorization Requests" (PAR).
+     *
+     * @return boolean
+     *     `true` if clients of this service are required to use PAR.
+     *
+     * @since 1.8
+     */
+    public function isParRequired()
+    {
+        return $this->parRequired;
+    }
+
+
+    /**
+     * Set the flag which indicates whether this service requires that clients
+     * use PAR.
+     *
+     * This property corresponds to the `require_pushed_authorization_requests`
+     * metadata defined in "OAuth 2.0 Pushed Authorization Requests" (PAR).
+     *
+     * @param boolean $required
+     *     `true` to indicate that this service requires that clients use PAR.
+     *
+     * @return Service
+     *     `$this` object.
+     *
+     * @since 1.8
+     */
+    public function setParRequired($required)
+    {
+        ValidationUtility::ensureBoolean('$required', $required);
+
+        $this->parRequired = $required;
+
+        return $this;
+    }
+
+
+    /**
      * {@inheritdoc}
      *
      * {@inheritdoc}
@@ -2794,6 +4265,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
         $array['jwksUri']                                     = $this->jwksUri;
         $array['jwks']                                        = $this->jwks;
         $array['registrationEndpoint']                        = $this->registrationEndpoint;
+        $array['registrationManagementEndpoint']              = $this->registrationManagementEndpoint;
         $array['supportedScopes']                             = LanguageUtility::convertArrayOfArrayCopyableToArray($this->supportedScopes);
         $array['supportedResponseTypes']                      = LanguageUtility::convertArrayToStringArray($this->supportedResponseTypes);
         $array['supportedGrantTypes']                         = LanguageUtility::convertArrayToStringArray($this->supportedGrantTypes);
@@ -2807,12 +4279,6 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
         $array['supportedUiLocales']                          = $this->supportedUiLocales;
         $array['policyUri']                                   = $this->policyUri;
         $array['tosUri']                                      = $this->tosUri;
-        $array['description']                                 = $this->description;
-        $array['accessTokenType']                             = $this->accessTokenType;
-        $array['accessTokenDuration']                         = $this->accessTokenDuration;
-        $array['refreshTokenDuration']                        = $this->refreshTokenDuration;
-        $array['idTokenDuration']                             = $this->idTokenDuration;
-        $array['authorizationResponseDuration']               = $this->authorizationResponseDuration;
         $array['authenticationCallbackEndpoint']              = $this->authenticationCallbackEndpoint;
         $array['authenticationCallbackApiKey']                = $this->authenticationCallbackApiKey;
         $array['authenticationCallbackApiSecret']             = $this->authenticationCallbackApiSecret;
@@ -2834,19 +4300,56 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
         $array['directIntrospectionEndpointEnabled']          = $this->directIntrospectionEndpointEnabled;
         $array['singleAccessTokenPerSubject']                 = $this->singleAccessTokenPerSubject;
         $array['pkceRequired']                                = $this->pkceRequired;
+        $array['pkceS256Required']                            = $this->pkceS256Required;
         $array['refreshTokenKept']                            = $this->refreshTokenKept;
+        $array['refreshTokenDurationKept']                    = $this->refreshTokenDurationKept;
         $array['errorDescriptionOmitted']                     = $this->errorDescriptionOmitted;
         $array['errorUriOmitted']                             = $this->errorUriOmitted;
         $array['clientIdAliasEnabled']                        = $this->clientIdAliasEnabled;
         $array['supportedServiceProfiles']                    = LanguageUtility::convertArrayToStringArray($this->supportedServiceProfiles);
         $array['tlsClientCertificateBoundAccessTokens']       = $this->tlsClientCertificateBoundAccessTokens;
-        $array['mutualTlsValidatePkiCertChain']               = $this->mutualTlsValidatePkiCertChain;
         $array['introspectionEndpoint']                       = $this->introspectionEndpoint;
         $array['supportedIntrospectionAuthMethods']           = LanguageUtility::convertArrayToStringArray($this->supportedIntrospectionAuthMethods);
+        $array['mutualTlsValidatePkiCertChain']               = $this->mutualTlsValidatePkiCertChain;
         $array['trustedRootCertificates']                     = $this->trustedRootCertificates;
+        $array['dynamicRegistrationSupported']                = $this->dynamicRegistrationSupported;
+        $array['endSessionEndpoint']                          = $this->endSessionEndpoint;
+        $array['description']                                 = $this->description;
+        $array['accessTokenType']                             = $this->accessTokenType;
+        $array['accessTokenSignAlg']                          = LanguageUtility::toString($this->accessTokenSignAlg);
+        $array['accessTokenDuration']                         = $this->accessTokenDuration;
+        $array['refreshTokenDuration']                        = $this->refreshTokenDuration;
+        $array['idTokenDuration']                             = $this->idTokenDuration;
+        $array['authorizationResponseDuration']               = $this->authorizationResponseDuration;
+        $array['pushedAuthReqDuration']                       = $this->pushedAuthReqDuration;
+        $array['accessTokenSignatureKeyId']                   = $this->accessTokenSignatureKeyId;
         $array['authorizationSignatureKeyId']                 = $this->authorizationSignatureKeyId;
         $array['idTokenSignatureKeyId']                       = $this->idTokenSignatureKeyId;
         $array['userInfoSignatureKeyId']                      = $this->userInfoSignatureKeyId;
+        $array['supportedBackchannelTokenDeliveryModes']      = LanguageUtility::convertArrayToStringArray($this->supportedBackchannelTokenDeliveryModes);
+        $array['backchannelAuthenticationEndpoint']           = $this->backchannelAuthenticationEndpoint;
+        $array['backchannelUserCodeParameterSupported']       = $this->backchannelUserCodeParameterSupported;
+        $array['backchannelAuthReqIdDuration']                = $this->backchannelAuthReqIdDuration;
+        $array['backchannelPollingInterval']                  = $this->backchannelPollingInterval;
+        $array['backchannelBindingMessageRequiredInFapi']     = $this->backchannelBindingMessageRequiredInFapi;
+        $array['allowableClockSkew']                          = $this->allowableClockSkew;
+        $array['deviceAuthorizationEndpoint']                 = $this->deviceAuthorizationEndpoint;
+        $array['deviceVerificationUri']                       = $this->deviceVerificationUri;
+        $array['deviceVerificationUriComplete']               = $this->deviceVerificationUriComplete;
+        $array['deviceFlowCodeDuration']                      = $this->deviceFlowCodeDuration;
+        $array['deviceFlowPollingInterval']                   = $this->deviceFlowPollingInterval;
+        $array['userCodeCharset']                             = LanguageUtility::toString($this->userCodeCharset);
+        $array['userCodeLength']                              = $this->userCodeLength;
+        $array['pushedAuthReqEndpoint']                       = $this->pushedAuthReqEndpoint;
+        $array['mtlsEndpointAliases']                         = LanguageUtility::convertArrayOfArrayCopyableToArray($this->mtlsEndpointAliases);
+        $array['supportedAuthorizationDataTypes']             = $this->supportedAuthorizationDataTypes;
+        $array['supportedTrustFrameworks']                    = $this->supportedTrustFrameworks;
+        $array['supportedEvidence']                           = $this->supportedEvidence;
+        $array['supportedIdentityDocuments']                  = $this->supportedIdentityDocuments;
+        $array['supportedVerificationMethods']                = $this->supportedVerificationMethods;
+        $array['supportedVerifiedClaims']                     = $this->supportedVerifiedClaims;
+        $array['missingClientIdAllowed']                      = $this->missingClientIdAllowed;
+        $array['parRequired']                                 = $this->parRequired;
     }
 
 
@@ -2909,6 +4412,10 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
         // registrationEndpoint
         $this->setRegistrationEndpoint(
             LanguageUtility::getFromArray('registrationEndpoint', $array));
+
+        // registrationManagementEndpoint
+        $this->setRegistrationManagementEndpoint(
+            LanguageUtility::getFromArray('registrationManagementEndpoint', $array));
 
         // supportedScopes
         $supportedScopes = LanguageUtility::getFromArray('supportedScopes', $array);
@@ -2974,30 +4481,6 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
         $this->setTosUri(
             LanguageUtility::getFromArray('tosUri', $array));
 
-        // description
-        $this->setDescription(
-            LanguageUtility::getFromArray('description', $array));
-
-        // accessTokenType
-        $this->setAccessTokenType(
-            LanguageUtility::getFromArray('accessTokenType', $array));
-
-        // accessTokenDuration
-        $this->setAccessTokenDuration(
-            LanguageUtility::getFromArray('accessTokenDuration', $array));
-
-        // refreshTokenDuration
-        $this->setRefreshTokenDuration(
-            LanguageUtility::getFromArray('refreshTokenDuration', $array));
-
-        // idTokenDuration
-        $this->setIdTokenDuration(
-            LanguageUtility::getFromArray('idTokenDuration', $array));
-
-        // authorizationResponseDuration
-        $this->setAuthorizationResponseDuration(
-            LanguageUtility::getFromArray('authorizationResponseDuration', $array));
-
         // authenticationCallbackEndpoint
         $this->setAuthenticationCallbackEndpoint(
             LanguageUtility::getFromArray('authenticationCallbackEndpoint', $array));
@@ -3015,7 +4498,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
         $this->setSupportedSnses(
             LanguageUtility::convertArray(
                 $supportedSnses, '\Authlete\Types\Sns::valueOf'));
-    
+
         // snsCredentials
         $snsCredentials = LanguageUtility::getFromArray('snsCredentials', $array);
         $this->setSnsCredentials(
@@ -3047,7 +4530,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
         $this->setSupportedDeveloperSnses(
             LanguageUtility::convertArray(
                 $supportedDeveloperSnses, '\Authlete\Types\Sns::valueOf'));
-    
+
         // developerSnsCredentials
         $developerSnsCredentials = LanguageUtility::getFromArray('developerSnsCredentials', $array);
         $this->setDeveloperSnsCredentials(
@@ -3091,9 +4574,17 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
         $this->setPkceRequired(
             LanguageUtility::getFromArrayAsBoolean('pkceRequired', $array));
 
+        // pkceS256Required
+        $this->setPkceS256Required(
+            LanguageUtility::getFromArrayAsBoolean('pkceS256Required', $array));
+
         // refreshTokenKept
         $this->setRefreshTokenKept(
             LanguageUtility::getFromArrayAsBoolean('refreshTokenKept', $array));
+
+        // refreshTokenDurationKept
+        $this->setRefreshTokenDurationKept(
+            LanguageUtility::getFromArrayAsBoolean('refreshTokenDurationKept', $array));
 
         // errorDescriptionOmitted
         $this->setErrorDescriptionOmitted(
@@ -3117,10 +4608,6 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
         $this->setTlsClientCertificateBoundAccessTokens(
             LanguageUtility::getFromArrayAsBoolean('tlsClientCertificateBoundAccessTokens', $array));
 
-        // mutualTlsValidatePkiCertChain
-        $this->setMutualTlsValidatePkiCertChain(
-            LanguageUtility::getFromArrayAsBoolean('mutualTlsValidatePkiCertChain', $array));
-
         // introspectionEndpoint
         $this->setIntrospectionEndpoint(
             LanguageUtility::getFromArray('introspectionEndpoint', $array));
@@ -3131,9 +4618,58 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
             LanguageUtility::convertArray(
                 $supportedIntrospectionAuthMethods, '\Authlete\Types\ClientAuthMethod::valueOf'));
 
+        // mutualTlsValidatePkiCertChain
+        $this->setMutualTlsValidatePkiCertChain(
+            LanguageUtility::getFromArrayAsBoolean('mutualTlsValidatePkiCertChain', $array));
+
         // trustedRootCertificates
         $this->setTrustedRootCertificates(
             LanguageUtility::getFromArray('trustedRootCertificates', $array));
+
+        // dynamicRegistrationSupported
+        $this->setDynamicRegistrationSupported(
+            LanguageUtility::getFromArrayAsBoolean('dynamicRegistrationSupported', $array));
+
+        // endSessionEndpoint
+        $this->setEndSessionEndpoint(
+            LanguageUtility::getFromArray('endSessionEndpoint', $array));
+
+        // description
+        $this->setDescription(
+            LanguageUtility::getFromArray('description', $array));
+
+        // accessTokenType
+        $this->setAccessTokenType(
+            LanguageUtility::getFromArray('accessTokenType', $array));
+
+        // accessTokenSignAlg
+        $this->setAccessTokenSignAlg(
+            JWSAlg::valueOf(
+                LanguageUtility::getFromArray('accessTokenSignAlg', $array)));
+
+        // accessTokenDuration
+        $this->setAccessTokenDuration(
+            LanguageUtility::getFromArray('accessTokenDuration', $array));
+
+        // refreshTokenDuration
+        $this->setRefreshTokenDuration(
+            LanguageUtility::getFromArray('refreshTokenDuration', $array));
+
+        // idTokenDuration
+        $this->setIdTokenDuration(
+            LanguageUtility::getFromArray('idTokenDuration', $array));
+
+        // authorizationResponseDuration
+        $this->setAuthorizationResponseDuration(
+            LanguageUtility::getFromArray('authorizationResponseDuration', $array));
+
+        // pushedAuthReqDuration
+        $this->setPushedAuthReqDuration(
+            LanguageUtility::getFromArray('pushedAuthReqDuration', $array));
+
+        // accessTokenSignatureKeyId
+        $this->setAccessTokenSignatureKeyId(
+            LanguageUtility::getFromArray('accessTokenSignatureKeyId', $array));
 
         // authorizationSignatureKeyId
         $this->setAuthorizationSignatureKeyId(
@@ -3146,6 +4682,111 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
         // userInfoSignatureKeyId
         $this->setUserInfoSignatureKeyId(
             LanguageUtility::getFromArray('userInfoSignatureKeyId', $array));
+
+        // supportedBackchannelTokenDeliveryModes
+        $supportedDeliveryModes = LanguageUtility::getFromArray('supportedBackchannelTokenDeliveryModes', $array);
+        $this->setSupportedBackchannelTokenDeliveryModes(
+            LanguageUtility::convertArray(
+                $supportedDeliveryModes, '\Authlete\Types\DeliveryMode::valueOf'));
+
+        // backchannelAuthenticationEndpoint
+        $this->setBackchannelAuthenticationEndpoint(
+            LanguageUtility::getFromArray('backchannelAuthenticationEndpoint', $array));
+
+        // backchannelUserCodeParameterSupported
+        $this->setBackchannelUserCodeParameterSupported(
+            LanguageUtility::getFromArrayAsBoolean('backchannelUserCodeParameterSupported', $array));
+
+        // backchannelAuthReqIdDuration
+        $this->setBackchannelAuthReqIdDuration(
+            LanguageUtility::getFromArray('backchannelAuthReqIdDuration', $array));
+
+        // backchannelPollingInterval
+        $this->setBackchannelPollingInterval(
+            LanguageUtility::orZero(
+                LanguageUtility::getFromArray('backchannelPollingInterval', $array)));
+
+        // backchannelBindingMessageRequiredInFapi
+        $this->setBackchannelBindingMessageRequiredInFapi(
+            LanguageUtility::getFromArrayAsBoolean('backchannelBindingMessageRequiredInFapi', $array));
+
+        // allowableClockSkew
+        $this->setAllowableClockSkew(
+            LanguageUtility::orZero(
+                LanguageUtility::getFromArray('allowableClockSkew', $array)));
+
+        // deviceAuthorizationEndpoint
+        $this->setDeviceAuthorizationEndpoint(
+            LanguageUtility::getFromArray('deviceAuthorizationEndpoint', $array));
+
+        // deviceVerificationUri
+        $this->setDeviceVerificationUri(
+            LanguageUtility::getFromArray('deviceVerificationUri', $array));
+
+        // deviceVerificationUriComplete
+        $this->setDeviceVerificationUriComplete(
+            LanguageUtility::getFromArray('deviceVerificationUriComplete', $array));
+
+        // deviceFlowCodeDuration
+        $this->setDeviceFlowCodeDuration(
+            LanguageUtility::getFromArray('deviceFlowCodeDuration', $array));
+
+        // deviceFlowPollingInterval
+        $this->setDeviceFlowPollingInterval(
+            LanguageUtility::orZero(
+                LanguageUtility::getFromArray('deviceFlowPollingInterval', $array)));
+
+        // userCodeCharset
+        $this->setUserCodeCharset(
+            UserCodeCharset::valueOf(
+                LanguageUtility::getFromArray('userCodeCharset', $array)));
+
+        // userCodeLength
+        $this->setUserCodeLength(
+            LanguageUtility::orZero(
+                LanguageUtility::getFromArray('userCodeLength', $array)));
+
+        // pushedAuthReqEndpoint
+        $this->setPushedAuthReqEndpoint(
+            LanguageUtility::getFromArray('pushedAuthReqEndpoint', $array));
+
+        // mtlsEndpointAliases
+        $mtlsEndpointAliases = LanguageUtility::getFromArray('mtlsEndpointAliases', $array);
+        $this->setMtlsEndpointAliases(
+            LanguageUtility::convertArrayToArrayOfArrayCopyable(
+                $mtlsEndpointAliases, __NAMESPACE__ . '\NamedUri'));
+
+        // supportedAuthorizationDataTypes
+        $this->setSupportedAuthorizationDataTypes(
+            LanguageUtility::getFromArray('supportedAuthorizationDataTypes', $array));
+
+        // supportedTrustFrameworks
+        $this->setSupportedTrustFrameworks(
+            LanguageUtility::getFromArray('supportedTrustFrameworks', $array));
+
+        // supportedEvidence
+        $this->setSupportedEvidence(
+            LanguageUtility::getFromArray('supportedEvidence', $array));
+
+        // supportedIdentityDocuments
+        $this->setSupportedIdentityDocuments(
+            LanguageUtility::getFromArray('supportedIdentityDocuments', $array));
+
+        // supportedVerificationMethods
+        $this->setSupportedVerificationMethods(
+            LanguageUtility::getFromArray('supportedVerificationMethods', $array));
+
+        // supportedVerifiedClaims
+        $this->setSupportedVerifiedClaims(
+            LanguageUtility::getFromArray('supportedVerifiedClaims', $array));
+
+        // missingClientIdAllowed
+        $this->setMissingClientIdAllowed(
+            LanguageUtility::getFromArrayAsBoolean('missingClientIdAllowed', $array));
+
+        // parRequired
+        $this->setParRequired(
+            LanguageUtility::getFromArrayAsBoolean('parRequired', $array));
     }
 }
 

@@ -1,6 +1,6 @@
 <?php
 //
-// Copyright (C) 2018 Authlete, Inc.
+// Copyright (C) 2018-2020 Authlete, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -97,6 +97,8 @@ class TokenIssueResponse extends ApiResponse
     private $subject               = null;  // string
     private $scopes                = null;  // array of string
     private $properties            = null;  // array of \Authlete\Dto\Property
+    private $jwtAccessToken        = null;  // string
+    private $accessTokenResources  = null;  // array of string
 
 
     /**
@@ -562,6 +564,90 @@ class TokenIssueResponse extends ApiResponse
 
 
     /**
+     * Get the newly issued access token in JWT format.
+     *
+     * If the authorization server is configured to issue JWT-based access
+     * tokens (if `getAccessTokenSignAlg()` of `Service` returns a non-null
+     * value), a JWT-based access token is issued along with the original
+     * random-string one.
+     *
+     * @return string
+     *     The newly issued access token in JWT format.
+     *
+     * @since 1.8
+     */
+    public function getJwtAccessToken()
+    {
+        return $this->jwtAccessToken;
+    }
+
+
+    /**
+     * Set the newly issued access token in JWT format.
+     *
+     * If the authorization server is configured to issue JWT-based access
+     * tokens (if `getAccessTokenSignAlg()` of `Service` returns a non-null
+     * value), a JWT-based access token is issued along with the original
+     * random-string one.
+     *
+     * @param string $jwtAccessToken
+     *     The newly issued access token in JWT format.
+     *
+     * @return TokenIssueResponse
+     *     `$this` object.
+     *
+     * @since 1.8
+     */
+    public function setJwtAccessToken($jwtAccessToken)
+    {
+        ValidationUtility::ensureNullOrString('$jwtAccessToken', $jwtAccessToken);
+
+        $this->jwtAccessToken = $jwtAccessToken;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the target resources of the access token.
+     *
+     * @return string[]
+     *     The target resources of the access token.
+     *
+     * @see https://www.rfc-editor.org/rfc/rfc8707.html RFC 8707 Resource Indicators for OAuth 2.0
+     *
+     * @since 1.8
+     */
+    public function getAccessTokenResources()
+    {
+        return $this->accessTokenResources;
+    }
+
+
+    /**
+     * Set the target resources of the access token.
+     *
+     * @param string[] $resources
+     *     The target resources of the access token.
+     *
+     * @return TokenIssueResponse
+     *     `$this` object.
+     *
+     * @see https://www.rfc-editor.org/rfc/rfc8707.html RFC 8707 Resource Indicators for OAuth 2.0
+     *
+     * @since 1.8
+     */
+    public function setAccessTokenResources(array $resources = null)
+    {
+        ValidationUtility::ensureNullOrArrayOfString('$resources', $resources);
+
+        $this->accessTokenResources = $resources;
+
+        return $this;
+    }
+
+
+    /**
      * {@inheritdoc}
      *
      * {@inheritdoc}
@@ -586,6 +672,8 @@ class TokenIssueResponse extends ApiResponse
         $array['subject']               = $this->subject;
         $array['scopes']                = $this->scopes;
         $array['properties']            = LanguageUtility::convertArrayOfArrayCopyableToArray($this->properties);
+        $array['jwtAccessToken']        = $this->jwtAccessToken;
+        $array['accessTokenResources']  = $this->accessTokenResources;
     }
 
 
@@ -655,6 +743,14 @@ class TokenIssueResponse extends ApiResponse
         $this->setProperties(
             LanguageUtility::convertArrayToArrayOfArrayCopyable(
                 $properties, __NAMESPACE__ . '\Property'));
+
+        // jwtAccessToken
+        $this->setJwtAccessToken(
+            LanguageUtility::getFromArray('jwtAccessToken', $array));
+
+        // accessTokenResources
+        $this->setScopes(
+            LanguageUtility::getFromArray('accessTokenResources', $array));
     }
 }
 ?>

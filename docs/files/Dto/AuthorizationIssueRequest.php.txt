@@ -1,6 +1,6 @@
 <?php
 //
-// Copyright (C) 2018 Authlete, Inc.
+// Copyright (C) 2018-2020 Authlete, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -43,14 +43,15 @@ class AuthorizationIssueRequest implements ArrayCopyable, Arrayable, Jsonable
     use JsonTrait;
 
 
-    private $ticket     = null;  // string
-    private $subject    = null;  // string
-    private $sub        = null;  // string
-    private $authTime   = null;  // string or (64-bit) integer
-    private $acr        = null;  // string
-    private $claims     = null;  // string
-    private $properties = null;  // array of \Authlete\Dto\Property
-    private $scopes     = null;  // array of string
+    private $ticket          = null;  // string
+    private $subject         = null;  // string
+    private $sub             = null;  // string
+    private $authTime        = null;  // string or (64-bit) integer
+    private $acr             = null;  // string
+    private $claims          = null;  // string
+    private $properties      = null;  // array of \Authlete\Dto\Property
+    private $scopes          = null;  // array of string
+    private $idtHeaderParams = null;  // string
 
 
     /**
@@ -407,7 +408,7 @@ class AuthorizationIssueRequest implements ArrayCopyable, Arrayable, Jsonable
 
 
     /**
-     * Get scopes that should be associated with an authorization code
+     * Set scopes that should be associated with an authorization code
      * and/or an access token.
      *
      * If `null` (the default value) is set, the scopes specified in the
@@ -458,6 +459,43 @@ class AuthorizationIssueRequest implements ArrayCopyable, Arrayable, Jsonable
 
 
     /**
+     * Get JSON that represents additional JWS header parameters for ID tokens
+     * that may be issued based on the authorization request.
+     *
+     * @return string
+     *     JSON that represents additional JWS header parameters for ID tokens.
+     *
+     * @since 1.8
+     */
+    public function getIdtHeaderParams()
+    {
+        return $this->idtHeaderParams;
+    }
+
+
+    /**
+     * Set JSON that represents additional JWS header parameters for ID tokens
+     * that may be issued based on the authorization request.
+     *
+     * @param string $params
+     *     JSON that represents additional JWS header parameters for ID tokens.
+     *
+     * @return AuthorizationIssueRequest
+     *     `$this` object.
+     *
+     * @since 1.8
+     */
+    public function setIdtHeaderParams($params)
+    {
+        ValidationUtility::ensureNullOrString('$idtHeaderParams', $params);
+
+        $this->idtHeaderParams = $params;
+
+        return $this;
+    }
+
+
+    /**
      * {@inheritdoc}
      *
      * {@inheritdoc}
@@ -467,14 +505,15 @@ class AuthorizationIssueRequest implements ArrayCopyable, Arrayable, Jsonable
      */
     public function copyToArray(array &$array)
     {
-        $array['ticket']     = $this->ticket;
-        $array['subject']    = $this->subject;
-        $array['sub']        = $this->sub;
-        $array['authTime']   = LanguageUtility::orZero($this->authTime);
-        $array['acr']        = $this->acr;
-        $array['claims']     = $this->claims;
-        $array['properties'] = LanguageUtility::convertArrayOfArrayCopyableToArray($this->properties);
-        $array['scopes']     = $this->scopes;
+        $array['ticket']          = $this->ticket;
+        $array['subject']         = $this->subject;
+        $array['sub']             = $this->sub;
+        $array['authTime']        = LanguageUtility::orZero($this->authTime);
+        $array['acr']             = $this->acr;
+        $array['claims']          = $this->claims;
+        $array['properties']      = LanguageUtility::convertArrayOfArrayCopyableToArray($this->properties);
+        $array['scopes']          = $this->scopes;
+        $array['idtHeaderParams'] = $this->idtHeaderParams;
     }
 
 
@@ -521,6 +560,10 @@ class AuthorizationIssueRequest implements ArrayCopyable, Arrayable, Jsonable
         // scopes
         $this->setScopes(
             LanguageUtility::getFromArray('scopes', $array));
+
+         // idtHeaderParams
+        $this->setIdtHeaderParams(
+            LanguageUtility::getFromArray('idtHeaderParams', $array));
     }
 }
 ?>

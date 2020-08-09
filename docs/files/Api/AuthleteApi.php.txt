@@ -1,6 +1,6 @@
 <?php
 //
-// Copyright (C) 2018 Authlete, Inc.
+// Copyright (C) 2018-2020 Authlete, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -28,11 +28,19 @@ namespace Authlete\Api;
 use Authlete\Dto\AuthorizationFailRequest;
 use Authlete\Dto\AuthorizationIssueRequest;
 use Authlete\Dto\AuthorizationRequest;
+use Authlete\Dto\BackchannelAuthenticationCompleteRequest;
+use Authlete\Dto\BackchannelAuthenticationFailRequest;
+use Authlete\Dto\BackchannelAuthenticationIssueRequest;
+use Authlete\Dto\BackchannelAuthenticationRequest;
 use Authlete\Dto\Client;
 use Authlete\Dto\ClientAuthorizationDeleteRequest;
 use Authlete\Dto\ClientAuthorizationGetListRequest;
 use Authlete\Dto\ClientAuthorizationUpdateRequest;
+use Authlete\Dto\DeviceAuthorizationRequest;
+use Authlete\Dto\DeviceCompleteRequest;
+use Authlete\Dto\DeviceVerificationRequest;
 use Authlete\Dto\IntrospectionRequest;
+use Authlete\Dto\PushedAuthReqRequest;
 use Authlete\Dto\RevocationRequest;
 use Authlete\Dto\Service;
 use Authlete\Dto\StandardIntrospectionRequest;
@@ -47,7 +55,7 @@ use Authlete\Dto\UserInfoRequest;
 
 /**
  * Authlete API.
- * 
+ *
  * @link https://docs.authlete.com/
  */
 interface AuthleteApi
@@ -635,6 +643,134 @@ interface AuthleteApi
      * @throws AuthleteApiException
      */
     public function updateClientSecret($clientId, $clientSecret);
+
+
+    /**
+     * Call Authlete's /api/backchannel/authentication API.
+     *
+     * @param BackchannelAuthenticationRequest $request
+     *     Request parameters passed to the API.
+     *
+     * @return \Authlete\Dto\BackchannelAuthenticationResponse
+     *     Response from the API.
+     *
+     * @throws AuthleteApiException
+     *
+     * @since 1.8
+     */
+    public function backchannelAuthentication(BackchannelAuthenticationRequest $request);
+
+
+    /**
+     * Call Authlete's /api/backchannel/authentication/issue API.
+     *
+     * @param BackchannelAuthenticationIssueRequest $request
+     *     Request parameters passed to the API.
+     *
+     * @return \Authlete\Dto\BackchannelAuthenticationIssueResponse
+     *     Response from the API.
+     *
+     * @throws AuthleteApiException
+     *
+     * @since 1.8
+     */
+    public function backchannelAuthenticationIssue(BackchannelAuthenticationIssueRequest $request);
+
+
+    /**
+     * Call Authlete's /api/backchannel/authentication/fail API.
+     *
+     * @param BackchannelAuthenticationFailRequest $request
+     *     Request parameters passed to the API.
+     *
+     * @return \Authlete\Dto\BackchannelAuthenticationFailResponse
+     *     Response from the API.
+     *
+     * @throws AuthleteApiException
+     *
+     * @since 1.8
+     */
+    public function backchannelAuthenticationFail(BackchannelAuthenticationFailRequest $request);
+
+
+    /**
+     * Call Authlete's /api/backchannel/authentication/complete API.
+     *
+     * @param BackchannelAuthenticationCompleteRequest $request
+     *     Request parameters passed to the API.
+     *
+     * @return \Authlete\Dto\BackchannelAuthenticationCompleteResponse
+     *     Response from the API.
+     *
+     * @throws AuthleteApiException
+     *
+     * @since 1.8
+     */
+    public function backchannelAuthenticationComplete(BackchannelAuthenticationCompleteRequest $request);
+
+
+    /**
+     * Call Authlete's /api/device/authorization API.
+     *
+     * @param DeviceAuthorizationRequest $request
+     *     Request parameters passed to the API.
+     *
+     * @return \Authlete\Dto\DeviceAuthorizationResponse
+     *     Response from the API.
+     *
+     * @throws AuthleteApiException
+     *
+     * @since 1.8
+     */
+    public function deviceAuthorization(DeviceAuthorizationRequest $request);
+
+
+    /**
+     * Call Authlete's /api/device/complete API.
+     *
+     * @param DeviceCompleteRequest $request
+     *     Request parameters passed to the API.
+     *
+     * @return \Authlete\Dto\DeviceCompleteResponse
+     *     Response from the API.
+     *
+     * @throws AuthleteApiException
+     *
+     * @since 1.8
+     */
+    public function deviceComplete(DeviceCompleteRequest $request);
+
+
+    /**
+     * Call Authlete's /api/device/verification API.
+     *
+     * @param DeviceVerificationRequest $request
+     *     Request parameters passed to the API.
+     *
+     * @return \Authlete\Dto\DeviceVerificationResponse
+     *     Response from the API.
+     *
+     * @throws AuthleteApiException
+     *
+     * @since 1.8
+     */
+    public function deviceVerification(DeviceVerificationRequest $request);
+
+
+    /**
+     * Call Authlete's /api/pushed_auth_req API.
+     *
+     * @param PushedAuthReqRequest $request
+     *     Request parameters passed to the API.
+     *
+     * @return \Authlete\Dto\PushedAuthReqResponse
+     *     Response from the API.
+     *
+     * @throws AuthleteApiException
+     *
+     * @since 1.8
+     */
+    public function pushAuthorizationRequest(PushedAuthReqRequest $request);
 
 
     /**

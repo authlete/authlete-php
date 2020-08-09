@@ -1,6 +1,6 @@
 <?php
 //
-// Copyright (C) 2018 Authlete, Inc.
+// Copyright (C) 2018-2020 Authlete, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -30,6 +30,7 @@ use Authlete\Types\Arrayable;
 use Authlete\Types\ArrayCopyable;
 use Authlete\Types\ClientAuthMethod;
 use Authlete\Types\ClientType;
+use Authlete\Types\DeliveryMode;
 use Authlete\Types\GrantType;
 use Authlete\Types\Jsonable;
 use Authlete\Types\JWEAlg;
@@ -56,53 +57,58 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
     use JsonTrait;
 
 
-    private $developer              = null;  // string
-    private $clientId               = null;  // string or (64-bit) integer
-    private $clientIdAlias          = null;  // string
-    private $clientIdAliasEnabled   = false; // boolean
-    private $clientSecret           = null;  // string
-    private $clientType             = null;  // \Authlete\Types\ClientType
-    private $redirectUris           = null;  // array of string
-    private $responseTypes          = null;  // array of \Authlete\Types\ResponseType
-    private $grantTypes             = null;  // array of \Authlete\Types\GrantType
-    private $applicationType        = null;  // \Authlete\Types\ApplicationType
-    private $contacts               = null;  // array of string
-    private $clientName             = null;  // string
-    private $clientNames            = null;  // array of \Authlete\Dto\TaggedValue
-    private $logoUri                = null;  // string
-    private $logoUris               = null;  // array of \Authlete\Dto\TaggedValue
-    private $clientUri              = null;  // string
-    private $clientUris             = null;  // array of \Authlete\Dto\TaggedValue
-    private $policyUri              = null;  // string
-    private $policyUris             = null;  // array of \Authlete\Dto\TaggedValue
-    private $tosUri                 = null;  // string
-    private $tosUris                = null;  // array of \Authlete\Dto\TaggedValue
-    private $jwksUri                = null;  // string
-    private $jwks                   = null;  // string
-    private $sectorIdentifier       = null;  // string
-    private $subjectType            = null;  // \Authlete\Types\SubjectType
-    private $idTokenSignAlg         = null;  // \Authlete\Types\JWSAlg
-    private $idTokenEncryptionAlg   = null;  // \Authlete\Types\JWEAlg
-    private $idTokenEncryptionEnc   = null;  // \Authlete\Types\JWEEnc
-    private $userInfoSignAlg        = null;  // \Authlete\Types\JWSAlg
-    private $userInfoEncryptionAlg  = null;  // \Authlete\Types\JWEAlg
-    private $userInfoEncryptionEnc  = null;  // \Authlete\Types\JWEEnc
-    private $requestSignAlg         = null;  // \Authlete\Types\JWSAlg
-    private $requestEncryptionAlg   = null;  // \Authlete\Types\JWEAlg
-    private $requestEncryptionEnc   = null;  // \Authlete\Types\JWEEnc
-    private $tokenAuthMethod        = null;  // \Authlete\Types\ClientAuthMethod
-    private $tokenAuthSignAlg       = null;  // \Authlete\Types\JWSAlg
-    private $defaultMaxAge          = null;  // string or integer
-    private $authTimeRequired       = false; // boolean
-    private $defaultAcrs            = null;  // array of string
-    private $loginUri               = null;  // string
-    private $requestUris            = null;  // array of string
-    private $description            = null;  // string
-    private $descriptions           = null;  // array of \Authlete\Dto\TaggedValue
-    private $createdAt              = null;  // string or (64-bit) integer
-    private $modifiedAt             = null;  // string or (64-bit) integer
-    private $extension              = null;  // \Authlete\Dto\ClientExtension
-    private $tlsClientAuthSubjectDn = null;  // string
+    private $developer                             = null;  // string
+    private $clientId                              = null;  // string or (64-bit) integer
+    private $clientIdAlias                         = null;  // string
+    private $clientIdAliasEnabled                  = false; // boolean
+    private $clientSecret                          = null;  // string
+    private $clientType                            = null;  // \Authlete\Types\ClientType
+    private $redirectUris                          = null;  // array of string
+    private $responseTypes                         = null;  // array of \Authlete\Types\ResponseType
+    private $grantTypes                            = null;  // array of \Authlete\Types\GrantType
+    private $applicationType                       = null;  // \Authlete\Types\ApplicationType
+    private $contacts                              = null;  // array of string
+    private $clientName                            = null;  // string
+    private $clientNames                           = null;  // array of \Authlete\Dto\TaggedValue
+    private $logoUri                               = null;  // string
+    private $logoUris                              = null;  // array of \Authlete\Dto\TaggedValue
+    private $clientUri                             = null;  // string
+    private $clientUris                            = null;  // array of \Authlete\Dto\TaggedValue
+    private $policyUri                             = null;  // string
+    private $policyUris                            = null;  // array of \Authlete\Dto\TaggedValue
+    private $tosUri                                = null;  // string
+    private $tosUris                               = null;  // array of \Authlete\Dto\TaggedValue
+    private $jwksUri                               = null;  // string
+    private $jwks                                  = null;  // string
+    private $derivedSectorIdentifier               = null;  // string
+    private $sectorIdentifierUri                   = null;  // string
+    private $subjectType                           = null;  // \Authlete\Types\SubjectType
+    private $idTokenSignAlg                        = null;  // \Authlete\Types\JWSAlg
+    private $idTokenEncryptionAlg                  = null;  // \Authlete\Types\JWEAlg
+    private $idTokenEncryptionEnc                  = null;  // \Authlete\Types\JWEEnc
+    private $userInfoSignAlg                       = null;  // \Authlete\Types\JWSAlg
+    private $userInfoEncryptionAlg                 = null;  // \Authlete\Types\JWEAlg
+    private $userInfoEncryptionEnc                 = null;  // \Authlete\Types\JWEEnc
+    private $requestSignAlg                        = null;  // \Authlete\Types\JWSAlg
+    private $requestEncryptionAlg                  = null;  // \Authlete\Types\JWEAlg
+    private $requestEncryptionEnc                  = null;  // \Authlete\Types\JWEEnc
+    private $tokenAuthMethod                       = null;  // \Authlete\Types\ClientAuthMethod
+    private $tokenAuthSignAlg                      = null;  // \Authlete\Types\JWSAlg
+    private $defaultMaxAge                         = null;  // string or integer
+    private $authTimeRequired                      = false; // boolean
+    private $defaultAcrs                           = null;  // array of string
+    private $loginUri                              = null;  // string
+    private $requestUris                           = null;  // array of string
+    private $description                           = null;  // string
+    private $descriptions                          = null;  // array of \Authlete\Dto\TaggedValue
+    private $createdAt                             = null;  // string or (64-bit) integer
+    private $modifiedAt                            = null;  // string or (64-bit) integer
+    private $extension                             = null;  // \Authlete\Dto\ClientExtension
+    private $tlsClientAuthSubjectDn                = null;  // string
+    private $tlsClientAuthSanDns                   = null;  // string
+    private $tlsClientAuthSanUri                   = null;  // string
+    private $tlsClientAuthSanIp                    = null;  // string
+    private $tlsClientAuthSanEmail                 = null;  // string
     private $tlsClientCertificateBoundAccessTokens = false; // boolean
     private $selfSignedCertificateKeyId            = null;  // string
     private $softwareId                            = null;  // string
@@ -110,6 +116,14 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
     private $authorizationSignAlg                  = null;  // \Authlete\Types\JWSAlg
     private $authorizationEncryptionAlg            = null;  // \Authlete\Types\JWEAlg
     private $authorizationEncryptionEnc            = null;  // \Authlete\Types\JWEEnc
+    private $bcDeliveryMode                        = null;  // \Authlete\Types\DeliveryMode
+    private $bcNotificationEndpoint                = null;  // string
+    private $bcRequestSignAlg                      = null;  // \Authlete\Types\JWSAlg
+    private $bcUserCodeRequired                    = false; // boolean
+    private $dynamicallyRegistered                 = false; // boolean
+    private $registrationAccessTokenHash           = null;  // string
+    private $authorizationDataTypes                = null;  // array of string
+    private $parRequired                           = false; // boolean
 
 
     /**
@@ -965,6 +979,49 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
 
 
     /**
+     * Get the sector identifier host component as derived from either the
+     * `sector_identifier_uri` or the registered `redirect_uri`. If no
+     * `sector_identifier_uri` is registered and multiple redirect URIs
+     * are registered, this value is undefined and this property returnes
+     * null.
+     *
+     * @return string
+     *     The derived sector identifier, if available, or null otherwise.
+     *
+     * @since 1.8
+     */
+    public function getDerivedSectorIdentifier()
+    {
+        return $this->derivedSectorIdentifier;
+    }
+
+
+    /**
+     * Set the sector identifier host component as derived from either the
+     * `sector_identifier_uri` or the registered `redirect_uri`. If no
+     * `sector_identifier_uri` is registered and multiple redirect URIs
+     * are registered, this value is undefined and this property returnes
+     * null.
+     *
+     * @param string $identifier
+     *     The derived sector identifier, if available, or null otherwise.
+     *
+     * @return Client
+     *     `$this` object.
+     *
+     * @since 1.8
+     */
+    public function setDerivedSectorIdentifier($identifier)
+    {
+        ValidationUtility::ensureNullOrString('$identifier', $identifier);
+
+        $this->derivedSectorIdentifier = $identifier;
+
+        return $this;
+    }
+
+
+    /**
      * Get the sector identifier URI.
      *
      * This corresponds to the `sector_identifier_uri` metadata defined in
@@ -979,7 +1036,7 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
      */
     public function getSectorIdentifierUri()
     {
-        return $this->sectorIdentifier;
+        return $this->sectorIdentifierUri;
     }
 
 
@@ -993,17 +1050,17 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
      * of [OpenID Connect Dynamic Client Registration 1.0](https://openid.net/specs/openid-connect-registration-1_0.html)
      * for details.
      *
-     * @param string $sectorIdentifierUri
+     * @param string $uri
      *     The sector identifier URI.
      *
      * @return Client
      *     `$this` object.
      */
-    public function setSectorIdentifierUri($sectorIdentifierUri)
+    public function setSectorIdentifierUri($uri)
     {
-        ValidationUtility::ensureNullOrString('$sectorIdentifierUri', $sectorIdentifierUri);
+        ValidationUtility::ensureNullOrString('$uri', $uri);
 
-        $this->sectorIdentifier = $sectorIdentifierUri;
+        $this->sectorIdentifierUri = $uri;
 
         return $this;
     }
@@ -1868,6 +1925,202 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
 
 
     /**
+     * Get the string representation of the expected DNS subject alternative
+     * name of the certificate this client will use in mutual
+     * authentication.
+     *
+     * This property corresponds to `tls_client_auth_san_dns` defined in
+     * [RFC 8705](https://www.rfc-editor.org/rfc/rfc8705.html).
+     *
+     * @return string
+     *     The expected DNS subject alternative name.
+     *
+     * @see https://www.rfc-editor.org/rfc/rfc8705.html RFC 8705 OAuth 2.0 Mutual-TLS Client Authentication and Certificate-Bound Access Tokens
+     *
+     * @since 1.8
+     */
+    public function getTlsClientAuthSanDns()
+    {
+        return $this->tlsClientAuthSanDns;
+    }
+
+
+    /**
+     * Set the string representation of the expected DNS subject alternative
+     * name of the certificate this client will use in mutual
+     * authentication.
+     *
+     * This property corresponds to `tls_client_auth_san_dns` defined in
+     * [RFC 8705](https://www.rfc-editor.org/rfc/rfc8705.html).
+     *
+     * @param string $dns
+     *     The expected DNS subject alternative name.
+     *
+     * @return Client
+     *     `$this` object.
+     *
+     * @see https://www.rfc-editor.org/rfc/rfc8705.html RFC 8705 OAuth 2.0 Mutual-TLS Client Authentication and Certificate-Bound Access Tokens
+     *
+     * @since 1.8
+     */
+    public function setTlsClientAuthSanDns($dns)
+    {
+        ValidationUtility::ensureNullOrString('$dns', $dns);
+
+        $this->tlsClientAuthSanDns = $dns;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the string representation of the expected URI subject alternative
+     * name of the certificate this client will use in mutual
+     * authentication.
+     *
+     * This property corresponds to `tls_client_auth_san_uri` defined in
+     * [RFC 8705](https://www.rfc-editor.org/rfc/rfc8705.html).
+     *
+     * @return string
+     *     The expected URI subject alternative name.
+     *
+     * @see https://www.rfc-editor.org/rfc/rfc8705.html RFC 8705 OAuth 2.0 Mutual-TLS Client Authentication and Certificate-Bound Access Tokens
+     *
+     * @since 1.8
+     */
+    public function getTlsClientAuthSanUri()
+    {
+        return $this->tlsClientAuthSanUri;
+    }
+
+
+    /**
+     * Set the string representation of the expected URI subject alternative
+     * name of the certificate this client will use in mutual
+     * authentication.
+     *
+     * This property corresponds to `tls_client_auth_san_uri` defined in
+     * [RFC 8705](https://www.rfc-editor.org/rfc/rfc8705.html).
+     *
+     * @param string $uri
+     *     The expected URI subject alternative name.
+     *
+     * @return Client
+     *     `$this` object.
+     *
+     * @see https://www.rfc-editor.org/rfc/rfc8705.html RFC 8705 OAuth 2.0 Mutual-TLS Client Authentication and Certificate-Bound Access Tokens
+     *
+     * @since 1.8
+     */
+    public function setTlsClientAuthSanUri($uri)
+    {
+        ValidationUtility::ensureNullOrString('$uri', $uri);
+
+        $this->tlsClientAuthSanUri = $uri;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the string representation of the expected IP address subject
+     * alternative name of the certificate this client will use in mutual
+     * authentication.
+     *
+     * This property corresponds to `tls_client_auth_san_ip` defined in
+     * [RFC 8705](https://www.rfc-editor.org/rfc/rfc8705.html).
+     *
+     * @return string
+     *     The expected IP address subject alternative name.
+     *
+     * @see https://www.rfc-editor.org/rfc/rfc8705.html RFC 8705 OAuth 2.0 Mutual-TLS Client Authentication and Certificate-Bound Access Tokens
+     *
+     * @since 1.8
+     */
+    public function getTlsClientAuthSanIp()
+    {
+        return $this->tlsClientAuthSanIp;
+    }
+
+
+    /**
+     * Set the string representation of the expected IP address subject
+     * alternative name of the certificate this client will use in mutual
+     * authentication.
+     *
+     * This property corresponds to `tls_client_auth_san_ip` defined in
+     * [RFC 8705](https://www.rfc-editor.org/rfc/rfc8705.html).
+     *
+     * @param string $ip
+     *     The expected IP address subject alternative name.
+     *
+     * @return Client
+     *     `$this` object.
+     *
+     * @see https://www.rfc-editor.org/rfc/rfc8705.html RFC 8705 OAuth 2.0 Mutual-TLS Client Authentication and Certificate-Bound Access Tokens
+     *
+     * @since 1.8
+     */
+    public function setTlsClientAuthSanIp($ip)
+    {
+        ValidationUtility::ensureNullOrString('$ip', $ip);
+
+        $this->tlsClientAuthSanIp = $ip;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the string representation of the expected email address subject
+     * alternative name of the certificate this client will use in mutual
+     * authentication.
+     *
+     * This property corresponds to `tls_client_auth_san_email` defined in
+     * [RFC 8705](https://www.rfc-editor.org/rfc/rfc8705.html).
+     *
+     * @return string
+     *     The expected email address subject alternative name.
+     *
+     * @see https://www.rfc-editor.org/rfc/rfc8705.html RFC 8705 OAuth 2.0 Mutual-TLS Client Authentication and Certificate-Bound Access Tokens
+     *
+     * @since 1.8
+     */
+    public function getTlsClientAuthSanEmail()
+    {
+        return $this->tlsClientAuthSanEmail;
+    }
+
+
+    /**
+     * Set the string representation of the expected email address subject
+     * alternative name of the certificate this client will use in mutual
+     * authentication.
+     *
+     * This property corresponds to `tls_client_auth_san_email` defined in
+     * [RFC 8705](https://www.rfc-editor.org/rfc/rfc8705.html).
+     *
+     * @param string $email
+     *     The expected email address subject alternative name.
+     *
+     * @return Client
+     *     `$this` object.
+     *
+     * @see https://www.rfc-editor.org/rfc/rfc8705.html RFC 8705 OAuth 2.0 Mutual-TLS Client Authentication and Certificate-Bound Access Tokens
+     *
+     * @since 1.8
+     */
+    public function setTlsClientAuthSanEmail($email)
+    {
+        ValidationUtility::ensureNullOrString('$email', $email);
+
+        $this->tlsClientAuthSanEmail = $email;
+
+        return $this;
+    }
+
+
+    /**
      * Get the flag which indicates whether this client uses
      * "TLS client certificate bound access tokens".
      *
@@ -2173,6 +2426,337 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
 
 
     /**
+     * Get the backchannel token delivery mode. This property corresponds
+     * to the `backchannel_token_delivery_mode` metadata.
+     *
+     * @return DeliveryMode
+     *     The backchannel token delivery mode.
+     *
+     * @see https://openid.net/specs/openid-client-initiated-backchannel-authentication-core-1_0.html Client Initiated Backchannel Authentication
+     *
+     * @since 1.8
+     */
+    public function getBcDeliveryMode()
+    {
+        return $this->bcDeliveryMode;
+    }
+
+
+    /**
+     * Set the backchannel token delivery mode. This property corresponds
+     * to the `backchannel_token_delivery_mode` metadata.
+     *
+     * @param DeliveryMode $mode
+     *     The backchannel token delivery mode.
+     *
+     * @return Client
+     *     `$this` object.
+     *
+     * @see https://openid.net/specs/openid-client-initiated-backchannel-authentication-core-1_0.html Client Initiated Backchannel Authentication
+     *
+     * @since 1.8
+     */
+    public function setBcDeliveryMode(DeliveryMode $mode = null)
+    {
+        $this->bcDeliveryMode = $mode;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the backchannel client notification endpoint. This property
+     * corresponds to the `backchannel_client_notification_endpoint` metadata.
+     *
+     * @return string
+     *     The backchannel client notification endpoint.
+     *
+     * @see https://openid.net/specs/openid-client-initiated-backchannel-authentication-core-1_0.html Client Initiated Backchannel Authentication
+     *
+     * @since 1.8
+     */
+    public function getBcNotificationEndpoint()
+    {
+        return $this->bcNotificationEndpoint;
+    }
+
+
+    /**
+     * Set the backchannel client notification endpoint. This property
+     * corresponds to the `backchannel_client_notification_endpoint` metadata.
+     *
+     * @param string $endpoint
+     *     The backchannel client notification endpoint.
+     *
+     * @return Client
+     *     `$this` object.
+     *
+     * @see https://openid.net/specs/openid-client-initiated-backchannel-authentication-core-1_0.html Client Initiated Backchannel Authentication
+     *
+     * @since 1.8
+     */
+    public function setBcNotificationEndpoint($endpoint)
+    {
+        ValidationUtility::ensureNullOrString('$endpoint', $endpoint);
+
+        $this->bcNotificationEndpoint = $endpoint;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the signature algorithm of requests to the backchannel
+     * authentication endpoint. This property corresponds to the
+     * `backchannel_authentication_request_signing_alg` metadata.
+     *
+     * @return JWSAlg
+     *     The signature algorithm of requests to the backchannel
+     *     authentication endpoint.
+     *
+     * @see https://openid.net/specs/openid-client-initiated-backchannel-authentication-core-1_0.html Client Initiated Backchannel Authentication
+     *
+     * @since 1.8
+     */
+    public function getBcRequestSignAlg()
+    {
+        return $this->bcRequestSignAlg;
+    }
+
+
+    /**
+     * Set the signature algorithm of requests to the backchannel
+     * authentication endpoint. This property corresponds to the
+     * `backchannel_authentication_request_signing_alg` metadata.
+     *
+     * The specification of CIBA (Client Initiated Backchannel Authentication)
+     * allows asymmetric algorithms only.
+     *
+     * @param JWSAlg $alg
+     *     The signature algorithm of requests to the backchannel
+     *     authentication endpoint.
+     *
+     * @return Client
+     *     `$this` object.
+     *
+     * @see https://openid.net/specs/openid-client-initiated-backchannel-authentication-core-1_0.html Client Initiated Backchannel Authentication
+     *
+     * @since 1.8
+     */
+    public function setBcRequestSignAlg(JWSAlg $alg = null)
+    {
+        $this->bcRequestSignAlg = $alg;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the flag which indicates whether a user code is required when this
+     * client makes a backchannel authentication request. This property
+     * corresponds to the `backchannel_user_code_parameter` metadata.
+     *
+     * @return boolean
+     *     `true` if a user code is required when this client makes a
+     *     backchannel authentication request.
+     *
+     * @see https://openid.net/specs/openid-client-initiated-backchannel-authentication-core-1_0.html Client Initiated Backchannel Authentication
+     *
+     * @since 1.8
+     */
+    public function isBcUserCodeRequired()
+    {
+        return $this->bcUserCodeRequired;
+    }
+
+
+    /**
+     * Set the flag which indicates whether a user code is required when this
+     * client makes a backchannel authentication request. This property
+     * corresponds to the `backchannel_user_code_parameter` metadata.
+     *
+     * @param boolean $required
+     *     `true` to indicate that a user code is required when this client
+     *     makes a backchannel authentication request.
+     *
+     * @return Client
+     *     `$this` object.
+     *
+     * @see https://openid.net/specs/openid-client-initiated-backchannel-authentication-core-1_0.html Client Initiated Backchannel Authentication
+     *
+     * @since 1.8
+     */
+    public function setBcUserCodeRequired($required)
+    {
+        ValidationUtility::ensureBoolean('$required', $required);
+
+        $this->bcUserCodeRequired = $required;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the flag which indicates whether this client has been registered
+     * dynamically.
+     *
+     * @return boolean
+     *     `true` if this client has been registered dynamically.
+     *
+     * @see https://tools.ietf.org/html/rfc7591 OAuth 2.0 Dynamic Client Registration Protocol
+     *
+     * @since 1.8
+     */
+    public function isDynamicallyRegistered()
+    {
+        return $this->dynamicallyRegistered;
+    }
+
+
+    /**
+     * Set the flag which indicates whether this client has been registered
+     * dynamically.
+     *
+     * @param boolean $registered
+     *     `true` to indicate that this client has been registered dynamically.
+     *
+     * @return Client
+     *     `$this` object.
+     *
+     * @see https://tools.ietf.org/html/rfc7591 OAuth 2.0 Dynamic Client Registration Protocol
+     *
+     * @since 1.8
+     */
+    public function setDynamicallyRegistered($registered)
+    {
+        ValidationUtility::ensureBoolean('$registered', $registered);
+
+        $this->dynamicallyRegistered = $registered;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the hash of the registration access token for this client.
+     *
+     * @return string
+     *     The hash of the registration access token for this client.
+     *
+     * @see https://tools.ietf.org/html/rfc7591 OAuth 2.0 Dynamic Client Registration Protocol
+     *
+     * @since 1.8
+     */
+    public function getRegistrationAccessTokenHash()
+    {
+        return $this->registrationAccessTokenHash;
+    }
+
+
+    /**
+     * Set the hash of the registration access token for this client.
+     *
+     * @param string $hash
+     *     The hash of the registration access token for this client.
+     *
+     * @return Client
+     *     `$this` object.
+     *
+     * @see https://tools.ietf.org/html/rfc7591 OAuth 2.0 Dynamic Client Registration Protocol
+     *
+     * @since 1.8
+     */
+    public function setRegistrationAccessTokenHash($hash)
+    {
+        ValidationUtility::ensureNullOrString('$hash', $hash);
+
+        $this->registrationAccessTokenHash = $hash;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the data types that this client may use as values of the `type`
+     * field in `authorization_details`. This property corresponds to the
+     * `authorization_data_types` metadata defined in RAR (OAuth 2.0 Rich
+     * Authorization Requests).
+     *
+     * @return string[]
+     *     Data types used in `authorization_details`.
+     *
+     * @since 1.8
+     */
+    public function getAuthorizationDataTypes()
+    {
+        return $this->authorizationDataTypes;
+    }
+
+
+    /**
+     * Set the data types that this client may use as values of the `type`
+     * field in `authorization_details`. This property corresponds to the
+     * `authorization_data_types` metadata defined in RAR (OAuth 2.0 Rich
+     * Authorization Requests).
+     *
+     * @param string[] $types
+     *     Data types used in `authorization_details`.
+     *
+     * @return Client
+     *     `$this` object.
+     *
+     * @since 1.8
+     */
+    public function setAuthorizationDataTypes(array $types = null)
+    {
+        ValidationUtility::ensureNullOrArrayOfString('$types', $types);
+
+        $this->authorizationDataTypes = $types;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the flag which indicates whether this client is required to use PAR
+     * (OAuth 2.0 Pushed Authorization Requests). This property corresponds to
+     * the `require_pushed_authorization_requests` metadata.
+     *
+     * @return boolean
+     *     `true` if this client is required to use PAR.
+     *
+     * @since 1.8
+     */
+    public function isParRequired()
+    {
+        return $this->parRequired;
+    }
+
+
+    /**
+     * Set the flag which indicates whether this client is required to use PAR
+     * (OAuth 2.0 Pushed Authorization Requests). This property corresponds to
+     * the `require_pushed_authorization_requests` metadata.
+     *
+     * @param boolean $required
+     *     `true` to indicate that this client is required to use PAR.
+     *
+     * @return Client
+     *     `$this` object.
+     *
+     * @since 1.8
+     */
+    public function setParRequired($required)
+    {
+        ValidationUtility::ensureBoolean('$required', $required);
+
+        $this->parRequired = $required;
+
+        return $this;
+    }
+
+
+    /**
      * {@inheritdoc}
      *
      * {@inheritdoc}
@@ -2182,53 +2766,58 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
      */
     public function copyToArray(array &$array)
     {
-        $array['developer']              = $this->developer;
-        $array['clientId']               = $this->clientId;
-        $array['clientIdAlias']          = $this->clientIdAlias;
-        $array['clientIdAliasEnabled']   = $this->clientIdAliasEnabled;
-        $array['clientSecret']           = $this->clientSecret;
-        $array['clientType']             = LanguageUtility::toString($this->clientType);
-        $array['redirectUris']           = $this->redirectUris;
-        $array['responseTypes']          = LanguageUtility::convertArrayToStringArray($this->responseTypes);
-        $array['grantTypes']             = LanguageUtility::convertArrayToStringArray($this->grantTypes);
-        $array['applicationType']        = LanguageUtility::toString($this->applicationType);
-        $array['contacts']               = $this->contacts;
-        $array['clientName']             = $this->clientName;
-        $array['clientNames']            = LanguageUtility::convertArrayOfArrayCopyableToArray($this->clientNames);
-        $array['logoUri']                = $this->logoUri;
-        $array['logoUris']               = LanguageUtility::convertArrayOfArrayCopyableToArray($this->logoUris);
-        $array['clientUri']              = $this->clientUri;
-        $array['clientUris']             = LanguageUtility::convertArrayOfArrayCopyableToArray($this->clientUris);
-        $array['policyUri']              = $this->policyUri;
-        $array['policyUris']             = LanguageUtility::convertArrayOfArrayCopyableToArray($this->policyUris);
-        $array['tosUri']                 = $this->tosUri;
-        $array['tosUris']                = LanguageUtility::convertArrayOfArrayCopyableToArray($this->tosUris);
-        $array['jwksUri']                = $this->jwksUri;
-        $array['jwks']                   = $this->jwks;
-        $array['sectorIdentifier']       = $this->sectorIdentifier;
-        $array['subjectType']            = LanguageUtility::toString($this->subjectType);
-        $array['idTokenSignAlg']         = LanguageUtility::toString($this->idTokenSignAlg);
-        $array['idTokenEncryptionAlg']   = LanguageUtility::toString($this->idTokenEncryptionAlg);
-        $array['idTokenEncryptionEnc']   = LanguageUtility::toString($this->idTokenEncryptionEnc);
-        $array['userInfoSignAlg']        = LanguageUtility::toString($this->userInfoSignAlg);
-        $array['userInfoEncryptionAlg']  = LanguageUtility::toString($this->userInfoEncryptionAlg);
-        $array['userInfoEncryptionEnc']  = LanguageUtility::toString($this->userInfoEncryptionEnc);
-        $array['requestSignAlg']         = LanguageUtility::toString($this->requestSignAlg);
-        $array['requestEncryptionAlg']   = LanguageUtility::toString($this->requestEncryptionAlg);
-        $array['requestEncryptionEnc']   = LanguageUtility::toString($this->requestEncryptionEnc);
-        $array['tokenAuthMethod']        = LanguageUtility::toString($this->tokenAuthMethod);
-        $array['tokenAuthSignAlg']       = LanguageUtility::toString($this->tokenAuthSignAlg);
-        $array['defaultMaxAge']          = LanguageUtility::orZero($this->defaultMaxAge);
-        $array['authTimeRequired']       = $this->authTimeRequired;
-        $array['defaultAcrs']            = $this->defaultAcrs;
-        $array['loginUri']               = $this->loginUri;
-        $array['requestUris']            = $this->requestUris;
-        $array['description']            = $this->description;
-        $array['descriptions']           = LanguageUtility::convertArrayOfArrayCopyableToArray($this->descriptions);
-        $array['createdAt']              = LanguageUtility::orZero($this->createdAt);
-        $array['modifiedAt']             = LanguageUtility::orZero($this->modifiedAt);
-        $array['extension']              = LanguageUtility::convertArrayCopyableToArray($this->extension);
-        $array['tlsClientAuthSubjectDn'] = $this->tlsClientAuthSubjectDn;
+        $array['developer']                             = $this->developer;
+        $array['clientId']                              = $this->clientId;
+        $array['clientIdAlias']                         = $this->clientIdAlias;
+        $array['clientIdAliasEnabled']                  = $this->clientIdAliasEnabled;
+        $array['clientSecret']                          = $this->clientSecret;
+        $array['clientType']                            = LanguageUtility::toString($this->clientType);
+        $array['redirectUris']                          = $this->redirectUris;
+        $array['responseTypes']                         = LanguageUtility::convertArrayToStringArray($this->responseTypes);
+        $array['grantTypes']                            = LanguageUtility::convertArrayToStringArray($this->grantTypes);
+        $array['applicationType']                       = LanguageUtility::toString($this->applicationType);
+        $array['contacts']                              = $this->contacts;
+        $array['clientName']                            = $this->clientName;
+        $array['clientNames']                           = LanguageUtility::convertArrayOfArrayCopyableToArray($this->clientNames);
+        $array['logoUri']                               = $this->logoUri;
+        $array['logoUris']                              = LanguageUtility::convertArrayOfArrayCopyableToArray($this->logoUris);
+        $array['clientUri']                             = $this->clientUri;
+        $array['clientUris']                            = LanguageUtility::convertArrayOfArrayCopyableToArray($this->clientUris);
+        $array['policyUri']                             = $this->policyUri;
+        $array['policyUris']                            = LanguageUtility::convertArrayOfArrayCopyableToArray($this->policyUris);
+        $array['tosUri']                                = $this->tosUri;
+        $array['tosUris']                               = LanguageUtility::convertArrayOfArrayCopyableToArray($this->tosUris);
+        $array['jwksUri']                               = $this->jwksUri;
+        $array['jwks']                                  = $this->jwks;
+        $array['derivedSectorIdentifier']               = $this->derivedSectorIdentifier;
+        $array['sectorIdentifierUri']                   = $this->sectorIdentifierUri;
+        $array['subjectType']                           = LanguageUtility::toString($this->subjectType);
+        $array['idTokenSignAlg']                        = LanguageUtility::toString($this->idTokenSignAlg);
+        $array['idTokenEncryptionAlg']                  = LanguageUtility::toString($this->idTokenEncryptionAlg);
+        $array['idTokenEncryptionEnc']                  = LanguageUtility::toString($this->idTokenEncryptionEnc);
+        $array['userInfoSignAlg']                       = LanguageUtility::toString($this->userInfoSignAlg);
+        $array['userInfoEncryptionAlg']                 = LanguageUtility::toString($this->userInfoEncryptionAlg);
+        $array['userInfoEncryptionEnc']                 = LanguageUtility::toString($this->userInfoEncryptionEnc);
+        $array['requestSignAlg']                        = LanguageUtility::toString($this->requestSignAlg);
+        $array['requestEncryptionAlg']                  = LanguageUtility::toString($this->requestEncryptionAlg);
+        $array['requestEncryptionEnc']                  = LanguageUtility::toString($this->requestEncryptionEnc);
+        $array['tokenAuthMethod']                       = LanguageUtility::toString($this->tokenAuthMethod);
+        $array['tokenAuthSignAlg']                      = LanguageUtility::toString($this->tokenAuthSignAlg);
+        $array['defaultMaxAge']                         = LanguageUtility::orZero($this->defaultMaxAge);
+        $array['authTimeRequired']                      = $this->authTimeRequired;
+        $array['defaultAcrs']                           = $this->defaultAcrs;
+        $array['loginUri']                              = $this->loginUri;
+        $array['requestUris']                           = $this->requestUris;
+        $array['description']                           = $this->description;
+        $array['descriptions']                          = LanguageUtility::convertArrayOfArrayCopyableToArray($this->descriptions);
+        $array['createdAt']                             = LanguageUtility::orZero($this->createdAt);
+        $array['modifiedAt']                            = LanguageUtility::orZero($this->modifiedAt);
+        $array['extension']                             = LanguageUtility::convertArrayCopyableToArray($this->extension);
+        $array['tlsClientAuthSubjectDn']                = $this->tlsClientAuthSubjectDn;
+        $array['tlsClientAuthSanDns']                   = $this->tlsClientAuthSanDns;
+        $array['tlsClientAuthSanUri']                   = $this->tlsClientAuthSanUri;
+        $array['tlsClientAuthSanIp']                    = $this->tlsClientAuthSanIp;
+        $array['tlsClientAuthSanEmail']                 = $this->tlsClientAuthSanEmail;
         $array['tlsClientCertificateBoundAccessTokens'] = $this->tlsClientCertificateBoundAccessTokens;
         $array['selfSignedCertificateKeyId']            = $this->selfSignedCertificateKeyId;
         $array['softwareId']                            = $this->softwareId;
@@ -2236,6 +2825,14 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
         $array['authorizationSignAlg']                  = LanguageUtility::toString($this->authorizationSignAlg);
         $array['authorizationEncryptionAlg']            = LanguageUtility::toString($this->authorizationEncryptionAlg);
         $array['authorizationEncryptionEnc']            = LanguageUtility::toString($this->authorizationEncryptionEnc);
+        $array['bcDeliveryMode']                        = LanguageUtility::toString($this->bcDeliveryMode);
+        $array['bcNotificationEndpoint']                = $this->bcNotificationEndpoint;
+        $array['bcRequestSignAlg']                      = LanguageUtility::toString($this->bcRequestSignAlg);
+        $array['bcUserCodeRequired']                    = $this->bcUserCodeRequired;
+        $array['dynamicallyRegistered']                 = $this->dynamicallyRegistered;
+        $array['registrationAccessTokenHash']           = $this->registrationAccessTokenHash;
+        $array['authorizationDataTypes']                = $this->authorizationDataTypes;
+        $array['parRequired']                           = $this->parRequired;
     }
 
 
@@ -2357,9 +2954,13 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
         $this->setJwks(
             LanguageUtility::getFromArray('jwks', $array));
 
-        // sectorIdentifier
+        // derivedSectorIdentifier
+        $this->setDerivedSectorIdentifier(
+            LanguageUtility::getFromArray('derivedSectorIdentifier', $array));
+
+        // sectorIdentifierUri
         $this->setSectorIdentifierUri(
-            LanguageUtility::getFromArray('sectorIdentifier', $array));
+            LanguageUtility::getFromArray('sectorIdentifierUri', $array));
 
         // subjectType
         $this->setSubjectType(
@@ -2416,7 +3017,7 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
             ClientAuthMethod::valueOf(
                 LanguageUtility::getFromArray('tokenAuthMethod', $array)));
 
-        // tokenAuthSignAlog
+        // tokenAuthSignAlg
         $this->setTokenAuthSignAlg(
             JWSAlg::valueOf(
                 LanguageUtility::getFromArray('tokenAuthSignAlg', $array)));
@@ -2469,6 +3070,22 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
         $this->setTlsClientAuthSubjectDn(
             LanguageUtility::getFromArray('tlsClientAuthSubjectDn', $array));
 
+        // tlsClientAuthSanDns
+        $this->setTlsClientAuthSanDns(
+            LanguageUtility::getFromArray('tlsClientAuthSanDns', $array));
+
+        // tlsClientAuthSanUri
+        $this->setTlsClientAuthSanUri(
+            LanguageUtility::getFromArray('tlsClientAuthSanUri', $array));
+
+        // tlsClientAuthSanIp
+        $this->setTlsClientAuthSanIp(
+            LanguageUtility::getFromArray('tlsClientAuthSanIp', $array));
+
+        // tlsClientAuthSanEmail
+        $this->setTlsClientAuthSanEmail(
+            LanguageUtility::getFromArray('tlsClientAuthSanEmail', $array));
+
         // tlsClientCertificateBoundAccessTokens
         $this->setTlsClientCertificateBoundAccessTokens(
             LanguageUtility::getFromArrayAsBoolean('tlsClientCertificateBoundAccessTokens', $array));
@@ -2499,6 +3116,40 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
         $this->setAuthorizationEncryptionEnc(
             JWEEnc::valueOf(
                 LanguageUtility::getFromArray('authorizationEncryptionEnc', $array)));
+
+        // bcDeliveryMode
+        $this->setBcDeliveryMode(
+            DeliveryMode::valueOf(
+                LanguageUtility::getFromArray('bcDeliveryMode', $array)));
+
+        // bcNotificationEndpoint
+        $this->setBcNotificationEndpoint(
+            LanguageUtility::getFromArray('bcNotificationEndpoint', $array));
+
+        // bcRequestSignAlg
+        $this->setBcRequestSignAlg(
+            JWSAlg::valueOf(
+                LanguageUtility::getFromArray('bcRequestSignAlg', $array)));
+
+        // bcUserCodeRequired
+        $this->setBcUserCodeRequired(
+            LanguageUtility::getFromArrayAsBoolean('bcUserCodeRequired', $array));
+
+        // dynamicallyRegistered
+        $this->setDynamicallyRegistered(
+            LanguageUtility::getFromArrayAsBoolean('dynamicallyRegistered', $array));
+
+        // registrationAccessTokenHash
+        $this->setRegistrationAccessTokenHash(
+            LanguageUtility::getFromArray('registrationAccessTokenHash', $array));
+
+        // authorizationDataTypes
+        $this->setAuthorizationDataTypes(
+            LanguageUtility::getFromArray('authorizationDataTypes', $array));
+
+        // parRequired
+        $this->setParRequired(
+            LanguageUtility::getFromArrayAsBoolean('parRequired', $array));
     }
 }
 

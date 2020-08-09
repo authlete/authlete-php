@@ -1,0 +1,2241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>API Documentation</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+    <link href="../css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="../css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/prism.css" rel="stylesheet" media="all"/>
+    <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+    <!--[if lt IE 9]>
+    <script src="../js/html5.js"></script>
+    <![endif]-->
+    <script src="../js/jquery-1.11.0.min.js"></script>
+    <script src="../js/ui/1.10.4/jquery-ui.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery.smooth-scroll.js"></script>
+    <script src="../js/prism.min.js"></script>
+    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
+    <script type="text/javascript">
+    function loadExternalCodeSnippets() {
+        Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
+            var src = pre.getAttribute('data-src');
+            var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
+            var language = 'php';
+
+            var code = document.createElement('code');
+            code.className = 'language-' + language;
+
+            pre.textContent = '';
+
+            code.textContent = 'Loading…';
+
+            pre.appendChild(code);
+
+            var xhr = new XMLHttpRequest();
+
+            xhr.open('GET', src, true);
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+
+                    if (xhr.status < 400 && xhr.responseText) {
+                        code.textContent = xhr.responseText;
+
+                        Prism.highlightElement(code);
+                    }
+                    else if (xhr.status >= 400) {
+                        code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                    }
+                    else {
+                        code.textContent = '✖ Error: File does not exist or is empty';
+                    }
+                }
+            };
+
+            xhr.send(null);
+        });
+    }
+
+    $(document).ready(function(){
+        loadExternalCodeSnippets();
+    });
+    $('#source-view').on('shown', function () {
+        loadExternalCodeSnippets();
+    })
+</script>
+
+    <link rel="shortcut icon" href="../images/favicon.ico"/>
+    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png"/>
+</head>
+<body>
+
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <i class="icon-ellipsis-vertical"></i>
+            </a>
+            <a class="brand" href="../index.html">API Documentation</a>
+
+            <div class="nav-collapse">
+                <ul class="nav pull-right">
+                                        <li class="dropdown">
+                        <a href="../index.html" class="dropdown-toggle" data-toggle="dropdown">
+                            API Documentation <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                                                        <li><a href="../namespaces/Authlete.html">\Authlete</a></li>
+                                                    </ul>
+                    </li>
+                                        <li class="dropdown" id="charts-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Charts <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../graphs/class.html">
+                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" id="reports-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Reports <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../reports/errors.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/markers.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/deprecated.html">
+                                                                                                            <i class="icon-list-alt"></i>&#160;Deprecated <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--<div class="go_to_top">-->
+    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
+    <!--</div>-->
+</div>
+
+<div id="___" class="container-fluid">
+        <section class="row-fluid">
+        <div class="span2 sidebar">
+                                <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1787314127"></a>
+                                <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
+            </div>
+            <div id="namespace-1787314127" class="accordion-body collapse in">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-20490752"></a>
+                                <a href="../namespaces/Authlete.html" style="margin-left: 30px; padding-left: 0">Authlete</a>
+            </div>
+            <div id="namespace-20490752" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-333256439"></a>
+                                <a href="../namespaces/Authlete.Api.html" style="margin-left: 30px; padding-left: 0">Api</a>
+            </div>
+            <div id="namespace-333256439" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/Authlete.Api.AuthleteApi.html">AuthleteApi</a></li>
+                                                    <li class="interface"><a href="../classes/Authlete.Api.Settings.html">Settings</a></li>
+                                                                                                    <li class="class"><a href="../classes/Authlete.Api.AuthleteApiException.html">AuthleteApiException</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Api.AuthleteApiImpl.html">AuthleteApiImpl</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Api.SettingsImpl.html">SettingsImpl</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2011497982"></a>
+                                <a href="../namespaces/Authlete.Conf.html" style="margin-left: 30px; padding-left: 0">Conf</a>
+            </div>
+            <div id="namespace-2011497982" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/Authlete.Conf.AuthleteConfiguration.html">AuthleteConfiguration</a></li>
+                                                                            <li class="trait"><a href="../classes/Authlete.Conf.AuthleteConfigurationTrait.html">AuthleteConfigurationTrait</a></li>
+                                                                            <li class="class"><a href="../classes/Authlete.Conf.AuthleteEnvConfiguration.html">AuthleteEnvConfiguration</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Conf.AuthleteIniConfiguration.html">AuthleteIniConfiguration</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Conf.AuthleteSimpleConfiguration.html">AuthleteSimpleConfiguration</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-572435426"></a>
+                                <a href="../namespaces/Authlete.Dto.html" style="margin-left: 30px; padding-left: 0">Dto</a>
+            </div>
+            <div id="namespace-572435426" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Authlete.Dto.Address.html">Address</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.ApiResponse.html">ApiResponse</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.AuthorizationAction.html">AuthorizationAction</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.AuthorizationFailAction.html">AuthorizationFailAction</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.AuthorizationFailReason.html">AuthorizationFailReason</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.AuthorizationFailRequest.html">AuthorizationFailRequest</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.AuthorizationFailResponse.html">AuthorizationFailResponse</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.AuthorizationIssueAction.html">AuthorizationIssueAction</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.AuthorizationIssueRequest.html">AuthorizationIssueRequest</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.AuthorizationIssueResponse.html">AuthorizationIssueResponse</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.AuthorizationRequest.html">AuthorizationRequest</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.AuthorizationResponse.html">AuthorizationResponse</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.AuthorizedClientListResponse.html">AuthorizedClientListResponse</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.BackchannelAuthenticationAction.html">BackchannelAuthenticationAction</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.BackchannelAuthenticationCompleteAction.html">BackchannelAuthenticationCompleteAction</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.BackchannelAuthenticationCompleteRequest.html">BackchannelAuthenticationCompleteRequest</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.BackchannelAuthenticationCompleteResponse.html">BackchannelAuthenticationCompleteResponse</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.BackchannelAuthenticationCompleteResult.html">BackchannelAuthenticationCompleteResult</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.BackchannelAuthenticationFailAction.html">BackchannelAuthenticationFailAction</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.BackchannelAuthenticationFailReason.html">BackchannelAuthenticationFailReason</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.BackchannelAuthenticationFailRequest.html">BackchannelAuthenticationFailRequest</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.BackchannelAuthenticationFailResponse.html">BackchannelAuthenticationFailResponse</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.BackchannelAuthenticationIssueAction.html">BackchannelAuthenticationIssueAction</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.BackchannelAuthenticationIssueRequest.html">BackchannelAuthenticationIssueRequest</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.BackchannelAuthenticationIssueResponse.html">BackchannelAuthenticationIssueResponse</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.BackchannelAuthenticationRequest.html">BackchannelAuthenticationRequest</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.BackchannelAuthenticationResponse.html">BackchannelAuthenticationResponse</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.Client.html">Client</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.ClientAuthorizationDeleteRequest.html">ClientAuthorizationDeleteRequest</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.ClientAuthorizationGetListRequest.html">ClientAuthorizationGetListRequest</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.ClientAuthorizationUpdateRequest.html">ClientAuthorizationUpdateRequest</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.ClientExtension.html">ClientExtension</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.ClientListResponse.html">ClientListResponse</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.ClientSecretRefreshResponse.html">ClientSecretRefreshResponse</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.ClientSecretUpdateRequest.html">ClientSecretUpdateRequest</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.ClientSecretUpdateResponse.html">ClientSecretUpdateResponse</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.DeviceAuthorizationAction.html">DeviceAuthorizationAction</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.DeviceAuthorizationRequest.html">DeviceAuthorizationRequest</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.DeviceAuthorizationResponse.html">DeviceAuthorizationResponse</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.DeviceCompleteAction.html">DeviceCompleteAction</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.DeviceCompleteRequest.html">DeviceCompleteRequest</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.DeviceCompleteResponse.html">DeviceCompleteResponse</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.DeviceCompleteResult.html">DeviceCompleteResult</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.DeviceVerificationAction.html">DeviceVerificationAction</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.DeviceVerificationRequest.html">DeviceVerificationRequest</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.DeviceVerificationResponse.html">DeviceVerificationResponse</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.GrantedScopesDeleteRequest.html">GrantedScopesDeleteRequest</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.GrantedScopesGetRequest.html">GrantedScopesGetRequest</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.GrantedScopesGetResponse.html">GrantedScopesGetResponse</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.IntrospectionAction.html">IntrospectionAction</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.IntrospectionRequest.html">IntrospectionRequest</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.IntrospectionResponse.html">IntrospectionResponse</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.NamedUri.html">NamedUri</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.Pair.html">Pair</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.Property.html">Property</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.PushedAuthReqAction.html">PushedAuthReqAction</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.PushedAuthReqRequest.html">PushedAuthReqRequest</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.PushedAuthReqResponse.html">PushedAuthReqResponse</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.RevocationAction.html">RevocationAction</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.RevocationRequest.html">RevocationRequest</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.RevocationResponse.html">RevocationResponse</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.Scope.html">Scope</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.Service.html">Service</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.ServiceListResponse.html">ServiceListResponse</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.SnsCredentials.html">SnsCredentials</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.StandardIntrospectionAction.html">StandardIntrospectionAction</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.StandardIntrospectionRequest.html">StandardIntrospectionRequest</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.StandardIntrospectionResponse.html">StandardIntrospectionResponse</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.TaggedValue.html">TaggedValue</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.TokenAction.html">TokenAction</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.TokenCreateAction.html">TokenCreateAction</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.TokenCreateRequest.html">TokenCreateRequest</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.TokenCreateResponse.html">TokenCreateResponse</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.TokenFailAction.html">TokenFailAction</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.TokenFailReason.html">TokenFailReason</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.TokenFailRequest.html">TokenFailRequest</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.TokenFailResponse.html">TokenFailResponse</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.TokenIssueAction.html">TokenIssueAction</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.TokenIssueRequest.html">TokenIssueRequest</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.TokenIssueResponse.html">TokenIssueResponse</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.TokenRequest.html">TokenRequest</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.TokenResponse.html">TokenResponse</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.TokenUpdateAction.html">TokenUpdateAction</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.TokenUpdateRequest.html">TokenUpdateRequest</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.TokenUpdateResponse.html">TokenUpdateResponse</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.UserInfoAction.html">UserInfoAction</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.UserInfoIssueAction.html">UserInfoIssueAction</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.UserInfoIssueRequest.html">UserInfoIssueRequest</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.UserInfoIssueResponse.html">UserInfoIssueResponse</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.UserInfoRequest.html">UserInfoRequest</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Dto.UserInfoResponse.html">UserInfoResponse</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1979000467"></a>
+                                <a href="../namespaces/Authlete.Types.html" style="margin-left: 30px; padding-left: 0">Types</a>
+            </div>
+            <div id="namespace-1979000467" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/Authlete.Types.Arrayable.html">Arrayable</a></li>
+                                                    <li class="interface"><a href="../classes/Authlete.Types.ArrayCopyable.html">ArrayCopyable</a></li>
+                                                    <li class="interface"><a href="../classes/Authlete.Types.Jsonable.html">Jsonable</a></li>
+                                                                            <li class="trait"><a href="../classes/Authlete.Types.EnumTrait.html">EnumTrait</a></li>
+                                                                            <li class="class"><a href="../classes/Authlete.Types.ApplicationType.html">ApplicationType</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Types.ClaimType.html">ClaimType</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Types.ClientAuthMethod.html">ClientAuthMethod</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Types.ClientType.html">ClientType</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Types.CodeChallengeMethod.html">CodeChallengeMethod</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Types.DeliveryMode.html">DeliveryMode</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Types.Display.html">Display</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Types.GrantType.html">GrantType</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Types.JWEAlg.html">JWEAlg</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Types.JWEEnc.html">JWEEnc</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Types.JWSAlg.html">JWSAlg</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Types.Prompt.html">Prompt</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Types.ResponseType.html">ResponseType</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Types.ServiceProfile.html">ServiceProfile</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Types.Sns.html">Sns</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Types.StandardClaims.html">StandardClaims</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Types.SubjectType.html">SubjectType</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Types.UserCodeCharset.html">UserCodeCharset</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Types.UserIdentificationHintType.html">UserIdentificationHintType</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-165734273"></a>
+                                <a href="../namespaces/Authlete.Util.html" style="margin-left: 30px; padding-left: 0">Util</a>
+            </div>
+            <div id="namespace-165734273" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                            <li class="trait"><a href="../classes/Authlete.Util.ArrayTrait.html">ArrayTrait</a></li>
+                                                    <li class="trait"><a href="../classes/Authlete.Util.JsonTrait.html">JsonTrait</a></li>
+                                                                            <li class="class"><a href="../classes/Authlete.Util.LanguageUtility.html">LanguageUtility</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Util.MaxAgeValidator.html">MaxAgeValidator</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Util.ValidationUtility.html">ValidationUtility</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-18394981"></a>
+                                <a href="../namespaces/Authlete.Web.html" style="margin-left: 30px; padding-left: 0">Web</a>
+            </div>
+            <div id="namespace-18394981" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Authlete.Web.BasicCredentials.html">BasicCredentials</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Web.HttpHeaders.html">HttpHeaders</a></li>
+                                                    <li class="class"><a href="../classes/Authlete.Web.HttpMethod.html">HttpMethod</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        </div>
+    </section>
+    <section class="row-fluid">
+        <div class="span10 offset2">
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <nav>
+                                                <a href="../namespaces/Authlete.Dto.html">\Authlete\Dto</a> <i class="icon-level-up"></i>
+                                            </nav>
+                    <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
+
+                    <h1><small>\Authlete\Dto</small>DeviceAuthorizationResponse</h1>
+                    <p><em>Response from Authlete&#039;s /api/device/authorization API.</em></p>
+                    <p>Authlete's <code>/api/device/authorization</code> API returns JSON which can be mapped
+to this class. The authorization server implementation should retrieve the
+value of the <code>action</code> response parameter (which can be obtained by
+<code>getAction()</code> method of this class) from the response and take the following
+steps according to the value.</p>
+<hr />
+<p>When the value returned from <code>getAction()</code> method is
+<code>DeviceAuthorizationAction::$OK</code>, it means that the device authorization
+request from the client application is valid.</p>
+<p>The authorization server implementation should generate a response to the
+client application with <code>200 OK</code> and <code>application/json</code>.</p>
+<p>The <code>getResponseContent()</code> method returns a JSON string which can be used
+as the entity body of the response.</p>
+<p>The following illustrates the response which the authorization server
+implementation should generate and return to the client application.</p>
+<pre><code>HTTP/1.1 200 OK
+Content-Type: application/json
+Cache-Control: no-store
+Pragma: no-cache
+
+(The value returned from getResponseContent())</code></pre>
+<hr />
+<p>When the value returned from <code>getAction()</code> method is
+<code>DeviceAuthorizationAction::$BAD_REQUEST</code>, it means that the device
+authorization request from the client application was wrong.</p>
+<p>The authorization server implementation should generate a response to the
+client application with <code>400 Bad Request</code> and <code>application/json</code>.</p>
+<p>The <code>getResponseContent()</code> method returns a JSON string which describes
+the error, so it can be used as the entity body of the response.</p>
+<p>The following illustrates the response which the authorization server
+implementation should generate and return to the client application.</p>
+<pre><code>HTTP/1.1 400 Bad Request
+Content-Type: application/json
+Cache-Control: no-store
+Pragma: no-cache
+
+(The value returned from getResponseContent())</code></pre>
+<hr />
+<p>When the value returned from <code>getAction()</code> method is
+<code>DeviceAuthorizationAction::$UNAUTHORIZED</code>, it means that client
+authentication of the device authorization request failed.</p>
+<p>The authorization server implementation should generate a response to the
+client application with <code>401 Unauthorized</code> and <code>application/json</code>.</p>
+<p>The <code>getResponseContent()</code> method returns a JSON string which describes
+the error, so it can be used as the entity body of the response.</p>
+<p>The following illustrates the response which the authorization server
+implementation should generate and return to the client application.</p>
+<pre><code>HTTP/1.1 401 Unauthorized
+Content-Type: application/json
+Cache-Control: no-store
+Pragma: no-cache
+
+(The value returned from getResponseContent())</code></pre>
+<hr />
+<p>When the value returned from <code>getAction()</code> method is
+<code>DeviceAuthorizationAction::$INTERNAL_SERVER_ERROR</code>, it means that the API
+call from the authorization server implementation was wrong or that an error
+occurred in Authlete.</p>
+<p>In either case, from a viewpoint of the client application, it is an error
+on the server side. Therefore, the authorization server implementation
+should generate a response to the client application with
+<code>500 Internal Server Error</code> and <code>application/json</code>.</p>
+<p>The <code>getResponseContent()</code> method returns a JSON string which describes
+the error, so it can be used as the entity body of the response.</p>
+<p>The following illustrates the response which the authorization server
+implementation should generate and return to the client application.</p>
+<pre><code>HTTP/1.1 500 Internal Server Error
+Content-Type: application/json
+Cache-Control: no-store
+Pragma: no-cache
+
+(The value returned from getResponseContent())</code></pre>
+                    
+                                        
+                    <section id="summary">
+                        <h2>Summary</h2>
+                        <section class="row-fluid heading">
+                            <section class="span4">
+                                <a href="#methods">Methods</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#properties">Properties</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#constants">Constants</a>
+                            </section>
+                        </section>
+                        <section class="row-fluid public">
+                            <section class="span4">
+                                                                    <a href="../classes/Authlete.Dto.ApiResponse.html#method_getResultCode" class="">getResultCode()</a><br />
+                                                                    <a href="../classes/Authlete.Dto.ApiResponse.html#method_setResultCode" class="">setResultCode()</a><br />
+                                                                    <a href="../classes/Authlete.Dto.ApiResponse.html#method_getResultMessage" class="">getResultMessage()</a><br />
+                                                                    <a href="../classes/Authlete.Dto.ApiResponse.html#method_setResultMessage" class="">setResultMessage()</a><br />
+                                                                    <a href="../classes/Authlete.Dto.DeviceAuthorizationResponse.html#method_copyToArray" class="">copyToArray()</a><br />
+                                                                    <a href="../classes/Authlete.Dto.DeviceAuthorizationResponse.html#method_copyFromArray" class="">copyFromArray()</a><br />
+                                                                    <a href="../classes/Authlete.Util.ArrayTrait.html#method_toArray" class="">toArray()</a><br />
+                                                                    <a href="../classes/Authlete.Util.ArrayTrait.html#method_fromArray" class="">fromArray()</a><br />
+                                                                    <a href="../classes/Authlete.Util.JsonTrait.html#method_toJson" class="">toJson()</a><br />
+                                                                    <a href="../classes/Authlete.Util.JsonTrait.html#method_fromJson" class="">fromJson()</a><br />
+                                                                    <a href="../classes/Authlete.Dto.DeviceAuthorizationResponse.html#method_getAction" class="">getAction()</a><br />
+                                                                    <a href="../classes/Authlete.Dto.DeviceAuthorizationResponse.html#method_setAction" class="">setAction()</a><br />
+                                                                    <a href="../classes/Authlete.Dto.DeviceAuthorizationResponse.html#method_getResponseContent" class="">getResponseContent()</a><br />
+                                                                    <a href="../classes/Authlete.Dto.DeviceAuthorizationResponse.html#method_setResponseContent" class="">setResponseContent()</a><br />
+                                                                    <a href="../classes/Authlete.Dto.DeviceAuthorizationResponse.html#method_getClientId" class="">getClientId()</a><br />
+                                                                    <a href="../classes/Authlete.Dto.DeviceAuthorizationResponse.html#method_setClientId" class="">setClientId()</a><br />
+                                                                    <a href="../classes/Authlete.Dto.DeviceAuthorizationResponse.html#method_getClientIdAlias" class="">getClientIdAlias()</a><br />
+                                                                    <a href="../classes/Authlete.Dto.DeviceAuthorizationResponse.html#method_setClientIdAlias" class="">setClientIdAlias()</a><br />
+                                                                    <a href="../classes/Authlete.Dto.DeviceAuthorizationResponse.html#method_isClientIdAliasUsed" class="">isClientIdAliasUsed()</a><br />
+                                                                    <a href="../classes/Authlete.Dto.DeviceAuthorizationResponse.html#method_setClientIdAliasUsed" class="">setClientIdAliasUsed()</a><br />
+                                                                    <a href="../classes/Authlete.Dto.DeviceAuthorizationResponse.html#method_getClientName" class="">getClientName()</a><br />
+                                                                    <a href="../classes/Authlete.Dto.DeviceAuthorizationResponse.html#method_setClientName" class="">setClientName()</a><br />
+                                                                    <a href="../classes/Authlete.Dto.DeviceAuthorizationResponse.html#method_getScopes" class="">getScopes()</a><br />
+                                                                    <a href="../classes/Authlete.Dto.DeviceAuthorizationResponse.html#method_setScopes" class="">setScopes()</a><br />
+                                                                    <a href="../classes/Authlete.Dto.DeviceAuthorizationResponse.html#method_getClaimNames" class="">getClaimNames()</a><br />
+                                                                    <a href="../classes/Authlete.Dto.DeviceAuthorizationResponse.html#method_setClaimNames" class="">setClaimNames()</a><br />
+                                                                    <a href="../classes/Authlete.Dto.DeviceAuthorizationResponse.html#method_getAcrs" class="">getAcrs()</a><br />
+                                                                    <a href="../classes/Authlete.Dto.DeviceAuthorizationResponse.html#method_setAcrs" class="">setAcrs()</a><br />
+                                                                    <a href="../classes/Authlete.Dto.DeviceAuthorizationResponse.html#method_getDeviceCode" class="">getDeviceCode()</a><br />
+                                                                    <a href="../classes/Authlete.Dto.DeviceAuthorizationResponse.html#method_setDeviceCode" class="">setDeviceCode()</a><br />
+                                                                    <a href="../classes/Authlete.Dto.DeviceAuthorizationResponse.html#method_getUserCode" class="">getUserCode()</a><br />
+                                                                    <a href="../classes/Authlete.Dto.DeviceAuthorizationResponse.html#method_setUserCode" class="">setUserCode()</a><br />
+                                                                    <a href="../classes/Authlete.Dto.DeviceAuthorizationResponse.html#method_getVerificationUri" class="">getVerificationUri()</a><br />
+                                                                    <a href="../classes/Authlete.Dto.DeviceAuthorizationResponse.html#method_setVerificationUri" class="">setVerificationUri()</a><br />
+                                                                    <a href="../classes/Authlete.Dto.DeviceAuthorizationResponse.html#method_getVerificationUriComplete" class="">getVerificationUriComplete()</a><br />
+                                                                    <a href="../classes/Authlete.Dto.DeviceAuthorizationResponse.html#method_setVerificationUriComplete" class="">setVerificationUriComplete()</a><br />
+                                                                    <a href="../classes/Authlete.Dto.DeviceAuthorizationResponse.html#method_getExpiresIn" class="">getExpiresIn()</a><br />
+                                                                    <a href="../classes/Authlete.Dto.DeviceAuthorizationResponse.html#method_setExpiresIn" class="">setExpiresIn()</a><br />
+                                                                    <a href="../classes/Authlete.Dto.DeviceAuthorizationResponse.html#method_getInterval" class="">getInterval()</a><br />
+                                                                    <a href="../classes/Authlete.Dto.DeviceAuthorizationResponse.html#method_setInterval" class="">setInterval()</a><br />
+                                                                    <a href="../classes/Authlete.Dto.DeviceAuthorizationResponse.html#method_getResources" class="">getResources()</a><br />
+                                                                    <a href="../classes/Authlete.Dto.DeviceAuthorizationResponse.html#method_setResources" class="">setResources()</a><br />
+                                                                    <a href="../classes/Authlete.Dto.DeviceAuthorizationResponse.html#method_getWarnings" class="">getWarnings()</a><br />
+                                                                    <a href="../classes/Authlete.Dto.DeviceAuthorizationResponse.html#method_setWarnings" class="">setWarnings()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No public properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No constants found</em>
+                                                            </section>
+                        </section>
+                        <section class="row-fluid protected">
+                            <section class="span4">
+                                                                    <em>No protected methods found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No protected properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                        <section class="row-fluid private">
+                            <section class="span4">
+                                                                    <em>No private methods found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No private properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                    </section>
+                </div>
+                <aside class="span4 detailsbar">
+                                        
+                    
+                    <dl>
+                        <dt>File</dt>
+                            <dd><a href="../files/Dto.DeviceAuthorizationResponse.html"><div class="path-wrapper">Dto/DeviceAuthorizationResponse.php</div></a></dd>
+                                                <dt>Package</dt>
+                            <dd><div class="namespace-wrapper">Default</div></dd>
+                                                <dt>Class hierarchy</dt>
+                            <dd class="hierarchy">
+                                                                                                                                                                                                                                                                                                
+                                        <div class="namespace-wrapper"><a href="../classes/Authlete.Dto.ApiResponse.html">\Authlete\Dto\ApiResponse</a></div>
+                                                                                                    <div class="namespace-wrapper">\Authlete\Dto\DeviceAuthorizationResponse</div>
+                            </dd>
+
+                        
+                        
+                        
+                        
+                                                                        </dl>
+                    <h2>Tags</h2>
+                    <table class="table table-condensed">
+                                            <tr>
+                            <th>
+                                since
+                            </th>
+                            <td>
+                                                                    
+                                                            </td>
+                        </tr>
+                                        </table>
+                </aside>
+            </div>
+
+                        
+                        
+                                    <a id="methods" name="methods"></a>
+            <div class="row-fluid">
+                <div class="span8 content class"><h2>Methods</h2></div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getResultCode" name="method_getResultCode" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getResultCode()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getResultCode() : string</pre>
+                <p><em>Get the code of the result of an Authlete API call.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>The result code.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/Authlete.Dto.ApiResponse.html"><div class="path-wrapper">\Authlete\Dto\ApiResponse</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setResultCode" name="method_setResultCode" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setResultCode()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setResultCode(string  <span class="argument">$resultCode</span>) : \Authlete\Dto\ApiResponse</pre>
+                <p><em>Set the code of the result of an Authlete API call.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$resultCode </td>
+                                <td><p>The result code.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Authlete.Dto.ApiResponse.html">\Authlete\Dto\ApiResponse</a>
+                                            &mdash; <p><code>$this</code> object.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/Authlete.Dto.ApiResponse.html"><div class="path-wrapper">\Authlete\Dto\ApiResponse</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getResultMessage" name="method_getResultMessage" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getResultMessage()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getResultMessage() : string</pre>
+                <p><em>Get the message of the result of an Authlete API call.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>The result message.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/Authlete.Dto.ApiResponse.html"><div class="path-wrapper">\Authlete\Dto\ApiResponse</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setResultMessage" name="method_setResultMessage" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setResultMessage()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setResultMessage(string  <span class="argument">$resultMessage</span>) : \Authlete\Dto\ApiResponse</pre>
+                <p><em>Set the message of the result of an Authlete API call.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$resultMessage </td>
+                                <td><p>The result message.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Authlete.Dto.ApiResponse.html">\Authlete\Dto\ApiResponse</a>
+                                            &mdash; <p><code>$this</code> object.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/Authlete.Dto.ApiResponse.html"><div class="path-wrapper">\Authlete\Dto\ApiResponse</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_copyToArray" name="method_copyToArray" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">copyToArray()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">copyToArray(array  <span class="argument">$array</span>) </pre>
+                <p><em>Copy the content of this object into the given array.</em></p>
+                <p>As necessary, types of properties in this object are converted
+into other types which are friendly to <code>json_encode()</code>.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$array </td>
+                                <td><p>A reference of an array into which properties of this object
+are copied.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_copyFromArray" name="method_copyFromArray" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">copyFromArray()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">copyFromArray(array  <span class="argument">$array</span>) </pre>
+                <p><em>Copy the content of the given array into this object.</em></p>
+                <p>As necessary, types of elements in the given array are converted
+into other types which are suitable for properties of this object.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$array </td>
+                                <td><p>A reference of an array whose elements are used to set up
+properties of this object.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_toArray" name="method_toArray" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">toArray()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">toArray() : array</pre>
+                <p><em>Convert this object into an array.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>An array.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/Authlete.Util.ArrayTrait.html"><div class="path-wrapper">\Authlete\Util\ArrayTrait</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_fromArray" name="method_fromArray" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">fromArray()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">fromArray(array  <span class="argument">$array = null</span>) : static</pre>
+                <p><em>Convert an array into an instance of this class.</em></p>
+                <p>This static function returns a new instance of this class.
+If <code>$array</code> is <code>null</code>, <code>null</code> is returned.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$array </td>
+                                <td><p>An array</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    static
+                                            &mdash; <p>An instance of this class.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/Authlete.Util.ArrayTrait.html"><div class="path-wrapper">\Authlete\Util\ArrayTrait</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_toJson" name="method_toJson" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">toJson()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">toJson(integer  <span class="argument">$options</span>) : string</pre>
+                <p><em>Convert this object into a JSON string.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$options </td>
+                                <td><p>Options passed to <code>json_encode()</code>. This parameter
+is optional and its default value is 0.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>A JSON string.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/Authlete.Util.JsonTrait.html"><div class="path-wrapper">\Authlete\Util\JsonTrait</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_fromJson" name="method_fromJson" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">fromJson()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">fromJson(string  <span class="argument">$json</span>) : static</pre>
+                <p><em>Convert a JSON string into an instance of this class.</em></p>
+                <p>This static function returns a new instance of this class.
+If <code>$json</code> is <code>null</code> or the type of <code>$json</code> is not <code>string</code>,
+<code>null</code> is returned.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$json </td>
+                                <td><p>A JSON string.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    static
+                                            &mdash; <p>An instance of this class.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/Authlete.Util.JsonTrait.html"><div class="path-wrapper">\Authlete\Util\JsonTrait</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getAction" name="method_getAction" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getAction()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getAction() : \Authlete\Dto\DeviceAuthorizationAction</pre>
+                <p><em>Get the next action that the device authorization endpoint should take.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Authlete.Dto.DeviceAuthorizationAction.html">\Authlete\Dto\DeviceAuthorizationAction</a>
+                                            &mdash; <p>The next action that the device authorization endpoint should take.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setAction" name="method_setAction" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setAction()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setAction(\Authlete\Dto\DeviceAuthorizationAction  <span class="argument">$action = null</span>) : \Authlete\Dto\DeviceAuthorizationResponse</pre>
+                <p><em>Set the next action that the device authorization endpoint should take.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td><a href="../classes/Authlete.Dto.DeviceAuthorizationAction.html">\Authlete\Dto\DeviceAuthorizationAction</a></td>
+                                <td>$action </td>
+                                <td><p>The next action that the device authorization endpoint should take.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Authlete.Dto.DeviceAuthorizationResponse.html">\Authlete\Dto\DeviceAuthorizationResponse</a>
+                                            &mdash; <p><code>$this</code> object.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getResponseContent" name="method_getResponseContent" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getResponseContent()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getResponseContent() : string</pre>
+                <p><em>Get the content that can be used to generate a response to the client
+application.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>The response content.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setResponseContent" name="method_setResponseContent" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setResponseContent()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setResponseContent(string  <span class="argument">$responseContent</span>) : \Authlete\Dto\DeviceAuthorizationResponse</pre>
+                <p><em>Set the content that can be used to generate a response to the client
+application.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$responseContent </td>
+                                <td><p>The response content.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Authlete.Dto.DeviceAuthorizationResponse.html">\Authlete\Dto\DeviceAuthorizationResponse</a>
+                                            &mdash; <p><code>$this</code> object.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getClientId" name="method_getClientId" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getClientId()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getClientId() : integer|string</pre>
+                <p><em>Get the ID of the client application that has made the device
+authorization request.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    integer|string
+                                            &mdash; <p>The client ID.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setClientId" name="method_setClientId" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setClientId()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setClientId(integer|string  <span class="argument">$clientId</span>) : \Authlete\Dto\DeviceAuthorizationResponse</pre>
+                <p><em>Set the ID of the client application that has made the device
+authorization request.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer|string</td>
+                                <td>$clientId </td>
+                                <td><p>The client ID.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Authlete.Dto.DeviceAuthorizationResponse.html">\Authlete\Dto\DeviceAuthorizationResponse</a>
+                                            &mdash; <p><code>$this</code> object.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getClientIdAlias" name="method_getClientIdAlias" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getClientIdAlias()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getClientIdAlias() : string</pre>
+                <p><em>Get the client ID alias of the client application that has made the
+device authorization request.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>The client ID alias.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setClientIdAlias" name="method_setClientIdAlias" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setClientIdAlias()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setClientIdAlias(string  <span class="argument">$alias</span>) : \Authlete\Dto\DeviceAuthorizationResponse</pre>
+                <p><em>Set the client ID alias of the client application that has made the
+device authorization request.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$alias </td>
+                                <td><p>The client ID alias.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Authlete.Dto.DeviceAuthorizationResponse.html">\Authlete\Dto\DeviceAuthorizationResponse</a>
+                                            &mdash; <p><code>$this</code> object.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_isClientIdAliasUsed" name="method_isClientIdAliasUsed" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">isClientIdAliasUsed()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">isClientIdAliasUsed() : boolean</pre>
+                <p><em>Get the flag which indicates whether the client ID alias was used in
+the device authorization request.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    boolean
+                                            &mdash; <p><code>true</code> if the client ID alias was used in the request.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setClientIdAliasUsed" name="method_setClientIdAliasUsed" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setClientIdAliasUsed()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setClientIdAliasUsed(boolean  <span class="argument">$used</span>) : \Authlete\Dto\DeviceAuthorizationResponse</pre>
+                <p><em>Set the flag which indicates whether the client ID alias was used in
+the device authorization request.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>boolean</td>
+                                <td>$used </td>
+                                <td><p><code>true</code> to indicate that the client ID alias was used in the request.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Authlete.Dto.DeviceAuthorizationResponse.html">\Authlete\Dto\DeviceAuthorizationResponse</a>
+                                            &mdash; <p><code>$this</code> object.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getClientName" name="method_getClientName" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getClientName()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getClientName() : string</pre>
+                <p><em>Get the name of the client application that has made the device
+authorization request.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>The name of the client application.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setClientName" name="method_setClientName" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setClientName()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setClientName(string  <span class="argument">$name</span>) : \Authlete\Dto\DeviceAuthorizationResponse</pre>
+                <p><em>Set the name of the client application that has made the device
+authorization request.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$name </td>
+                                <td><p>The name of the client application.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Authlete.Dto.DeviceAuthorizationResponse.html">\Authlete\Dto\DeviceAuthorizationResponse</a>
+                                            &mdash; <p><code>$this</code> object.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getScopes" name="method_getScopes" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getScopes()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getScopes() : array&lt;mixed,\Authlete\Dto\Scope&gt;</pre>
+                <p><em>Get the scopes requested by the device authorization request.</em></p>
+                <p>Basically, this method returns the value of the <code>scope</code> request parameter
+in the device authorization request. However, because unregistered
+scopes are dropped on Authlete side, if the <code>scope</code> request parameter
+contains unknown scopes, the list returned by this method becomes
+different from the value of the <code>scope</code> request parameter.</p>
+<p>Note that <code>Scope.getDescription()</code> method and <code>Scope.getDescriptions()</code>
+method of each element (<code>Scope</code> instance) in the array returned from
+this method always return <code>null</code> even if descriptions of the scopes are
+registered.</p>
+
+                
+                
+                                    <h4>Returns</h4>
+                    array&lt;mixed,<a href="../classes/Authlete.Dto.Scope.html">\Authlete\Dto\Scope</a>&gt;
+                                            &mdash; <p>The requested scopes.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setScopes" name="method_setScopes" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setScopes()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setScopes(array&lt;mixed,\Authlete\Dto\Scope&gt;  <span class="argument">$scopes = null</span>) : \Authlete\Dto\DeviceAuthorizationResponse</pre>
+                <p><em>Set the scopes requested by the device authorization request.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array&lt;mixed,<a href="../classes/Authlete.Dto.Scope.html">\Authlete\Dto\Scope</a>&gt;</td>
+                                <td>$scopes </td>
+                                <td><p>The requested scopes.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Authlete.Dto.DeviceAuthorizationResponse.html">\Authlete\Dto\DeviceAuthorizationResponse</a>
+                                            &mdash; <p><code>$this</code> object.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getClaimNames" name="method_getClaimNames" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getClaimNames()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getClaimNames() : array&lt;mixed,string&gt;</pre>
+                <p><em>Get the names of the claims which were requested indirectly via some
+special scopes. See [5.4. Requesting Claims using Scope Values](https://openid.net/specs/openid-connect-core-1_0.html#ScopeClaims)
+in [OpenID Connect Core 1.0](https://openid.net/specs/openid-connect-core-1_0.html#ScopeClaims)
+for details.</em></p>
+                <p>This method always returns <code>null</code> if the <code>scope</code> request parameter of
+the device authorization request does not include the <code>openid</code> scope
+even if special scopes (such as <code>profile</code>) are included in the request
+(unless the <code>openid</code> scope is included in the default set of scopes
+which is used when the <code>scope</code> request parameter is omitted).</p>
+
+                
+                
+                                    <h4>Returns</h4>
+                    array&lt;mixed,string&gt;
+                                            &mdash; <p>The names of the requested claims.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setClaimNames" name="method_setClaimNames" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setClaimNames()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setClaimNames(array&lt;mixed,string&gt;  <span class="argument">$names = null</span>) : \Authlete\Dto\DeviceAuthorizationResponse</pre>
+                <p><em>Set the names of the claims which were requested indirectly via some
+special scopes.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array&lt;mixed,string&gt;</td>
+                                <td>$names </td>
+                                <td><p>The names of the requested claims.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Authlete.Dto.DeviceAuthorizationResponse.html">\Authlete\Dto\DeviceAuthorizationResponse</a>
+                                            &mdash; <p><code>$this</code> object.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getAcrs" name="method_getAcrs" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getAcrs()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getAcrs() : array&lt;mixed,string&gt;</pre>
+                <p><em>Get the list of ACR values requestsed by the device authorization
+request.</em></p>
+                <p>Basically, this method returns the value of the <code>acr_values</code> request
+parameter in the device authorization request. However, because
+unsupported ACR values are dropped on Authlete side, if the <code>acr_values</code>
+request parameter contains unrecognized ACR values, the list returned
+by this method becomes different from the value of the <code>acr_values</code>
+request parameter.</p>
+<p>If the request does not include the <code>acr_values</code> request parameter,
+the value of the <code>default_acr_values</code> client metadata is used.</p>
+
+                
+                
+                                    <h4>Returns</h4>
+                    array&lt;mixed,string&gt;
+                                            &mdash; <p>The list of requested ACR values.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setAcrs" name="method_setAcrs" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setAcrs()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setAcrs(array&lt;mixed,string&gt;  <span class="argument">$acrs = null</span>) : \Authlete\Dto\DeviceAuthorizationResponse</pre>
+                <p><em>Set the list of ACR values requestsed by the device authorization
+request.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array&lt;mixed,string&gt;</td>
+                                <td>$acrs </td>
+                                <td><p>The list of requested ACR values.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Authlete.Dto.DeviceAuthorizationResponse.html">\Authlete\Dto\DeviceAuthorizationResponse</a>
+                                            &mdash; <p><code>$this</code> object.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getDeviceCode" name="method_getDeviceCode" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getDeviceCode()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getDeviceCode() : string</pre>
+                <p><em>Get the device verification code. This corresponds to the `device_code`
+property in the response to the client.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>The device verification code.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setDeviceCode" name="method_setDeviceCode" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setDeviceCode()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setDeviceCode(string  <span class="argument">$code</span>) : \Authlete\Dto\DeviceAuthorizationResponse</pre>
+                <p><em>Set the device verification code. This corresponds to the `device_code`
+property in the response to the client.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$code </td>
+                                <td><p>The device verification code.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Authlete.Dto.DeviceAuthorizationResponse.html">\Authlete\Dto\DeviceAuthorizationResponse</a>
+                                            &mdash; <p><code>$this</code> object.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getUserCode" name="method_getUserCode" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getUserCode()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getUserCode() : string</pre>
+                <p><em>Get the end-user verification code. This corresponds to the
+`user_code` property in the response to the client.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>The end-user verification code.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setUserCode" name="method_setUserCode" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setUserCode()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setUserCode(string  <span class="argument">$code</span>) : \Authlete\Dto\DeviceAuthorizationResponse</pre>
+                <p><em>Set the end-user verification code. This corresponds to the
+`user_code` property in the response to the client.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$code </td>
+                                <td><p>The end-user verification code.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Authlete.Dto.DeviceAuthorizationResponse.html">\Authlete\Dto\DeviceAuthorizationResponse</a>
+                                            &mdash; <p><code>$this</code> object.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getVerificationUri" name="method_getVerificationUri" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getVerificationUri()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getVerificationUri() : string</pre>
+                <p><em>Get the end-user verification URI. This corresponds to the
+`verification_uri` property in the response to the client.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>The end-user verification URI.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setVerificationUri" name="method_setVerificationUri" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setVerificationUri()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setVerificationUri(string  <span class="argument">$uri</span>) : \Authlete\Dto\DeviceAuthorizationResponse</pre>
+                <p><em>Set the end-user verification URI. This corresponds to the
+`verification_uri` property in the response to the client.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$uri </td>
+                                <td><p>The end-user verification URI.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Authlete.Dto.DeviceAuthorizationResponse.html">\Authlete\Dto\DeviceAuthorizationResponse</a>
+                                            &mdash; <p><code>$this</code> object.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getVerificationUriComplete" name="method_getVerificationUriComplete" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getVerificationUriComplete()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getVerificationUriComplete() : string</pre>
+                <p><em>Get the end-user verification URI that includes the end-user
+verification code. This corresponds to the `verification_uri_complete`
+property in the response to the client.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>The end-user verification URI that includes the end-user
+verification code.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setVerificationUriComplete" name="method_setVerificationUriComplete" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setVerificationUriComplete()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setVerificationUriComplete(string  <span class="argument">$uri</span>) : \Authlete\Dto\DeviceAuthorizationResponse</pre>
+                <p><em>Set the end-user verification URI that includes the end-user
+verification code. This corresponds to the `verification_uri_complete`
+property in the response to the client.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$uri </td>
+                                <td><p>The end-user verification URI that includes the end-user
+verification code.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Authlete.Dto.DeviceAuthorizationResponse.html">\Authlete\Dto\DeviceAuthorizationResponse</a>
+                                            &mdash; <p><code>$this</code> object.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getExpiresIn" name="method_getExpiresIn" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getExpiresIn()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getExpiresIn() : integer|string</pre>
+                <p><em>Get the duration of the issued device verification code and end-user
+verification code in seconds. This corresponds to the `expires_in`
+property in the response to the client.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    integer|string
+                                            &mdash; <p>The duration of the issued device verification code and end-user
+verification code in seconds.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setExpiresIn" name="method_setExpiresIn" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setExpiresIn()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setExpiresIn(integer|string  <span class="argument">$expiresIn</span>) : \Authlete\Dto\DeviceAuthorizationResponse</pre>
+                <p><em>Set the duration of the issued device verification code and end-user
+verification code in seconds. This corresponds to the `expires_in`
+property in the response to the client.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer|string</td>
+                                <td>$expiresIn </td>
+                                <td><p>The duration of the issued device verification code and end-user
+verification code in seconds.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Authlete.Dto.DeviceAuthorizationResponse.html">\Authlete\Dto\DeviceAuthorizationResponse</a>
+                                            &mdash; <p><code>$this</code> object.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getInterval" name="method_getInterval" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getInterval()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getInterval() : integer</pre>
+                <p><em>Get the minimum amount of time in seconds that the client must wait for
+between polling requests to the token endpoint. This corresponds to the
+`interval` property in the response to the client.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    integer
+                                            &mdash; <p>The minimum amount of time in seconds between polling requests.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setInterval" name="method_setInterval" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setInterval()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setInterval(integer  <span class="argument">$interval</span>) : \Authlete\Dto\DeviceAuthorizationResponse</pre>
+                <p><em>Set the minimum amount of time in seconds that the client must wait for
+between polling requests to the token endpoint. This corresponds to the
+`interval` property in the response to the client.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$interval </td>
+                                <td><p>The minimum amount of time in seconds between polling requests.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Authlete.Dto.DeviceAuthorizationResponse.html">\Authlete\Dto\DeviceAuthorizationResponse</a>
+                                            &mdash; <p><code>$this</code> object.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getResources" name="method_getResources" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getResources()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getResources() : array&lt;mixed,string&gt;</pre>
+                <p><em>Get the resources specified by the `resource` request parameters.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    array&lt;mixed,string&gt;
+                                            &mdash; <p>The target resources.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href=""><span class="namespace-wrapper">RFC 8707 Resource Indicators for OAuth 2.0</span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setResources" name="method_setResources" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setResources()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setResources(array&lt;mixed,string&gt;  <span class="argument">$resources = null</span>) : \Authlete\Dto\DeviceAuthorizationResponse</pre>
+                <p><em>Set the resources specified by the `resource` request parameters.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array&lt;mixed,string&gt;</td>
+                                <td>$resources </td>
+                                <td><p>The target resources.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Authlete.Dto.DeviceAuthorizationResponse.html">\Authlete\Dto\DeviceAuthorizationResponse</a>
+                                            &mdash; <p><code>$this</code> object.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href=""><span class="namespace-wrapper">RFC 8707 Resource Indicators for OAuth 2.0</span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getWarnings" name="method_getWarnings" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getWarnings()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getWarnings() : array&lt;mixed,string&gt;</pre>
+                <p><em>Get the warnings raised during processing the device authorization
+request.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    array&lt;mixed,string&gt;
+                                            &mdash; <p>Warnings. This may be null.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setWarnings" name="method_setWarnings" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setWarnings()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setWarnings(array&lt;mixed,string&gt;  <span class="argument">$warnings = null</span>) : \Authlete\Dto\DeviceAuthorizationResponse</pre>
+                <p><em>Set the warnings raised during processing the device authorization
+request.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array&lt;mixed,string&gt;</td>
+                                <td>$warnings </td>
+                                <td><p>Warnings</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Authlete.Dto.DeviceAuthorizationResponse.html">\Authlete\Dto\DeviceAuthorizationResponse</a>
+                                            &mdash; <p><code>$this</code> object.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                                    </div>
+    </section>
+
+    <div id="source-view" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="source-view-label" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="source-view-label">DeviceAuthorizationResponse.php</h3>
+        </div>
+        <div class="modal-body">
+            <pre data-src="../files/Dto/DeviceAuthorizationResponse.php.txt" class="language-php line-numbers"></pre>
+        </div>
+    </div>
+
+    <footer class="row-fluid">
+        <section class="span10 offset2">
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <section class="row-fluid footer-sections">
+                        <section class="span4">
+                                                        <h1><i class="icon-code"></i></h1>
+                            <div>
+                                <ul>
+                                                                            <li><a href="../namespaces/Authlete.html">\Authlete</a></li>
+                                                                    </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-bar-chart"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../graphs/class.html">Class Hierarchy Diagram</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-pushpin"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../reports/errors.html">Errors</a></li>
+                                    <li><a href="../reports/markers.html">Markers</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <hr />
+                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
+                    on August 9th, 2020 at 09:53.
+                </section>
+            </section>
+        </section>
+    </footer>
+</div>
+
+</body>
+</html>

@@ -1,6 +1,6 @@
 <?php
 //
-// Copyright (C) 2018 Authlete, Inc.
+// Copyright (C) 2018-2020 Authlete, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -126,8 +126,14 @@ use Authlete\Util\ValidationUtility;
  */
 class AuthorizationIssueResponse extends ApiResponse
 {
-    private $action          = null;  // \Authlete\Dto\AuthorizationIssueAction
-    private $responseContent = null;  // string
+    private $action               = null;  // \Authlete\Dto\AuthorizationIssueAction
+    private $responseContent      = null;  // string
+    private $accessToken          = null;  // string
+    private $accessTokenExpiresAt = null;  // string or (64-bit) integer
+    private $accessTokenDuration  = null;  // string or (64-bit) integer
+    private $idToken              = null;  // string
+    private $authorizationCode    = null;  // string
+    private $jwtAccessToken       = null;  // string
 
 
     /**
@@ -202,6 +208,237 @@ class AuthorizationIssueResponse extends ApiResponse
 
 
     /**
+     * Get the access token.
+     *
+     * An access token is issued when the `response_type` request parameter
+     * of the authorization request includes `token`.
+     *
+     * If the service is configured to issue JWT-based access tokens, a
+     * JWT-based access token is issued additionally. In the case,
+     * `getJwtAccessToken()` returns the JWT-based access token.
+     *
+     * @return string
+     *     The newly issued access token.
+     *
+     * @since 1.8
+     */
+    public function getAccessToken()
+    {
+        return $this->accessToken;
+    }
+
+
+    /**
+     * Set the access token.
+     *
+     * @param string $accessToken
+     *     The access token.
+     *
+     * @return AuthorizationIssueResponse
+     *     `$this` object.
+     *
+     * @since 1.8
+     */
+    public function setAccessToken($accessToken)
+    {
+        ValidationUtility::ensureNullOrString('$accessToken', $accessToken);
+
+        $this->accessToken = $accessToken;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the date at which the access token will expire.
+     *
+     * @return integer|string
+     *     The date at which the access token will expire. The value is
+     *     expressed in milliseconds since the Unix epoch (1970-Jan-1).
+     *
+     * @since 1.8
+     */
+    public function getAccessTokenExpiresAt()
+    {
+        return $this->accessTokenExpiresAt;
+    }
+
+
+    /**
+     * Set the date at which the access token will expire.
+     *
+     * @param integer|string $expiresAt
+     *     The date at which the access token will expire. The value
+     *     should be expressed in milliseconds since the Unix epoch
+     *     (1970-Jan-1).
+     *
+     * @return AuthorizationIssueResponse
+     *     `$this` object.
+     *
+     * @since 1.8
+     */
+    public function setAccessTokenExpiresAt($expiresAt)
+    {
+        ValidationUtility::ensureNullOrStringOrInteger('$expiresAt', $expiresAt);
+
+        $this->accessTokenExpiresAt = $expiresAt;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the duration of the access token in seconds.
+     *
+     * @return integer|string
+     *     The duration of the access token in seconds.
+     *
+     * @since 1.8
+     */
+    public function getAccessTokenDuration()
+    {
+        return $this->accessTokenDuration;
+    }
+
+
+    /**
+     * Set the duration of the access token in seconds.
+     *
+     * @param integer|string $duration
+     *     The duration of the access token in seconds.
+     *
+     * @return AuthorizationIssueResponse
+     *     `$this` object.
+     *
+     * @since 1.8
+     */
+    public function setAccessTokenDuration($duration)
+    {
+        ValidationUtility::ensureNullOrStringOrInteger('$duration', $duration);
+
+        $this->accessTokenDuration = $duration;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the newly issued ID token.
+     *
+     * An ID token is issued when the `response_type` request parameter of the
+     * authorization request includes `id_token`.
+     *
+     * @return string
+     *     The newly issued ID token.
+     *
+     * @since 1.8
+     */
+    public function getIdToken()
+    {
+        return $this->idToken;
+    }
+
+
+    /**
+     * Set the newly issued ID token.
+     *
+     * @param string $idToken
+     *     The newly issued ID token.
+     *
+     * @return AuthorizationIssueResponse
+     *     `$this` object.
+     *
+     * @since 1.8
+     */
+    public function setIdToken($idToken)
+    {
+        ValidationUtility::ensureNullOrString('$idToken', $idToken);
+
+        $this->idToken = $idToken;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the newly issued authorization code.
+     *
+     * An authorization code is issued when the `response_type` request
+     * parameter of the authorization request includes `code`.
+     *
+     * @return string
+     *     The newly issued authorization code.
+     *
+     * @since 1.8
+     */
+    public function getAuthorizationCode()
+    {
+        return $this->authorizationCode;
+    }
+
+
+    /**
+     * Set the newly issued authorization code.
+     *
+     * @param string $code
+     *     The newly issued authorization code.
+     *
+     * @return AuthorizationIssueResponse
+     *     `$this` object.
+     *
+     * @since 1.8
+     */
+    public function setAuthorizationCode($code)
+    {
+        ValidationUtility::ensureNullOrString('$code', $code);
+
+        $this->authorizationCode = $code;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the newly issued access token in JWT format.
+     *
+     * If the authorization server is configured to issue JWT-based access
+     * tokens (= if `Service.getAccessTokenSignAlg()` returns a non-null
+     * value), a JWT-based access token is issued along with the original
+     * random-string one.
+     *
+     * @return string
+     *     The newly issued access token in JWT format.
+     *
+     * @since 1.8
+     */
+    public function getJwtAccessToken()
+    {
+        return $this->jwtAccessToken;
+    }
+
+
+    /**
+     * Set the newly issued access token in JWT format.
+     *
+     * @param string $jwtAccessToken
+     *     The newly issued access token in JWT format.
+     *
+     * @return AuthorizationIssueResponse
+     *     `$this` object.
+     *
+     * @since 1.8
+     */
+    public function setJwtAccessToken($jwtAccessToken)
+    {
+        ValidationUtility::ensureNullOrString('$jwtAccessToken', $jwtAccessToken);
+
+        $this->jwtAccessToken = $jwtAccessToken;
+
+        return $this;
+    }
+
+
+    /**
      * {@inheritdoc}
      *
      * {@inheritdoc}
@@ -213,8 +450,14 @@ class AuthorizationIssueResponse extends ApiResponse
     {
         parent::copyToArray($array);
 
-        $array['action']          = LanguageUtility::toString($this->action);
-        $array['responseContent'] = $this->responseContent;
+        $array['action']               = LanguageUtility::toString($this->action);
+        $array['responseContent']      = $this->responseContent;
+        $array['accessToken']          = $this->accessToken;
+        $array['accessTokenExpiresAt'] = LanguageUtility::orZero($this->accessTokenExpiresAt);
+        $array['accessTokenDuration']  = LanguageUtility::orZero($this->accessTokenDuration);
+        $array['idToken']              = $this->idToken;
+        $array['authorizationCode']    = $this->authorizationCode;
+        $array['jwtAccessToken']       = $this->jwtAccessToken;
     }
 
 
@@ -238,6 +481,30 @@ class AuthorizationIssueResponse extends ApiResponse
         // responseContent
         $this->setResponseContent(
             LanguageUtility::getFromArray('responseContent', $array));
+
+        // accessToken
+        $this->setAccessToken(
+            LanguageUtility::getFromArray('accessToken', $array));
+
+        // accessTokenExpiresAt
+        $this->setAccessTokenExpiresAt(
+            LanguageUtility::getFromArray('accessTokenExpiresAt', $array));
+
+        // accessTokenDuration
+        $this->setAccessTokenDuration(
+            LanguageUtility::getFromArray('accessTokenDuration', $array));
+
+        // idToken
+        $this->setIdToken(
+            LanguageUtility::getFromArray('idToken', $array));
+
+        // authorizationCode
+        $this->setAuthorizationCode(
+            LanguageUtility::getFromArray('authorizationCode', $array));
+
+        // jwtAccessToken
+        $this->setJwtAccessToken(
+            LanguageUtility::getFromArray('jwtAccessToken', $array));
     }
 }
 ?>

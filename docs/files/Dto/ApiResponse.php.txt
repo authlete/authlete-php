@@ -95,7 +95,7 @@ class ApiResponse implements ArrayCopyable, Arrayable, Jsonable
      *
      * @param string $resultMessage
      *     The result message.
-     * 
+     *
      * @return ApiResponse
      *     `$this` object.
      */
