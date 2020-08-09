@@ -262,6 +262,23 @@ Methods in the `AuthleteApi` interface can be divided into some categories.
     - `getClientAuthorizationList(ClientAuthorizationGetListRequest $request)`
     - `updateClientAuthorization($clientId, ClientAuthorizationUpdateRequest $request)`
 
+  13. Methods for CIBA (Client Initiated Backchannel Authentication)
+
+    - `backchannelAuthentication(BackchannelAuthenticationRequest $request)`
+    - `backchannelAuthenticationIssue(BackchannelAuthenticationIssueRequest $request)`
+    - `backchannelAuthenticationFail(BackchannelAuthenticationFailRequest $request)`
+    - `backchannelAuthenticationComplete(BackchannelAuthenticationCompleteRequest $request)`
+
+  14. Methods for Device Flow (RFC 8628)
+
+    - `deviceAuthorization(DeviceAuthorizationRequest $request)`
+    - `deviceVerification(DeviceVerificationRequest $request)`
+    - `deviceComplete(DeviceCompleteRequest $request)`
+
+  15. Methods for PAR (Pushed Authorization Requests)
+
+    - `pushAuthorizationRequest(PushedAuthReqRequest $request)`
+
 *Example*
 
 The following code snippet is an example to get the list of your services.

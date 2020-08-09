@@ -1,6 +1,9 @@
 CHANGES
 =======
 
+1.8.0 (2020-08-09)
+------------------
+
 - `AuthleteApi` interface
     * Added `backchannelAuthentication()` method.
     * Added `backchannelAuthenticationIssue()` method.

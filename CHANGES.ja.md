@@ -1,6 +1,9 @@
 CHANGES (日本語)
 ================
 
+1.8.0 (2020 年 08 月 09 日)
+---------------------------
+
 - `AuthleteApi` インターフェース
     * `backchannelAuthentication()` メソッドを追加。
     * `backchannelAuthenticationIssue()` メソッドを追加。

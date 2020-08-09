@@ -262,6 +262,23 @@ $settings->setProxyTunnelUsed(false);
     - `getClientAuthorizationList(ClientAuthorizationGetListRequest $request)`
     - `updateClientAuthorization($clientId, ClientAuthorizationUpdateRequest $request)`
 
+  13. CIBA (Client Initiated Backchannel Authentication) のためのメソッド群
+
+    - `backchannelAuthentication(BackchannelAuthenticationRequest $request)`
+    - `backchannelAuthenticationIssue(BackchannelAuthenticationIssueRequest $request)`
+    - `backchannelAuthenticationFail(BackchannelAuthenticationFailRequest $request)`
+    - `backchannelAuthenticationComplete(BackchannelAuthenticationCompleteRequest $request)`
+
+  14. デバイスフロー (RFC 8628) のためのメソッド群
+
+    - `deviceAuthorization(DeviceAuthorizationRequest $request)`
+    - `deviceVerification(DeviceVerificationRequest $request)`
+    - `deviceComplete(DeviceCompleteRequest $request)`
+
+  15. PAR (Pushed Authorization Requests) のためのメソッド群
+
+    - `pushAuthorizationRequest(PushedAuthReqRequest $request)`
+
 *例*
 
 次のコードは既存のサービスのリストを取得する例です。
