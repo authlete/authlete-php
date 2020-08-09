@@ -2566,7 +2566,7 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
      */
     public function isBcUserCodeRequired()
     {
-        return $this->isBcUserCodeRequired;
+        return $this->bcUserCodeRequired;
     }
 
 
