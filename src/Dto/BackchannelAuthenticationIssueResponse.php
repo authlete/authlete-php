@@ -190,7 +190,7 @@ class BackchannelAuthenticationIssueResponse extends ApiResponse
      * Set the issued authentication request ID. This corresponds to the
      * `auth_req_id` property in the response to the client.
      *
-     * @param string $uri
+     * @param string $authReqId
      *         The issued authentication request ID (`auth_req_id`).
      *
      * @return BackchannelAuthenticationIssueResponse
