@@ -4216,7 +4216,7 @@ class ClientTest extends TestCase
     }
 
 
-    public function testToJson()
+    public function buildObj()
     {
         $obj = new Client();
         $obj->setDeveloper(self::DEVELOPER)
@@ -4362,6 +4362,13 @@ class ClientTest extends TestCase
             ->setParRequired(true)
             ;
 
+        return $obj;
+    }
+
+
+    public function testToJson()
+    {
+        $obj   = $this->buildObj();
         $json  = $obj->toJson();
         $array = json_decode($json, true);
 
@@ -4782,6 +4789,322 @@ class ClientTest extends TestCase
         // parRequired
         $this->assertArrayHasKey('parRequired', $array);
         $this->assertEquals(true, $array['parRequired']);
+    }
+
+
+    public function testGetters()
+    {
+        $obj = $this->buildObj();
+
+        // developer
+        $this->assertEquals(self::DEVELOPER, $obj->getDeveloper());
+
+        // clientId
+        $this->assertEquals(self::CLIENT_ID_INT, $obj->getClientId());
+
+        // clientIdAlias
+        $this->assertEquals(self::CLIENT_ID_ALIAS, $obj->getClientIdAlias());
+
+        // clientIdAliasEnabled
+        $this->assertEquals(true, $obj->isClientIdAliasEnabled());
+
+        // clientSecret
+        $this->assertEquals(self::CLIENT_SECRET, $obj->getClientSecret());
+
+        // clientType
+        $this->assertSame(ClientType::$PUBLIC, $obj->getClientType());
+
+        // redirectUris
+        $redirectUris = $obj->getRedirectUris();
+
+        $this->assertTrue(is_array($redirectUris));
+        $this->assertCount(2, $redirectUris);
+        $this->assertEquals("redirect_uri-0", $redirectUris[0]);
+        $this->assertEquals("redirect_uri-1", $redirectUris[1]);
+
+        // responseTypes
+        $responseTypes = $obj->getResponseTypes();
+
+        $this->assertTrue(is_array($responseTypes));
+        $this->assertCount(2, $responseTypes);
+        $this->assertSame(ResponseType::$CODE,  $responseTypes[0]);
+        $this->assertSame(ResponseType::$TOKEN, $responseTypes[1]);
+
+        // grantTypes
+        $grantTypes = $obj->getGrantTypes();
+
+        $this->assertTrue(is_array($grantTypes));
+        $this->assertCount(2, $grantTypes);
+        $this->assertSame(GrantType::$AUTHORIZATION_CODE, $grantTypes[0]);
+        $this->assertSame(GrantType::$IMPLICIT,           $grantTypes[1]);
+
+        // applicationType
+        $this->assertSame(ApplicationType::$WEB, $obj->getApplicationType());
+
+        // contacts
+        $contacts = $obj->getContacts();
+
+        $this->assertTrue(is_array($contacts));
+        $this->assertCount(2, $contacts);
+        $this->assertEquals("contact-0", $contacts[0]);
+        $this->assertEquals("contact-1", $contacts[1]);
+
+        // clientName
+        $this->assertEquals(self::CLIENT_NAME, $obj->getClientName());
+
+        // clientNames
+        $clientNames = $obj->getClientNames();
+
+        $this->assertTrue(is_array($clientNames));
+        $this->assertCount(2, $clientNames);
+
+        $clientName0 = $clientNames[0];
+        $this->assertEquals('client-name-tag-0',   $clientName0->getTag());
+        $this->assertEquals('client-name-value-0', $clientName0->getValue());
+
+        $clientName1 = $clientNames[1];
+        $this->assertEquals('client-name-tag-1',   $clientName1->getTag());
+        $this->assertEquals('client-name-value-1', $clientName1->getValue());
+
+        // logoUri
+        $this->assertEquals(self::LOGO_URI, $obj->getLogoUri());
+
+        // logoUris
+        $logoUris = $obj->getLogoUris();
+
+        $this->assertTrue(is_array($logoUris));
+        $this->assertCount(2, $logoUris);
+
+        $logoUri0 = $logoUris[0];
+        $this->assertEquals('logo-uri-tag-0',   $logoUri0->getTag());
+        $this->assertEquals('logo-uri-value-0', $logoUri0->getValue());
+
+        $logoUri1 = $logoUris[1];
+        $this->assertEquals('logo-uri-tag-1',   $logoUri1->getTag());
+        $this->assertEquals('logo-uri-value-1', $logoUri1->getValue());
+
+        // clientUri
+        $this->assertEquals(self::CLIENT_URI, $obj->getClientUri());
+
+        // clientUris
+        $clientUris = $obj->getClientUris();
+
+        $this->assertTrue(is_array($clientUris));
+        $this->assertCount(2, $clientUris);
+
+        $clientUri0 = $clientUris[0];
+        $this->assertEquals('client-uri-tag-0',   $clientUri0->getTag());
+        $this->assertEquals('client-uri-value-0', $clientUri0->getValue());
+
+        $clientUri1 = $clientUris[1];
+        $this->assertEquals('client-uri-tag-1',   $clientUri1->getTag());
+        $this->assertEquals('client-uri-value-1', $clientUri1->getValue());
+
+        // policyUri
+        $this->assertEquals(self::POLICY_URI, $obj->getPolicyUri());
+
+        // policyUris
+        $policyUris = $obj->getPolicyUris();
+
+        $this->assertTrue(is_array($policyUris));
+        $this->assertCount(2, $policyUris);
+
+        $policyUri0 = $policyUris[0];
+        $this->assertEquals('policy-uri-tag-0',   $policyUri0->getTag());
+        $this->assertEquals('policy-uri-value-0', $policyUri0->getValue());
+
+        $policyUri1 = $policyUris[1];
+        $this->assertEquals('policy-uri-tag-1',   $policyUri1->getTag());
+        $this->assertEquals('policy-uri-value-1', $policyUri1->getValue());
+
+        // tosUri
+        $this->assertEquals(self::TOS_URI, $obj->getTosUri());
+
+        // tosUris
+        $tosUris = $obj->getTosUris();
+
+        $this->assertTrue(is_array($tosUris));
+        $this->assertCount(2, $tosUris);
+
+        $tosUri0 = $tosUris[0];
+        $this->assertEquals('tos-uri-tag-0',   $tosUri0->getTag());
+        $this->assertEquals('tos-uri-value-0', $tosUri0->getValue());
+
+        $tosUri1 = $tosUris[1];
+        $this->assertEquals('tos-uri-tag-1',   $tosUri1->getTag());
+        $this->assertEquals('tos-uri-value-1', $tosUri1->getValue());
+
+        // jwksUri
+        $this->assertEquals(self::JWKS_URI, $obj->getJwksUri());
+
+        // jwks
+        $this->assertEquals(self::JWKS, $obj->getJwks());
+
+        // derivedSectorIdentifier
+        $this->assertEquals(self::DERIVED_SECTOR_IDENTIFIER, $obj->getDerivedSectorIdentifier());
+
+        // sectorIdentifierUri
+        $this->assertEquals(self::SECTOR_IDENTIFIER_URI, $obj->getSectorIdentifierUri());
+
+        // subjectType
+        $this->assertSame(SubjectType::$PUBLIC, $obj->getSubjectType());
+
+        // idTokenSignAlg
+        $this->assertSame(JWSAlg::$HS256, $obj->getIdTokenSignAlg());
+
+        // idTokenEncryptionAlg
+        $this->assertSame(JWEAlg::$A128KW, $obj->getIdTokenEncryptionAlg());
+
+        // idTokenEncryptionEnc
+        $this->assertSame(JWEEnc::$A128CBC_HS256, $obj->getIdTokenEncryptionEnc());
+
+        // userInfoSignAlg
+        $this->assertSame(JWSAlg::$HS256, $obj->getUserInfoSignAlg());
+
+        // userInfoEncryptionAlg
+        $this->assertSame(JWEAlg::$A128KW, $obj->getUserInfoEncryptionAlg());
+
+        // userInfoEncryptionEnc
+        $this->assertSame(JWEEnc::$A128CBC_HS256, $obj->getUserInfoEncryptionEnc());
+
+        // requestSignAlg
+        $this->assertSame(JWSAlg::$HS256, $obj->getRequestSignAlg());
+
+        // requestEncryptionAlg
+        $this->assertSame(JWEAlg::$A128KW, $obj->getRequestEncryptionAlg());
+
+        // requestEncryptionEnc
+        $this->assertSame(JWEEnc::$A128CBC_HS256, $obj->getRequestEncryptionEnc());
+
+        // tokenAuthMethod
+        $this->assertSame(ClientAuthMethod::$CLIENT_SECRET_POST, $obj->getTokenAuthMethod());
+
+        // tokenAuthSignAlg
+        $this->assertSame(JWSAlg::$HS256, $obj->getTokenAuthSignAlg());
+
+        // defaultMaxAge
+        $this->assertEquals(self::DEFAULT_MAX_AGE_INT, $obj->getDefaultMaxAge());
+
+        // authTimeRequired
+        $this->assertEquals(true, $obj->isAuthTimeRequired());
+
+        // defaultAcrs
+        $defaultAcrs = $obj->getDefaultAcrs();
+
+        $this->assertTrue(is_array($defaultAcrs));
+        $this->assertCount(2, $defaultAcrs);
+        $this->assertEquals("acr-0", $defaultAcrs[0]);
+        $this->assertEquals("acr-1", $defaultAcrs[1]);
+
+        // loginUri
+        $this->assertEquals(self::LOGIN_URI, $obj->getLoginUri());
+
+        // requestUris
+        $requestUris = $obj->getRequestUris();
+
+        $this->assertTrue(is_array($requestUris));
+        $this->assertCount(2, $requestUris);
+        $this->assertEquals("request_uri-0", $requestUris[0]);
+        $this->assertEquals("request_uri-1", $requestUris[1]);
+
+        // description
+        $this->assertEquals(self::DESCRIPTION, $obj->getDescription());
+
+        // descriptions
+        $descriptions = $obj->getDescriptions();
+
+        $this->assertTrue(is_array($descriptions));
+        $this->assertCount(2, $descriptions);
+
+        $description0 = $descriptions[0];
+        $this->assertEquals('description-tag-0',   $description0->getTag());
+        $this->assertEquals('description-value-0', $description0->getValue());
+
+        $description1 = $descriptions[1];
+        $this->assertEquals('description-tag-1',   $description1->getTag());
+        $this->assertEquals('description-value-1', $description1->getValue());
+
+        // createdAt
+        $this->assertEquals(self::CREATED_AT_INT, $obj->getCreatedAt());
+
+        // modifiedAt
+        $this->assertEquals(self::MODIFIED_AT_INT, $obj->getModifiedAt());
+
+        // extension
+        $extension = $obj->getExtension();
+
+        $this->assertEquals(true, $extension->isRequestableScopesEnabled());
+        $requestableScopes = $extension->getRequestableScopes();
+
+        $this->assertTrue(is_array($requestableScopes));
+        $this->assertCount(2, $requestableScopes);
+        $this->assertEquals('requestable_scope-0', $requestableScopes[0]);
+        $this->assertEquals('requestable_scope-1', $requestableScopes[1]);
+
+        // tlsClientAuthSubjectDn
+        $this->assertEquals(self::TLS_CLIENT_AUTH_SUBJECT_DN, $obj->getTlsClientAuthSubjectDn());
+
+        // tlsClientAuthSanDns
+        $this->assertEquals(self::TLS_CLIENT_AUTH_SAN_DNS, $obj->getTlsClientAuthSanDns());
+
+        // tlsClientAuthSanUri
+        $this->assertEquals(self::TLS_CLIENT_AUTH_SAN_URI, $obj->getTlsClientAuthSanUri());
+
+        // tlsClientAuthSanIp
+        $this->assertEquals(self::TLS_CLIENT_AUTH_SAN_IP, $obj->getTlsClientAuthSanIp());
+
+        // tlsClientAuthSanEmail
+        $this->assertEquals(self::TLS_CLIENT_AUTH_SAN_EMAIL, $obj->getTlsClientAuthSanEmail());
+
+        // tlsClientCertificateBoundAccessTokens
+        $this->assertEquals(true, $obj->isTlsClientCertificateBoundAccessTokens());
+
+        // selfSignedCertificateKeyId
+        $this->assertEquals('keyId', $obj->getSelfSignedCertificateKeyId());
+
+        // softwareId
+        $this->assertEquals(self::SOFTWARE_ID, $obj->getSoftwareId());
+
+        // softwareVersion
+        $this->assertEquals(self::SOFTWARE_VERSION, $obj->getSoftwareVersion());
+
+        // authorizationSignAlg
+        $this->assertSame(JWSAlg::$HS256, $obj->getAuthorizationSignAlg());
+
+        // authorizationEncryptionAlg
+        $this->assertSame(JWEAlg::$A128KW, $obj->getAuthorizationEncryptionAlg());
+
+        // authorizationEncryptionEnc
+        $this->assertSame(JWEEnc::$A128CBC_HS256, $obj->getAuthorizationEncryptionEnc());
+
+        // bcDeliveryMode
+        $this->assertSame(DeliveryMode::$POLL, $obj->getBcDeliveryMode());
+
+        // bcNotificationEndpoint
+        $this->assertEquals(self::BC_NOTIFICATION_ENDPOINT, $obj->getBcNotificationEndpoint());
+
+        // bcRequestSignAlg
+        $this->assertSame(JWSAlg::$ES256, $obj->getBcRequestSignAlg());
+
+        // bcUserCodeRequired
+        $this->assertEquals(true, $obj->isBcUserCodeRequired());
+
+        // dynamicallyRegistered
+        $this->assertEquals(true, $obj->isDynamicallyRegistered());
+
+        // registrationAccessTokenHash
+        $this->assertEquals(self::REGISTRATION_ACCESS_TOKEN_HASH, $obj->getRegistrationAccessTokenHash());
+
+        // authorizationDataTypes
+        $authorizationDataTypes = $obj->getAuthorizationDataTypes();
+
+        $this->assertTrue(is_array($authorizationDataTypes));
+        $this->assertCount(2, $authorizationDataTypes);
+        $this->assertEquals("type-0", $authorizationDataTypes[0]);
+        $this->assertEquals("type-1", $authorizationDataTypes[1]);
+
+        // parRequired
+        $this->assertEquals(true, $obj->isParRequired());
     }
 
 
