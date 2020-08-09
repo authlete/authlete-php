@@ -2,6 +2,10 @@ CHANGES (日本語)
 ================
 
 - `AuthleteApi` インターフェース
+    * `backchannelAuthentication()` メソッドを追加。
+    * `backchannelAuthenticationIssue()` メソッドを追加。
+    * `backchannelAuthenticationFail()` メソッドを追加。
+    * `backchannelAuthenticationComplete()` メソッドを追加。
     * `deviceAuthorization()` メソッドを追加。
     * `deviceComplete()` メソッドを追加。
     * `deviceVerification()` メソッドを追加。

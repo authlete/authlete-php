@@ -2,6 +2,10 @@ CHANGES
 =======
 
 - `AuthleteApi` interface
+    * Added `backchannelAuthentication()` method.
+    * Added `backchannelAuthenticationIssue()` method.
+    * Added `backchannelAuthenticationFail()` method.
+    * Added `backchannelAuthenticationComplete()` method.
     * Added `deviceAuthorization()` method.
     * Added `deviceComplete()` method.
     * Added `deviceVerification()` method.

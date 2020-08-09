@@ -28,6 +28,10 @@ namespace Authlete\Api;
 use Authlete\Dto\AuthorizationFailRequest;
 use Authlete\Dto\AuthorizationIssueRequest;
 use Authlete\Dto\AuthorizationRequest;
+use Authlete\Dto\BackchannelAuthenticationCompleteRequest;
+use Authlete\Dto\BackchannelAuthenticationFailRequest;
+use Authlete\Dto\BackchannelAuthenticationIssueRequest;
+use Authlete\Dto\BackchannelAuthenticationRequest;
 use Authlete\Dto\Client;
 use Authlete\Dto\ClientAuthorizationDeleteRequest;
 use Authlete\Dto\ClientAuthorizationGetListRequest;
@@ -639,6 +643,70 @@ interface AuthleteApi
      * @throws AuthleteApiException
      */
     public function updateClientSecret($clientId, $clientSecret);
+
+
+    /**
+     * Call Authlete's /api/backchannel/authentication API.
+     *
+     * @param BackchannelAuthenticationRequest $request
+     *     Request parameters passed to the API.
+     *
+     * @return \Authlete\Dto\BackchannelAuthenticationResponse
+     *     Response from the API.
+     *
+     * @throws AuthleteApiException
+     *
+     * @since 1.8
+     */
+    public function backchannelAuthentication(BackchannelAuthenticationRequest $request);
+
+
+    /**
+     * Call Authlete's /api/backchannel/authentication/issue API.
+     *
+     * @param BackchannelAuthenticationIssueRequest $request
+     *     Request parameters passed to the API.
+     *
+     * @return \Authlete\Dto\BackchannelAuthenticationIssueResponse
+     *     Response from the API.
+     *
+     * @throws AuthleteApiException
+     *
+     * @since 1.8
+     */
+    public function backchannelAuthenticationIssue(BackchannelAuthenticationIssueRequest $request);
+
+
+    /**
+     * Call Authlete's /api/backchannel/authentication/fail API.
+     *
+     * @param BackchannelAuthenticationFailRequest $request
+     *     Request parameters passed to the API.
+     *
+     * @return \Authlete\Dto\BackchannelAuthenticationFailResponse
+     *     Response from the API.
+     *
+     * @throws AuthleteApiException
+     *
+     * @since 1.8
+     */
+    public function backchannelAuthenticationFail(BackchannelAuthenticationFailRequest $request);
+
+
+    /**
+     * Call Authlete's /api/backchannel/authentication/complete API.
+     *
+     * @param BackchannelAuthenticationCompleteRequest $request
+     *     Request parameters passed to the API.
+     *
+     * @return \Authlete\Dto\BackchannelAuthenticationCompleteResponse
+     *     Response from the API.
+     *
+     * @throws AuthleteApiException
+     *
+     * @since 1.8
+     */
+    public function backchannelAuthenticationComplete(BackchannelAuthenticationCompleteRequest $request);
 
 
     /**

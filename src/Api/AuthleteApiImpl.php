@@ -34,6 +34,14 @@ use Authlete\Dto\AuthorizationIssueResponse;
 use Authlete\Dto\AuthorizationRequest;
 use Authlete\Dto\AuthorizationResponse;
 use Authlete\Dto\AuthorizedClientListResponse;
+use Authlete\Dto\BackchannelAuthenticationCompleteRequest;
+use Authlete\Dto\BackchannelAuthenticationCompleteResponse;
+use Authlete\Dto\BackchannelAuthenticationFailRequest;
+use Authlete\Dto\BackchannelAuthenticationFailResponse;
+use Authlete\Dto\BackchannelAuthenticationIssueRequest;
+use Authlete\Dto\BackchannelAuthenticationIssueResponse;
+use Authlete\Dto\BackchannelAuthenticationRequest;
+use Authlete\Dto\BackchannelAuthenticationResponse;
 use Authlete\Dto\Client;
 use Authlete\Dto\ClientAuthorizationDeleteRequest;
 use Authlete\Dto\ClientAuthorizationGetListRequest;
@@ -120,6 +128,10 @@ class AuthleteApiImpl implements AuthleteApi
     private static $CLIENT_AUTHORIZATION_DELETE_API_PATH   = '/api/client/authorization/delete/';  // + {clientId}
     private static $CLIENT_AUTHORIZATION_GET_LIST_API_PATH = '/api/client/authorization/get/list';
     private static $CLIENT_AUTHORIZATION_UPDATE_API_PATH   = '/api/client/authorization/update/';  // + {clientId}
+    private static $BC_AUTHENTICATION_API_PATH             = '/api/backchannel/authentication';
+    private static $BC_AUTHENTICATION_COMPLETE_API_PATH    = '/api/backchannel/authentication/complete';
+    private static $BC_AUTHENTICATION_FAIL_API_PATH        = '/api/backchannel/authentication/fail';
+    private static $BC_AUTHENTICATION_ISSUE_API_PATH       = '/api/backchannel/authentication/issue';
     private static $DEVICE_AUTHORIZATION_API_PATH          = '/api/device/authorization';
     private static $DEVICE_COMPLETE_API_PATH               = '/api/device/complete';
     private static $DEVICE_VERIFICATION_API_PATH           = '/api/device/verification';
@@ -1117,6 +1129,74 @@ class AuthleteApiImpl implements AuthleteApi
         return $this->callServicePostApi(
             '\Authlete\Dto\ClientSecretUpdateResponse::fromJson',
             self::$CLIENT_SECRET_UPDATE_API_PATH . $clientId,
+            null, $request);
+    }
+
+
+    /**
+     * {@inheritdoc}
+     *
+     * {@inheritdoc}
+     *
+     * @param BackchannelAuthenticationRequest $request
+     *     {@inheritdoc}
+     */
+    public function backchannelAuthentication(BackchannelAuthenticationRequest $request)
+    {
+        return $this->callServicePostApi(
+            '\Authlete\Dto\BackchannelAuthenticationResponse::fromJson',
+            self::$BC_AUTHENTICATION_API_PATH,
+            null, $request);
+    }
+
+
+    /**
+     * {@inheritdoc}
+     *
+     * {@inheritdoc}
+     *
+     * @param BackchannelAuthenticationIssueRequest $request
+     *     {@inheritdoc}
+     */
+    public function backchannelAuthenticationIssue(BackchannelAuthenticationIssueRequest $request)
+    {
+        return $this->callServicePostApi(
+            '\Authlete\Dto\BackchannelAuthenticationIssueResponse::fromJson',
+            self::$BC_AUTHENTICATION_ISSUE_API_PATH,
+            null, $request);
+    }
+
+
+    /**
+     * {@inheritdoc}
+     *
+     * {@inheritdoc}
+     *
+     * @param BackchannelAuthenticationFailRequest $request
+     *     {@inheritdoc}
+     */
+    public function backchannelAuthenticationFail(BackchannelAuthenticationFailRequest $request)
+    {
+        return $this->callServicePostApi(
+            '\Authlete\Dto\BackchannelAuthenticationFailResponse::fromJson',
+            self::$BC_AUTHENTICATION_FAIL_API_PATH,
+            null, $request);
+    }
+
+
+    /**
+     * {@inheritdoc}
+     *
+     * {@inheritdoc}
+     *
+     * @param BackchannelAuthenticationCompleteRequest $request
+     *     {@inheritdoc}
+     */
+    public function backchannelAuthenticationComplete(BackchannelAuthenticationCompleteRequest $request)
+    {
+        return $this->callServicePostApi(
+            '\Authlete\Dto\BackchannelAuthenticationCompleteResponse::fromJson',
+            self::$BC_AUTHENTICATION_COMPLETE_API_PATH,
             null, $request);
     }
 
