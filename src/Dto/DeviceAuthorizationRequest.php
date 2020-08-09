@@ -60,7 +60,7 @@ class DeviceAuthorizationRequest implements ArrayCopyable, Arrayable, Jsonable
 
 
     /**
-     * Get the vaue of `parameters` which is the request parameters that the
+     * Get the value of `parameters` which is the request parameters that the
      * device authorization endpoint of the authorization server implementation
      * received from a client application.
      *
@@ -75,7 +75,7 @@ class DeviceAuthorizationRequest implements ArrayCopyable, Arrayable, Jsonable
 
 
     /**
-     * Set the vaue of `parameters` which is the request parameters that the
+     * Set the value of `parameters` which is the request parameters that the
      * device authorization endpoint of the authorization server implementation
      * received from a client application.
      *
