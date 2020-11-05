@@ -1,6 +1,11 @@
 CHANGES (日本語)
 ================
 
+- `DeviceCompleteRequest` クラス
+    * `getIdtHeaderParams()` メソッドを追加。
+    * `setIdtHeaderParams()` メソッドを追加。
+
+
 1.8.0 (2020 年 08 月 09 日)
 ---------------------------
 
