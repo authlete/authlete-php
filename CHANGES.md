@@ -1,6 +1,10 @@
 CHANGES
 =======
 
+- `BackchannelAuthenticationCompleteRequest` class
+    * Added `getIdtHeaderParams()` method.
+    * Added `setIdtHeaderParams()` method.
+
 - `DeviceCompleteRequest` class
     * Added `getIdtHeaderParams()` method.
     * Added `setIdtHeaderParams()` method.

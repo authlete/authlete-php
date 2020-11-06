@@ -1,6 +1,10 @@
 CHANGES (日本語)
 ================
 
+- `BackchannelAuthenticationCompleteRequest` クラス
+    * `getIdtHeaderParams()` メソッドを追加。
+    * `setIdtHeaderParams()` メソッドを追加。
+
 - `DeviceCompleteRequest` クラス
     * `getIdtHeaderParams()` メソッドを追加。
     * `setIdtHeaderParams()` メソッドを追加。

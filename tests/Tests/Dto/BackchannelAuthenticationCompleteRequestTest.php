@@ -37,6 +37,7 @@ class BackchannelAuthenticationCompleteRequestTest extends TestCase
     private const AUTH_TIME         = 123;
     private const ACR               = '_acr_';
     private const CLAIMS            = '_claims_';
+    private const IDT_HEADER_PARAMS = '{"example-parameter":"example-value"}';
     private const ERROR_DESCRIPTION = '_error_description_';
     private const ERROR_URI         = '_error_uri_';
 
@@ -63,6 +64,7 @@ class BackchannelAuthenticationCompleteRequestTest extends TestCase
                     "scope-1"
                 )
             )
+            ->setIdtHeaderParams(self::IDT_HEADER_PARAMS)
             ->setErrorDescription(self::ERROR_DESCRIPTION)
             ->setErrorUri(self::ERROR_URI)
         ;
@@ -141,6 +143,10 @@ class BackchannelAuthenticationCompleteRequestTest extends TestCase
         // scopes: the second entry
         $this->assertEquals('scope-1', $scopes[1]);
 
+        // idtHeaderParams
+        $this->assertArrayHasKey('idtHeaderParams', $array);
+        $this->assertEquals(self::IDT_HEADER_PARAMS, $array['idtHeaderParams']);
+
         // errorDescription
         $this->assertArrayHasKey('errorDescription', $array);
         $this->assertEquals(self::ERROR_DESCRIPTION, $array['errorDescription']);
@@ -203,6 +209,9 @@ class BackchannelAuthenticationCompleteRequestTest extends TestCase
 
         // scopes: the second entry
         $this->assertEquals('scope-1', $scopes[1]);
+
+        // idtHeaderParams
+        $this->assertEquals(self::IDT_HEADER_PARAMS, $obj->getIdtHeaderParams());
 
         // errorDescription
         $this->assertEquals(self::ERROR_DESCRIPTION, $obj->getErrorDescription());
