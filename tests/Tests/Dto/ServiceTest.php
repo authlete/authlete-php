@@ -1281,6 +1281,10 @@ class ServiceTest extends TestCase
             )
             ->setMissingClientIdAllowed(true)
             ->setParRequired(true)
+            ->setRequestObjectRequired(true)
+            ->setTraditionalRequestObjectProcessingApplied(true)
+            ->setClaimShortcutRestrictive(true)
+            ->setScopeRequired(true)
             ;
 
         return $obj;
@@ -1843,6 +1847,22 @@ class ServiceTest extends TestCase
         // parRequired
         $this->assertArrayHasKey('parRequired', $array);
         $this->assertTrue($array['parRequired']);
+
+        // requestObjectRequired
+        $this->assertArrayHasKey('requestObjectRequired', $array);
+        $this->assertTrue($array['requestObjectRequired']);
+
+        // traditionalRequestObjectProcessingApplied
+        $this->assertArrayHasKey('traditionalRequestObjectProcessingApplied', $array);
+        $this->assertTrue($array['traditionalRequestObjectProcessingApplied']);
+
+        // claimShortcutRestrictive
+        $this->assertArrayHasKey('claimShortcutRestrictive', $array);
+        $this->assertTrue($array['claimShortcutRestrictive']);
+
+        // scopeRequired
+        $this->assertArrayHasKey('scopeRequired', $array);
+        $this->assertTrue($array['scopeRequired']);
     }
 
 
@@ -2285,6 +2305,18 @@ class ServiceTest extends TestCase
 
         // parRequired
         $this->assertTrue($obj->isParRequired());
+
+        // requestObjectRequired
+        $this->assertTrue($obj->isRequestObjectRequired());
+
+        // traditionalRequestObjectProcessingApplied
+        $this->assertTrue($obj->isTraditionalRequestObjectProcessingApplied());
+
+        // claimShortcutRestrictive
+        $this->assertTrue($obj->isClaimShortcutRestrictive());
+
+        // scopeRequired
+        $this->assertTrue($obj->isScopeRequired());
     }
 }
 ?>

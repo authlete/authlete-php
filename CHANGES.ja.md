@@ -13,6 +13,16 @@ CHANGES (日本語)
     * `getIdtHeaderParams()` メソッドを追加。
     * `setIdtHeaderParams()` メソッドを追加。
 
+- `Service` クラス
+    * `isRequestObjectRequired()` メソッドを追加。
+    * `setRequestObjectRequired()` メソッドを追加。
+    * `isTraditionalRequestObjectProcessingApplied()` メソッドを追加。
+    * `setTraditionalRequestObjectProcessingApplied()` メソッドを追加。
+    * `isClaimShortcutRestrictive()` メソッドを追加。
+    * `setClaimShortcutRestrictive()` メソッドを追加。
+    * `isScopeRequired()` メソッドを追加。
+    * `setScopeRequired()` メソッドを追加。
+
 
 1.8.0 (2020 年 08 月 09 日)
 ---------------------------

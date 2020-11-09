@@ -13,6 +13,16 @@ CHANGES
     * Added `getIdtHeaderParams()` method.
     * Added `setIdtHeaderParams()` method.
 
+- `Service` class
+    * Added `isRequestObjectRequired()` method.
+    * Added `setRequestObjectRequired()` method.
+    * Added `isTraditionalRequestObjectProcessingApplied()` method.
+    * Added `setTraditionalRequestObjectProcessingApplied()` method.
+    * Added `isClaimShortcutRestrictive()` method.
+    * Added `setClaimShortcutRestrictive()` method.
+    * Added `isScopeRequired()` method.
+    * Added `setScopeRequired()` method.
+
 
 1.8.0 (2020-08-09)
 ------------------
