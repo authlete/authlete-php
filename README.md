@@ -249,6 +249,7 @@ Methods in the `AuthleteApi` interface can be divided into some categories.
   10. Methods for Token Operations
 
     - `tokenCreate(TokenCreateRequest $request)`
+    - `tokenDelete($token)`
     - `tokenUpdate(TokenUpdateRequest $request)`
 
   11. Methods for Records of Granted Scopes

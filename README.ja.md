@@ -249,6 +249,7 @@ $settings->setProxyTunnelUsed(false);
   10. トークン操作のためのメソッド群
 
     - `tokenCreate(TokenCreateRequest $request)`
+    - `tokenDelete($token)`
     - `tokenUpdate(TokenUpdateRequest $request)`
 
   11. 付与されたスコープの記録に関するメソッド群
