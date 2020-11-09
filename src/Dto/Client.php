@@ -124,6 +124,7 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
     private $registrationAccessTokenHash           = null;  // string
     private $authorizationDataTypes                = null;  // array of string
     private $parRequired                           = false; // boolean
+    private $requestObjectRequired                 = false; // boolean
 
 
     /**
@@ -2757,6 +2758,53 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
 
 
     /**
+     * Get the flag which indicates whether authorization requests from this
+     * client are always required to utilize a request object by using either
+     * `request` or `request_uri` request parameter.
+     *
+     * If this method returns true and the service's
+     * `isTraditionalRequestObjectProcessingApplied()` method returns false,
+     * authorization requests from this client are processed as if
+     * `require_signed_request_object` client metadata of this client is true.
+     * The metadata is defined in JAR (JWT Secured Authorization Request).
+     *
+     * @return boolean
+     *     `true` if authorization requests from this client are always
+     *     required to utilize a request object.
+     *
+     * @since 1.9
+     */
+    public function isRequestObjectRequired()
+    {
+        return $this->requestObjectRequired;
+    }
+
+
+    /**
+     * Set the flag which indicates whether authorization requests from this
+     * client are always required to utilize a request object by using either
+     * `request` or `request_uri` request parameter.
+     *
+     * @param boolean $required
+     *     `true` to require that authorization requests from this client
+     *     always utilize a request object.
+     *
+     * @return Client
+     *     `$this` object.
+     *
+     * @since 1.9
+     */
+    public function setRequestObjectRequired($required)
+    {
+        ValidationUtility::ensureBoolean('$required', $required);
+
+        $this->requestObjectRequired = $required;
+
+        return $this;
+    }
+
+
+    /**
      * {@inheritdoc}
      *
      * {@inheritdoc}
@@ -2833,6 +2881,7 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
         $array['registrationAccessTokenHash']           = $this->registrationAccessTokenHash;
         $array['authorizationDataTypes']                = $this->authorizationDataTypes;
         $array['parRequired']                           = $this->parRequired;
+        $array['requestObjectRequired']                 = $this->requestObjectRequired;
     }
 
 
@@ -3150,5 +3199,9 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
         // parRequired
         $this->setParRequired(
             LanguageUtility::getFromArrayAsBoolean('parRequired', $array));
+
+        // requestObjectRequired
+        $this->setRequestObjectRequired(
+            LanguageUtility::getFromArrayAsBoolean('requestObjectRequired', $array));
     }
 }

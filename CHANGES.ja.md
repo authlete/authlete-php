@@ -5,6 +5,10 @@ CHANGES (日本語)
     * `getIdtHeaderParams()` メソッドを追加。
     * `setIdtHeaderParams()` メソッドを追加。
 
+- `Client` クラス
+    * `isRequestObjectRequired()` メソッドを追加。
+    * `setRequestObjectRequired()` メソッドを追加。
+
 - `DeviceCompleteRequest` クラス
     * `getIdtHeaderParams()` メソッドを追加。
     * `setIdtHeaderParams()` メソッドを追加。

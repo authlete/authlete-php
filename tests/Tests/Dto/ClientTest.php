@@ -4360,6 +4360,7 @@ class ClientTest extends TestCase
                 )
             )
             ->setParRequired(true)
+            ->setRequestObjectRequired(true)
             ;
 
         return $obj;
@@ -4789,6 +4790,10 @@ class ClientTest extends TestCase
         // parRequired
         $this->assertArrayHasKey('parRequired', $array);
         $this->assertEquals(true, $array['parRequired']);
+
+        // requestObjectRequired
+        $this->assertArrayHasKey('requestObjectRequired', $array);
+        $this->assertEquals(true, $array['requestObjectRequired']);
     }
 
 
@@ -5105,6 +5110,9 @@ class ClientTest extends TestCase
 
         // parRequired
         $this->assertEquals(true, $obj->isParRequired());
+
+        // requestObjectRequired
+        $this->assertEquals(true, $obj->isRequestObjectRequired());
     }
 
 

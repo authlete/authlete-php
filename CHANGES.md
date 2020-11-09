@@ -5,6 +5,10 @@ CHANGES
     * Added `getIdtHeaderParams()` method.
     * Added `setIdtHeaderParams()` method.
 
+- `Client` class
+    * Added `isRequestObjectRequired()` method.
+    * Added `setRequestObjectRequired()` method.
+
 - `DeviceCompleteRequest` class
     * Added `getIdtHeaderParams()` method.
     * Added `setIdtHeaderParams()` method.
