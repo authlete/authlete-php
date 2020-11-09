@@ -155,6 +155,10 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
     private $supportedVerifiedClaims                     = null;  // array of string
     private $missingClientIdAllowed                      = false; // boolean
     private $parRequired                                 = false; // boolean
+    private $requestObjectRequired                       = false; // boolean
+    private $traditionalRequestObjectProcessingApplied   = false; // boolean
+    private $claimShortcutRestrictive                    = false; // boolean
+    private $scopeRequired                               = false; // boolean
 
 
     /**
@@ -4244,6 +4248,227 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
 
 
     /**
+     * Get the flag which indicates whether this service requires that
+     * authorization requests always utilize a request object by using either
+     * `request` or `request_uri` request parameter.
+     *
+     * If this method returns true and
+     * `isTraditionalRequestObjectProcessingApplied()` returns false, the value
+     * of `require_signed_request_object` server metadata of this service is
+     * reported as true in the discovery document. The metadata is defined in
+     * JAR (JWT Secured Authorization Request). That
+     * `require_signed_request_object` is true means that authorization
+     * requests which don't conform to the JAR specification are rejected.
+     *
+     * @return boolean
+     *     `true` if this service requires that authorization requests always
+     *     utilize a request object.
+     *
+     * @since 1.9
+     */
+    public function isRequestObjectRequired()
+    {
+        return $this->requestObjectRequired;
+    }
+
+
+    /**
+     * Set the flag which indicates whether this service requires that
+     * authorization requests always utilize a request object by using either
+     * `request` or `request_uri` request parameter.
+     *
+     * @param boolean $required
+     *     `true` to require that authorization requests always utilize a
+     *     request object.
+     *
+     * @return Service
+     *     `$this` object.
+     *
+     * @since 1.9
+     */
+    public function setRequestObjectRequired($required)
+    {
+        ValidationUtility::ensureBoolean('$required', $required);
+
+        $this->requestObjectRequired = $required;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the flag which indicates whether a request object is processed based
+     * on rules defined in OpenID Connect Core 1.0 or JAR (JWT Secured
+     * Authorization Request).
+     *
+     * Differences between rules in OpenID Connect Core 1.0 and ones in JAR are
+     * as follows.
+     *
+     * 1. JAR requires that a request object be always signed.
+     *
+     * 2. JAR does not allow request parameters outside a request object to be
+     * referred to.
+     *
+     * 3. OIDC Core 1.0 requires that `response_type` request parameter exist
+     * outside a request object even if the request object includes the
+     * request parameter.
+     *
+     * 4. OIDC Core 1.0 requires that `scope` request parameter exist outside
+     * a request object if the authorization request is an OIDC request even
+     * if the request object includes the request parameter.
+     *
+     * If this method returns false and `isRequestObjectRequired()` method
+     * returns true, the value of `require_signed_request_object` server
+     * metadata of this service is reported as true in the discovery document.
+     * That `require_signed_request_object` is true means that authorization
+     * requests which don't conform to the JAR specification are rejected.
+     *
+     * @return boolean
+     *     `true` if rules defined in OpenID Connect Core 1.0 are applied on
+     *     processing a request object. `false` if rules defined in JAR (JWT
+     *     Secured Authorization Request) are applied.
+     *
+     * @since 1.9
+     */
+    public function isTraditionalRequestObjectProcessingApplied()
+    {
+        return $this->traditionalRequestObjectProcessingApplied;
+    }
+
+
+    /**
+     * Set the flag which indicates whether a request object is processed based
+     * on rules defined in OpenID Connect Core 1.0 or JAR (JWT Secured
+     * Authorization Request).
+     *
+     * See the description of `isTraditionalRequestObjectProcessingApplied()`
+     * method for details.
+     *
+     * @param boolean $applied
+     *     `true` to apply rules defined in OpenID Connect Core 1.0 on processing
+     *     a request object. `false` to apply rules defined in JAR instead.
+     *
+     * @return Service
+     *     `$this` object.
+     *
+     * @since 1.9
+     */
+    public function setTraditionalRequestObjectProcessingApplied($applied)
+    {
+        ValidationUtility::ensureBoolean('$applied', $applied);
+
+        $this->traditionalRequestObjectProcessingApplied = $applied;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the flag which indicates whether claims specified by shortcut scopes
+     * (e.g. `profile`) are included in the issued ID token only when no access
+     * token is issued.
+     *
+     * @return boolean
+     *     `true` if claims specified by shortcut scopes are included in the
+     *     issued ID token only when no access token is issued. `false` if the
+     *     claims are included in the issued ID token regardless of whether an
+     *     access token is issued or not.
+     *
+     * @since 1.9
+     */
+    public function isClaimShortcutRestrictive()
+    {
+        return $this->claimShortcutRestrictive;
+    }
+
+
+    /**
+     * Set the flag which indicates whether claims specified by shortcut scopes
+     * (e.g. `profile`) are included in the issued ID token only when no access
+     * token is issued.
+     *
+     * To strictly conform to the description below excerpted from OpenID
+     * Connect Core 1.0 Section 5.4, true has to be set.
+     *
+     * "The Claims requested by the `profile`, `email`, `address`, and `phone`
+     * scope values are returned from the UserInfo Endpoint, as described in
+     * Section 5.3.2, when a `response_type` value is used that results in an
+     * Access Token being issued. However, when no Access Token is issued
+     * (which is the case for `response_type` value `id_token`), the resulting
+     * Claims are returned in the ID Token."
+     *
+     * @param boolean $restrictive
+     *     `true` to include claims specified by shortcut scopes in the issued
+     *     ID token only when no access token is issued. `false` to include the
+     *     claims in the issued ID token regardless of whether an access token
+     *     is issued or not.
+     *
+     * @return Service
+     *     `$this` object.
+     *
+     * @since 1.9
+     */
+    public function setClaimShortcutRestrictive($restrictive)
+    {
+        ValidationUtility::ensureBoolean('$restrictive', $restrictive);
+
+        $this->claimShortcutRestrictive = $restrictive;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the flag which indicates whether requests that request no scope are
+     * rejected or not.
+     *
+     * When a request has no explicit `scope` parameter and the service's
+     * pre-defined default scope set is empty, the authorization server regards
+     * the request requests no scope. When this method returns true, requests
+     * that request no scope are rejected.
+     *
+     * @return boolean
+     *     `true` if the authorization server rejects requests that request no
+     *     scope. `false` if the authorization server admits requests that
+     *     request no scope.
+     *
+     * @since 1.9
+     */
+    public function isScopeRequired()
+    {
+        return $this->scopeRequired;
+    }
+
+
+    /**
+     * Set the flag which indicates whether requests that request no scope are
+     * rejected or not.
+     *
+     * When a request has no explicit `scope` parameter and the service's
+     * pre-defined default scope set is empty, the authorization server regards
+     * the request requests no scope. When true is set by this method, requests
+     * that request no scope are rejected.
+     *
+     * @param boolean $required
+     *     `true` to reject requests that request no scope.
+     *     `false` to admit requests that request no scope.
+     *
+     * @return Service
+     *     `$this` object.
+     *
+     * @since 1.9
+     */
+    public function setScopeRequired($required)
+    {
+        ValidationUtility::ensureBoolean('$required', $required);
+
+        $this->scopeRequired = $required;
+
+        return $this;
+    }
+
+
+    /**
      * {@inheritdoc}
      *
      * {@inheritdoc}
@@ -4350,6 +4575,10 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
         $array['supportedVerifiedClaims']                     = $this->supportedVerifiedClaims;
         $array['missingClientIdAllowed']                      = $this->missingClientIdAllowed;
         $array['parRequired']                                 = $this->parRequired;
+        $array['requestObjectRequired']                       = $this->requestObjectRequired;
+        $array['traditionalRequestObjectProcessingApplied']   = $this->traditionalRequestObjectProcessingApplied;
+        $array['claimShortcutRestrictive']                    = $this->claimShortcutRestrictive;
+        $array['scopeRequired']                               = $this->scopeRequired;
     }
 
 
@@ -4787,6 +5016,22 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
         // parRequired
         $this->setParRequired(
             LanguageUtility::getFromArrayAsBoolean('parRequired', $array));
+
+        // requestObjectRequired
+        $this->setRequestObjectRequired(
+            LanguageUtility::getFromArrayAsBoolean('requestObjectRequired', $array));
+
+        // traditionalRequestObjectProcessingApplied
+        $this->setTraditionalRequestObjectProcessingApplied(
+            LanguageUtility::getFromArrayAsBoolean('traditionalRequestObjectProcessingApplied', $array));
+
+        // claimShortcutRestrictive
+        $this->setClaimShortcutRestrictive(
+            LanguageUtility::getFromArrayAsBoolean('claimShortcutRestrictive', $array));
+
+        // scopeRequired
+        $this->setScopeRequired(
+            LanguageUtility::getFromArrayAsBoolean('scopeRequired', $array));
     }
 }
 

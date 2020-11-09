@@ -101,6 +101,7 @@ class AuthleteApiImpl implements AuthleteApi
     private static $AUTH_AUTHORIZATION_ISSUE_API_PATH      = '/api/auth/authorization/issue';
     private static $AUTH_TOKEN_API_PATH                    = '/api/auth/token';
     private static $AUTH_TOKEN_CREATE_API_PATH             = '/api/auth/token/create';
+    private static $AUTH_TOKEN_DELETE_API_PATH             = '/api/auth/token/delete/';            // + {token}
     private static $AUTH_TOKEN_FAIL_API_PATH               = '/api/auth/token/fail';
     private static $AUTH_TOKEN_ISSUE_API_PATH              = '/api/auth/token/issue';
     private static $AUTH_TOKEN_UPDATE_API_PATH             = '/api/auth/token/update';
@@ -124,7 +125,7 @@ class AuthleteApiImpl implements AuthleteApi
     private static $CLIENT_SECRET_UPDATE_API_PATH          = '/api/client/secret/update/';         // + {clientId}
     private static $CLIENT_UPDATE_API_PATH                 = '/api/client/update/';                // + {clientId}
     private static $GRANTED_SCOPES_GET_API_PATH            = '/api/client/granted_scopes/get/';    // + {clientId}
-    private static $GRANTED_SCOPES_DELETE_API_APTH         = '/api/client/granted_scopes/delete/'; // + {clientId}
+    private static $GRANTED_SCOPES_DELETE_API_PATH         = '/api/client/granted_scopes/delete/'; // + {clientId}
     private static $CLIENT_AUTHORIZATION_DELETE_API_PATH   = '/api/client/authorization/delete/';  // + {clientId}
     private static $CLIENT_AUTHORIZATION_GET_LIST_API_PATH = '/api/client/authorization/get/list';
     private static $CLIENT_AUTHORIZATION_UPDATE_API_PATH   = '/api/client/authorization/update/';  // + {clientId}
@@ -581,6 +582,23 @@ class AuthleteApiImpl implements AuthleteApi
             '\Authlete\Dto\TokenCreateResponse::fromJson',
             self::$AUTH_TOKEN_CREATE_API_PATH,
             null, $request);
+    }
+
+
+    /**
+     * {@inheritdoc}
+     *
+     * {@inheritdoc}
+     *
+     * @param string $token
+     *     {@inheritdoc}
+     */
+    public function tokenDelete($token)
+    {
+        ValidationUtility::ensureString('$token', $token);
+
+        $this->callServiceDeleteApi(
+            self::$AUTH_TOKEN_DELETE_API_PATH . $token);
     }
 
 

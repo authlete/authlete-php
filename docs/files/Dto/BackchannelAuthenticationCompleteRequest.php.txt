@@ -96,6 +96,7 @@ class BackchannelAuthenticationCompleteRequest implements ArrayCopyable, Arrayab
     private $claims           = null;  // string
     private $properties       = null;  // array of \Authlete\Dto\Property
     private $scopes           = null;  // array of string
+    private $idtHeaderParams  = null;  // string
     private $errorDescription = null;  // string
     private $errorUri         = null;  // string
 
@@ -501,6 +502,45 @@ class BackchannelAuthenticationCompleteRequest implements ArrayCopyable, Arrayab
 
 
     /**
+     * Get JSON that represents additional JWS header parameters
+     * for the ID token that may be issued from the token endpoint.
+     *
+     * @return string
+     *     JSON that represents additional JWS header parameters
+     *     for the ID token.
+     *
+     * @since 1.9
+     */
+    public function getIdtHeaderParams()
+    {
+        return $this->idtHeaderParams;
+    }
+
+
+    /**
+     * Set JSON that represents additional JWS header parameters
+     * for the ID token that may be issued from the token endpoint.
+     *
+     * @param string $params
+     *     JSON that represents additional JWS header parameters
+     *     for the ID token.
+     *
+     * @return BackchannelAuthenticationCompleteRequest
+     *     `$this` object.
+     *
+     * @since 1.9
+     */
+    public function setIdtHeaderParams($params)
+    {
+        ValidationUtility::ensureNullOrString('$params', $params);
+
+        $this->idtHeaderParams = $params;
+
+        return $this;
+    }
+
+
+    /**
      * Get the description of the error. This corresponds to the
      * `error_description` property in the response to the client.
      *
@@ -596,6 +636,7 @@ class BackchannelAuthenticationCompleteRequest implements ArrayCopyable, Arrayab
         $array['claims']           = $this->claims;
         $array['properties']       = LanguageUtility::convertArrayOfArrayCopyableToArray($this->properties);
         $array['scopes']           = $this->scopes;
+        $array['idtHeaderParams']  = $this->idtHeaderParams;
         $array['errorDescription'] = $this->errorDescription;
         $array['errorUri']         = $this->errorUri;
     }
@@ -641,14 +682,18 @@ class BackchannelAuthenticationCompleteRequest implements ArrayCopyable, Arrayab
             LanguageUtility::getFromArray('claims', $array));
 
         // properties
-        $properties = LanguageUtility::getFromArray('properties', $array);
+        $props = LanguageUtility::getFromArray('properties', $array);
         $this->setProperties(
             LanguageUtility::convertArrayToArrayOfArrayCopyable(
-                $properties, __NAMESPACE__ . '\Property'));
+                $props, __NAMESPACE__ . '\Property'));
 
         // scopes
         $this->setScopes(
             LanguageUtility::getFromArray('scopes', $array));
+
+        // idtHeaderParams
+        $this->setIdtHeaderParams(
+            LanguageUtility::getFromArray('idtHeaderParams', $array));
 
         // errorDescription
         $this->setErrorDescription(
