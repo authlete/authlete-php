@@ -1,6 +1,9 @@
 CHANGES
 =======
 
+- `AuthleteApi` interface
+    * Added `tokenDelete()` method.
+
 - `BackchannelAuthenticationCompleteRequest` class
     * Added `getIdtHeaderParams()` method.
     * Added `setIdtHeaderParams()` method.

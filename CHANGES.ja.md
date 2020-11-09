@@ -1,6 +1,9 @@
 CHANGES (日本語)
 ================
 
+- `AuthleteApi` インターフェース
+    * `tokenDelete()` メソッドを追加。
+
 - `BackchannelAuthenticationCompleteRequest` クラス
     * `getIdtHeaderParams()` メソッドを追加。
     * `setIdtHeaderParams()` メソッドを追加。

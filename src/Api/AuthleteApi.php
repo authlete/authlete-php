@@ -131,6 +131,20 @@ interface AuthleteApi
 
 
     /**
+     * Delete an access token
+     * (= call Authlete's /api/auth/token/delete/{token} API).
+     *
+     * @param string $token
+     *     An access token or its hash value.
+     *
+     * @throws AuthleteApiException
+     *
+     * @since 1.9
+     */
+    public function tokenDelete($token);
+
+
+    /**
      * Call Authlete's /api/auth/token/fail API.
      *
      * @param TokenFailRequest $request
