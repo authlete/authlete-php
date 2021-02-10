@@ -1,6 +1,6 @@
 <?php
 //
-// Copyright (C) 2018-2020 Authlete, Inc.
+// Copyright (C) 2018-2021 Authlete, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -1285,6 +1285,7 @@ class ServiceTest extends TestCase
             ->setTraditionalRequestObjectProcessingApplied(true)
             ->setClaimShortcutRestrictive(true)
             ->setScopeRequired(true)
+            ->setNbfOptional(true)
             ;
 
         return $obj;
@@ -1863,6 +1864,10 @@ class ServiceTest extends TestCase
         // scopeRequired
         $this->assertArrayHasKey('scopeRequired', $array);
         $this->assertTrue($array['scopeRequired']);
+
+        // nbfOptional
+        $this->assertArrayHasKey('nbfOptional', $array);
+        $this->assertTrue($array['nbfOptional']);
     }
 
 
@@ -2317,6 +2322,9 @@ class ServiceTest extends TestCase
 
         // scopeRequired
         $this->assertTrue($obj->isScopeRequired());
+
+        // nbfOptional
+        $this->assertTrue($obj->isNbfOptional());
     }
 }
 ?>

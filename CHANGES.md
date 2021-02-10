@@ -1,6 +1,10 @@
 CHANGES
 =======
 
+- `Service` class
+    * Added `isNbfOptional()` method.
+    * Added `setNbfOptional()` method.
+
 - `StandardIntrospectionRequest` class
     * Added `isWithHiddenProperties()` method.
     * Added `setWithHiddenProperties()` method.

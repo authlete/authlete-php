@@ -159,6 +159,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
     private $traditionalRequestObjectProcessingApplied   = false; // boolean
     private $claimShortcutRestrictive                    = false; // boolean
     private $scopeRequired                               = false; // boolean
+    private $nbfOptional                                 = false; // boolean
 
 
     /**
@@ -4469,6 +4470,72 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
 
 
     /**
+     * Get the flag indicating whether the `nbf` claim in the request object
+     * is optional even when the authorization request is regarded as a
+     * FAPI-Part2 request.
+     *
+     * The final version of Financial-grade API was approved in January, 2021.
+     * The Part 2 of the final version has new requirements on lifetime of
+     * request objects. They require that request objects contain an `nbf`
+     * claim and the lifetime computed by `exp - nbf` be no longer than 60
+     * minutes.
+     *
+     * Therefore, when an authorization request is regarded as a FAPI-Part2
+     * request, the request object used in the authorization request must
+     * contain an `nbf` claim. Otherwise, the authorization server rejects
+     * the authorization request.
+     *
+     * When this flag is `true`, the `nbf` claim is treated as an optional
+     * claim even when the authorization request is regarded as a FAPI-Part2
+     * request. That is, the authorization server does not perform the
+     * validation on lifetime of the request object.
+     *
+     * Skipping the validation is a violation of the FAPI specification. The
+     * reason why this flag has been prepared nevertheless is that the new
+     * requirements (which do not exist in the Implementer's Draft 2 released
+     * in October, 2018) have big impacts on deployed implementations of client
+     * applications and Authlete thinks there should be a mechanism whereby to
+     * make the migration from ID2 to Final smooth without breaking live
+     * systems.
+     *
+     * @return boolean
+     *     `true` if the `nbf` claim is treated as an optional claim even when
+     *     the authorization request is regarded as a FAPI-Part2 request.
+     *
+     * @since 1.10
+     */
+    public function isNbfOptional()
+    {
+        return $this->nbfOptional;
+    }
+
+
+    /**
+     * Set the flag indicating whether the `nbf` claim in the request object
+     * is optional even when the authorization request is regarded as a
+     * FAPI-Part2 request.
+     *
+     * See the description of `isNbfOptional()` for details about this flag.
+     *
+     * @param boolean $optional
+     *     `true` to treat the `nbf` claim as an optional claim.
+     *
+     * @return Service
+     *     `$this` object.
+     *
+     * @since 1.10
+     */
+    public function setNbfOptional($optional)
+    {
+        ValidationUtility::ensureBoolean('$optional', $optional);
+
+        $this->nbfOptional = $optional;
+
+        return $this;
+    }
+
+
+    /**
      * {@inheritdoc}
      *
      * {@inheritdoc}
@@ -4579,6 +4646,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
         $array['traditionalRequestObjectProcessingApplied']   = $this->traditionalRequestObjectProcessingApplied;
         $array['claimShortcutRestrictive']                    = $this->claimShortcutRestrictive;
         $array['scopeRequired']                               = $this->scopeRequired;
+        $array['nbfOptional']                                 = $this->nbfOptional;
     }
 
 
@@ -5017,5 +5085,9 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
         // scopeRequired
         $this->setScopeRequired(
             LanguageUtility::getFromArrayAsBoolean('scopeRequired', $array));
+
+        // nbfOptional
+        $this->setNbfOptional(
+            LanguageUtility::getFromArrayAsBoolean('nbfOptional', $array));
     }
 }

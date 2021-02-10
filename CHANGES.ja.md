@@ -1,6 +1,10 @@
 CHANGES (日本語)
 ================
 
+- `Service` クラス
+    * `isNbfOptional()` メソッドを追加。
+    * `setNbfOptional()` メソッドを追加。
+
 - `StandardIntrospectionRequest` クラス
     * `isWithHiddenProperties()` メソッドを追加。
     * `setWithHiddenProperties()` メソッドを追加。
