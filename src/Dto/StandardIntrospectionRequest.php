@@ -1,6 +1,6 @@
 <?php
 //
-// Copyright (C) 2018 Authlete, Inc.
+// Copyright (C) 2018-2021 Authlete, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -43,7 +43,8 @@ class StandardIntrospectionRequest implements ArrayCopyable, Arrayable, Jsonable
     use JsonTrait;
 
 
-    private $parameters = null;  // string
+    private $parameters = null;            // string
+    private $withHiddenProperties = false; // boolean
 
 
     /**
@@ -98,6 +99,55 @@ class StandardIntrospectionRequest implements ArrayCopyable, Arrayable, Jsonable
 
 
     /**
+     * Get the flag which indicates whether to include hidden properties
+     * associated with the token in the output.
+     *
+     * Authlete has a mechanism whereby to associate arbitrary key-value
+     * pairs with an access token. Each key-value pair has a `hidden`
+     * attribute. By default, key-value pairs whose `hidden` attribute is
+     * true are not embedded in the standard introspection output.
+     *
+     * If the `withHiddenProperties` request parameter is given and its
+     * value is `true`, `/api/auth/introspection/standard` API includes
+     * all the associated key-value pairs into the output regardless of
+     * the value of the `hidden` attribute.
+     *
+     * @return boolean
+     *     `true` if hidden properties are included in the output.
+     *
+     * @since 1.10
+     */
+    public function isWithHiddenProperties()
+    {
+        return $this->withHiddenProperties;
+    }
+
+
+    /**
+     * Set the flag which indicates whether to include hidden properties
+     * associated with the token in the output.
+     *
+     * See the description of `isWithHiddenProperties()` for details.
+     *
+     * @param boolean $with
+     *     `true` to include hidden properties in the output.
+     *
+     * @return StandardIntrospectionRequest
+     *     `$this` object.
+     *
+     * @since 1.10
+     */
+    public function setWithHiddenProperties($with)
+    {
+        ValidationUtility::ensureBoolean('$with', $with);
+
+        $this->withHiddenProperties = $with;
+
+        return $this;
+    }
+
+
+    /**
      * {@inheritdoc}
      *
      * {@inheritdoc}
@@ -107,7 +157,8 @@ class StandardIntrospectionRequest implements ArrayCopyable, Arrayable, Jsonable
      */
     public function copyToArray(array &$array)
     {
-        $array['parameters'] = $this->parameters;
+        $array['parameters']           = $this->parameters;
+        $array['withHiddenProperties'] = $this->withHiddenProperties;
     }
 
 
@@ -124,6 +175,10 @@ class StandardIntrospectionRequest implements ArrayCopyable, Arrayable, Jsonable
         // parameters
         $this->setParameters(
             LanguageUtility::getFromArray('parameters', $array));
+
+        // withHiddenProperties
+        $this->setWithHiddenProperties(
+            LanguageUtility::getFromArrayAsBoolean('withHiddenProperties', $array));
     }
 }
 ?>
