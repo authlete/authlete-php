@@ -1,6 +1,6 @@
 <?php
 //
-// Copyright (C) 2018-2020 Authlete, Inc.
+// Copyright (C) 2018-2021 Authlete, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -667,12 +667,12 @@ class UserInfoResponse extends ApiResponse
             LanguageUtility::getFromArray('subject', $array));
 
         // scopes
-        $this->setScopes(
-            LanguageUtility::getFromArray('scopes', $array));
+        $_scopes = LanguageUtility::getFromArray('scopes', $array);
+        $this->setScopes($_scopes);
 
         // claims
-        $this->setClaims(
-            LanguageUtility::getFromArray('claims', $array));
+        $_claims = LanguageUtility::getFromArray('claims', $array);
+        $this->setClaims($_claims);
 
         // token
         $this->setToken(
@@ -683,10 +683,9 @@ class UserInfoResponse extends ApiResponse
             LanguageUtility::getFromArray('responseContent', $array));
 
         // properties
-        $properties = LanguageUtility::getFromArray('properties', $array);
-        $this->setProperties(
-            LanguageUtility::convertArrayToArrayOfArrayCopyable(
-                $properties, __NAMESPACE__ . '\Property'));
+        $_properties = LanguageUtility::getFromArray('properties', $array);
+        $_properties = LanguageUtility::convertArrayToArrayOfArrayCopyable($_properties, __NAMESPACE__ . '\Property');
+        $this->setProperties($_properties);
 
         // clientIdAlias
         $this->setClientIdAlias(

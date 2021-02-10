@@ -1,6 +1,6 @@
 <?php
 //
-// Copyright (C) 2020 Authlete, Inc.
+// Copyright (C) 2020-2021 Authlete, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -266,8 +266,8 @@ class PushedAuthReqRequest implements ArrayCopyable, Arrayable, Jsonable
             LanguageUtility::getFromArray('clientCertificate', $array));
 
         // clientCertificatePath
-        $this->setClientCertificatePath(
-            LanguageUtility::getFromArray('clientCertificatePath', $array));
+        $_client_certificate_path = LanguageUtility::getFromArray('clientCertificatePath', $array);
+        $this->setClientCertificatePath($_client_certificate_path);
     }
 }
 ?>

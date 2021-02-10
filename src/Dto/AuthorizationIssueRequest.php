@@ -1,6 +1,6 @@
 <?php
 //
-// Copyright (C) 2018-2020 Authlete, Inc.
+// Copyright (C) 2018-2021 Authlete, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -552,14 +552,13 @@ class AuthorizationIssueRequest implements ArrayCopyable, Arrayable, Jsonable
             LanguageUtility::getFromArray('claims', $array));
 
         // properties
-        $properties = LanguageUtility::getFromArray('properties', $array);
-        $this->setProperties(
-            LanguageUtility::convertArrayToArrayOfArrayCopyable(
-                $properties, __NAMESPACE__ . '\Property'));
+        $_properties = LanguageUtility::getFromArray('properties', $array);
+        $_properties = LanguageUtility::convertArrayToArrayOfArrayCopyable($_properties, __NAMESPACE__ . '\Property');
+        $this->setProperties($_properties);
 
         // scopes
-        $this->setScopes(
-            LanguageUtility::getFromArray('scopes', $array));
+        $_scopes = LanguageUtility::getFromArray('scopes', $array);
+        $this->setScopes($_scopes);
 
          // idtHeaderParams
         $this->setIdtHeaderParams(

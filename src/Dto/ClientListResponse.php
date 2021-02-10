@@ -1,6 +1,6 @@
 <?php
 //
-// Copyright (C) 2018 Authlete, Inc.
+// Copyright (C) 2018-2021 Authlete, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -272,10 +272,9 @@ class ClientListResponse implements ArrayCopyable, Arrayable, Jsonable
             LanguageUtility::getFromArray('totalCount', $array));
 
         // clients
-        $this->setClients(
-            LanguageUtility::convertArrayToArrayOfArrayCopyable(
-                LanguageUtility::getFromArray('clients', $array),
-                __NAMESPACE__ . '\Client'));
+        $_clients = LanguageUtility::getFromArray('clients', $array);
+        $_clients = LanguageUtility::convertArrayToArrayOfArrayCopyable($_clients, __NAMESPACE__ . '\Client');
+        $this->setClients($_clients);
     }
 }
 ?>

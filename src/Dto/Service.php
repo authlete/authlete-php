@@ -1,6 +1,6 @@
 <?php
 //
-// Copyright (C) 2018-2020 Authlete, Inc.
+// Copyright (C) 2018-2021 Authlete, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -4621,10 +4621,9 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
             LanguageUtility::getFromArray('revocationEndpoint', $array));
 
         // supportedRevocationAuthMethods
-        $supportedRevocationAuthMethods = LanguageUtility::getFromArray('supportedRevocationAuthMethods', $array);
-        $this->setSupportedRevocationAuthMethods(
-            LanguageUtility::convertArray(
-                $supportedRevocationAuthMethods, '\Authlete\Types\ClientAuthMethod::valueOf'));
+        $_supported_revocation_auth_methods = LanguageUtility::getFromArray('supportedRevocationAuthMethods', $array);
+        $_supported_revocation_auth_methods = LanguageUtility::convertArray($_supported_revocation_auth_methods, '\Authlete\Types\ClientAuthMethod::valueOf');
+        $this->setSupportedRevocationAuthMethods($_supported_revocation_auth_methods);
 
         // userInfoEndpoint
         $this->setUserInfoEndpoint(
@@ -4647,60 +4646,54 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
             LanguageUtility::getFromArray('registrationManagementEndpoint', $array));
 
         // supportedScopes
-        $supportedScopes = LanguageUtility::getFromArray('supportedScopes', $array);
-        $this->setSupportedScopes(
-            LanguageUtility::convertArrayToArrayOfArrayCopyable(
-                $supportedScopes, __NAMESPACE__ . '\Scope'));
+        $_supported_scopes = LanguageUtility::getFromArray('supportedScopes', $array);
+        $_supported_scopes = LanguageUtility::convertArrayToArrayOfArrayCopyable($_supported_scopes, __NAMESPACE__ . '\Scope');
+        $this->setSupportedScopes($_supported_scopes);
 
         // supportedResponseTypes
-        $supportedResponseTypes = LanguageUtility::getFromArray('supportedResponseTypes', $array);
-        $this->setSupportedResponseTypes(
-            LanguageUtility::convertArray(
-                $supportedResponseTypes, '\Authlete\Types\ResponseType::valueOf'));
+        $_supported_response_types = LanguageUtility::getFromArray('supportedResponseTypes', $array);
+        $_supported_response_types = LanguageUtility::convertArray($_supported_response_types, '\Authlete\Types\ResponseType::valueOf');
+        $this->setSupportedResponseTypes($_supported_response_types);
 
         // supportedGrantTypes
-        $supportedGrantTypes = LanguageUtility::getFromArray('supportedGrantTypes', $array);
-        $this->setSupportedGrantTypes(
-            LanguageUtility::convertArray(
-                $supportedGrantTypes, '\Authlete\Types\GrantType::valueOf'));
+        $_supported_grant_types = LanguageUtility::getFromArray('supportedGrantTypes', $array);
+        $_supported_grant_types = LanguageUtility::convertArray($_supported_grant_types, '\Authlete\Types\GrantType::valueOf');
+        $this->setSupportedGrantTypes($_supported_grant_types);
 
         // supportedAcrs
-        $this->setSupportedAcrs(
-            LanguageUtility::getFromArray('supportedAcrs', $array));
+        $_supported_acrs = LanguageUtility::getFromArray('supportedAcrs', $array);
+        $this->setSupportedAcrs($_supported_acrs);
 
         // supportedTokenAuthMethods
-        $supportedTokenAuthMethods = LanguageUtility::getFromArray('supportedTokenAuthMethods', $array);
-        $this->setSupportedTokenAuthMethods(
-            LanguageUtility::convertArray(
-                $supportedTokenAuthMethods, '\Authlete\Types\ClientAuthMethod::valueOf'));
+        $_supported_token_auth_methods = LanguageUtility::getFromArray('supportedTokenAuthMethods', $array);
+        $_supported_token_auth_methods = LanguageUtility::convertArray($_supported_token_auth_methods, '\Authlete\Types\ClientAuthMethod::valueOf');
+        $this->setSupportedTokenAuthMethods($_supported_token_auth_methods);
 
         // supportedDisplays
-        $supportedDisplays = LanguageUtility::getFromArray('supportedDisplays', $array);
-        $this->setSupportedDisplays(
-            LanguageUtility::convertArray(
-                $supportedDisplays, '\Authlete\Types\Display::valueOf'));
+        $_supported_displays = LanguageUtility::getFromArray('supportedDisplays', $array);
+        $_supported_displays = LanguageUtility::convertArray($_supported_displays, '\Authlete\Types\Display::valueOf');
+        $this->setSupportedDisplays($_supported_displays);
 
         // supportedClaimTypes
-        $supportedClaimTypes = LanguageUtility::getFromArray('supportedClaimTypes', $array);
-        $this->setSupportedClaimTypes(
-            LanguageUtility::convertArray(
-                $supportedClaimTypes, '\Authlete\Types\ClaimType::valueOf'));
+        $_supported_claim_types = LanguageUtility::getFromArray('supportedClaimTypes', $array);
+        $_supported_claim_types = LanguageUtility::convertArray($_supported_claim_types, '\Authlete\Types\ClaimType::valueOf');
+        $this->setSupportedClaimTypes($_supported_claim_types);
 
         // supportedClaims
-        $this->setSupportedClaims(
-            LanguageUtility::getFromArray('supportedClaims', $array));
+        $_supported_claims = LanguageUtility::getFromArray('supportedClaims', $array);
+        $this->setSupportedClaims($_supported_claims);
 
         // serviceDocumentation
         $this->setServiceDocumentation(
             LanguageUtility::getFromArray('serviceDocumentation', $array));
 
         // supportedClaimLocales
-        $this->setSupportedClaimLocales(
-            LanguageUtility::getFromArray('supportedClaimLocales', $array));
+        $_supported_claim_locales = LanguageUtility::getFromArray('supportedClaimLocales', $array);
+        $this->setSupportedClaimLocales($_supported_claim_locales);
 
         // supportedUiLocales
-        $this->setSupportedUiLocales(
-            LanguageUtility::getFromArray('supportedUiLocales', $array));
+        $_supported_ui_locales = LanguageUtility::getFromArray('supportedUiLocales', $array);
+        $this->setSupportedUiLocales($_supported_ui_locales);
 
         // policyUri
         $this->setPolicyUri(
@@ -4723,16 +4716,14 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
             LanguageUtility::getFromArray('authenticationCallbackApiSecret', $array));
 
         // supportedSnses
-        $supportedSnses = LanguageUtility::getFromArray('supportedSnses', $array);
-        $this->setSupportedSnses(
-            LanguageUtility::convertArray(
-                $supportedSnses, '\Authlete\Types\Sns::valueOf'));
+        $_supported_snses = LanguageUtility::getFromArray('supportedSnses', $array);
+        $_supported_snses = LanguageUtility::convertArray($_supported_snses, '\Authlete\Types\Sns::valueOf');
+        $this->setSupportedSnses($_supported_snses);
 
         // snsCredentials
-        $snsCredentials = LanguageUtility::getFromArray('snsCredentials', $array);
-        $this->setSnsCredentials(
-            LanguageUtility::convertArrayToArrayOfArrayCopyable(
-                $snsCredentials, __NAMESPACE__ . '\SnsCredentials'));
+        $_sns_credentials = LanguageUtility::getFromArray('snsCredentials', $array);
+        $_sns_credentials = LanguageUtility::convertArrayToArrayOfArrayCopyable($_sns_credentials, __NAMESPACE__ . '\SnsCredentials');
+        $this->setSnsCredentials($_sns_credentials);
 
         // createdAt
         $this->setCreatedAt(
@@ -4755,16 +4746,14 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
             LanguageUtility::getFromArray('developerAuthenticationCallbackApiSecret', $array));
 
         // supportedDeveloperSnses
-        $supportedDeveloperSnses = LanguageUtility::getFromArray('supportedDeveloperSnses', $array);
-        $this->setSupportedDeveloperSnses(
-            LanguageUtility::convertArray(
-                $supportedDeveloperSnses, '\Authlete\Types\Sns::valueOf'));
+        $_supported_developer_snses = LanguageUtility::getFromArray('supportedDeveloperSnses', $array);
+        $_supported_developer_snses = LanguageUtility::convertArray($_supported_developer_snses, '\Authlete\Types\Sns::valueOf');
+        $this->setSupportedDeveloperSnses($_supported_developer_snses);
 
         // developerSnsCredentials
-        $developerSnsCredentials = LanguageUtility::getFromArray('developerSnsCredentials', $array);
-        $this->setDeveloperSnsCredentials(
-            LanguageUtility::convertArrayToArrayOfArrayCopyable(
-                $developerSnsCredentials, __NAMESPACE__ . '\SnsCredentials'));
+        $_developer_sns_credentials = LanguageUtility::getFromArray('developerSnsCredentials', $array);
+        $_developer_sns_credentials = LanguageUtility::convertArrayToArrayOfArrayCopyable($_developer_sns_credentials, __NAMESPACE__ . '\SnsCredentials');
+        $this->setDeveloperSnsCredentials($_developer_sns_credentials);
 
         // clientsPerDeveloper
         $this->setClientsPerDeveloper(
@@ -4828,10 +4817,9 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
             LanguageUtility::getFromArrayAsBoolean('clientIdAliasEnabled', $array));
 
         // supportedServiceProfiles
-        $supportedServiceProfiles = LanguageUtility::getFromArray('supportedServiceProfiles', $array);
-        $this->setSupportedServiceProfiles(
-            LanguageUtility::convertArray(
-                $supportedServiceProfiles, '\Authlete\Types\ServiceProfile::valueOf'));
+        $_supported_service_profiles = LanguageUtility::getFromArray('supportedServiceProfiles', $array);
+        $_supported_service_profiles = LanguageUtility::convertArray($_supported_service_profiles, '\Authlete\Types\ServiceProfile::valueOf');
+        $this->setSupportedServiceProfiles($_supported_service_profiles);
 
         // tlsClientCertificateBoundAccessTokens
         $this->setTlsClientCertificateBoundAccessTokens(
@@ -4842,18 +4830,17 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
             LanguageUtility::getFromArray('introspectionEndpoint', $array));
 
         // supportedIntrospectionAuthMethods
-        $supportedIntrospectionAuthMethods = LanguageUtility::getFromArray('supportedIntrospectionAuthMethods', $array);
-        $this->setSupportedIntrospectionAuthMethods(
-            LanguageUtility::convertArray(
-                $supportedIntrospectionAuthMethods, '\Authlete\Types\ClientAuthMethod::valueOf'));
+        $_supported_introspection_auth_methods = LanguageUtility::getFromArray('supportedIntrospectionAuthMethods', $array);
+        $_supported_introspection_auth_methods = LanguageUtility::convertArray($_supported_introspection_auth_methods, '\Authlete\Types\ClientAuthMethod::valueOf');
+        $this->setSupportedIntrospectionAuthMethods($_supported_introspection_auth_methods);
 
         // mutualTlsValidatePkiCertChain
         $this->setMutualTlsValidatePkiCertChain(
             LanguageUtility::getFromArrayAsBoolean('mutualTlsValidatePkiCertChain', $array));
 
         // trustedRootCertificates
-        $this->setTrustedRootCertificates(
-            LanguageUtility::getFromArray('trustedRootCertificates', $array));
+        $_trusted_root_certificates = LanguageUtility::getFromArray('trustedRootCertificates', $array);
+        $this->setTrustedRootCertificates($_trusted_root_certificates);
 
         // dynamicRegistrationSupported
         $this->setDynamicRegistrationSupported(
@@ -4913,10 +4900,9 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
             LanguageUtility::getFromArray('userInfoSignatureKeyId', $array));
 
         // supportedBackchannelTokenDeliveryModes
-        $supportedDeliveryModes = LanguageUtility::getFromArray('supportedBackchannelTokenDeliveryModes', $array);
-        $this->setSupportedBackchannelTokenDeliveryModes(
-            LanguageUtility::convertArray(
-                $supportedDeliveryModes, '\Authlete\Types\DeliveryMode::valueOf'));
+        $_supported_delivery_modes = LanguageUtility::getFromArray('supportedBackchannelTokenDeliveryModes', $array);
+        $_supported_delivery_modes = LanguageUtility::convertArray($_supported_delivery_modes, '\Authlete\Types\DeliveryMode::valueOf');
+        $this->setSupportedBackchannelTokenDeliveryModes($_supported_delivery_modes);
 
         // backchannelAuthenticationEndpoint
         $this->setBackchannelAuthenticationEndpoint(
@@ -4980,34 +4966,33 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
             LanguageUtility::getFromArray('pushedAuthReqEndpoint', $array));
 
         // mtlsEndpointAliases
-        $mtlsEndpointAliases = LanguageUtility::getFromArray('mtlsEndpointAliases', $array);
-        $this->setMtlsEndpointAliases(
-            LanguageUtility::convertArrayToArrayOfArrayCopyable(
-                $mtlsEndpointAliases, __NAMESPACE__ . '\NamedUri'));
+        $_mtls_endpoint_aliases = LanguageUtility::getFromArray('mtlsEndpointAliases', $array);
+        $_mtls_endpoint_aliases = LanguageUtility::convertArrayToArrayOfArrayCopyable($_mtls_endpoint_aliases, __NAMESPACE__ . '\NamedUri');
+        $this->setMtlsEndpointAliases($_mtls_endpoint_aliases);
 
         // supportedAuthorizationDataTypes
-        $this->setSupportedAuthorizationDataTypes(
-            LanguageUtility::getFromArray('supportedAuthorizationDataTypes', $array));
+        $_supported_authorization_data_types = LanguageUtility::getFromArray('supportedAuthorizationDataTypes', $array);
+        $this->setSupportedAuthorizationDataTypes($_supported_authorization_data_types);
 
         // supportedTrustFrameworks
-        $this->setSupportedTrustFrameworks(
-            LanguageUtility::getFromArray('supportedTrustFrameworks', $array));
+        $_supported_trust_frameworks = LanguageUtility::getFromArray('supportedTrustFrameworks', $array);
+        $this->setSupportedTrustFrameworks($_supported_trust_frameworks);
 
         // supportedEvidence
-        $this->setSupportedEvidence(
-            LanguageUtility::getFromArray('supportedEvidence', $array));
+        $_supported_evidence = LanguageUtility::getFromArray('supportedEvidence', $array);
+        $this->setSupportedEvidence($_supported_evidence);
 
         // supportedIdentityDocuments
-        $this->setSupportedIdentityDocuments(
-            LanguageUtility::getFromArray('supportedIdentityDocuments', $array));
+        $_supported_identity_documents = LanguageUtility::getFromArray('supportedIdentityDocuments', $array);
+        $this->setSupportedIdentityDocuments($_supported_identity_documents);
 
         // supportedVerificationMethods
-        $this->setSupportedVerificationMethods(
-            LanguageUtility::getFromArray('supportedVerificationMethods', $array));
+        $_supported_verification_methods = LanguageUtility::getFromArray('supportedVerificationMethods', $array);
+        $this->setSupportedVerificationMethods($_supported_verification_methods);
 
         // supportedVerifiedClaims
-        $this->setSupportedVerifiedClaims(
-            LanguageUtility::getFromArray('supportedVerifiedClaims', $array));
+        $_supported_verified_claims = LanguageUtility::getFromArray('supportedVerifiedClaims', $array);
+        $this->setSupportedVerifiedClaims($_supported_verified_claims);
 
         // missingClientIdAllowed
         $this->setMissingClientIdAllowed(

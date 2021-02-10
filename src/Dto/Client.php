@@ -1,6 +1,6 @@
 <?php
 //
-// Copyright (C) 2018-2020 Authlete, Inc.
+// Copyright (C) 2018-2021 Authlete, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -2921,20 +2921,18 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
                 LanguageUtility::getFromArray('clientType', $array)));
 
         // redirectUris
-        $this->setRedirectUris(
-            LanguageUtility::getFromArray('redirectUris', $array));
+        $_redirect_uris = LanguageUtility::getFromArray('redirectUris', $array);
+        $this->setRedirectUris($_redirect_uris);
 
         // responseTypes
-        $responseTypes = LanguageUtility::getFromArray('responseTypes', $array);
-        $this->setResponseTypes(
-            LanguageUtility::convertArray(
-                $responseTypes, '\Authlete\Types\ResponseType::valueOf'));
+        $_response_types = LanguageUtility::getFromArray('responseTypes', $array);
+        $_response_types = LanguageUtility::convertArray($_response_types, '\Authlete\Types\ResponseType::valueOf');
+        $this->setResponseTypes($_response_types);
 
         // grantTypes
-        $grantTypes = LanguageUtility::getFromArray('grantTypes', $array);
-        $this->setGrantTypes(
-            LanguageUtility::convertArray(
-                $grantTypes, '\Authlete\Types\GrantType::valueOf'));
+        $_grant_types = LanguageUtility::getFromArray('grantTypes', $array);
+        $_grant_types = LanguageUtility::convertArray($_grant_types, '\Authlete\Types\GrantType::valueOf');
+        $this->setGrantTypes($_grant_types);
 
         // applicationType
         $this->setApplicationType(
@@ -2942,58 +2940,53 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
                 LanguageUtility::getFromArray('applicationType', $array)));
 
         // contacts
-        $this->setContacts(
-            LanguageUtility::getFromArray('contacts', $array));
+        $_contacts = LanguageUtility::getFromArray('contacts', $array);
+        $this->setContacts($_contacts);
 
         // clientName
         $this->setClientName(
             LanguageUtility::getFromArray('clientName', $array));
 
         // clientNames
-        $clientNames = LanguageUtility::getFromArray('clientNames', $array);
-        $this->setClientNames(
-            LanguageUtility::convertArrayToArrayOfArrayCopyable(
-                $clientNames, __NAMESPACE__ . '\TaggedValue'));
+        $_client_names = LanguageUtility::getFromArray('clientNames', $array);
+        $_client_names = LanguageUtility::convertArrayToArrayOfArrayCopyable($_client_names, __NAMESPACE__ . '\TaggedValue');
+        $this->setClientNames($_client_names);
 
         // logoUri
         $this->setLogoUri(
             LanguageUtility::getFromArray('logoUri', $array));
 
         // logoUris
-        $logoUris = LanguageUtility::getFromArray('logoUris', $array);
-        $this->setLogoUris(
-            LanguageUtility::convertArrayToArrayOfArrayCopyable(
-                $logoUris, __NAMESPACE__ . '\TaggedValue'));
+        $_logo_uris = LanguageUtility::getFromArray('logoUris', $array);
+        $_logo_uris = LanguageUtility::convertArrayToArrayOfArrayCopyable($_logo_uris, __NAMESPACE__ . '\TaggedValue');
+        $this->setLogoUris($_logo_uris);
 
         // clientUri
         $this->setClientUri(
             LanguageUtility::getFromArray('clientUri', $array));
 
         // clientUris
-        $clientUris = LanguageUtility::getFromArray('clientUris', $array);
-        $this->setClientUris(
-            LanguageUtility::convertArrayToArrayOfArrayCopyable(
-                $clientUris, __NAMESPACE__ . '\TaggedValue'));
+        $_client_uris = LanguageUtility::getFromArray('clientUris', $array);
+        $_client_uris = LanguageUtility::convertArrayToArrayOfArrayCopyable($_client_uris, __NAMESPACE__ . '\TaggedValue');
+        $this->setClientUris($_client_uris);
 
         // policyUri
         $this->setPolicyUri(
             LanguageUtility::getFromArray('policyUri', $array));
 
         // policyUris
-        $policyUris = LanguageUtility::getFromArray('policyUris', $array);
-        $this->setPolicyUris(
-            LanguageUtility::convertArrayToArrayOfArrayCopyable(
-                $policyUris, __NAMESPACE__ . '\TaggedValue'));
+        $_policy_uris = LanguageUtility::getFromArray('policyUris', $array);
+        $_policy_uris = LanguageUtility::convertArrayToArrayOfArrayCopyable($_policy_uris, __NAMESPACE__ . '\TaggedValue');
+        $this->setPolicyUris($_policy_uris);
 
         // tosUri
         $this->setTosUri(
             LanguageUtility::getFromArray('tosUri', $array));
 
         // tosUris
-        $tosUris = LanguageUtility::getFromArray('tosUris', $array);
-        $this->setTosUris(
-            LanguageUtility::convertArrayToArrayOfArrayCopyable(
-                $tosUris, __NAMESPACE__ . '\TaggedValue'));
+        $_tos_uris = LanguageUtility::getFromArray('tosUris', $array);
+        $_tos_uris = LanguageUtility::convertArrayToArrayOfArrayCopyable($_tos_uris, __NAMESPACE__ . '\TaggedValue');
+        $this->setTosUris($_tos_uris);
 
         // jwksUri
         $this->setJwksUri(
@@ -3080,26 +3073,25 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
             LanguageUtility::getFromArrayAsBoolean('authTimeRequired', $array));
 
         // defaultAcrs
-        $this->setDefaultAcrs(
-            LanguageUtility::getFromArray('defaultAcrs', $array));
+        $_default_acrs = LanguageUtility::getFromArray('defaultAcrs', $array);
+        $this->setDefaultAcrs($_default_acrs);
 
         // loginUri
         $this->setLoginUri(
             LanguageUtility::getFromArray('loginUri', $array));
 
         // requestUris
-        $this->setRequestUris(
-            LanguageUtility::getFromArray('requestUris', $array));
+        $_request_uris = LanguageUtility::getFromArray('requestUris', $array);
+        $this->setRequestUris($_request_uris);
 
         // description
         $this->setDescription(
             LanguageUtility::getFromArray('description', $array));
 
         // descriptions
-        $descriptions = LanguageUtility::getFromArray('descriptions', $array);
-        $this->setDescriptions(
-            LanguageUtility::convertArrayToArrayOfArrayCopyable(
-                $descriptions, __NAMESPACE__ . '\TaggedValue'));
+        $_descriptions = LanguageUtility::getFromArray('descriptions', $array);
+        $_descriptions = LanguageUtility::convertArrayToArrayOfArrayCopyable($_descriptions, __NAMESPACE__ . '\TaggedValue');
+        $this->setDescriptions($_descriptions);
 
         // createdAt
         $this->setCreatedAt(
@@ -3110,10 +3102,10 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
             LanguageUtility::getFromArray('modifiedAt', $array));
 
         // extension
-        $extension = LanguageUtility::getFromArray('extension', $array);
+        $_extension = LanguageUtility::getFromArray('extension', $array);
         $this->setExtension(
             LanguageUtility::convertArrayToArrayCopyable(
-                $extension, __NAMESPACE__ . '\ClientExtension'));
+                $_extension, __NAMESPACE__ . '\ClientExtension'));
 
         // tlsClientAuthSubjectDn
         $this->setTlsClientAuthSubjectDn(
@@ -3193,8 +3185,8 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
             LanguageUtility::getFromArray('registrationAccessTokenHash', $array));
 
         // authorizationDataTypes
-        $this->setAuthorizationDataTypes(
-            LanguageUtility::getFromArray('authorizationDataTypes', $array));
+        $_authorization_data_types = LanguageUtility::getFromArray('authorizationDataTypes', $array);
+        $this->setAuthorizationDataTypes($_authorization_data_types);
 
         // parRequired
         $this->setParRequired(

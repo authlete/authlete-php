@@ -1,6 +1,6 @@
 <?php
 //
-// Copyright (C) 2018-2020 Authlete, Inc.
+// Copyright (C) 2018-2021 Authlete, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -289,8 +289,8 @@ class ClientExtension implements ArrayCopyable, Arrayable, Jsonable
             LanguageUtility::getFromArrayAsBoolean('requestableScopesEnabled', $array));
 
         // requestableScopes
-        $this->setRequestableScopes(
-            LanguageUtility::getFromArray('requestableScopes', $array));
+        $_requestable_scopes = LanguageUtility::getFromArray('requestableScopes', $array);
+        $this->setRequestableScopes($_requestable_scopes);
 
         // accessTokenDuration
         $this->setAccessTokenDuration(

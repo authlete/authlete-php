@@ -1,6 +1,6 @@
 <?php
 //
-// Copyright (C) 2018 Authlete, Inc.
+// Copyright (C) 2018-2021 Authlete, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -307,12 +307,12 @@ class GrantedScopesGetResponse extends ApiResponse
             LanguageUtility::getFromArray('subject', $array));
 
         // latestGrantedScopes
-        $this->setLatestGrantedScopes(
-            LanguageUtility::getFromArray('latestGrantedScopes', $array));
+        $_latest_granted_scopes = LanguageUtility::getFromArray('latestGrantedScopes', $array);
+        $this->setLatestGrantedScopes($_latest_granted_scopes);
 
         // mergedGrantedScopes
-        $this->setMergedGrantedScopes(
-            LanguageUtility::getFromArray('mergedGrantedScopes', $array));
+        $_merged_granted_scopes = LanguageUtility::getFromArray('mergedGrantedScopes', $array);
+        $this->setMergedGrantedScopes($_merged_granted_scopes);
 
         // modifiedAt
         $this->setModifiedAt(

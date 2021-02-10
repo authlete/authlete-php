@@ -1,6 +1,6 @@
 <?php
 //
-// Copyright (C) 2018 Authlete, Inc.
+// Copyright (C) 2018-2021 Authlete, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -226,10 +226,9 @@ class ServiceListResponse implements ArrayCopyable, Arrayable, Jsonable
             LanguageUtility::getFromArray('totalCount', $array));
 
         // services
-        $this->setServices(
-            LanguageUtility::convertArrayToArrayOfArrayCopyable(
-                LanguageUtility::getFromArray('services', $array),
-                __NAMESPACE__ . '\Service'));
+        $_services = LanguageUtility::getFromArray('services', $array);
+        $_services = LanguageUtility::convertArrayToArrayOfArrayCopyable($_services, __NAMESPACE__ . '\Service');
+        $this->setServices($_services);
     }
 }
 ?>

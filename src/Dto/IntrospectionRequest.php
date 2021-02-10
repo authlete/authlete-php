@@ -1,6 +1,6 @@
 <?php
 //
-// Copyright (C) 2018-2020 Authlete, Inc.
+// Copyright (C) 2018-2021 Authlete, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -371,8 +371,8 @@ class IntrospectionRequest implements ArrayCopyable, Arrayable, Jsonable
             LanguageUtility::getFromArray('token', $array));
 
         // scopes
-        $this->setScopes(
-            LanguageUtility::getFromArray('scopes', $array));
+        $_scopes = LanguageUtility::getFromArray('scopes', $array);
+        $this->setScopes($_scopes);
 
         // subject
         $this->setSubject(

@@ -1,6 +1,6 @@
 <?php
 //
-// Copyright (C) 2018-2020 Authlete, Inc.
+// Copyright (C) 2018-2021 Authlete, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -856,8 +856,8 @@ class BackchannelAuthenticationCompleteResponse extends ApiResponse
             LanguageUtility::getFromArray('jwtAccessToken', $array));
 
         // resources
-        $this->setResources(
-            LanguageUtility::getFromArray('resources', $array));
+        $_resources = LanguageUtility::getFromArray('resources', $array);
+        $this->setResources($_resources);
     }
 }
 ?>

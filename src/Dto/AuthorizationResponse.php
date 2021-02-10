@@ -1,6 +1,6 @@
 <?php
 //
-// Copyright (C) 2018-2020 Authlete, Inc.
+// Copyright (C) 2018-2021 Authlete, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -1635,16 +1635,16 @@ class AuthorizationResponse extends ApiResponse
                 LanguageUtility::getFromArray('action', $array)));
 
         // service
-        $service = LanguageUtility::getFromArray('service', $array);
+        $_service = LanguageUtility::getFromArray('service', $array);
         $this->setService(
             LanguageUtility::convertArrayToArrayCopyable(
-                $service, __NAMESPACE__ . '\Service'));
+                $_service, __NAMESPACE__ . '\Service'));
 
         // client
-        $client = LanguageUtility::getFromArray('client', $array);
+        $_client = LanguageUtility::getFromArray('client', $array);
         $this->setClient(
             LanguageUtility::convertArrayToArrayCopyable(
-                $client, __NAMESPACE__ . '\Client'));
+                $_client, __NAMESPACE__ . '\Client'));
 
         // clientIdAliasUsed
         $this->setClientIdAliasUsed(
@@ -1660,30 +1660,29 @@ class AuthorizationResponse extends ApiResponse
             LanguageUtility::getFromArray('maxAge', $array));
 
         // scopes
-        $scopes = LanguageUtility::getFromArray('scopes', $array);
-        $this->setScopes(
-            LanguageUtility::convertArrayToArrayOfArrayCopyable(
-                $scopes, __NAMESPACE__ . '\Scope'));
+        $_scopes = LanguageUtility::getFromArray('scopes', $array);
+        $_scopes = LanguageUtility::convertArrayToArrayOfArrayCopyable($_scopes, __NAMESPACE__ . '\Scope');
+        $this->setScopes($_scopes);
 
         // uiLocales
-        $this->setUiLocales(
-            LanguageUtility::getFromArray('uiLocales', $array));
+        $_ui_locales = LanguageUtility::getFromArray('uiLocales', $array);
+        $this->setUiLocales($_ui_locales);
 
         // claimsLocales
-        $this->setClaimsLocales(
-            LanguageUtility::getFromArray('claimsLocales', $array));
+        $_claims_locales = LanguageUtility::getFromArray('claimsLocales', $array);
+        $this->setClaimsLocales($_claims_locales);
 
         // claims
-        $this->setClaims(
-            LanguageUtility::getFromArray('claims', $array));
+        $_claims = LanguageUtility::getFromArray('claims', $array);
+        $this->setClaims($_claims);
 
         // acrEssential
         $this->setAcrEssential(
             LanguageUtility::getFromArrayAsBoolean('acrEssential', $array));
 
         // acrs
-        $this->setAcrs(
-            LanguageUtility::getFromArray('acrs', $array));
+        $_acrs = LanguageUtility::getFromArray('acrs', $array);
+        $this->setAcrs($_acrs);
 
         // subject
         $this->setSubject(
@@ -1694,11 +1693,9 @@ class AuthorizationResponse extends ApiResponse
             LanguageUtility::getFromArray('loginHint', $array));
 
         // prompts
-        $prompts = LanguageUtility::getFromArray('prompts', $array);
-        $this->setPrompts(
-            LanguageUtility::convertArray(
-                $prompts,
-                '\Authlete\Types\Prompt::valueOf'));
+        $_prompts = LanguageUtility::getFromArray('prompts', $array);
+        $_prompts = LanguageUtility::convertArray($_prompts, '\Authlete\Types\Prompt::valueOf');
+        $this->setPrompts($_prompts);
 
         // requestObjectPayload
         $this->setRequestObjectPayload(
@@ -1713,8 +1710,8 @@ class AuthorizationResponse extends ApiResponse
             LanguageUtility::getFromArray('userInfoClaims', $array));
 
         // resources
-        $this->setResources(
-            LanguageUtility::getFromArray('resources', $array));
+        $_resources = LanguageUtility::getFromArray('resources', $array);
+        $this->setResources($_resources);
 
         // purpose
         $this->setPurpose(

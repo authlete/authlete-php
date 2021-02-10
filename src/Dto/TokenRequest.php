@@ -1,6 +1,6 @@
 <?php
 //
-// Copyright (C) 2018-2020 Authlete, Inc.
+// Copyright (C) 2018-2021 Authlete, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -547,14 +547,13 @@ class TokenRequest implements ArrayCopyable, Arrayable, Jsonable
             LanguageUtility::getFromArray('clientCertificate', $array));
 
         // clientCertificatePath
-        $this->setClientCertificatePath(
-            LanguageUtility::getFromArray('clientCertificatePath', $array));
+        $_client_certificate_path = LanguageUtility::getFromArray('clientCertificatePath', $array);
+        $this->setClientCertificatePath($_client_certificate_path);
 
         // properties
-        $properties = LanguageUtility::getFromArray('properties', $array);
-        $this->setProperties(
-            LanguageUtility::convertArrayToArrayOfArrayCopyable(
-                $properties, __NAMESPACE__ . '\Property'));
+        $_properties = LanguageUtility::getFromArray('properties', $array);
+        $_properties = LanguageUtility::convertArrayToArrayOfArrayCopyable($_properties, __NAMESPACE__ . '\Property');
+        $this->setProperties($_properties);
 
         // dpop
         $this->setDpop(

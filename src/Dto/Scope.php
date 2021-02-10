@@ -1,6 +1,6 @@
 <?php
 //
-// Copyright (C) 2018 Authlete, Inc.
+// Copyright (C) 2018-2021 Authlete, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -258,16 +258,14 @@ class Scope implements ArrayCopyable, Arrayable, Jsonable
             LanguageUtility::getFromArray('description', $array));
 
         // descriptions
-        $descriptions = LanguageUtility::getFromArray('descriptions', $array);
-        $this->setDescriptions(
-            LanguageUtility::convertArrayToArrayOfArrayCopyable(
-                $descriptions, __NAMESPACE__ . '\TaggedValue'));
+        $_descriptions = LanguageUtility::getFromArray('descriptions', $array);
+        $_descriptions = LanguageUtility::convertArrayToArrayOfArrayCopyable($_descriptions, __NAMESPACE__ . '\TaggedValue');
+        $this->setDescriptions($_descriptions);
 
         // attributes
-        $attributes = LanguageUtility::getFromArray('attributes', $array);
-        $this->setAttributes(
-            LanguageUtility::convertArrayToArrayOfArrayCopyable(
-                $attributes, __NAMESPACE__ . '\Pair'));
+        $_attributes = LanguageUtility::getFromArray('attributes', $array);
+        $_attributes = LanguageUtility::convertArrayToArrayOfArrayCopyable($_attributes, __NAMESPACE__ . '\Pair');
+        $this->setAttributes($_attributes);
     }
 }
 ?>

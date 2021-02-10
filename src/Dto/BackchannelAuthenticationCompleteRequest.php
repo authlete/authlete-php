@@ -1,6 +1,6 @@
 <?php
 //
-// Copyright (C) 2020 Authlete, Inc.
+// Copyright (C) 2020-2021 Authlete, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -682,14 +682,13 @@ class BackchannelAuthenticationCompleteRequest implements ArrayCopyable, Arrayab
             LanguageUtility::getFromArray('claims', $array));
 
         // properties
-        $props = LanguageUtility::getFromArray('properties', $array);
-        $this->setProperties(
-            LanguageUtility::convertArrayToArrayOfArrayCopyable(
-                $props, __NAMESPACE__ . '\Property'));
+        $_properties = LanguageUtility::getFromArray('properties', $array);
+        $_properties = LanguageUtility::convertArrayToArrayOfArrayCopyable($_properties, __NAMESPACE__ . '\Property');
+        $this->setProperties($_properties);
 
         // scopes
-        $this->setScopes(
-            LanguageUtility::getFromArray('scopes', $array));
+        $_scopes = LanguageUtility::getFromArray('scopes', $array);
+        $this->setScopes($_scopes);
 
         // idtHeaderParams
         $this->setIdtHeaderParams(

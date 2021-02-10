@@ -1,6 +1,6 @@
 <?php
 //
-// Copyright (C) 2018-2020 Authlete, Inc.
+// Copyright (C) 2018-2021 Authlete, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -855,8 +855,8 @@ class IntrospectionResponse extends ApiResponse
             LanguageUtility::getFromArray('subject', $array));
 
         // scopes
-        $this->setScopes(
-            LanguageUtility::getFromArray('scopes', $array));
+        $_scopes = LanguageUtility::getFromArray('scopes', $array);
+        $this->setScopes($_scopes);
 
         // existent
         $this->setExistent(
@@ -883,10 +883,9 @@ class IntrospectionResponse extends ApiResponse
             LanguageUtility::getFromArray('expiresAt', $array));
 
         // properties
-        $properties = LanguageUtility::getFromArray('properties', $array);
-        $this->setProperties(
-            LanguageUtility::convertArrayToArrayOfArrayCopyable(
-                $properties, __NAMESPACE__ . '\Property'));
+        $_properties = LanguageUtility::getFromArray('properties', $array);
+        $_properties = LanguageUtility::convertArrayToArrayOfArrayCopyable($_properties, __NAMESPACE__ . '\Property');
+        $this->setProperties($_properties);
 
         // clientIdAlias
         $this->setClientIdAlias(
@@ -901,12 +900,12 @@ class IntrospectionResponse extends ApiResponse
             LanguageUtility::getFromArray('certificateThumbprint', $array));
 
         // resources
-        $this->setResources(
-            LanguageUtility::getFromArray('resources', $array));
+        $_resources = LanguageUtility::getFromArray('resources', $array);
+        $this->setResources($_resources);
 
         // accessTokenResources
-        $this->setAccessTokenResources(
-            LanguageUtility::getFromArray('accessTokenResources', $array));
+        $_access_token_resources = LanguageUtility::getFromArray('accessTokenResources', $array);
+        $this->setAccessTokenResources($_access_token_resources);
     }
 }
 ?>

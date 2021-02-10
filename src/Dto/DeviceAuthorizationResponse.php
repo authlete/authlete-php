@@ -1,6 +1,6 @@
 <?php
 //
-// Copyright (C) 2020 Authlete, Inc.
+// Copyright (C) 2020-2021 Authlete, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -827,18 +827,17 @@ class DeviceAuthorizationResponse extends ApiResponse
             LanguageUtility::getFromArray('clientName', $array));
 
         // scopes
-        $scopes = LanguageUtility::getFromArray('scopes', $array);
-        $this->setScopes(
-            LanguageUtility::convertArrayToArrayOfArrayCopyable(
-                $scopes, __NAMESPACE__ . '\Scope'));
+        $_scopes = LanguageUtility::getFromArray('scopes', $array);
+        $_scopes = LanguageUtility::convertArrayToArrayOfArrayCopyable($_scopes, __NAMESPACE__ . '\Scope');
+        $this->setScopes($_scopes);
 
         // claimNames
-        $this->setClaimNames(
-            LanguageUtility::getFromArray('claimNames', $array));
+        $_claim_names = LanguageUtility::getFromArray('claimNames', $array);
+        $this->setClaimNames($_claim_names);
 
         // acrs
-        $this->setAcrs(
-            LanguageUtility::getFromArray('acrs', $array));
+        $_acrs = LanguageUtility::getFromArray('acrs', $array);
+        $this->setAcrs($_acrs);
 
         // deviceCode
         $this->setDeviceCode(
@@ -865,12 +864,12 @@ class DeviceAuthorizationResponse extends ApiResponse
             LanguageUtility::getFromArray('interval', $array));
 
         // resources
-        $this->setResources(
-            LanguageUtility::getFromArray('resources', $array));
+        $_resources = LanguageUtility::getFromArray('resources', $array);
+        $this->setResources($_resources);
 
         // warnings
-        $this->setWarnings(
-            LanguageUtility::getFromArray('warnings', $array));
+        $_warnings = LanguageUtility::getFromArray('warnings', $array);
+        $this->setWarnings($_warnings);
     }
 }
 ?>
