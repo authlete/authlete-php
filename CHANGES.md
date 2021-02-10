@@ -2,6 +2,8 @@ CHANGES
 =======
 
 - `Service` class
+    * Added `isIssSuppressed()` method.
+    * Added `setIssSuppressed()` method.
     * Added `isNbfOptional()` method.
     * Added `setNbfOptional()` method.
 

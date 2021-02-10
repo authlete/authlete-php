@@ -160,6 +160,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
     private $claimShortcutRestrictive                    = false; // boolean
     private $scopeRequired                               = false; // boolean
     private $nbfOptional                                 = false; // boolean
+    private $issSuppressed                               = false; // boolean
 
 
     /**
@@ -4536,6 +4537,63 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
 
 
     /**
+     * Get the flag indicating whether generation of the `iss` response
+     * parameter is suppressed.
+     *
+     * "OAuth 2.0 Authorization Server Issuer Identifier in Authorization
+     * Response" has defined a new authorization response parameter, `iss`,
+     * as a countermeasure for a certain type of mix-up attacks.
+     *
+     * The specification requires that the `iss` response parameter always
+     * be included in authorization responses unless JARM (JWT Secured
+     * Authorization Response Mode) is used.
+     *
+     * When this flag is `true`, the authorization server does not include
+     * the `iss` response parameter in authorization responses. By turning
+     * this flag on and off, developers can experiment the mix-up attack
+     * and the effect of the `iss` response parameter.
+     *
+     * Note that this flag should not be `true` in production environment
+     * unless there are special reasons for it.
+     *
+     * @return boolean
+     *     `true` if the authorization server does not include the `iss`
+     *     response parameter in authorization responses.
+     *
+     * @since 1.10
+     */
+    public function isIssSuppressed()
+    {
+        return $this->issSuppressed;
+    }
+
+
+    /**
+     * Set the flag indicating whether generation of the `iss` response
+     * parameter is suppressed.
+     *
+     * See the description of `isIssSuppressed()` for details about this flag.
+     *
+     * @param boolean $suppressed
+     *     `true` to make the authorization server suppress the `iss` response
+     *     parameter.
+     *
+     * @return Service
+     *     `$this` object.
+     *
+     * @since 1.10
+     */
+    public function setIssSuppressed($suppressed)
+    {
+        ValidationUtility::ensureBoolean('$suppressed', $suppressed);
+
+        $this->issSuppressed = $suppressed;
+
+        return $this;
+    }
+
+
+    /**
      * {@inheritdoc}
      *
      * {@inheritdoc}
@@ -4647,6 +4705,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
         $array['claimShortcutRestrictive']                    = $this->claimShortcutRestrictive;
         $array['scopeRequired']                               = $this->scopeRequired;
         $array['nbfOptional']                                 = $this->nbfOptional;
+        $array['issSuppressed']                               = $this->issSuppressed;
     }
 
 
@@ -5089,5 +5148,9 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
         // nbfOptional
         $this->setNbfOptional(
             LanguageUtility::getFromArrayAsBoolean('nbfOptional', $array));
+
+        // issSuppressed
+        $this->setIssSuppressed(
+            LanguageUtility::getFromArrayAsBoolean('issSuppressed', $array));
     }
 }

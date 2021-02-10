@@ -1286,6 +1286,7 @@ class ServiceTest extends TestCase
             ->setClaimShortcutRestrictive(true)
             ->setScopeRequired(true)
             ->setNbfOptional(true)
+            ->setIssSuppressed(true)
             ;
 
         return $obj;
@@ -1868,6 +1869,10 @@ class ServiceTest extends TestCase
         // nbfOptional
         $this->assertArrayHasKey('nbfOptional', $array);
         $this->assertTrue($array['nbfOptional']);
+
+        // issSuppressed
+        $this->assertArrayHasKey('issSuppressed', $array);
+        $this->assertTrue($array['issSuppressed']);
     }
 
 
@@ -2325,6 +2330,9 @@ class ServiceTest extends TestCase
 
         // nbfOptional
         $this->assertTrue($obj->isNbfOptional());
+
+        // issSuppressed
+        $this->assertTrue($obj->isIssSuppressed());
     }
 }
 ?>

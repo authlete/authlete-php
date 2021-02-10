@@ -2,6 +2,8 @@ CHANGES (日本語)
 ================
 
 - `Service` クラス
+    * `isIssSuppressed()` メソッドを追加。
+    * `setIssSuppressed()` メソッドを追加。
     * `isNbfOptional()` メソッドを追加。
     * `setNbfOptional()` メソッドを追加。
 
