@@ -1,6 +1,9 @@
 CHANGES
 =======
 
+1.10.0 (2021-02-10)
+-------------------
+
 - `Service` class
     * Added `isIssSuppressed()` method.
     * Added `setIssSuppressed()` method.
