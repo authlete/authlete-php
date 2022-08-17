@@ -1,6 +1,11 @@
 CHANGES (日本語)
 ================
 
+- `IntrospectionResponse` クラス
+    * `getScopeDetails()` メソッドを追加。
+    * `setScopeDetails()` メソッドを追加。
+
+
 1.10.0 (2021 年 02 月 10 日)
 ----------------------------
 

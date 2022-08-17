@@ -1,6 +1,11 @@
 CHANGES
 =======
 
+- `IntrospectionResponse` class
+    * Added `getScopeDetails()` method.
+    * Added `setScopeDetails()` method.
+
+
 1.10.0 (2021-02-10)
 -------------------
 
