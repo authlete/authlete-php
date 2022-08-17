@@ -1,6 +1,6 @@
 <?php
 //
-// Copyright (C) 2018-2020 Authlete, Inc.
+// Copyright (C) 2018-2022 Authlete, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -96,6 +96,10 @@ use Authlete\Web\HttpMethod;
  */
 class AuthleteApiImpl implements AuthleteApi
 {
+    // The string used as the value of 'User-Agent'. This string should
+    // be updated on every release of a new version of this library.
+    private static $USER_AGENT = 'authlete-php/1.12.0';
+
     private static $AUTH_AUTHORIZATION_API_PATH            = '/api/auth/authorization';
     private static $AUTH_AUTHORIZATION_FAIL_API_PATH       = '/api/auth/authorization/fail';
     private static $AUTH_AUTHORIZATION_ISSUE_API_PATH      = '/api/auth/authorization/issue';
@@ -237,6 +241,9 @@ class AuthleteApiImpl implements AuthleteApi
         // Set 'Content-Type' header.
         curl_setopt($curl, CURLOPT_HTTPHEADER,
             array('Content-Type: application/json;charset=UTF-8'));
+
+        // Set 'User-Agent' header.
+        curl_setopt($curl, CURLOPT_USERAGENT, self::$USER_AGENT);
 
         if (!is_null($requestBody))
         {
