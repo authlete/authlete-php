@@ -337,7 +337,11 @@ How To Release
 Update `CHANGES.md` and `CHANGES.ja.md`. Update `README.md` and `README.ja.md`,
 too, if necessary.
 
-#### 2. Update Version
+#### 2. Update User-Agent
+
+Update the value of the `$USER_AGENT` variable in `AuthleteApiImpl.php`.
+
+#### 3. Update Version
 
 [Packagist][8] (which this library is registered into) refers to git tags.
 To utilize the mechanism, create a new tag for a new version. See
@@ -346,19 +350,19 @@ To utilize the mechanism, create a new tag for a new version. See
     $ git tag X.Y.Z
     $ git push origin X.Y.Z
 
-#### 3. Publish Library
+#### 4. Publish Library
 
 If [GitHub Service Hook][10] is working correctly, changes are automatically
 detected by [Packagist][8].
 
-#### 4. Update API Reference
+#### 5. Update API Reference
 
 The following command updates documents under `docs` folder.
 
     $ rm -rf docs
     $ phpdoc
 
-#### 5. Publish API Reference
+#### 6. Publish API Reference
 
     $ git add docs
     $ git commit -m 'Updated API reference for version X.Y.Z.'

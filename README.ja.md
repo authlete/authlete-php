@@ -336,7 +336,11 @@ $services = $response->getServices();
 `CHANGES.md` と `CHANGES.ja.md` を更新する。 必要があれば `README.md` と
 `README.ja.md` も更新する。
 
-#### 2. バージョン更新
+#### 2. User-Agent 更新
+
+`AuthleteApiImpl.php` 内の `$USER_AGENT` 変数の値を更新する。
+
+#### 3. バージョン更新
 
 [Packagist][8] (このライブラリの登録先) は git タグを参照する。 その仕組みを利用するため、
 新しいバージョン用の新しいタグを作成する。 詳細は [Versions and constraints][9] を参照のこと。
@@ -344,18 +348,18 @@ $services = $response->getServices();
     $ git tag X.Y.Z
     $ git push origin X.Y.Z
 
-#### 3. ライブラリ公開
+#### 4. ライブラリ公開
 
 [GitHub Service Hook][10] が正しく動いていれば、[Packagist][8] が変更を自動的に検出する。
 
-#### 4. API リファレンス更新
+#### 5. API リファレンス更新
 
 次のコマンドで `docs` 以下の文書が更新される。
 
     $ rm -rf docs
     $ phpdoc
 
-#### 5. API リファレンス公開
+#### 6. API リファレンス公開
 
     $ git add docs
     $ git commit -m 'Updated API reference for version X.Y.Z.'
