@@ -1,6 +1,13 @@
 CHANGES
 =======
 
+1.12.0 (2022-08-17)
+-------------------
+
+- `AuthleteApiImpl` class
+    * Added the `User-Agent` HTTP header.
+
+
 1.11.0 (2022-08-17)
 -------------------
 
