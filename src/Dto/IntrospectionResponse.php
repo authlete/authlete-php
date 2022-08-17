@@ -162,6 +162,7 @@ class IntrospectionResponse extends ApiResponse
     private $clientId              = null;  // string or (64-bit) integer
     private $subject               = null;  // string
     private $scopes                = null;  // array of string
+    private $scopeDetails          = null;  // array of string
     private $existent              = false; // boolean
     private $usable                = false; // boolean
     private $sufficient            = false; // boolean
@@ -174,7 +175,6 @@ class IntrospectionResponse extends ApiResponse
     private $certificateThumbprint = null;  // string
     private $resources             = null;  // array of string
     private $accessTokenResources  = null;  // array of string
-    private $scopeDetails          = null;  // array of string
 
 
     /**
@@ -300,6 +300,52 @@ class IntrospectionResponse extends ApiResponse
         ValidationUtility::ensureNullOrArrayOfString('$scopes', $scopes);
 
         $this->scopes = $scopes;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the details of the scopes.
+     *
+     * The scopes property of this class is a list of scope names. The
+     * property does not hold information about scope attributes. This
+     * `scopeDetails` property was newly created to convey information
+     * about scope attributes.
+     *
+     * @return Scope[]
+     *     The details of the scopes.
+     *
+     * @since 1.11
+     */
+    public function getScopeDetails()
+    {
+        return $this->scopeDetails;
+    }
+
+
+    /**
+     * Set the details of the scopes.
+     *
+     * The scopes property of this class is a list of scope names. The
+     * property does not hold information about scope attributes. This
+     * `scopeDetails` property was newly created to convey information
+     * about scope attributes.
+     *
+     * @param Scope[] $scopeDetails
+     *     The details of the scopes.
+     *
+     * @return IntrospectionResponse
+     *     `$this` object.
+     *
+     * @since 1.11
+     */
+    public function setScopeDetails(array $scopeDetails = null)
+    {
+        ValidationUtility::ensureNullOrArrayOfType(
+            '$scopeDetails', $scopeDetails, __NAMESPACE__ . '\Scope');
+
+        $this->scopeDetails = $scopeDetails;
 
         return $this;
     }
@@ -800,52 +846,6 @@ class IntrospectionResponse extends ApiResponse
 
 
     /**
-     * Get the details of the scopes.
-     *
-     * The scopes property of this class is a list of scope names. The
-     * property does not hold information about scope attributes. This
-     * `scopeDetails` property was newly created to convey information
-     * about scope attributes.
-     *
-     * @return Scope[]
-     *     The details of the scopes.
-     *
-     * @since 1.11
-     */
-    public function getScopeDetails()
-    {
-        return $this->scopeDetails;
-    }
-
-
-    /**
-     * Set the details of the scopes.
-     *
-     * The scopes property of this class is a list of scope names. The
-     * property does not hold information about scope attributes. This
-     * `scopeDetails` property was newly created to convey information
-     * about scope attributes.
-     *
-     * @param Scope[] $scopeDetails
-     *     The details of the scopes.
-     *
-     * @return IntrospectionResponse
-     *     `$this` object.
-     *
-     * @since 1.11
-     */
-    public function setScopeDetails(array $scopeDetails = null)
-    {
-        ValidationUtility::ensureNullOrArrayOfType(
-            '$scopeDetails', $scopeDetails, __NAMESPACE__ . '\Scope');
-
-        $this->scopeDetails = $scopeDetails;
-
-        return $this;
-    }
-
-
-    /**
      * {@inheritdoc}
      *
      * {@inheritdoc}
@@ -861,6 +861,7 @@ class IntrospectionResponse extends ApiResponse
         $array['clientId']              = $this->clientId;
         $array['subject']               = $this->subject;
         $array['scopes']                = $this->scopes;
+        $array['scopeDetails']          = LanguageUtility::convertArrayOfArrayCopyableToArray($this->scopeDetails);
         $array['existent']              = $this->existent;
         $array['usable']                = $this->usable;
         $array['sufficient']            = $this->sufficient;
@@ -873,7 +874,6 @@ class IntrospectionResponse extends ApiResponse
         $array['certificateThumbprint'] = $this->certificateThumbprint;
         $array['resources']             = $this->resources;
         $array['accessTokenResources']  = $this->accessTokenResources;
-        $array['scopeDetails']          = LanguageUtility::convertArrayOfArrayCopyableToArray($this->scopeDetails);
     }
 
 
@@ -905,6 +905,11 @@ class IntrospectionResponse extends ApiResponse
         // scopes
         $_scopes = LanguageUtility::getFromArray('scopes', $array);
         $this->setScopes($_scopes);
+
+        // scopeDetails
+        $_scopeDetails = LanguageUtility::getFromArray('scopeDetails', $array);
+        $_scopeDetails = LanguageUtility::convertArrayToArrayOfArrayCopyable($_scopeDetails, __NAMESPACE__ . '\Scope');
+        $this->setScopeDetails($_scopeDetails);
 
         // existent
         $this->setExistent(
@@ -954,11 +959,6 @@ class IntrospectionResponse extends ApiResponse
         // accessTokenResources
         $_access_token_resources = LanguageUtility::getFromArray('accessTokenResources', $array);
         $this->setAccessTokenResources($_access_token_resources);
-
-        // scopeDetails
-        $_scopeDetails = LanguageUtility::getFromArray('scopeDetails', $array);
-        $_scopeDetails = LanguageUtility::convertArrayToArrayOfArrayCopyable($_scopeDetails, __NAMESPACE__ . '\Scope');
-        $this->setScopeDetails($_scopeDetails);
     }
 }
 ?>
