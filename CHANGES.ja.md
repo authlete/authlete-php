@@ -4,6 +4,16 @@ CHANGES (日本語)
 - `IntrospectionResponse` クラス
     * `getScopeDetails()` メソッドを追加。
     * `setScopeDetails()` メソッドを追加。
+    * `getGrantId()` メソッドを追加。
+    * `setGrantId()` メソッドを追加。
+    * `getConsentedClaims()` メソッドを追加。
+    * `setConsentedClaims()` メソッドを追加。
+    * `getServiceAttributes()` メソッドを追加。
+    * `setServiceAttributes()` メソッドを追加。
+    * `getClientAttributes()` メソッドを追加。
+    * `setClientAttributes()` メソッドを追加。
+    * `isForExternalAttachment()` メソッドを追加。
+    * `setForExternalAttachment()` メソッドを追加。
 
 
 1.10.0 (2021 年 02 月 10 日)

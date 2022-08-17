@@ -175,6 +175,11 @@ class IntrospectionResponse extends ApiResponse
     private $certificateThumbprint = null;  // string
     private $resources             = null;  // array of string
     private $accessTokenResources  = null;  // array of string
+    private $grantId               = null;  // string
+    private $consentedClaims       = null;  // array of string
+    private $serviceAttributes     = null;  // array of \Authlete\Dto\Pair
+    private $clientAttributes      = null;  // array of \Authlete\Dto\Pair
+    private $forExternalAttachment = false; // boolean
 
 
     /**
@@ -805,6 +810,219 @@ class IntrospectionResponse extends ApiResponse
 
 
     /**
+     * Get the grant ID which the access token is tied to.
+     *
+     * In Authlete, when an authorization request includes the `grant_management_action`
+     * request parameter, a grant ID (which may be a newly-generated one or an existing
+     * one specified by the `grant_id` request parameter) is tied to the access token
+     * which is created as a result of the authorization request.
+     *
+     * @return string
+     *     The grant ID tied to the access token.
+     *
+     * @since 1.11
+     */
+    public function getGrantId()
+    {
+        return $this->grantId;
+    }
+
+
+    /**
+     * Set the grant ID which the access token is tied to.
+     *
+     * In Authlete, when an authorization request includes the `grant_management_action`
+     * request parameter, a grant ID (which may be a newly-generated one or an existing
+     * one specified by the `grant_id` request parameter) is tied to the access token
+     * which is created as a result of the authorization request.
+     *
+     * @param string $grantId
+     *     The grant ID tied to the access token.
+     *
+     * @return IntrospectionAction
+     *     `$this` object.
+     *
+     * @since 1.11
+     */
+    public function setGrantId($grantId)
+    {
+        ValidationUtility::ensureNullOrString('$grantId', $grantId);
+
+        $this->grantId = $grantId;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the claims that the user has consented for the client application
+     * to know.
+     *
+     * Some Authlete APIs accept a `consentedClaims` request parameter (which
+     * is available from Authlete 2.3). This `consentedClaims` property holds
+     * the value specified by the request parameter.
+     *
+     * @return string[]
+     *     The consented claims.
+     *
+     * @since 1.11
+     */
+    public function getConsentedClaims()
+    {
+        return $this->consentedClaims;
+    }
+
+
+    /**
+     * Set the claims that the user has consented for the client application
+     * to know.
+     *
+     * Some Authlete APIs accept a `consentedClaims` request parameter (which
+     * is available from Authlete 2.3). This `consentedClaims` property holds
+     * the value specified by the request parameter.
+     *
+     * @param string[] $claims
+     *     The consented claims.
+     *
+     * @return IntrospectionResponse
+     *     `$this` object.
+     *
+     * @since 1.11
+     */
+    public function setConsentedClaims(array $claims = null)
+    {
+        ValidationUtility::ensureNullOrArrayOfString('$claims', $claims);
+
+        $this->consentedClaims = $claims;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the attributes of the service that the client application belongs to.
+     *
+     * @return Pair[]
+     *     The attributes of the service.
+     *
+     * @since 1.11
+     */
+    public function getServiceAttributes()
+    {
+        return $this->serviceAttributes;
+    }
+
+
+    /**
+     * Set the attributes of the service that the client application belongs to.
+     *
+     * @param Pair[] $attributes
+     *     The attributes of the service.
+     *
+     * @return IntrospectionResponse
+     *     `$this` object.
+     *
+     * @since 1.11
+     */
+    public function setServiceAttributes(array $attributes = null)
+    {
+        ValidationUtility::ensureNullOrArrayOfType(
+            '$attributes', $attributes, __NAMESPACE__ . '\Pair');
+
+        $this->serviceAttributes = $attributes;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the attributes of the client that the access token has been issued to.
+     *
+     * @return Pair[]
+     *     The attributes of the client.
+     *
+     * @since 1.11
+     */
+    public function getClientAttributes()
+    {
+        return $this->clientAttributes;
+    }
+
+
+    /**
+     * Set the attributes of the client that the access token has been issued to.
+     *
+     * @param Pair[] $attributes
+     *     The attributes of the client.
+     *
+     * @return IntrospectionResponse
+     *     `$this` object.
+     *
+     * @since 1.11
+     */
+    public function setClientAttributes(array $attributes = null)
+    {
+        ValidationUtility::ensureNullOrArrayOfType(
+            '$attributes', $attributes, __NAMESPACE__ . '\Pair');
+
+        $this->clientAttributes = $attributes;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the flag which indicates whether the access token is for an external
+     * attachment.
+     *
+     * OpenID Provider implementations can make Authlete generate access tokens
+     * for external attachments and embed them in ID tokens and userinfo responses
+     * by setting `true` to the `accessTokenForExternalAttachmentEmbedded` property
+     * of the service. If the token presented at Authlete's `/auth/introspection`
+     * API has been generated by the feature, this `forExternalAttachment` property
+     * in the response from the Authlete API becomes `true`.
+     *
+     * @return boolean
+     *     `true` if the access token is for an external attachment.
+     *
+     * @since 1.11
+     */
+    public function isForExternalAttachment()
+    {
+        return $this->forExternalAttachment;
+    }
+
+
+    /**
+     * Set the flag which indicates whether the access token is for an external
+     * attachment.
+     *
+     * OpenID Provider implementations can make Authlete generate access tokens
+     * for external attachments and embed them in ID tokens and userinfo responses
+     * by setting `true` to the `accessTokenForExternalAttachmentEmbedded` property
+     * of the service. If the token presented at Authlete's `/auth/introspection`
+     * API has been generated by the feature, this `forExternalAttachment` property
+     * in the response from the Authlete API becomes `true`.
+     *
+     * @param boolean $forExternalAttachment
+     *     `true` to indicate that the access token is for an external attachment.
+     *
+     * @return IntrospectionResponse
+     *     `$this` object.
+     *
+     * @since 1.11
+     */
+    public function setForExternalAttachment($forExternalAttachment)
+    {
+        ValidationUtility::ensureBoolean('$forExternalAttachment', $forExternalAttachment);
+
+        $this->forExternalAttachment = $forExternalAttachment;
+
+        return $this;
+    }
+
+
+    /**
      * Get the flag which indicates whether the access token is active
      * (= exists and has not expired).
      *
@@ -874,6 +1092,11 @@ class IntrospectionResponse extends ApiResponse
         $array['certificateThumbprint'] = $this->certificateThumbprint;
         $array['resources']             = $this->resources;
         $array['accessTokenResources']  = $this->accessTokenResources;
+        $array['grantId']               = $this->grantId;
+        $array['consentedClaims']       = $this->consentedClaims;
+        $array['serviceAttributes']     = LanguageUtility::convertArrayOfArrayCopyableToArray($this->serviceAttributes);
+        $array['clientAttributes']      = LanguageUtility::convertArrayOfArrayCopyableToArray($this->clientAttributes);
+        $array['forExternalAttachment'] = $this->forExternalAttachment;
     }
 
 
@@ -959,6 +1182,28 @@ class IntrospectionResponse extends ApiResponse
         // accessTokenResources
         $_access_token_resources = LanguageUtility::getFromArray('accessTokenResources', $array);
         $this->setAccessTokenResources($_access_token_resources);
+
+        // grantId
+        $this->setGrantId(
+            LanguageUtility::getFromArray('grantId', $array));
+
+        // consentedClaims
+        $_consentedClaims = LanguageUtility::getFromArray('consentedClaims', $array);
+        $this->setConsentedClaims($_consentedClaims);
+
+        // serviceAttributes
+        $_serviceAttributes = LanguageUtility::getFromArray('serviceAttributes', $array);
+        $_serviceAttributes = LanguageUtility::convertArrayToArrayOfArrayCopyable($_serviceAttributes, __NAMESPACE__ . '\Pair');
+        $this->setServiceAttributes($_serviceAttributes);
+
+        // clientAttributes
+        $_clientAttributes = LanguageUtility::getFromArray('clientAttributes', $array);
+        $_clientAttributes = LanguageUtility::convertArrayToArrayOfArrayCopyable($_clientAttributes, __NAMESPACE__ . '\Pair');
+        $this->setClientAttributes($_clientAttributes);
+
+        // forExternalAttachment
+        $this->setForExternalAttachment(
+            LanguageUtility::getFromArrayAsBoolean('forExternalAttachment', $array));
     }
 }
 ?>

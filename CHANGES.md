@@ -4,6 +4,16 @@ CHANGES
 - `IntrospectionResponse` class
     * Added `getScopeDetails()` method.
     * Added `setScopeDetails()` method.
+    * Added `getGrantId()` method.
+    * Added `setGrantId()` method.
+    * Added `getConsentedClaims()` method.
+    * Added `setConsentedClaims()` method.
+    * Added `getServiceAttributes()` method.
+    * Added `setServiceAttributes()` method.
+    * Added `getClientAttributes()` method.
+    * Added `setClientAttributes()` method.
+    * Added `isForExternalAttachment()` method.
+    * Added `setForExternalAttachment()` method.
 
 
 1.10.0 (2021-02-10)
