@@ -43,17 +43,17 @@ class TokenFailRequest implements ArrayCopyable, Arrayable, Jsonable
     use JsonTrait;
 
 
-    private $ticket = null;  // string
-    private $reason = null;  // \Authlete\Dto\TokenFailReason
+    private ?string $ticket          = null;
+    private ?TokenFailReason $reason = null;
 
 
     /**
      * Get the ticket issued from Authlete's /api/auth/token API.
      *
-     * @return string
+     * @return string|null
      *     The ticket necessary to call /api/auth/token/fail API.
      */
-    public function getTicket()
+    public function getTicket(): ?string
     {
         return $this->ticket;
     }
@@ -70,7 +70,7 @@ class TokenFailRequest implements ArrayCopyable, Arrayable, Jsonable
      * @return TokenFailRequest
      *     `$this` object.
      */
-    public function setTicket($ticket)
+    public function setTicket(string $ticket): TokenFailRequest
     {
         ValidationUtility::ensureNullOrString('$ticket', $ticket);
 
@@ -83,10 +83,10 @@ class TokenFailRequest implements ArrayCopyable, Arrayable, Jsonable
     /**
      * Get the reason of the failure of the token request.
      *
-     * @return TokenFailReason
+     * @return TokenFailReason|null
      *     The reason of the failure of the token request.
      */
-    public function getReason()
+    public function getReason(): ?TokenFailReason
     {
         return $this->reason;
     }
@@ -95,13 +95,13 @@ class TokenFailRequest implements ArrayCopyable, Arrayable, Jsonable
     /**
      * Set the reason of the failure of the token request.
      *
-     * @param TokenFailReason $reason
+     * @param TokenFailReason|null $reason
      *     The reason of the failure of the token request.
      *
      * @return TokenFailRequest
      *     `$this` object.
      */
-    public function setReason(TokenFailReason $reason = null)
+    public function setReason(TokenFailReason $reason = null): TokenFailRequest
     {
         $this->reason = $reason;
 
@@ -144,4 +144,3 @@ class TokenFailRequest implements ArrayCopyable, Arrayable, Jsonable
                 LanguageUtility::getFromArray('reason', $array)));
     }
 }
-?>

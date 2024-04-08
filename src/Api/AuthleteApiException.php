@@ -37,15 +37,15 @@ use Authlete\Web\HttpHeaders;
  */
 class AuthleteApiException extends \Exception
 {
-    private $statusCode      = 0;     // integer
-    private $responseHeaders = null;  // \Authlete\Web\HttpHeaders
-    private $responseBody    = null;  // string
+    private int $statusCode;     // integer
+    private HttpHeaders|null $responseHeaders;  // \Authlete\Web\HttpHeaders
+    private string|null $responseBody;  // string
 
 
     /**
      * Constructor.
      *
-     * @param string $message
+     * @param int $message
      *     An error message. This argument is passed to the constructor
      *     of the parent class. This value is available through
      *     `getMessage()` method.
@@ -55,22 +55,20 @@ class AuthleteApiException extends \Exception
      *     value is 0. This value is available through `getStatusCode()`
      *     method.
      *
-     * @param HttpHeaders $responseHeaders
+     * @param HttpHeaders|null $responseHeaders
      *     HTTP response headers. This argument is optional and its default
      *     value is `null`. This value is available through `getResponseHeaders()`
      *     method. If `null` is given, however, `getResponseHeader()` will
      *     return an empty `HttpHeaders` instance.
      *
-     * @param string $responseBody
+     * @param string|null $responseBody
      *     An HTTP response body. This argument is optional and its default
      *     value is `null`. This value is available through `getResponseBody()`
      *     method.
      *
-     * @throws \InvalidArgumentException
-     *     Types of arguments are invalid.
      */
     public function __construct(
-        $message, $statusCode = 0, $responseHeaders = null, $responseBody = null)
+        int $message, int $statusCode = 0, HttpHeaders $responseHeaders = null, string $responseBody = null)
     {
         ValidationUtility::ensureNullOrString('$message', $message);
         ValidationUtility::ensureInteger('$statusCode', $statusCode);
@@ -97,7 +95,7 @@ class AuthleteApiException extends \Exception
      *     HTTP status code. If this exception was thrown before an
      *     HTTP status code was read, this method returns 0.
      */
-    public function getStatusCode()
+    public function getStatusCode() :int
     {
         return $this->statusCode;
     }
@@ -106,14 +104,14 @@ class AuthleteApiException extends \Exception
     /**
      * Get the HTTP headers of a response from an Authlete API.
      *
-     * @return HttpHeaders
+     * @return HttpHeaders|null HTTP response headers.
      *     HTTP response headers.
      *
      * @since 1.2
      */
-    public function getResponseHeaders()
+    public function getResponseHeaders(): HttpHeaders|null
     {
-        return $this->responsesHeaders;
+        return $this->responseHeaders;
     }
 
 
@@ -123,7 +121,7 @@ class AuthleteApiException extends \Exception
      * @return string
      *     HTTP response body. This may be `null`.
      */
-    public function getResponseBody()
+    public function getResponseBody() :string
     {
         return $this->responseBody;
     }

@@ -26,6 +26,7 @@ namespace Authlete\Dto;
 
 
 use Authlete\Types\EnumTrait;
+use Authlete\Types\Valuable;
 use Authlete\Util\LanguageUtility;
 
 
@@ -35,61 +36,45 @@ use Authlete\Util\LanguageUtility;
  *
  * @since 1.8
  */
-class PushedAuthReqAction
+enum PushedAuthReqAction: string implements Valuable
 {
     use EnumTrait;
-
 
     /**
      * The pushed authorization request has been registered successfully.
      * The endpoint should return `201 Created` to the client application.
-     *
-     * @static
-     * @var PushedAuthReqAction
      */
-    public static $CREATED;
+    case CREATED = 'created';
 
 
     /**
      * The request is invalid. The pushed authorization request endpoint
      * should return `400 Bad Request` to the client application.
-     *
-     * @static
-     * @var PushedAuthReqAction
      */
-    public static $BAD_REQUEST;
+    case BAD_REQUEST = 'bad_request';
 
 
     /**
      * The client authentication at the pushed authorization request endpoint
      * failed. The endpoint should return `401 Unauthorized` to the client
      * application.
-     *
-     * @static
-     * @var PushedAuthReqAction
      */
-    public static $UNAUTHORIZED;
+    case UNAUTHORIZED = 'unauthorized';
 
 
     /**
      * The client application is not allowed to use the pushed authorization
      * request endpoint. The endpoint should return `403 Forbidden` to the
      * client application.
-     *
-     * @static
-     * @var PushedAuthReqAction
      */
-    public static $FORBIDDEN;
+    case FORBIDDEN = 'forbidden';
 
 
     /**
      * The size of the pushed authorization request is too large. The endpoint
      * should return `413 Payload Too Large` to the client application.
-     *
-     * @static
-     * @var PushedAuthReqAction
      */
-    public static $PAYLOAD_TOO_LARGE;
+    case PAYLOAD_TOO_LARGE = 'payload_too_large';
 
 
     /**
@@ -97,14 +82,7 @@ class PushedAuthReqAction
      * authorization request endpoint should return `500 Internal Server Error`
      * to the client application. However, it is up to the authorization
      * server's policy whether to return `500` actually.
-     *
-     * @static
-     * @var PushedAuthReqAction
      */
-    public static $INTERNAL_SERVER_ERROR;
+    case INTERNAL_SERVER_ERROR = 'internal_server_error';
 }
 
-
-// Call PushedAuthReqAction::initialize().
-LanguageUtility::initializeClass(__NAMESPACE__ . '\PushedAuthReqAction');
-?>

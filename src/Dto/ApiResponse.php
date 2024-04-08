@@ -43,8 +43,8 @@ class ApiResponse implements ArrayCopyable, Arrayable, Jsonable
     use JsonTrait;
 
 
-    private $resultCode    = null;  // string
-    private $resultMessage = null;  // string
+    private ?string $resultCode    = null;  // string
+    private ?string $resultMessage = null;  // string
 
 
     /**
@@ -117,7 +117,7 @@ class ApiResponse implements ArrayCopyable, Arrayable, Jsonable
      * @param array $array
      *     {@inheritdoc}
      */
-    public function copyToArray(array &$array)
+    public function copyToArray(array &$array):void
     {
         $array['resultCode']    = $this->resultCode;
         $array['resultMessage'] = $this->resultMessage;
@@ -143,4 +143,3 @@ class ApiResponse implements ArrayCopyable, Arrayable, Jsonable
             LanguageUtility::getFromArray('resultMessage', $array));
     }
 }
-?>

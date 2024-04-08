@@ -46,18 +46,18 @@ class ClientAuthorizationUpdateRequest implements ArrayCopyable, Arrayable, Json
     use JsonTrait;
 
 
-    private $subject = null;  // string
-    private $scopes  = null;  // array of string
+    private ?string $subject = null;
+    private ?array $scopes   = null;
 
 
     /**
      * Get the subject (= unique identifier) of the end-user who has granted
      * authorization to the client application.
      *
-     * @return string
+     * @return string|null
      *     The subject of the end-user.
      */
-    public function getSubject()
+    public function getSubject(): ?string
     {
         return $this->subject;
     }
@@ -73,7 +73,7 @@ class ClientAuthorizationUpdateRequest implements ArrayCopyable, Arrayable, Json
      * @return ClientAuthorizationUpdateRequest
      *     `$this` object.
      */
-    public function setSubject($subject)
+    public function setSubject(string $subject): ClientAuthorizationUpdateRequest
     {
         ValidationUtility::ensureNullOrString('$subject', $subject);
 
@@ -86,10 +86,10 @@ class ClientAuthorizationUpdateRequest implements ArrayCopyable, Arrayable, Json
     /**
      * Get a new set of scopes assigned to existing access tokens.
      *
-     * @return string[]
+     * @return string[]|null
      *     A new set of scopes assiged to existing access tokens.
      */
-    public function getScopes()
+    public function getScopes(): ?array
     {
         return $this->scopes;
     }
@@ -103,7 +103,7 @@ class ClientAuthorizationUpdateRequest implements ArrayCopyable, Arrayable, Json
      *     is given, the scope set associated with existing access tokens
      *     will not be changed.
      */
-    public function setScopes(array $scopes = null)
+    public function setScopes(array $scopes = null): static
     {
         ValidationUtility::ensureNullOrArrayOfString('$scopes', $scopes);
 
@@ -121,7 +121,7 @@ class ClientAuthorizationUpdateRequest implements ArrayCopyable, Arrayable, Json
      * @param array $array
      *     {@inheritdoc}
      */
-    public function copyToArray(array &$array)
+    public function copyToArray(array &$array): void
     {
         $array['subject'] = $this->subject;
         $array['scopes']  = $this->scopes;
@@ -136,7 +136,7 @@ class ClientAuthorizationUpdateRequest implements ArrayCopyable, Arrayable, Json
      * @param array $array
      *     {@inheritdoc}
      */
-    public function copyFromArray(array &$array)
+    public function copyFromArray(array &$array): void
     {
         // subject
         $this->setSubject(
@@ -147,4 +147,4 @@ class ClientAuthorizationUpdateRequest implements ArrayCopyable, Arrayable, Json
         $this->setScopes($_scopes);
     }
 }
-?>
+

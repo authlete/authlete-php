@@ -61,9 +61,9 @@ class RevocationRequest implements ArrayCopyable, Arrayable, Jsonable
     use JsonTrait;
 
 
-    private $parameters   = null;  // string
-    private $clientId     = null;  // string
-    private $clientSecret = null;  // string
+    private ?string $parameters   = null;  // string
+    private ?string $clientId     = null;  // string
+    private ?string $clientSecret = null;  // string
 
 
     /**
@@ -73,7 +73,7 @@ class RevocationRequest implements ArrayCopyable, Arrayable, Jsonable
      * @return string
      *     The request parameters of a revocation request.
      */
-    public function getParameters()
+    public function getParameters(): ?string
     {
         return $this->parameters;
     }
@@ -93,7 +93,7 @@ class RevocationRequest implements ArrayCopyable, Arrayable, Jsonable
      * @return RevocationRequest
      *     `$this` object.
      */
-    public function setParameters($parameters)
+    public function setParameters(string $parameters): RevocationRequest
     {
         ValidationUtility::ensureNullOrString('$parameters', $parameters);
 
@@ -110,7 +110,7 @@ class RevocationRequest implements ArrayCopyable, Arrayable, Jsonable
      * @return string
      *     The client ID.
      */
-    public function getClientId()
+    public function getClientId(): ?string
     {
         return $this->clientId;
     }
@@ -133,7 +133,7 @@ class RevocationRequest implements ArrayCopyable, Arrayable, Jsonable
      * @return RevocationRequest
      *     `$this` object.
      */
-    public function setClientId($clientId)
+    public function setClientId(string $clientId): RevocationRequest
     {
         ValidationUtility::ensureNullOrString('$clientId', $clientId);
 
@@ -150,7 +150,7 @@ class RevocationRequest implements ArrayCopyable, Arrayable, Jsonable
      * @return string
      *     The client secret.
      */
-    public function getClientSecret()
+    public function getClientSecret(): ?string
     {
         return $this->clientSecret;
     }
@@ -173,7 +173,7 @@ class RevocationRequest implements ArrayCopyable, Arrayable, Jsonable
      * @return RevocationRequest
      *     `$this` object.
      */
-    public function setClientSecret($secret)
+    public function setClientSecret(string $secret): RevocationRequest
     {
         ValidationUtility::ensureNullOrString('$secret', $secret);
 
@@ -222,4 +222,4 @@ class RevocationRequest implements ArrayCopyable, Arrayable, Jsonable
             LanguageUtility::getFromArray('clientSecret', $array));
     }
 }
-?>
+

@@ -31,7 +31,7 @@ use Authlete\Util\LanguageUtility;
 /**
  * Client authentication methods.
  */
-class ClientAuthMethod
+enum ClientAuthMethod: string implements Valuable
 {
     use EnumTrait;
 
@@ -43,23 +43,17 @@ class ClientAuthMethod
      * authorization server, either because the client uses only the
      * implicit flow or because the client type of the client is
      * "public".
-     *
-     * @static
-     * @var ClientAuthMethod
      */
-    public static $NONE;
+    case NONE = 'none';
 
 
     /**
      * Client authentication using Basic Authentication as defined
      * in "3.2.1. Client Authentication" of RFC 6749.
      *
-     * @static
-     * @var ClientAuthMethod
-     *
      * @see https://tools.ietf.org/html/rfc6749#section-3.2.1 RFC 6749, 3.2.1. Client Authentication
      */
-    public static $CLIENT_SECRET_BASIC;
+    case CLIENT_SECRET_BASIC = 'client_secret_basic';
 
 
     /**
@@ -67,59 +61,40 @@ class ClientAuthMethod
      * parameter in the request body as defined in "3.2.1. Client
      * Authentication" of RFC 6749.
      *
-     * @static
-     * @var ClientAuthMethod
-     *
      * @see https://tools.ietf.org/html/rfc6749#section-3.2.1 RFC 6749, 3.2.1. Client Authentication
      */
-    public static $CLIENT_SECRET_POST;
+    case CLIENT_SECRET_POST = 'client_secret_post';
 
 
     /**
      * Client authentication using JWT signed by the shared client
      * secret as defined in RFC 7523.
      *
-     * @static
-     * @var ClientAuthMethod
-     *
      * @see https://tools.ietf.org/html/rfc7523 RFC 7523
      */
-    public static $CLIENT_SECRET_JWT;
+    case CLIENT_SECRET_JWT = 'client_secret_jwt';
 
 
     /**
      * Client authentication using X.509 certificates as defined in
      * RFC 7523.
      *
-     * @static
-     * @var ClientAuthMethod
-     *
      * @see https://tools.ietf.org/html/rfc7523 RFC 7523
      */
-    public static $PRIVATE_KEY_JWT;
+    case PRIVATE_KEY_JWT = 'private_key_jwt';
 
 
     /**
      * Client authentication using X.509 certificates as defined in
      * "Mutual TLS Profiles for OAuth Clients".
-     *
-     * @static
-     * @var ClientAuthMethod
      */
-    public static $TLS_CLIENT_AUTH;
+    case TLS_CLIENT_AUTH = 'tls_client_auth';
 
 
     /**
      * Client authentication using self-signed certificates as defined
      * in "Mutual TLS Profiles for OAuth Clients".
-     *
-     * @static
-     * @var ClientAuthMethod
      */
-    public static $SELF_SIGNED_TLS_CLIENT_AUTH;
+    case SELF_SIGNED_TLS_CLIENT_AUTH = 'self_signed_tls_client_auth';
 }
 
-
-// Call ClientAuthMethod::initialize().
-LanguageUtility::initializeClass(__NAMESPACE__ . '\ClientAuthMethod');
-?>

@@ -31,21 +31,14 @@ use Authlete\Util\LanguageUtility;
 /**
  * SNS.
  */
-class Sns
+enum Sns: string implements Valuable
 {
     use EnumTrait;
-
 
     /**
      * Facebook.
      *
-     * @static
-     * @var Sns
      */
-    public static $FACEBOOK;
+    case FACEBOOK = 'facebook';
 }
 
-
-// Call Sns::initialize().
-LanguageUtility::initializeClass(__NAMESPACE__ . '\Sns');
-?>

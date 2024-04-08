@@ -26,13 +26,14 @@ namespace Authlete\Dto;
 
 
 use Authlete\Types\EnumTrait;
+use Authlete\Types\Valuable;
 use Authlete\Util\LanguageUtility;
 
 
 /**
  * The value of "action" in responses from Authlete's /api/auth/token API.
  */
-class TokenAction
+enum TokenAction: string implements Valuable
 {
     use EnumTrait;
 
@@ -42,11 +43,8 @@ class TokenAction
      *
      * The token endpoint implementation should return either
      * `400 Bad Request` or `401 Unauthorized` to the client application.
-     *
-     * @static
-     * @var TokenAction
      */
-    public static $INVALID_CLIENT;
+    case INVALID_CLIENT = 'invalid_client';
 
 
     /**
@@ -55,11 +53,8 @@ class TokenAction
      *
      * The token endpoint implementation should return
      * `500 Internal Server Error` to the client application.
-     *
-     * @static
-     * @var TokenAction
      */
-    public static $INTERNAL_SERVER_ERROR;
+    case INTERNAL_SERVER_ERROR = 'internal_server_error';
 
 
     /**
@@ -67,11 +62,8 @@ class TokenAction
      *
      * The token endpoint implementation should return `400 Bad Request` to
      * the client appication.
-     *
-     * @static
-     * @var TokenAction
      */
-    public static $BAD_REQUEST;
+    case BAD_REQUEST = 'bad_request';
 
 
     /**
@@ -81,11 +73,8 @@ class TokenAction
      * The token endpoint implementation should validate the credentials of
      * the resource owner and call Authlete's `/api/auth/token/issue` API or
      * `/api/auth/token/fail` API according to the result of the validation.
-     *
-     * @static
-     * @var TokenAction
      */
-    public static $PASSWORD;
+    case PASSWORD = 'password';
 
 
     /**
@@ -93,14 +82,7 @@ class TokenAction
      *
      * The token endpoint implementation should return `200 OK` to the client
      * application with an access token.
-     *
-     * @static
-     * @var TokenAction
      */
-    public static $OK;
+    case OK = 'ok';
 }
 
-
-// Call TokenAction::initialize().
-LanguageUtility::initializeClass(__NAMESPACE__ . '\TokenAction');
-?>

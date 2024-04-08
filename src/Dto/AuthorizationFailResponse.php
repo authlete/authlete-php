@@ -125,19 +125,19 @@ use Authlete\Util\ValidationUtility;
  */
 class AuthorizationFailResponse extends ApiResponse
 {
-    private $action          = null;  // \Authlete\Dto\AuthorizationFailAction
-    private $responseContent = null;  // string
+    private ?AuthorizationFailAction $action = null;
+    private ?string $responseContent         = null;
 
 
     /**
      * Get the next action that the authorization server implementation
      * should take.
      *
-     * @return AuthorizationFailAction
+     * @return AuthorizationFailAction|null
      *     The next action that the authorization server implementation
      *     should take.
      */
-    public function getAction()
+    public function getAction(): ?AuthorizationFailAction
     {
         return $this->action;
     }
@@ -147,14 +147,14 @@ class AuthorizationFailResponse extends ApiResponse
      * Set the next action that the authorization server implementation
      * should take.
      *
-     * @param AuthorizationFailAction $action
+     * @param AuthorizationFailAction|null $action
      *     The next action that the authorization server implementation
      *     should take.
      *
      * @return AuthorizationFailResponse
      *     `$this` object.
      */
-    public function setAction(AuthorizationFailAction $action = null)
+    public function setAction(AuthorizationFailAction $action = null): AuthorizationFailResponse
     {
         $this->action = $action;
 
@@ -169,11 +169,11 @@ class AuthorizationFailResponse extends ApiResponse
      * The format of the value varies depending on the value returned from
      * `getAction()` method.
      *
-     * @return string
+     * @return string|null
      *     The response content which can be used to generate a response to
      *     the client application.
      */
-    public function getResponseContent()
+    public function getResponseContent(): ?string
     {
         return $this->responseContent;
     }
@@ -190,7 +190,7 @@ class AuthorizationFailResponse extends ApiResponse
      * @return AuthorizationFailResponse
      *     `$this` object.
      */
-    public function setResponseContent($responseContent)
+    public function setResponseContent(string $responseContent): AuthorizationFailResponse
     {
         ValidationUtility::ensureNullOrString('$responseContent', $responseContent);
 
@@ -208,7 +208,7 @@ class AuthorizationFailResponse extends ApiResponse
      * @param array $array
      *     {@inheritdoc}
      */
-    public function copyToArray(array &$array)
+    public function copyToArray(array &$array): void
     {
         parent::copyToArray($array);
 
@@ -225,7 +225,7 @@ class AuthorizationFailResponse extends ApiResponse
      * @param array $array
      *     {@inheritdoc}
      */
-    public function copyFromArray(array &$array)
+    public function copyFromArray(array &$array): void
     {
         parent::copyFromArray($array);
 
@@ -239,4 +239,4 @@ class AuthorizationFailResponse extends ApiResponse
             LanguageUtility::getFromArray('responseContent', $array));
     }
 }
-?>
+

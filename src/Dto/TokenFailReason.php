@@ -26,13 +26,14 @@ namespace Authlete\Dto;
 
 
 use Authlete\Types\EnumTrait;
+use Authlete\Types\Valuable;
 use Authlete\Util\LanguageUtility;
 
 
 /**
  * The value of "reason" in requests to Authlete's /api/auth/token/fail API.
  */
-class TokenFailReason
+enum TokenFailReason: string implements Valuable
 {
     use EnumTrait;
 
@@ -41,11 +42,8 @@ class TokenFailReason
      * Unknown reason.
      *
      * Using this reason will result in `error=server_error`.
-     *
-     * @static
-     * @var TokenFailReason
      */
-    public static $UNKNOWN;
+    case UNKNOWN = 'UNKNOWN';
 
 
     /**
@@ -55,12 +53,9 @@ class TokenFailReason
      *
      * Using this reason will result in `error=invalid_request`.
      *
-     * @static
-     * @var TokenFailReason
-     *
      * @see https://tools.ietf.org/html/rfc6749#section-4.3 RFC 6749, 4.3. Resource Owner Password Credentials Grant
      */
-    public static $INVALID_RESOURCE_OWNER_CREDENTIALS;
+    case INVALID_RESOURCE_OWNER_CREDENTIALS = 'invalid_resource_owner_credentials';
 
 
     /**
@@ -68,17 +63,9 @@ class TokenFailReason
      *
      * Using this reason will result in `error=invalid_target`.
      *
-     * @static
-     * @var TokenFailReason
-     *
      * @see https://www.rfc-editor.org/rfc/rfc8707.html RFC 8707 Resource Indicators for OAuth 2.0
      *
      * @since 1.8
      */
-    public static $INVALID_TARGET;
+    case INVALID_TARGET = 'invalid_target';
 }
-
-
-// Call TokenFailReason::initialize().
-LanguageUtility::initializeClass(__NAMESPACE__ . '\TokenFailReason');
-?>

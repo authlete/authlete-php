@@ -26,6 +26,7 @@ namespace Authlete\Dto;
 
 
 use Authlete\Types\EnumTrait;
+use Authlete\Types\Valuable;
 use Authlete\Util\LanguageUtility;
 
 
@@ -33,7 +34,7 @@ use Authlete\Util\LanguageUtility;
  * Get the value of "action" in responses from Authlete's
  * /api/auth/introspection API.
  */
-class IntrospectionAction
+enum IntrospectionAction: string implements Valuable
 {
     use EnumTrait;
 
@@ -44,11 +45,8 @@ class IntrospectionAction
      *
      * The resource server should return `500 Internal Server Error` to the
      * client application.
-     *
-     * @static
-     * @var IntrospectionAction
      */
-    public static $INTERNAL_SERVER_ERROR;
+    case INTERNAL_SERVER_ERROR = 'internal_server_error';
 
 
     /**
@@ -56,11 +54,8 @@ class IntrospectionAction
      *
      * The resource server should return `400 Bad Request` to the client
      * application.
-     *
-     * @static
-     * @var IntrospectionAction
      */
-    public static $BAD_REQUEST;
+    case BAD_REQUEST = 'bad_request';
 
 
     /**
@@ -68,11 +63,8 @@ class IntrospectionAction
      *
      * The resource server should return `401 Unauthorized` to the client
      * application.
-     *
-     * @static
-     * @var IntrospectionAction
      */
-    public static $UNAUTHORIZED;
+    case UNAUTHORIZED = 'unauthorized';
 
 
     /**
@@ -80,11 +72,8 @@ class IntrospectionAction
      *
      * The resource server should return `403 Forbidden` to the client
      * application.
-     *
-     * @static
-     * @var IntrospectionAction
      */
-    public static $FORBIDDEN;
+    case FORBIDDEN = 'forbidden';
 
 
     /**
@@ -92,14 +81,7 @@ class IntrospectionAction
      *
      * The resource server should return the protected resource to the
      * client application.
-     *
-     * @static
-     * @var IntrospectionAction
      */
-    public static $OK;
+    case OK = 'ok';
 }
 
-
-// Call IntrospectionAction::initialize().
-LanguageUtility::initializeClass(__NAMESPACE__ . '\IntrospectionAction');
-?>

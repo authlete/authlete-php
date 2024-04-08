@@ -26,7 +26,7 @@ namespace Authlete\Dto;
 
 
 use Authlete\Types\EnumTrait;
-use Authlete\Util\LanguageUtility;
+use Authlete\Types\Valuable;
 
 
 /**
@@ -35,7 +35,7 @@ use Authlete\Util\LanguageUtility;
  *
  * @since 1.8
  */
-class DeviceVerificationAction
+enum DeviceVerificationAction: string implements Valuable
 {
     use EnumTrait;
 
@@ -45,47 +45,30 @@ class DeviceVerificationAction
      * expired, and belongs to the service. The authorization server
      * implementation should interact with the end-user to ask whether she
      * approves or rejects the authorization request from the device.
-     *
-     * @static
-     * @var DeviceVerificationAction
      */
-    public static $VALID;
+    case VALID = 'valid';
 
 
     /**
      * The user code has expired. The authorization server implementation
      * should tell the end-user that the user code has expired and urge her
      * to re-initiate a device flow.
-     *
-     * @static
-     * @var DeviceVerificationAction
      */
-    public static $EXPIRED;
+     case EXPIRED = 'expired';
 
 
     /**
      * The user code does not exist. The authorization server implementation
      * should tell the end-user that the user code is invalid and urge her
      * to retry to input a valid user code.
-     *
-     * @static
-     * @var DeviceVerificationAction
      */
-    public static $NOT_EXIST;
+    case NOT_EXIST = 'not_exist';
 
 
     /**
      * An error occurred on Authlete side. The authorization server
      * implementation should tell the end-user that something wrong happened
      * and urge her to re-initiate a device flow.
-     *
-     * @static
-     * @var DeviceVerificationAction
      */
-    public static $SERVER_ERROR;
+    case SERVER_ERROR = 'server_error';
 }
-
-
-// Call DeviceVerificationAction::initialize().
-LanguageUtility::initializeClass(__NAMESPACE__ . '\DeviceVerificationAction');
-?>

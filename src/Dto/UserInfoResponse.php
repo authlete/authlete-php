@@ -169,26 +169,26 @@ use Authlete\Util\ValidationUtility;
  */
 class UserInfoResponse extends ApiResponse
 {
-    private $action            = null;  // \Authlete\Dto\UserInfoAction
-    private $clientId          = null;  // string or (64-bit) integer
-    private $subject           = null;  // string
-    private $scopes            = null;  // array of string
-    private $claims            = null;  // array of string
-    private $token             = null;  // string
-    private $responseContent   = null;  // string
-    private $properties        = null;  // array of \Authlete\Dto\Property
-    private $clientIdAlias     = null;  // string
-    private $clientIdAliasUsed = false; // boolean
-    private $userInfoClaims    = null;  // string
+    private ?UserInfoAction $action    = null;
+    private string|int|null $clientId  = null;
+    private ?string $subject           = null;
+    private ?array $scopes             = null;  // array of string
+    private ?array $claims             = null;  // array of string
+    private ?string $token             = null;
+    private ?string $responseContent   = null;
+    private ?array $properties         = null;  // array of \Authlete\Dto\Property
+    private ?string $clientIdAlias     = null;
+    private bool $clientIdAliasUsed    = false;
+    private ?string $userInfoClaims    = null;
 
 
     /**
      * Get the next action that the userinfo endpoint should take.
      *
-     * @return UserInfoAction
+     * @return UserInfoAction|null The next action that the userinfo endpoint should take.
      *     The next action that the userinfo endpoint should take.
      */
-    public function getAction()
+    public function getAction(): ?UserInfoAction
     {
         return $this->action;
     }
@@ -197,13 +197,13 @@ class UserInfoResponse extends ApiResponse
     /**
      * Set the next action that the userinfo endpoint should take.
      *
-     * @param UserInfoAction $action
+     * @param UserInfoAction|null $action
      *     The next action that the userinfo endpoint should take.
      *
      * @return UserInfoResponse
      *     `$this` object.
      */
-    public function setAction(UserInfoAction $action = null)
+    public function setAction(UserInfoAction $action = null): UserInfoResponse
     {
         $this->action = $action;
 
@@ -215,10 +215,10 @@ class UserInfoResponse extends ApiResponse
      * Get the ID of the client application to which the access token has been
      * issued.
      *
-     * @return integer|string
+     * @return int|string|null The client ID.
      *     The client ID.
      */
-    public function getClientId()
+    public function getClientId(): int|string|null
     {
         return $this->clientId;
     }
@@ -234,7 +234,7 @@ class UserInfoResponse extends ApiResponse
      * @return UserInfoResponse
      *     `$this` object.
      */
-    public function setClientId($clientId)
+    public function setClientId(int|string $clientId): UserInfoResponse
     {
         ValidationUtility::ensureNullOrStringOrInteger('$clientId', $clientId);
 
@@ -248,10 +248,10 @@ class UserInfoResponse extends ApiResponse
      * Get the subject (= unique identifier) of the end-user which is
      * associated with the access token.
      *
-     * @return string
+     * @return string|null
      *     The subject of the end-user.
      */
-    public function getSubject()
+    public function getSubject(): ?string
     {
         return $this->subject;
     }
@@ -267,7 +267,7 @@ class UserInfoResponse extends ApiResponse
      * @return UserInfoResponse
      *     `$this` object.
      */
-    public function setSubject($subject)
+    public function setSubject(string $subject): UserInfoResponse
     {
         ValidationUtility::ensureNullOrString('$subject', $subject);
 
@@ -283,7 +283,7 @@ class UserInfoResponse extends ApiResponse
      * @return string[]
      *     The scopes that the access token covers.
      */
-    public function getScopes()
+    public function getScopes(): array
     {
         return $this->scopes;
     }
@@ -298,7 +298,7 @@ class UserInfoResponse extends ApiResponse
      * @return UserInfoResponse
      *     `$this` object.
      */
-    public function setScopes(array $scopes = null)
+    public function setScopes(array $scopes = null): UserInfoResponse
     {
         ValidationUtility::ensureNullOrArrayOfString('$scopes', $scopes);
 
@@ -320,11 +320,11 @@ class UserInfoResponse extends ApiResponse
      * of [OpenID Connect Core 1.0](https://openid.net/specs/openid-connect-core-1_0.html)
      * for details.
      *
-     * @return string[]
+     * @return array|null
      *     The list of claims that the client application requests to be
      *     embedded in the userinfo response.
      */
-    public function getClaims()
+    public function getClaims(): ?array
     {
         return $this->claims;
     }
@@ -341,7 +341,7 @@ class UserInfoResponse extends ApiResponse
      * @return UserInfoResponse
      *     `$this` object.
      */
-    public function setClaims(array $claims = null)
+    public function setClaims(array $claims = null): UserInfoResponse
     {
         ValidationUtility::ensureNullOrArrayOfString('$claims', $claims);
 
@@ -355,11 +355,11 @@ class UserInfoResponse extends ApiResponse
      * Get the access token that the userinfo endpoint received from the client
      * application.
      *
-     * @return string
+     * @return string|null
      *     The access token that the userinfo endpoint received from the client
      *     application.
      */
-    public function getToken()
+    public function getToken(): ?string
     {
         return $this->token;
     }
@@ -376,7 +376,7 @@ class UserInfoResponse extends ApiResponse
      * @return UserInfoResponse
      *     `$this` object.
      */
-    public function setToken($token)
+    public function setToken(string $token): UserInfoResponse
     {
         ValidationUtility::ensureNullOrString('$token', $token);
 
@@ -390,10 +390,10 @@ class UserInfoResponse extends ApiResponse
      * Get the response content which can be used as a part of the response to
      * the client application.
      *
-     * @return string
+     * @return string|null
      *     The response content.
      */
-    public function getResponseContent()
+    public function getResponseContent(): ?string
     {
         return $this->responseContent;
     }
@@ -409,7 +409,7 @@ class UserInfoResponse extends ApiResponse
      * @return UserInfoResponse
      *     `$this` object.
      */
-    public function setResponseContent($responseContent)
+    public function setResponseContent(string $responseContent): UserInfoResponse
     {
         ValidationUtility::ensureNullOrString('$responseContent', $responseContent);
 
@@ -422,10 +422,10 @@ class UserInfoResponse extends ApiResponse
     /**
      * Get the properties associated with the access token.
      *
-     * @return Property[]
+     * @return array|null The troperties associated with the access token.
      *     The troperties associated with the access token.
      */
-    public function getProperties()
+    public function getProperties(): ?array
     {
         return $this->properties;
     }
@@ -440,10 +440,10 @@ class UserInfoResponse extends ApiResponse
      * @return UserInfoResponse
      *     `$this` object.
      */
-    public function setProperties(array $properties = null)
+    public function setProperties(array $properties = null): UserInfoResponse
     {
         ValidationUtility::ensureNullOrArrayOfType(
-            '$properties', $properties, __NAMESPACE__ . '\Property');
+            '$properties', __NAMESPACE__ . '\Property' ,$properties);
 
         $this->properties = $properties;
 
@@ -457,11 +457,11 @@ class UserInfoResponse extends ApiResponse
      *
      * Note that this value may be different from the current client ID alias.
      *
-     * @return string
+     * @return string|null
      *     The client ID alias when the authorization request for the access
      *     token was made.
      */
-    public function getClientIdAlias()
+    public function getClientIdAlias(): ?string
     {
         return $this->clientIdAlias;
     }
@@ -478,7 +478,7 @@ class UserInfoResponse extends ApiResponse
      * @return UserInfoResponse
      *     `$this` object.
      */
-    public function setClientIdAlias($alias)
+    public function setClientIdAlias(string $alias): UserInfoResponse
     {
         ValidationUtility::ensureNullOrString('$alias', $alias);
 
@@ -496,7 +496,7 @@ class UserInfoResponse extends ApiResponse
      *     `true` if the client ID alias was used when the authorization
      *     request for the access token was made.
      */
-    public function isClientIdAliasUsed()
+    public function isClientIdAliasUsed(): bool
     {
         return $this->clientIdAliasUsed;
     }
@@ -513,7 +513,7 @@ class UserInfoResponse extends ApiResponse
      * @return UserInfoResponse
      *     `$this` object.
      */
-    public function setClientIdAliasUsed($used)
+    public function setClientIdAliasUsed(bool $used): UserInfoResponse
     {
         ValidationUtility::ensureBoolean('$used', $used);
 
@@ -580,13 +580,13 @@ class UserInfoResponse extends ApiResponse
      * property and if the `claims` request parameter is also given, this
      * method returns the value in the former.
      *
-     * @return string
+     * @return string|null
      *     The value of the `userinfo` property in the `claims` in JSON
      *     format.
      *
      * @since 1.8
      */
-    public function getUserInfoClaims()
+    public function getUserInfoClaims(): ?string
     {
         return $this->userInfoClaims;
     }
@@ -605,7 +605,7 @@ class UserInfoResponse extends ApiResponse
      *
      * @since 1.8
      */
-    public function setUserInfoClaims($claims)
+    public function setUserInfoClaims(string $claims): UserInfoResponse
     {
         ValidationUtility::ensureNullOrString('$claims', $claims);
 
@@ -623,7 +623,7 @@ class UserInfoResponse extends ApiResponse
      * @param array $array
      *     {@inheritdoc}
      */
-    public function copyToArray(array &$array)
+    public function copyToArray(array &$array): void
     {
         parent::copyToArray($array);
 
@@ -649,7 +649,7 @@ class UserInfoResponse extends ApiResponse
      * @param array $array
      *     {@inheritdoc}
      */
-    public function copyFromArray(array &$array)
+    public function copyFromArray(array &$array): void
     {
         parent::copyFromArray($array);
 
@@ -684,7 +684,7 @@ class UserInfoResponse extends ApiResponse
 
         // properties
         $_properties = LanguageUtility::getFromArray('properties', $array);
-        $_properties = LanguageUtility::convertArrayToArrayOfArrayCopyable($_properties, __NAMESPACE__ . '\Property');
+        $_properties = LanguageUtility::convertArrayToArrayOfArrayCopyable(__NAMESPACE__ . '\Property', $_properties);
         $this->setProperties($_properties);
 
         // clientIdAlias
@@ -700,4 +700,3 @@ class UserInfoResponse extends ApiResponse
             LanguageUtility::getFromArray('userInfoClaims', $array));
     }
 }
-?>

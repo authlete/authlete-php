@@ -26,14 +26,14 @@ namespace Authlete\Dto;
 
 
 use Authlete\Types\EnumTrait;
-use Authlete\Util\LanguageUtility;
+use Authlete\Types\Valuable;
 
 
 /**
  * The value of "action" in responses from Authlete's
  * /api/auth/authorization/fail API.
  */
-class AuthorizationFailAction
+enum AuthorizationFailAction: string implements Valuable
 {
     use EnumTrait;
 
@@ -43,47 +43,30 @@ class AuthorizationFailAction
      * or an error occurred in Authlete. The authorization server
      * implementation should return "500 Internal Server Error" to the
      * client application.
-     *
-     * @static
-     * @var AuthorizationFailAction
      */
-    public static $INTERNAL_SERVER_ERROR;
+    case INTERNAL_SERVER_ERROR = 'internal_server_error';
 
 
     /**
      * The ticket was no longer valid. The authorization server
      * implementation should return "400 Bad Request" to the client
      * application.
-     *
-     * @static
-     * @var AuthorizationFailAction
      */
-    public static $BAD_REQUEST;
+    case BAD_REQUEST = 'bad_request';
 
 
     /**
      * The authorization server implementation should return "302 Found"
      * to the client application with a "Location" header.
-     *
-     * @static
-     * @var AuthorizationFailAction
      */
-    public static $LOCATION;
+    case LOCATION = 'location';
 
 
     /**
      * The authorization server implementation should return "200 OK" to
      * the client application with an HTML which triggers redirection.
      *
-     * @static
-     * @var AuthorizationFailAction
-     *
      * @see https://openid.net/specs/oauth-v2-form-post-response-mode-1_0.html OAuth 2.0 Form Post Response Mode
      */
-    public static $FORM;
+    case FORM = 'form';
 }
-
-
-// Call AuthorizationFailAction::initialize().
-LanguageUtility::initializeClass(__NAMESPACE__ . '\AuthorizationFailAction');
-?>

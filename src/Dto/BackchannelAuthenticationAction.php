@@ -26,6 +26,7 @@ namespace Authlete\Dto;
 
 
 use Authlete\Types\EnumTrait;
+use Authlete\Types\Valuable;
 use Authlete\Util\LanguageUtility;
 
 
@@ -35,7 +36,7 @@ use Authlete\Util\LanguageUtility;
  *
  * @since 1.8
  */
-class BackchannelAuthenticationAction
+enum BackchannelAuthenticationAction: string implements Valuable
 {
     use EnumTrait;
 
@@ -44,22 +45,16 @@ class BackchannelAuthenticationAction
      * The backchannel authentication request is invalid. The authorization
      * server implementation should return an error response with
      * `400 Bad Request` and `application/json` to the client application.
-     *
-     * @static
-     * @var BackchannelAuthenticationAction
      */
-    public static $BAD_REQUEST;
+    case BAD_REQUEST = 'bad_request';
 
 
     /**
      * Client authentication of the backchannel authentication request failed.
      * The authorization server implementation should return an error response
      * with `401 Unauthorized` and `application/json` to the client application.
-     *
-     * @static
-     * @var BackchannelAuthenticationAction
      */
-    public static $UNAUTHORIZED;
+    case UNAUTHORIZED = 'unauthorized';
 
 
     /**
@@ -67,11 +62,8 @@ class BackchannelAuthenticationAction
      * an error occurred on Authlete side. The authorization server
      * implementation should return response with `500 Internal Server Error`
      * and `application/json` to the client application.
-     *
-     * @static
-     * @var BackchannelAuthenticationAction
      */
-    public static $INTERNAL_SERVER_ERROR;
+    case INTERNAL_SERVER_ERROR = 'internal_server_error';
 
 
     /**
@@ -80,14 +72,7 @@ class BackchannelAuthenticationAction
      * end-user from the given hint, (2) issue `auth_req_id` to the client
      * application, (3) communicate with an authentication device of the
      * end-user to perform end-user authentication and authorization, etc.
-     *
-     * @static
-     * @var BackchannelAuthenticationAction
      */
-    public static $USER_IDENTIFICATION;
+    case USER_IDENTIFICATION = 'user_identification';
 }
 
-
-// Call BackchannelAuthenticationAction::initialize().
-LanguageUtility::initializeClass(__NAMESPACE__ . '\BackchannelAuthenticationAction');
-?>

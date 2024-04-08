@@ -43,7 +43,7 @@ use Authlete\Util\ValidationUtility;
  * from your system was wrong or that an error occurred in Authlete. In either
  * case, from a viewpoint of the client application, it is an error on the
  * server side. Therefore, the userinfo endpoint implementation should generate
- * a response to the client application with the HTTP status of
+ * a response to the client application with the HTTP staus of
  * `500 Internal Server Error`.
  *
  * In this case, `getResponseContent()` method returns a string which describes
@@ -164,17 +164,17 @@ use Authlete\Util\ValidationUtility;
  */
 class UserInfoIssueResponse extends ApiResponse
 {
-    private $action          = null;  // \Authlete\Dto\UserInfoIssueAction
-    private $responseContent = null;  // string
+    private ?UserInfoIssueAction $action  = null;
+    private ?string $responseContent = null;
 
 
     /**
      * Get the next action that the userinfo endpoint should take.
      *
-     * @return UserInfoAction
+     * @return UserInfoIssueAction|null
      *     The next action that the userinfo endpoint should take.
      */
-    public function getAction()
+    public function getAction(): ?UserInfoIssueAction
     {
         return $this->action;
     }
@@ -183,13 +183,13 @@ class UserInfoIssueResponse extends ApiResponse
     /**
      * Set the next action that the userinfo endpoint should take.
      *
-     * @param UserInfoAction $action
+     * @param UserInfoIssueAction|null $action
      *     The next action that the userinfo endpoint should take.
      *
      * @return UserInfoIssueResponse
      *     `$this` object.
      */
-    public function setAction(UserInfoIssueAction $action = null)
+    public function setAction(?UserInfoIssueAction $action = null): UserInfoIssueResponse
     {
         $this->action = $action;
 
@@ -202,10 +202,10 @@ class UserInfoIssueResponse extends ApiResponse
      * response returned from the userinfo endpoint implementation to the
      * client application.
      *
-     * @return string
+     * @return string|null
      *     The response content.
      */
-    public function getResponseContent()
+    public function getResponseContent(): ?string
     {
         return $this->responseContent;
     }
@@ -222,7 +222,7 @@ class UserInfoIssueResponse extends ApiResponse
      * @return UserInfoIssueResponse
      *     `$this` object.
      */
-    public function setResponseContent($responseContent)
+    public function setResponseContent(string $responseContent): UserInfoIssueResponse
     {
         ValidationUtility::ensureNullOrString('$responseContent', $responseContent);
 
@@ -240,7 +240,7 @@ class UserInfoIssueResponse extends ApiResponse
      * @param array $array
      *     {@inheritdoc}
      */
-    public function copyToArray(array &$array)
+    public function copyToArray(array &$array): void
     {
         parent::copyToArray($array);
 
@@ -257,7 +257,7 @@ class UserInfoIssueResponse extends ApiResponse
      * @param array $array
      *     {@inheritdoc}
      */
-    public function copyFromArray(array &$array)
+    public function copyFromArray(array &$array): void
     {
         parent::copyFromArray($array);
 
@@ -271,4 +271,4 @@ class UserInfoIssueResponse extends ApiResponse
             LanguageUtility::getFromArray('responseContent', $array));
     }
 }
-?>
+

@@ -34,12 +34,12 @@ use Authlete\Util\ValidationUtility;
  */
 class BasicCredentials
 {
-    private static $CHALLENGE_PATTERN = '/^Basic *(?<parameter>[^ ]+) *$/i';
+    private static string $CHALLENGE_PATTERN = '/^Basic *(?<parameter>[^ ]+) *$/i';
 
 
-    private $userId      = null;  // string
-    private $password    = null;  // string
-    private $credentials = null;  // string
+    private ?string $userId;
+    private ?string $password;
+    private ?string $credentials;
 
 
     /**
@@ -51,7 +51,7 @@ class BasicCredentials
      * @param string $password
      *     Password.
      */
-    public function __construct($userId, $password)
+    public function __construct(string $userId, string $password)
     {
         ValidationUtility::ensureNullOrString('$userId', $userId);
         ValidationUtility::ensureNullOrString('$password', $password);
@@ -68,7 +68,7 @@ class BasicCredentials
      * @return string
      *     User ID.
      */
-    public function getUserId()
+    public function getUserId(): ?string
     {
         return $this->userId;
     }
@@ -80,7 +80,7 @@ class BasicCredentials
      * @return string
      *     Password.
      */
-    public function getPassword()
+    public function getPassword(): ?string
     {
         return $this->password;
     }
@@ -93,13 +93,13 @@ class BasicCredentials
      * @return string
      *     Credentials in "userid:password" format.
      */
-    public function getCredentials()
+    public function getCredentials(): ?string
     {
         return $this->credentials;
     }
 
 
-    private static function formatCredentials($userId, $password)
+    private static function formatCredentials($userId, $password): string
     {
         // Build a plain text, "{userId}:{password}".
         return sprintf('%s:%s',
@@ -123,7 +123,7 @@ class BasicCredentials
      *     A `BasicCredentials` instance generated based on the
      *     information of the given string.
      */
-    public static function parse($authorizationHeaderValue)
+    public static function parse(string $authorizationHeaderValue): BasicCredentials
     {
         if (is_null($authorizationHeaderValue))
         {
@@ -148,7 +148,7 @@ class BasicCredentials
     }
 
 
-    private static function buildFromParameter($base64String)
+    private static function buildFromParameter($base64String): BasicCredentials
     {
         if (is_null($base64String) || empty($base64String))
         {
@@ -181,4 +181,4 @@ class BasicCredentials
         return new BasicCredentials($userId, $password);
     }
 }
-?>
+

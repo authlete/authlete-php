@@ -45,11 +45,11 @@ class AuthleteEnvConfiguration implements AuthleteConfiguration
     use AuthleteConfigurationTrait;
 
 
-    private static $ENV_BASE_URL                 = 'AUTHLETE_BASE_URL';
-    private static $ENV_SERVICE_OWNER_API_KEY    = 'AUTHLETE_SERVICEOWNER_APIKEY';
-    private static $ENV_SERVICE_OWNER_API_SECRET = 'AUTHLETE_SERVICEOWNER_APISECRET';
-    private static $ENV_SERVICE_API_KEY          = 'AUTHLETE_SERVICE_APIKEY';
-    private static $ENV_SERVICE_API_SECRET       = 'AUTHLETE_SERVICE_APISECRET';
+    private static string $ENV_BASE_URL                 = 'AUTHLETE_BASE_URL';
+    private static string $ENV_SERVICE_OWNER_API_KEY    = 'AUTHLETE_SERVICEOWNER_APIKEY';
+    private static string $ENV_SERVICE_OWNER_API_SECRET = 'AUTHLETE_SERVICEOWNER_APISECRET';
+    private static string $ENV_SERVICE_API_KEY          = 'AUTHLETE_SERVICE_APIKEY';
+    private static string $ENV_SERVICE_API_SECRET       = 'AUTHLETE_SERVICE_APISECRET';
 
 
     /**

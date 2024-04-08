@@ -152,17 +152,17 @@ use Authlete\Util\ValidationUtility;
  */
 class RevocationResponse extends ApiResponse
 {
-    private $action          = null;  // \Authlete\Dto\RevocationAction
-    private $responseContent = null;  // string
+    private ?RevocationAction $action         = null;
+    protected ?string $responseContent        = null;
 
 
     /**
      * Get the next action that the revocation endpoint should take.
      *
-     * @return RevocationAction
+     * @return RevocationAction|null
      *     The next action that the revocation endpoint should take.
      */
-    public function getAction()
+    public function getAction(): ?RevocationAction
     {
         return $this->action;
     }
@@ -171,13 +171,13 @@ class RevocationResponse extends ApiResponse
     /**
      * Set the next action that the revocation endpoint should take.
      *
-     * @param RevocationAction $action
+     * @param RevocationAction|null $action
      *     The next action that the revocation endpoint should take.
      *
      * @return RevocationResponse
      *     `$this` object.
      */
-    public function setAction(RevocationAction $action = null)
+    public function setAction(RevocationAction $action = null): RevocationResponse
     {
         $this->action = $action;
 
@@ -192,7 +192,7 @@ class RevocationResponse extends ApiResponse
      * @return string
      *     The response content.
      */
-    public function getResponseContent()
+    public function getResponseContent(): ?string
     {
         return $this->responseContent;
     }
@@ -208,7 +208,7 @@ class RevocationResponse extends ApiResponse
      * @return RevocationResponse
      *     `$this` object.
      */
-    public function setResponseContent($responseContent)
+    public function setResponseContent(string $responseContent): RevocationResponse
     {
         ValidationUtility::ensureNullOrString('$responseContent', $responseContent);
 
@@ -226,7 +226,7 @@ class RevocationResponse extends ApiResponse
      * @param array $array
      *     {@inheritdoc}
      */
-    public function copyToArray(array &$array)
+    public function copyToArray(array &$array): void
     {
         parent::copyToArray($array);
 
@@ -257,4 +257,4 @@ class RevocationResponse extends ApiResponse
             LanguageUtility::getFromArray('responseContent', $array));
     }
 }
-?>
+

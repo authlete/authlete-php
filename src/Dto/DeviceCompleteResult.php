@@ -26,6 +26,7 @@ namespace Authlete\Dto;
 
 
 use Authlete\Types\EnumTrait;
+use Authlete\Types\Valuable;
 use Authlete\Util\LanguageUtility;
 
 
@@ -35,7 +36,7 @@ use Authlete\Util\LanguageUtility;
  *
  * @since 1.8
  */
-class DeviceCompleteResult
+enum DeviceCompleteResult: string implements Valuable
 {
     use EnumTrait;
 
@@ -43,20 +44,14 @@ class DeviceCompleteResult
     /**
      * The end-user was authenticated and has granted authorization to the
      * client application.
-     *
-     * @static
-     * @var DeviceCompleteResult
      */
-    public static $AUTHORIZED;
+    case AUTHORIZED = 'authorized';
 
 
     /**
      * The end-user denied the device authorization request.
-     *
-     * @static
-     * @var DeviceCompleteResult
      */
-    public static $ACCESS_DENIED;
+    case ACCESS_DENIED = 'access_denied';
 
 
     /**
@@ -64,14 +59,7 @@ class DeviceCompleteResult
      * for some reasons.
      *
      * This result can be used as a generic error.
-     *
-     * @static
-     * @var DeviceCompleteResult
      */
-    public static $TRANSACTION_FAILED;
+    case TRANSACTION_FAILED = 'transaction_failed';
 }
 
-
-// Call DeviceCompleteResult::initialize().
-LanguageUtility::initializeClass(__NAMESPACE__ . '\DeviceCompleteResult');
-?>

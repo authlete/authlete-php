@@ -45,20 +45,20 @@ class NamedUri implements ArrayCopyable, Arrayable, Jsonable
     use JsonTrait;
 
 
-    private $name = null;  // string
-    private $uri  = null;  // string
+    private ?string $name;
+    private ?string $uri;
 
 
     /**
      * Constructor.
      *
-     * @param string $name
+     * @param string|null $name
      *     The name of the URI.
      *
-     * @param string $uri
+     * @param string|null $uri
      *     The URI.
      */
-    public function __construct($name = null, $uri = null)
+    public function __construct(string $name = null, string $uri = null)
     {
         ValidationUtility::ensureNullOrString('$name', $name);
         ValidationUtility::ensureNullOrString('$uri',  $uri);
@@ -71,10 +71,10 @@ class NamedUri implements ArrayCopyable, Arrayable, Jsonable
     /**
      * Get the name of the URI.
      *
-     * @return string
+     * @return string|null
      *     The name of the URI.
      */
-    public function getName()
+    public function getName(): ?string
     {
         return $this->name;
     }
@@ -89,7 +89,7 @@ class NamedUri implements ArrayCopyable, Arrayable, Jsonable
      * @return NamedUri
      *     `$this` object.
      */
-    public function setName($name)
+    public function setName(string $name): NamedUri
     {
         ValidationUtility::ensureNullOrString('$name', $name);
 
@@ -102,10 +102,10 @@ class NamedUri implements ArrayCopyable, Arrayable, Jsonable
     /**
      * Get the URI.
      *
-     * @return string
+     * @return string|null
      *     The URI.
      */
-    public function getUri()
+    public function getUri(): ?string
     {
         return $this->uri;
     }
@@ -120,7 +120,7 @@ class NamedUri implements ArrayCopyable, Arrayable, Jsonable
      * @return NamedUri
      *     `$this` object.
      */
-    public function setUri($uri)
+    public function setUri(string $uri): NamedUri
     {
         ValidationUtility::ensureNullOrString('$uri', $uri);
 
@@ -138,7 +138,7 @@ class NamedUri implements ArrayCopyable, Arrayable, Jsonable
      * @param array $array
      *     {@inheritdoc}
      */
-    public function copyToArray(array &$array)
+    public function copyToArray(array &$array): void
     {
         $array['name'] = $this->name;
         $array['uri']  = $this->uri;
@@ -153,7 +153,7 @@ class NamedUri implements ArrayCopyable, Arrayable, Jsonable
      * @param array $array
      *     {@inheritdoc}
      */
-    public function copyFromArray(array &$array)
+    public function copyFromArray(array &$array): void
     {
         // name
         $this->setName(
@@ -164,4 +164,4 @@ class NamedUri implements ArrayCopyable, Arrayable, Jsonable
             LanguageUtility::getFromArray('uri', $array));
     }
 }
-?>
+

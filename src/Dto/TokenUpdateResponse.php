@@ -62,20 +62,20 @@ use Authlete\Util\ValidationUtility;
  */
 class TokenUpdateResponse extends ApiResponse
 {
-    private $action               = null;  // \Authlete\Dto\TokenUpdateAction
-    private $accessToken          = null;  // string
-    private $accessTokenExpiresAt = null;  // string or (64-bit) integer
-    private $scopes               = null;  // array of string
-    private $properties           = null;  // array of \Authlete\Dto\Property
+    private ?TokenUpdateAction $action   = null;  // \Authlete\Dto\TokenUpdateAction
+    private ?string $accessToken         = null;
+    private $accessTokenExpiresAt        = null;  // string or (64-bit) integer
+    private ?array $scopes               = null;  // array of string
+    private ?array $properties           = null;  // array of \Authlete\Dto\Property
 
 
     /**
      * Get the code which indicates how the response should be interpreted.
      *
-     * @return TokenUpdateAction
+     * @return TokenUpdateAction|null
      *     The code which indicates how the response should be interpreted.
      */
-    public function getAction()
+    public function getAction(): ?TokenUpdateAction
     {
         return $this->action;
     }
@@ -84,13 +84,13 @@ class TokenUpdateResponse extends ApiResponse
     /**
      * Set the code which indicates how the response should be interpreted.
      *
-     * @param TokenUpdateAction $action
+     * @param TokenUpdateAction|null $action
      *     The code which indicates how the response should be interpreted.
      *
      * @return TokenUpdateResponse
      *     `$this` object.
      */
-    public function setAction(TokenUpdateAction $action = null)
+    public function setAction(TokenUpdateAction $action = null): TokenUpdateResponse
     {
         $this->action = $action;
 
@@ -102,10 +102,10 @@ class TokenUpdateResponse extends ApiResponse
      * Get the access token which was specified by the "accessToken" request
      * parameter of the API call.
      *
-     * @return string
+     * @return string|null
      *     The access token.
      */
-    public function getAccessToken()
+    public function getAccessToken(): ?string
     {
         return $this->accessToken;
     }
@@ -121,7 +121,7 @@ class TokenUpdateResponse extends ApiResponse
      * @return TokenUpdateResponse
      *     `$this` object.
      */
-    public function setAccessToken($accessToken)
+    public function setAccessToken(string $accessToken): TokenUpdateResponse
     {
         ValidationUtility::ensureNullOrString('$accessToken', $accessToken);
 
@@ -136,10 +136,10 @@ class TokenUpdateResponse extends ApiResponse
      *
      * The value is expressed in milliseconds since the Unix epoch (1970-Jan-1).
      *
-     * @return integer|string
+     * @return integer|string|null
      *     The date at which the access token will expire.
      */
-    public function getAccessTokenExpiresAt()
+    public function getAccessTokenExpiresAt(): int|string|null
     {
         return $this->accessTokenExpiresAt;
     }
@@ -152,10 +152,10 @@ class TokenUpdateResponse extends ApiResponse
      *     The date at which the access token will expire. The value should be
      *     expressed in milliseconds since the Unix epoch (1970-Jan-1).
      *
-     * @return integer|string
+     * @return TokenUpdateResponse
      *     `$this` object.
      */
-    public function setAccessTokenExpiresAt($expiresAt)
+    public function setAccessTokenExpiresAt($expiresAt): TokenUpdateResponse
     {
         ValidationUtility::ensureNullOrStringOrInteger('$expiresAt', $expiresAt);
 
@@ -168,10 +168,10 @@ class TokenUpdateResponse extends ApiResponse
     /**
      * Get the scopes associated with the access token.
      *
-     * @return string[]
+     * @return array|null
      *     The scopes associated with the access token.
      */
-    public function getScopes()
+    public function getScopes(): ?array
     {
         return $this->scopes;
     }
@@ -186,7 +186,7 @@ class TokenUpdateResponse extends ApiResponse
      * @return TokenUpdateResponse
      *     `$this` object.
      */
-    public function setScopes(array $scopes = null)
+    public function setScopes(array $scopes = null): TokenUpdateResponse
     {
         ValidationUtility::ensureNullOrArrayOfString('$scopes', $scopes);
 
@@ -199,10 +199,10 @@ class TokenUpdateResponse extends ApiResponse
     /**
      * Get the properties associated with the access token.
      *
-     * @return Property[]
+     * @return array|null
      *     The properties associated with the access token.
      */
-    public function getProperties()
+    public function getProperties(): ?array
     {
         return $this->properties;
     }
@@ -217,10 +217,10 @@ class TokenUpdateResponse extends ApiResponse
      * @return TokenUpdateResponse
      *     `$this` object.
      */
-    public function setProperties(array $properties = null)
+    public function setProperties(array $properties = null): TokenUpdateResponse
     {
         ValidationUtility::ensureNullOrArrayOfType(
-            '$properties', $properties, __NAMESPACE__ . '\Property');
+            '$properties', __NAMESPACE__ . '\Property', $properties);
 
         $this->properties = $properties;
 
@@ -236,7 +236,7 @@ class TokenUpdateResponse extends ApiResponse
      * @param array $array
      *     {@inheritdoc}
      */
-    public function copyToArray(array &$array)
+    public function copyToArray(array &$array): void
     {
         parent::copyToArray($array);
 
@@ -256,7 +256,7 @@ class TokenUpdateResponse extends ApiResponse
      * @param array $array
      *     {@inheritdoc}
      */
-    public function copyFromArray(array &$array)
+    public function copyFromArray(array &$array): void
     {
         parent::copyFromArray($array);
 
@@ -279,8 +279,7 @@ class TokenUpdateResponse extends ApiResponse
 
         // properties
         $_properties = LanguageUtility::getFromArray('properties', $array);
-        $_properties = LanguageUtility::convertArrayToArrayOfArrayCopyable($_properties, __NAMESPACE__ . '\Property');
+        $_properties = LanguageUtility::convertArrayToArrayOfArrayCopyable(__NAMESPACE__ . '\Property', $_properties);
         $this->setProperties($_properties);
     }
 }
-?>

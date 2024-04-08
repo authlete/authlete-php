@@ -45,16 +45,16 @@ class ClientSecretUpdateRequest implements ArrayCopyable, Arrayable, Jsonable
     use JsonTrait;
 
 
-    private $clientSecret = null;  // string
+    private ?string $clientSecret = null;
 
 
     /**
      * Get the new client secret.
      *
-     * @return string
+     * @return string|null
      *     The new client secret.
      */
-    public function getClientSecret()
+    public function getClientSecret(): ?string
     {
         return $this->clientSecret;
     }
@@ -69,7 +69,7 @@ class ClientSecretUpdateRequest implements ArrayCopyable, Arrayable, Jsonable
      * @return ClientSecretUpdateRequest
      *     `$this` object.
      */
-    public function setClientSecret($secret)
+    public function setClientSecret(string $secret): ClientSecretUpdateRequest
     {
         ValidationUtility::ensureNullOrString('$secret', $secret);
 
@@ -87,7 +87,7 @@ class ClientSecretUpdateRequest implements ArrayCopyable, Arrayable, Jsonable
      * @param array $array
      *     {@inheritdoc}
      */
-    public function copyToArray(array &$array)
+    public function copyToArray(array &$array): void
     {
         $array['clientSecret'] = $this->clientSecret;
     }
@@ -101,11 +101,11 @@ class ClientSecretUpdateRequest implements ArrayCopyable, Arrayable, Jsonable
      * @param array $array
      *     {@inheritdoc}
      */
-    public function copyFromArray(array &$array)
+    public function copyFromArray(array &$array): void
     {
         // clientSecret
         $this->setClientSecret(
             LanguageUtility::getFromArray('clientSecret', $array));
     }
 }
-?>
+

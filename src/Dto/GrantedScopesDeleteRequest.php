@@ -46,16 +46,16 @@ class GrantedScopesDeleteRequest implements ArrayCopyable, Arrayable, Jsonable
     use JsonTrait;
 
 
-    private $subject = null;  // string
+    private ?string $subject = null;
 
 
     /**
      * Get the subject (= unique identifier) of the end-user.
      *
-     * @return string
+     * @return string|null
      *     The subject (= unique identifier) of the end-user.
      */
-    public function getSubject()
+    public function getSubject(): ?string
     {
         return $this->subject;
     }
@@ -70,7 +70,7 @@ class GrantedScopesDeleteRequest implements ArrayCopyable, Arrayable, Jsonable
      * @return GrantedScopesDeleteRequest
      *     `$this` object.
      */
-    public function setSubject($subject)
+    public function setSubject(string $subject): GrantedScopesDeleteRequest
     {
         ValidationUtility::ensureNullOrString('$subject', $subject);
 
@@ -88,7 +88,7 @@ class GrantedScopesDeleteRequest implements ArrayCopyable, Arrayable, Jsonable
      * @param array $array
      *     {@inheritdoc}
      */
-    public function copyToArray(array &$array)
+    public function copyToArray(array &$array): void
     {
         $array['subject'] = $this->subject;
     }
@@ -102,11 +102,11 @@ class GrantedScopesDeleteRequest implements ArrayCopyable, Arrayable, Jsonable
      * @param array $array
      *     {@inheritdoc}
      */
-    public function copyFromArray(array &$array)
+    public function copyFromArray(array &$array): void
     {
         // subject
         $this->setSubject(
             LanguageUtility::getFromArray('subject', $array));
     }
 }
-?>
+

@@ -33,10 +33,10 @@ use Authlete\Util\ValidationUtility;
  */
 class SettingsImpl implements Settings
 {
-    private $connectionTimeout   = 0;     // integer
-    private $proxyHost           = null;  // string
-    private $proxyPort           = 0;     // integer
-    private $httpProxyTunnelUsed = false; // boolean
+    private int $connectionTimeout   = 0;     // integer
+    private ?string $proxyHost       = null;  // string
+    private int $proxyPort           = 0;     // integer
+    private bool $httpProxyTunnelUsed = false; // boolean
 
 
     /**
@@ -44,7 +44,7 @@ class SettingsImpl implements Settings
      *
      * {@inheritdoc}
      */
-    public function getConnectionTimeout()
+    public function getConnectionTimeout(): int
     {
         return $this->connectionTimeout;
     }
@@ -58,7 +58,7 @@ class SettingsImpl implements Settings
      * @param integer $timeout
      *     {@inheritdoc}
      */
-    public function setConnectionTimeout($timeout)
+    public function setConnectionTimeout(int $timeout): Settings
     {
         ValidationUtility::ensureInteger('$timeout', $timeout);
 
@@ -78,7 +78,7 @@ class SettingsImpl implements Settings
      *
      * {@inheritdoc}
      */
-    public function getProxyHost()
+    public function getProxyHost(): string
     {
         return $this->proxyHost;
     }
@@ -92,7 +92,7 @@ class SettingsImpl implements Settings
      * @param string $host
      *     {@inheritdoc}
      */
-    public function setProxyHost($host)
+    public function setProxyHost($host): Settings
     {
         ValidationUtility::ensureNullOrString('$host', $host);
 
@@ -107,7 +107,7 @@ class SettingsImpl implements Settings
      *
      * {@inheritdoc}
      */
-    public function getProxyPort()
+    public function getProxyPort(): int
     {
         return $this->proxyPort;
     }
@@ -121,7 +121,7 @@ class SettingsImpl implements Settings
      * @param integer $port
      *     {@inheritdoc}
      */
-    public function setProxyPort($port)
+    public function setProxyPort(int $port): Settings
     {
         ValidationUtility::ensureInteger('$port', $port);
 
@@ -136,7 +136,7 @@ class SettingsImpl implements Settings
      *
      * {@inheritdoc}
      */
-    public function isHttpProxyTunnelUsed()
+    public function isHttpProxyTunnelUsed(): bool
     {
         return $this->httpProxyTunnelUsed;
     }
@@ -150,7 +150,7 @@ class SettingsImpl implements Settings
      * @param boolean $used
      *     {@inheritdoc}
      */
-    public function setHttpProxyTunnelUsed($used)
+    public function setHttpProxyTunnelUsed($used): Settings
     {
         ValidationUtility::ensureBoolean('$used', $used);
 

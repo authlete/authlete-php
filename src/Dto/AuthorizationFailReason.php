@@ -26,6 +26,7 @@ namespace Authlete\Dto;
 
 
 use Authlete\Types\EnumTrait;
+use Authlete\Types\Valuable;
 use Authlete\Util\LanguageUtility;
 
 
@@ -33,7 +34,7 @@ use Authlete\Util\LanguageUtility;
  * The value of "reason" in requests to Authlete's
  * /api/auth/authorization/fail API.
  */
-class AuthorizationFailReason
+enum AuthorizationFailReason: string implements Valuable
 {
     use EnumTrait;
 
@@ -42,11 +43,8 @@ class AuthorizationFailReason
      * Unknown reason.
      *
      * Using this reason will result in `error=server_error`.
-     *
-     * @static
-     * @var AuthorizationFailReason
      */
-    public static $UNKNOWN;
+    case UNKNOWN = 'unknown';
 
 
     /**
@@ -54,11 +52,8 @@ class AuthorizationFailReason
      * "prompt=none", but any end-user has not logged in.
      *
      * Using this reason will result in `error=login_required`.
-     *
-     * @static
-     * @var AuthorizationFailReason
      */
-    public static $NOT_LOGGED_IN;
+    case NOT_LOGGED_IN = 'not_logged_in';
 
 
     /**
@@ -71,11 +66,8 @@ class AuthorizationFailReason
      * time of end-users.
      *
      * Using this reason will result in `error=login_required`.
-     *
-     * @static
-     * @var AuthorizationFailReason
      */
-    public static $MAX_AGE_NOT_SUPPORTED;
+    case MAX_AGE_NOT_SUPPORTED = 'max_age_not_supported';
 
 
     /**
@@ -85,11 +77,8 @@ class AuthorizationFailReason
      * has passed since the time at which the end-user logged in.
      *
      * Using this reason will result in `error=login_required`.
-     *
-     * @static
-     * @var AuthorizationFailReason
      */
-    public static $EXCEEDS_MAX_AGE;
+    case EXCEEDS_MAX_AGE = 'exceeds_max_age';
 
 
     /**
@@ -99,11 +88,8 @@ class AuthorizationFailReason
      * is different from the specified value.
      *
      * Using this reason will result in `error=login_required`.
-     *
-     * @static
-     * @var AuthorizationFailReason
      */
-    public static $DIFFERENT_SUBJECT;
+    case DIFFERENT_SUBJECT = 'different_subject';
 
 
     /**
@@ -113,11 +99,8 @@ class AuthorizationFailReason
      * match any one of the requested ACRs.
      *
      * Using this reason will result in `error=login_required`.
-     *
-     * @static
-     * @var AuthorizationFailReason
      */
-    public static $ACR_NOT_SATISFIED;
+    case ACR_NOT_SATISFIED = 'acr_not_satisfied';
 
 
     /**
@@ -125,33 +108,24 @@ class AuthorizationFailReason
      * application.
      *
      * Using this reason will result in `error=access_denied`.
-     *
-     * @static
-     * @var AuthorizationFailReason
      */
-    public static $DENIED;
+    case DENIED = 'denied';
 
 
     /**
      * Server error.
      *
      * Using this reason will result in `error=server_error`.
-     *
-     * @static
-     * @var AuthorizationFailReason
      */
-    public static $SERVER_ERROR;
+    case SERVER_ERROR = 'server_error';
 
 
     /**
      * The end-user was not authenticated.
      *
      * Using this reason will result in `error=login_required`.
-     *
-     * @static
-     * @var AuthorizationFailReason
      */
-    public static $NOT_AUTHENTICATED;
+    case NOT_AUTHENTICATED = 'not_authenticated';
 
 
     /**
@@ -159,33 +133,24 @@ class AuthorizationFailReason
      * made by the end-user.
      *
      * Using this reason will result in `error=account_selection_required`.
-     *
-     * @static
-     * @var AuthorizationFailReason
      */
-    public static $ACCOUNT_SELECTION_REQUIRED;
+    case ACCOUNT_SELECTION_REQUIRED = 'account_selection_required';
 
 
     /**
      * The authorization server cannot obtain consent from the end-user.
      *
      * Using this reason will result in `error=consent_required`.
-     *
-     * @static
-     * @var AuthorizationFailReason
      */
-    public static $CONSENT_REQUIRED;
+    case CONSENT_REQUIRED = 'consent_required';
 
 
     /**
      * The authorization server needs interaction with the end-user.
      *
      * Using this reason will result in `error=interaction_required`.
-     *
-     * @static
-     * @var AuthorizationFailReason
      */
-    public static $INTERACTION_REQUIRED;
+    case INTERACTION_REQUIRED = 'interaction_required';
 
 
     /**
@@ -193,17 +158,10 @@ class AuthorizationFailReason
      *
      * Using this reason will result in `error=invalid_target`.
      *
-     * @static
-     * @var AuthorizationFailReason
-     *
      * @see https://www.rfc-editor.org/rfc/rfc8707.html RFC 8707 Resource Indicators for OAuth 2.0
      *
      * @since 1.8
      */
-    public static $INVALID_TARGET;
+    case INVALID_TARGET = 'invalid_target';
 }
 
-
-// Call AuthorizationFailReason::initialize().
-LanguageUtility::initializeClass(__NAMESPACE__ . '\AuthorizationFailReason');
-?>

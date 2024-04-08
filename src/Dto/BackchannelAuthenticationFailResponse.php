@@ -36,19 +36,19 @@ use Authlete\Util\ValidationUtility;
  */
 class BackchannelAuthenticationFailResponse extends ApiResponse
 {
-    private $action          = null;  // \Authlete\Dto\BackchannelAuthenticationFailAction
-    private $responseContent = null;  // string
+    private ?BackchannelAuthenticationFailAction $action = null;  // \Authlete\Dto\BackchannelAuthenticationFailAction
+    private ?string $responseContent = null;  // string
 
 
     /**
      * Get the next action that the backchannel authentication endpoint should
      * take.
      *
-     * @return BackchannelAuthenticationFailAction
+     * @return BackchannelAuthenticationFailAction|null
      *     The next action that the backchannel authentication endpoint should
      *     take.
      */
-    public function getAction()
+    public function getAction(): ?BackchannelAuthenticationFailAction
     {
         return $this->action;
     }
@@ -58,14 +58,14 @@ class BackchannelAuthenticationFailResponse extends ApiResponse
      * Set the next action that the backchannel authentication endpoint should
      * take.
      *
-     * @param BackchannelAuthenticationFailAction $action
+     * @param BackchannelAuthenticationFailAction|null $action
      *     The next action that the backchannel authentication endpoint should
      *     take.
      *
      * @return BackchannelAuthenticationFailResponse
      *     `$this` object.
      */
-    public function setAction(BackchannelAuthenticationFailAction $action = null)
+    public function setAction(BackchannelAuthenticationFailAction $action = null): BackchannelAuthenticationFailResponse
     {
         $this->action = $action;
 
@@ -77,10 +77,10 @@ class BackchannelAuthenticationFailResponse extends ApiResponse
      * Get the content of the response body of the response to the client.
      * Its format is always JSON.
      *
-     * @return string
+     * @return string|null
      *     The response content.
      */
-    public function getResponseContent()
+    public function getResponseContent(): ?string
     {
         return $this->responseContent;
     }
@@ -95,7 +95,7 @@ class BackchannelAuthenticationFailResponse extends ApiResponse
      * @return BackchannelAuthenticationFailResponse
      *     `$this` object.
      */
-    public function setResponseContent($responseContent)
+    public function setResponseContent(string $responseContent): BackchannelAuthenticationFailResponse
     {
         ValidationUtility::ensureNullOrString('$responseContent', $responseContent);
 
@@ -113,7 +113,7 @@ class BackchannelAuthenticationFailResponse extends ApiResponse
      * @param array $array
      *     {@inheritdoc}
      */
-    public function copyToArray(array &$array)
+    public function copyToArray(array &$array): void
     {
         parent::copyToArray($array);
 
@@ -130,7 +130,7 @@ class BackchannelAuthenticationFailResponse extends ApiResponse
      * @param array $array
      *     {@inheritdoc}
      */
-    public function copyFromArray(array &$array)
+    public function copyFromArray(array &$array): void
     {
         parent::copyFromArray($array);
 
@@ -144,4 +144,3 @@ class BackchannelAuthenticationFailResponse extends ApiResponse
             LanguageUtility::getFromArray('responseContent', $array));
     }
 }
-?>

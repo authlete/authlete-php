@@ -131,19 +131,19 @@ use Authlete\Util\ValidationUtility;
  */
 class StandardIntrospectionResponse extends ApiResponse
 {
-    private $action          = null;  // \Authlete\Dto\StandardIntrospectionAction
-    private $responseContent = null;  // string
+    private ?StandardIntrospectionAction $action = null;
+    private ?string $responseContent             = null;
 
 
     /**
      * Get the next action that the introspection endpoint of your
      * authorization server should take.
      *
-     * @return StandardIntrospectionAction
+     * @return StandardIntrospectionAction|null
      *     The next action that the introspection endpoint of  your
      *     authorization server should take.
      */
-    public function getAction()
+    public function getAction(): ?StandardIntrospectionAction
     {
         return $this->action;
     }
@@ -153,14 +153,14 @@ class StandardIntrospectionResponse extends ApiResponse
      * Set the next action that the introspection endpoint of your
      * authorization server should take.
      *
-     * @param StandardIntrospectionAction $action
+     * @param StandardIntrospectionAction|null $action
      *     The next action that the introspection endpoint of  your
      *     authorization server should take.
      *
      * @return StandardIntrospectionResponse
      *     `$this` object.
      */
-    public function setAction(StandardIntrospectionAction $action = null)
+    public function setAction(StandardIntrospectionAction $action = null): StandardIntrospectionResponse
     {
         $this->action = $action;
 
@@ -176,7 +176,7 @@ class StandardIntrospectionResponse extends ApiResponse
      *     The response content which can be used as the entity body of the
      *     response returned to the client application.
      */
-    public function getResponseContent()
+    public function getResponseContent(): ?string
     {
         return $this->responseContent;
     }
@@ -193,7 +193,7 @@ class StandardIntrospectionResponse extends ApiResponse
      * @return StandardIntrospectionResponse
      *     `$this` object.
      */
-    public function setResponseContent($responseContent)
+    public function setResponseContent(string $responseContent): StandardIntrospectionResponse
     {
         ValidationUtility::ensureNullOrString('$responseContent', $responseContent);
 
@@ -211,7 +211,7 @@ class StandardIntrospectionResponse extends ApiResponse
      * @param array $array
      *     {@inheritdoc}
      */
-    public function copyToArray(array &$array)
+    public function copyToArray(array &$array): void
     {
         parent::copyToArray($array);
 
@@ -242,4 +242,3 @@ class StandardIntrospectionResponse extends ApiResponse
             LanguageUtility::getFromArray('responseContent', $array));
     }
 }
-?>

@@ -26,14 +26,13 @@ namespace Authlete\Dto;
 
 
 use Authlete\Types\EnumTrait;
-use Authlete\Util\LanguageUtility;
-
+use Authlete\Types\Valuable;
 
 /**
  * The value of "action" in responses from Authlete's /api/auth/userinfo/issue
  * API.
  */
-class UserInfoIssueAction
+enum UserInfoIssueAction: string implements Valuable
 {
     use EnumTrait;
 
@@ -44,11 +43,8 @@ class UserInfoIssueAction
      * The [userinfo endpoint](https://openid.net/specs/openid-connect-core-1_0.html#UserInfo)
      * implementation should return `500 Internal Server Error` to the client
      * application.
-     *
-     * @static
-     * @var UserInfoIssueAction
      */
-    public static $INTERNAL_SERVER_ERROR;
+    case INTERNAL_SERVER_ERROR = 'internal_server_error';
 
 
     /**
@@ -57,11 +53,8 @@ class UserInfoIssueAction
      * The [userinfo endpoint](https://openid.net/specs/openid-connect-core-1_0.html#UserInfo)
      * implementation should return `400 Bad Request` to the client
      * application.
-     *
-     * @static
-     * @var UserInfoIssueAction
      */
-    public static $BAD_REQUEST;
+    case BAD_REQUEST = 'bad_request';
 
 
     /**
@@ -70,11 +63,8 @@ class UserInfoIssueAction
      * The [userinfo endpoint](https://openid.net/specs/openid-connect-core-1_0.html#UserInfo)
      * implementation should return `401 Unauthorized` to the client
      * application.
-     *
-     * @static
-     * @var UserInfoIssueAction
      */
-    public static $UNAUTHORIZED;
+    case UNAUTHORIZED = 'unauthorized';
 
 
     /**
@@ -83,11 +73,8 @@ class UserInfoIssueAction
      *
      * The [userinfo endpoint](https://openid.net/specs/openid-connect-core-1_0.html#UserInfo)
      * implementation should return `403 Forbidden` to the client application.
-     *
-     * @static
-     * @var UserInfoIssueAction
      */
-    public static $FORBIDDEN;
+    case FORBIDDEN = 'forbidden';
 
 
     /**
@@ -97,11 +84,8 @@ class UserInfoIssueAction
      * The [userinfo endpoint](https://openid.net/specs/openid-connect-core-1_0.html#UserInfo)
      * implementation should return `200 OK` to the client application with
      * the content type `application/json;charset=UTF-8`.
-     *
-     * @static
-     * @var UserInfoIssueAction
      */
-    public static $JSON;
+    case JSON = 'json';
 
 
     /**
@@ -111,14 +95,7 @@ class UserInfoIssueAction
      * The [userinfo endpoint](https://openid.net/specs/openid-connect-core-1_0.html#UserInfo)
      * implementation should return `200 OK` to the client application with
      * the content type `application/jwt`.
-     *
-     * @static
-     * @var UserInfoIssueAction
      */
-    public static $JWT;
+    case JWT = 'jwt';
 }
 
-
-// Call UserInfoIssueAction::initialize().
-LanguageUtility::initializeClass(__NAMESPACE__ . '\UserInfoIssueAction');
-?>

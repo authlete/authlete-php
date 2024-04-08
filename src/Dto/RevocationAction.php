@@ -26,13 +26,13 @@ namespace Authlete\Dto;
 
 
 use Authlete\Types\EnumTrait;
-use Authlete\Util\LanguageUtility;
+use Authlete\Types\Valuable;
 
 
 /**
  * The value of "action" in responses from Authlete's /api/auth/revocation API.
  */
-class RevocationAction
+enum RevocationAction: string implements Valuable
 {
     use EnumTrait;
 
@@ -42,11 +42,8 @@ class RevocationAction
      *
      * The authorization server implementation should return either
      * `400 Bad Request` or `401 Unauthorized` to the client application.
-     *
-     * @static
-     * @var RevocationAction
      */
-    public static $INVALID_CLIENT;
+    case INVALID_CLIENT = 'invalid_client';
 
 
     /**
@@ -55,11 +52,8 @@ class RevocationAction
      *
      * The authorization server implementation should return
      * `500 Internal Server Error` to the client application.
-     *
-     * @static
-     * @var RevocationAction
      */
-    public static $INTERNAL_SERVER_ERROR;
+    case INTERNAL_SERVER_ERROR = 'internal_server_error';
 
 
     /**
@@ -67,11 +61,8 @@ class RevocationAction
      *
      * The authorization server implementation should return
      * `400 Bad Request` to the client application.
-     *
-     * @static
-     * @var RevocationAction
      */
-    public static $BAD_REQUEST;
+    case BAD_REQUEST = 'bad_request';
 
 
     /**
@@ -79,14 +70,7 @@ class RevocationAction
      *
      * The authorization server implementation should return `200 OK` to
      * the client application.
-     *
-     * @static
-     * @var RevocationAction
      */
-    public static $OK;
+    case OK = 'ok';
 }
 
-
-// Call RevocationAction::initialize().
-LanguageUtility::initializeClass(__NAMESPACE__ . '\RevocationAction');
-?>

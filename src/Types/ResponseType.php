@@ -34,88 +34,60 @@ use Authlete\Util\LanguageUtility;
  *
  * @see https://openid.net/specs/oauth-v2-multiple-response-types-1_0.html OAuth 2.0 Multiple Response Type Encoding Practices
  */
-class ResponseType
+enum ResponseType: string implements Valuable
 {
     use EnumTrait;
 
 
     /**
      * "none"; a "response_type" to request no access credentials.
-     *
-     * @static
-     * @var ResponseType
      */
-    public static $NONE;
+    case NONE = 'none';
 
 
     /**
      * "code"; a "response_type" to request an authorization code.
-     *
-     * @static
-     * @var ResponseType
      */
-    public static $CODE;
+    case CODE = 'code';
 
 
     /**
      * "token"; a "response_type" to request an access token.
-     *
-     * @static
-     * @var ResponseType
      */
-    public static $TOKEN;
+    case TOKEN = 'token';
 
 
     /**
      * "id_token"; a "response_type" to request an ID token.
-     *
-     * @static
-     * @var ResponseType
      */
-    public static $ID_TOKEN;
+    case ID_TOKEN = 'id_token';
 
 
     /**
      * "code token"; a "response_type" to request an authorization
      * code and an access token.
-     *
-     * @static
-     * @var ResponseType
      */
-    public static $CODE_TOKEN;
+    case CODE_TOKEN = 'code_token';
 
 
     /**
      * "code id_token"; a "response_type" to request an authorization
      * code and an ID token.
-     *
-     * @static
-     * @var ResponseType
      */
-    public static $CODE_ID_TOKEN;
+    case CODE_ID_TOKEN = 'code_id_token';
 
 
     /**
      * "id_token token"; a "response_type" to request an ID token
      * and an access token.
-     *
-     * @static
-     * @var ResponseType
      */
-    public static $ID_TOKEN_TOKEN;
+    case ID_TOKEN_TOKEN = 'id_token_token';
 
 
     /**
      * "code id_token token"; a "response_type" to request an
      * authorization code, an ID token and an access token.
-     *
-     * @static
-     * @var ResponseType
      */
-    public static $CODE_ID_TOKEN_TOKEN;
+    case CODE_ID_TOKEN_TOKEN = 'code_id_token_token';
 }
 
-
-// Call ResponseType::initialize().
-LanguageUtility::initializeClass(__NAMESPACE__ . '\ResponseType');
-?>

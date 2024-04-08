@@ -42,7 +42,7 @@ class ValidationUtility
      * @throws \InvalidArgumentException
      *     The type of `$value` is not `boolean`.
      */
-    public static function ensureBoolean($name, $value)
+    public static function ensureBoolean(string $name, mixed $value):void
     {
         if (is_bool($value))
         {
@@ -65,7 +65,7 @@ class ValidationUtility
      * @throws \InvalidArgumentException
      *     The type of `$value` is not `integer`.
      */
-    public static function ensureInteger($name, $value)
+    public static function ensureInteger(string $name, mixed $value):void
     {
         if (is_integer($value))
         {
@@ -90,7 +90,7 @@ class ValidationUtility
      *
      * @since 1.3
      */
-    public static function ensureString($name, $value)
+    public static function ensureString(string $name, mixed $value):void
     {
         if (is_string($value))
         {
@@ -113,14 +113,12 @@ class ValidationUtility
      * @throws \InvalidArgumentException
      *     `$value` is `null`.
      */
-    public static function ensureNotNull($name, $value)
+    public static function ensureNotNull(string $name, mixed $value): void
     {
-        if (!is_null($value))
+        if (is_null($value))
         {
-            return;
+            throw new \InvalidArgumentException("Parameter '{$name}' must not be null.");
         }
-
-        throw new \InvalidArgumentException("'$name' must not be null.");
     }
 
 
@@ -130,20 +128,16 @@ class ValidationUtility
      * @param string $name
      *     Name of a parameter.
      *
-     * @param integer $value
+     * @param int|float $value
      *     Value of a parameter.
      *
-     * @throws \InvalidArgumentException
-     *     `$value` is less than 0.
      */
-    public static function ensureNotNegative($name, $value)
+    public static function ensureNotNegative(string $name, int|float $value): void
     {
-        if (0 <= $value)
+        if ($value < 0)
         {
-            return;
+            throw new \InvalidArgumentException("Parameter '{$name}' must not be negative.");
         }
-
-        throw new \InvalidArgumentException("'$name' must not be negative.");
     }
 
 
@@ -151,40 +145,36 @@ class ValidationUtility
      * Ensure that the type of the given object is either `string` or `integer`.
      *
      * @param string $name
-     *     Name of a parameter.
+     *      The name of the parameter being checked.
      *
-     * @param integer $value
-     *     Value of a parameter.
+     * @param mixed $value
+     *      The value of the parameter, which can be of any type.
      *
      * @throws \InvalidArgumentException
      *     The type of `$value` is neither `string` nor `integer`.
      */
-    public static function ensureStringOrInteger($name, $value)
+    public static function ensureStringOrInteger(string $name, mixed $value): void
     {
-        if (is_string($value) || is_integer($value))
+        if (!is_string($value) && !is_int($value))
         {
-            return;
+            throw new \InvalidArgumentException("Parameter '{$name}' must be a string or an integer.");
         }
-
-        throw new \InvalidArgumentException("'$name' must be a string or an integer.");
     }
 
 
     /**
      * Ensure that the given object is `null` or a `string` instance.
      *
-     * @param string $name
+     * @param string|null $name
      *     Name of a parameter.
      *
-     * @param integer $value
+     * @param string|null $value
      *     Value of a parameter.
      *
-     * @throws \InvalidArgumentException
-     *     `$value` is neither `null` nor a `string` instance.
      */
-    public static function ensureNullOrString($name, $value)
+    public static function ensureNullOrString(?string $name, ?string $value):void
     {
-        if (is_null($value) || is_string($value))
+        if (is_null($value))
         {
             return;
         }
@@ -199,7 +189,7 @@ class ValidationUtility
      * @param string $name
      *     Name of a parameter.
      *
-     * @param integer $value
+     * @param mixed $value
      *     Value of a parameter.
      *
      * @param string $type
@@ -210,14 +200,29 @@ class ValidationUtility
      *
      * @since 1.2
      */
-    public static function ensureNullOrType($name, $value, $type)
+    public static function ensureNullOrType(string $name, mixed $value, string $type): void
     {
-        if (is_null($value) || ($value instanceof $type))
+        if (is_null($value) || gettype($value) === $type || $value instanceof $type)
         {
             return;
         }
 
-        throw new \InvalidArgumentException("'$name' must be null or an instance of $type.");
+        // Additional checks for alias types that `gettype()` returns differently
+        $typeAliases = [
+            'integer' => 'int',
+            'boolean' => 'bool',
+            'double' => 'float', // 'double' is the internal PHP name for float
+        ];
+
+        $actualType = gettype($value);
+        $actualType = $typeAliases[$actualType] ?? $actualType;
+
+        if ($actualType === $type)
+        {
+            return;
+        }
+
+        throw new \InvalidArgumentException("The parameter '$name' must be null or of type $type, " . gettype($value) . " given.");
     }
 
 
@@ -225,43 +230,34 @@ class ValidationUtility
      * Ensure that the given object is `null`, a `string` instance,
      * or an `integer` instance.
      *
-     * @param string $name
-     *     Name of a parameter.
-     *
-     * @param integer $value
-     *     Value of a parameter.
+     * @param string $name Name of the parameter being checked.
+     * @param mixed $value The value of the parameter, which can be of any type.
      *
      * @throws \InvalidArgumentException
      *     `$value` is not `null`, a `string` instance or an `integer` instance.
      */
-    public static function ensureNullOrStringOrInteger($name, $value)
+    public static function ensureNullOrStringOrInteger(string $name, mixed $value): void
     {
-        if (is_null($value) || is_string($value) || is_integer($value))
+        if (!is_null($value) && !is_string($value) && !is_int($value))
         {
-            return;
+            throw new \InvalidArgumentException("Parameter '{$name}' must be null, a string, or an integer.");
         }
-
-        throw new \InvalidArgumentException("'$name' must be null, a string or an integer.");
     }
 
 
     /**
      * Ensure that the given object is null or an array of string.
      *
-     * @param string $name
-     *     Name of a parameter.
-     *
-     * @param array $array
-     *     Value of a parameter.
+     * @param string $name The name of the parameter being checked. Used in the error message.
+     * @param array|null $array The value of the parameter, which should be null or an array of strings. Passed by reference.
      *
      * @throws \InvalidArgumentException
      *     `$array` is neither `null` nor a reference of an array.
      *     Or the array has one or more non `string` elements.
      */
-    public static function ensureNullOrArrayOfString($name, array &$array = null)
+    public static function ensureNullOrArrayOfString(string $name, ?array $array = null): void
     {
-        if (is_null($array))
-        {
+        if (is_null($array)) {
             return;
         }
 
@@ -269,7 +265,7 @@ class ValidationUtility
         {
             if (!is_string($element))
             {
-                throw new \InvalidArgumentException("'$name' must be null or an array of string.");
+                throw new \InvalidArgumentException("Parameter '{$name}' must be null or an array of strings.");
             }
         }
     }
@@ -279,21 +275,16 @@ class ValidationUtility
      * Ensure that the given object is null or an array whose elements
      * are of the specified type.
      *
-     * @param string $name
-     *     Name of a parameter.
-     *
-     * @param array $array
-     *     Value of a parameter.
-     *
-     * @param string $type
-     *     The expected type of the elements in the given array.
+     * @param string $name The name of the parameter being checked. Used in the error message.
+     * @param array|null $array The value of the parameter, which should be null or an array. Passed by reference.
+     * @param string $type The expected type of the elements in the given array. This should be a class name or interface.
      *
      * @throws \InvalidArgumentException
      *     `$array` is neither `null` nor a reference of an array.
      *     Or the array has one or more elements whose type is not
      *     the specified type.
      */
-    public static function ensureNullOrArrayOfType($name, array &$array = null, $type)
+    public static function ensureNullOrArrayOfType(string $name, string $type, array &$array = null): void
     {
         if (is_null($array))
         {
@@ -304,9 +295,9 @@ class ValidationUtility
         {
             if (!($element instanceof $type))
             {
-                throw new \InvalidArgumentException("'$name' must be null or an array of $type.");
+                throw new \InvalidArgumentException("Parameter '{$name}' must be null or an array of instances of {$type}.");
             }
         }
     }
 }
-?>
+

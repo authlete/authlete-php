@@ -34,30 +34,20 @@ use Authlete\Util\LanguageUtility;
  *
  * @see https://openid.net/specs/openid-connect-registration-1_0.html OpenID Connect Dynamic Client Registration 1.0
  */
-class ApplicationType
+enum ApplicationType: string implements Valuable
 {
     use EnumTrait;
 
-
     /**
      * Web client application.
-     *
-     * @static
-     * @var ApplicationType
      */
-    public static $WEB;
+    case WEB = 'web';
 
 
     /**
      * Native client application.
-     *
-     * @static
-     * @var ApplicationType
      */
-    public static $NATIVE;
+    case NATIVE = 'native';
+
 }
 
-
-// Call ApplicationType::initialize().
-LanguageUtility::initializeClass(__NAMESPACE__ . '\ApplicationType');
-?>

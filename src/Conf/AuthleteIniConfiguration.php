@@ -47,14 +47,14 @@ class AuthleteIniConfiguration implements AuthleteConfiguration
     use AuthleteConfigurationTrait;
 
 
-    private static $DEFAULT_FILE                 = 'authlete.ini';
-    private static $ENV_CONFIG_FILE              = 'AUTHLETE_CONFIGURATION_FILE';
-    private static $KEY_BASE_URL                 = 'base_url';
-    private static $KEY_SERVICE_OWNER_API_KEY    = 'service_owner.api_key';
-    private static $KEY_SERVICE_OWNER_API_SECRET = 'service_owner.api_secret';
-    private static $KEY_SERVICE_API_KEY          = 'service.api_key';
-    private static $KEY_SERVICE_API_SECRET       = 'service.api_secret';
-    private static $DEFAULT_BASE_URL             = 'https://api.authlete.com';
+    private static string $DEFAULT_FILE                 = 'authlete.ini';
+    private static string $ENV_CONFIG_FILE              = 'AUTHLETE_CONFIGURATION_FILE';
+    private static string $KEY_BASE_URL                 = 'base_url';
+    private static string $KEY_SERVICE_OWNER_API_KEY    = 'service_owner.api_key';
+    private static string $KEY_SERVICE_OWNER_API_SECRET = 'service_owner.api_secret';
+    private static string $KEY_SERVICE_API_KEY          = 'service.api_key';
+    private static string $KEY_SERVICE_API_SECRET       = 'service.api_secret';
+    private static string $DEFAULT_BASE_URL             = 'https://api.authlete.com';
 
 
     /**
@@ -69,14 +69,14 @@ class AuthleteIniConfiguration implements AuthleteConfiguration
      * Otherwise, `authlete.ini` is used as the name of a configuration
      * file.
      *
-     * @param string $file
+     * @param string|null $file
      *     The name of a configuration file. This parameter is optional
      *     and its default value is `null`.
      *
      * @throws \RuntimeException
      *     `parse_ini_file()` failed to parse the configuration file.
      */
-    public function __construct($file = null)
+    public function __construct(string $file = null)
     {
         if (is_null($file))
         {
@@ -94,7 +94,7 @@ class AuthleteIniConfiguration implements AuthleteConfiguration
     }
 
 
-    private static function getConfigFileName()
+    private static function getConfigFileName(): bool|array|string
     {
         $file = getenv(self::$ENV_CONFIG_FILE);
 
@@ -107,7 +107,7 @@ class AuthleteIniConfiguration implements AuthleteConfiguration
     }
 
 
-    private function setup($conf)
+    private function setup($conf): void
     {
         // baseUrl
         $this->baseUrl =
@@ -140,4 +140,4 @@ class AuthleteIniConfiguration implements AuthleteConfiguration
                 self::$KEY_SERVICE_API_SECRET, $conf);
     }
 }
-?>
+

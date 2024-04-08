@@ -46,17 +46,17 @@ class AuthorizationRequest implements ArrayCopyable, Arrayable, Jsonable
     use JsonTrait;
 
 
-    private $parameters = null;  // string
+    private ?string $parameters = null;
 
 
     /**
      * Get the request parameters that the implementation of your
      * authorization endpoint received from a client application.
      *
-     * @return string
+     * @return string|null
      *     Request parameters in `application/x-www-form-urlencoded` format.
      */
-    public function getParameters()
+    public function getParameters(): ?string
     {
         return $this->parameters;
     }
@@ -79,7 +79,7 @@ class AuthorizationRequest implements ArrayCopyable, Arrayable, Jsonable
      * @return AuthorizationRequest
      *     `$this` object
      */
-    public function setParameters($parameters)
+    public function setParameters(string $parameters): AuthorizationRequest
     {
         ValidationUtility::ensureNullOrString('$parameters', $parameters);
 
@@ -97,7 +97,7 @@ class AuthorizationRequest implements ArrayCopyable, Arrayable, Jsonable
      * @param array $array
      *     {@inheritdoc}
      */
-    public function copyToArray(array &$array)
+    public function copyToArray(array &$array): void
     {
         $array['parameters'] = $this->parameters;
     }
@@ -111,11 +111,11 @@ class AuthorizationRequest implements ArrayCopyable, Arrayable, Jsonable
      * @param array $array
      *     {@inheritdoc}
      */
-    public function copyFromArray(array &$array)
+    public function copyFromArray(array &$array): void
     {
         // parameters
         $this->setParameters(
             LanguageUtility::getFromArray('parameters', $array));
     }
 }
-?>
+

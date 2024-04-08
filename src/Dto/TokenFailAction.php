@@ -26,13 +26,14 @@ namespace Authlete\Dto;
 
 
 use Authlete\Types\EnumTrait;
+use Authlete\Types\Valuable;
 use Authlete\Util\LanguageUtility;
 
 
 /**
  * The value of "action" in responses from Authlete's /api/auth/token/fail API.
  */
-class TokenFailAction
+enum TokenFailAction: string implements Valuable
 {
     use EnumTrait;
 
@@ -42,11 +43,8 @@ class TokenFailAction
      *
      * The token endpoint implementation should return
      * `500 Internal Server Error` to the client application.
-     *
-     * @static
-     * @var TokenFailAction
      */
-    public static $INTERNAL_SERVER_ERROR;
+    case INTERNAL_SERVER_ERROR = 'internal_server_error';
 
 
     /**
@@ -55,14 +53,6 @@ class TokenFailAction
      *
      * The token endpoint implementation should return `400 Bad Request` to
      * the client application.
-     *
-     * @static
-     * @var TokenFailAction
      */
-    public static $BAD_REQUEST;
+    case BAD_REQUEST = 'bad_request';
 }
-
-
-// Call TokenFailAction::initialize().
-LanguageUtility::initializeClass(__NAMESPACE__ . '\TokenFailAction');
-?>

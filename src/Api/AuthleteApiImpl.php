@@ -74,7 +74,7 @@ use Authlete\Dto\TokenCreateResponse;
 use Authlete\Dto\TokenFailRequest;
 use Authlete\Dto\TokenFailResponse;
 use Authlete\Dto\TokenIssueRequest;
-use Authlete\Dto\TokenIssueReponse;
+use Authlete\Dto\TokenIssueResponse;
 use Authlete\Dto\TokenRequest;
 use Authlete\Dto\TokenResponse;
 use Authlete\Dto\TokenUpdateRequest;
@@ -400,7 +400,7 @@ class AuthleteApiImpl implements AuthleteApi
         if ($errno !== CURLE_OK)
         {
             throw new AuthleteApiException(
-                "curl_exec() failed: path=${path}, errno=${errno}, error=${error}");
+                "curl_exec() failed: path={$path}, errno={$errno}, error={$error}");
         }
 
         // Split the response into the headers and the body.
@@ -447,7 +447,7 @@ class AuthleteApiImpl implements AuthleteApi
         $converter, BasicCredentials $credentials, $path, array $queryParams = null)
     {
         return $this->callApi(
-            $converter, HttpMethod::$GET, $credentials, $path, $queryParams, null);
+            $converter, HttpMethod::GET, $credentials, $path, $queryParams, null);
     }
 
 
@@ -469,7 +469,7 @@ class AuthleteApiImpl implements AuthleteApi
         $converter, BasicCredentials $credentials, $path, array $queryParams = null, $requestBody)
     {
         return $this->callApi(
-            $converter, HttpMethod::$POST, $credentials, $path, $queryParams, $requestBody);
+            $converter, HttpMethod::POST, $credentials, $path, $queryParams, $requestBody);
     }
 
 
@@ -491,7 +491,7 @@ class AuthleteApiImpl implements AuthleteApi
 
     private function callDeleteApi(BasicCredentials $credentials, $path, array $queryParams = null)
     {
-        $this->callApi(null, HttpMethod::$DELETE, $credentials, $path, $queryParams, null);
+        $this->callApi(null, HttpMethod::DELETE, $credentials, $path, $queryParams, null);
     }
 
 
@@ -515,7 +515,7 @@ class AuthleteApiImpl implements AuthleteApi
      * @param AuthorizationRequest $request
      *     {@inheritdoc}
      */
-    public function authorization(AuthorizationRequest $request)
+    public function authorization(AuthorizationRequest $request): AuthorizationResponse
     {
         return $this->callServicePostApi(
             '\Authlete\Dto\AuthorizationResponse::fromJson',
@@ -532,7 +532,7 @@ class AuthleteApiImpl implements AuthleteApi
      * @param AuthorizationFailRequest $request
      *     {@inheritdoc}
      */
-    public function authorizationFail(AuthorizationFailRequest $request)
+    public function authorizationFail(AuthorizationFailRequest $request): AuthorizationFailResponse
     {
         return $this->callServicePostApi(
             '\Authlete\Dto\AuthorizationFailResponse::fromJson',
@@ -549,7 +549,7 @@ class AuthleteApiImpl implements AuthleteApi
      * @param AuthorizationIssueRequest $request
      *     {@inheritdoc}
      */
-    public function authorizationIssue(AuthorizationIssueRequest $request)
+    public function authorizationIssue(AuthorizationIssueRequest $request): AuthorizationIssueResponse
     {
         return $this->callServicePostApi(
             '\Authlete\Dto\AuthorizationIssueResponse::fromJson',
@@ -566,7 +566,7 @@ class AuthleteApiImpl implements AuthleteApi
      * @param TokenRequest $request
      *     {@inheritdoc}
      */
-    public function token(TokenRequest $request)
+    public function token(TokenRequest $request): TokenResponse
     {
         return $this->callServicePostApi(
             '\Authlete\Dto\TokenResponse::fromJson',
@@ -583,7 +583,7 @@ class AuthleteApiImpl implements AuthleteApi
      * @param TokenCreateRequest $request
      *     {@inheritdoc}
      */
-    public function tokenCreate(TokenCreateRequest $request)
+    public function tokenCreate(TokenCreateRequest $request): TokenCreateResponse
     {
         return $this->callServicePostApi(
             '\Authlete\Dto\TokenCreateResponse::fromJson',
@@ -600,7 +600,7 @@ class AuthleteApiImpl implements AuthleteApi
      * @param string $token
      *     {@inheritdoc}
      */
-    public function tokenDelete($token)
+    public function tokenDelete($token): void
     {
         ValidationUtility::ensureString('$token', $token);
 
@@ -617,7 +617,7 @@ class AuthleteApiImpl implements AuthleteApi
      * @param TokenFailRequest $request
      *     {@inheritdoc}
      */
-    public function tokenFail(TokenFailRequest $request)
+    public function tokenFail(TokenFailRequest $request): TokenFailResponse
     {
         return $this->callServicePostApi(
             '\Authlete\Dto\TokenFailResponse::fromJson',
@@ -634,7 +634,7 @@ class AuthleteApiImpl implements AuthleteApi
      * @param TokenIssueRequest $request
      *     {@inheritdoc}
      */
-    public function tokenIssue(TokenIssueRequest $request)
+    public function tokenIssue(TokenIssueRequest $request): \Authlete\Dto\TokenIssueResponse
     {
         return $this->callServicePostApi(
             '\Authlete\Dto\TokenIssueResponse::fromJson',
@@ -651,7 +651,7 @@ class AuthleteApiImpl implements AuthleteApi
      * @param TokenUpdateRequest $request
      *     {@inheritdoc}
      */
-    public function tokenUpdate(TokenUpdateRequest $request)
+    public function tokenUpdate(TokenUpdateRequest $request): TokenUpdateResponse
     {
         return $this->callServicePostApi(
             '\Authlete\Dto\TokenUpdateResponse::fromJson',
@@ -668,7 +668,7 @@ class AuthleteApiImpl implements AuthleteApi
      * @param RevocationRequest $request
      *     {@inheritdoc}
      */
-    public function revocation(RevocationRequest $request)
+    public function revocation(RevocationRequest $request): RevocationResponse
     {
         return $this->callServicePostApi(
             '\Authlete\Dto\RevocationResponse::fromJson',
@@ -685,7 +685,7 @@ class AuthleteApiImpl implements AuthleteApi
      * @param UserInfoRequest $request
      *     {@inheritdoc}
      */
-    public function userInfo(UserInfoRequest $request)
+    public function userInfo(UserInfoRequest $request): UserInfoResponse
     {
         return $this->callServicePostApi(
             '\Authlete\Dto\UserInfoResponse::fromJson',
@@ -702,7 +702,7 @@ class AuthleteApiImpl implements AuthleteApi
      * @param UserInfoIssueRequest $request
      *     {@inheritdoc}
      */
-    public function userInfoIssue(UserInfoIssueRequest $request)
+    public function userInfoIssue(UserInfoIssueRequest $request): UserInfoIssueResponse
     {
         return $this->callServicePostApi(
             '\Authlete\Dto\UserInfoIssueResponse::fromJson',
@@ -719,7 +719,7 @@ class AuthleteApiImpl implements AuthleteApi
      * @param IntrospectionRequest $request
      *     {@inheritdoc}
      */
-    public function introspection(IntrospectionRequest $request)
+    public function introspection(IntrospectionRequest $request): IntrospectionResponse
     {
         return $this->callServicePostApi(
             '\Authlete\Dto\IntrospectionResponse::fromJson',
@@ -736,7 +736,7 @@ class AuthleteApiImpl implements AuthleteApi
      * @param StandardIntrospectionRequest $request
      *     {@inheritdoc}
      */
-    public function standardIntrospection(StandardIntrospectionRequest $request)
+    public function standardIntrospection(StandardIntrospectionRequest $request): StandardIntrospectionResponse
     {
         return $this->callServicePostApi(
             '\Authlete\Dto\StandardIntrospectionResponse::fromJson',
@@ -753,7 +753,7 @@ class AuthleteApiImpl implements AuthleteApi
      * @param Service $service
      *     {@inheritdoc}
      */
-    public function createService(Service $service)
+    public function createService(Service $service): Service
     {
         return $this->callServiceOwnerPostApi(
             '\Authlete\Dto\Service::fromJson',
@@ -787,7 +787,7 @@ class AuthleteApiImpl implements AuthleteApi
      * @param integer|string $apiKey
      *     {@inheritdoc}
      */
-    public function getService($apiKey)
+    public function getService($apiKey): Service
     {
         ValidationUtility::ensureStringOrInteger('$apiKey', $apiKey);
 
@@ -808,7 +808,7 @@ class AuthleteApiImpl implements AuthleteApi
      * @param integer $end
      *     {@inheritdoc}
      */
-    public function getServiceList($start = 0, $end = 5)
+    public function getServiceList($start = 0, $end = 5): ServiceListResponse
     {
         ValidationUtility::ensureInteger('$start', $start);
         ValidationUtility::ensureNotNegative('$start', $start);
@@ -836,7 +836,7 @@ class AuthleteApiImpl implements AuthleteApi
      * @param Service $service
      *     {@inheritdoc}
      */
-    public function updateService(Service $service)
+    public function updateService(Service $service): Service
     {
         ValidationUtility::ensureNotNull('$service->getApiKey()', $service->getApiKey());
 
@@ -858,7 +858,7 @@ class AuthleteApiImpl implements AuthleteApi
      * @param boolean $includePrivateKeys
      *     {@inheritdoc}
      */
-    public function getServiceJwks($pretty = false, $includePrivateKeys = false)
+    public function getServiceJwks(bool $pretty = false, bool $includePrivateKeys = false): string
     {
         ValidationUtility::ensureBoolean('$pretty', $pretty);
         ValidationUtility::ensureBoolean('$includePrivateKeys', $includePrivateKeys);
@@ -881,7 +881,7 @@ class AuthleteApiImpl implements AuthleteApi
      * @param boolean $pretty
      *     {@inheritdoc}
      */
-    public function getServiceConfiguration($pretty = true)
+    public function getServiceConfiguration(bool $pretty = true): string
     {
         ValidationUtility::ensureBoolean('$pretty', $pretty);
 
@@ -900,7 +900,7 @@ class AuthleteApiImpl implements AuthleteApi
      * @param Client $client
      *     {@inheritdoc}
      */
-    public function createClient(Client $client)
+    public function createClient(Client $client): Client
     {
         return $this->callServicePostApi(
             '\Authlete\Dto\Client::fromJson',
@@ -917,7 +917,7 @@ class AuthleteApiImpl implements AuthleteApi
      * @param integer|string $clientId
      *     {@inheritdoc}
      */
-    public function deleteClient($clientId)
+    public function deleteClient(int|string $clientId)
     {
         ValidationUtility::ensureStringOrInteger('$clientId', $clientId);
 
@@ -934,7 +934,7 @@ class AuthleteApiImpl implements AuthleteApi
      * @param integer|string $clientId
      *     {@inheritdoc}
      */
-    public function getClient($clientId)
+    public function getClient(int|string $clientId): Client
     {
         ValidationUtility::ensureStringOrInteger('$clientId', $clientId);
 
@@ -949,7 +949,7 @@ class AuthleteApiImpl implements AuthleteApi
      *
      * {@inheritdoc}
      *
-     * @param string $developer
+     * @param string|null $developer
      *     {@inheritdoc}
      *
      * @param integer $start
@@ -958,7 +958,7 @@ class AuthleteApiImpl implements AuthleteApi
      * @param integer $end
      *     {@inheritdoc}
      */
-    public function getClientList($developer = null, $start = 0, $end = 5)
+    public function getClientList(string $developer = null, int $start = 0, int $end = 5)
     {
         ValidationUtility::ensureNullOrString('$developer', $developer);
 
@@ -989,7 +989,7 @@ class AuthleteApiImpl implements AuthleteApi
      * @param Client $client
      *     {@inheritdoc}
      */
-    public function updateClient(Client $client)
+    public function updateClient(Client $client): Client
     {
         ValidationUtility::ensureNotNull('$client->getClientId()', $client->getClientId());
 
@@ -1011,7 +1011,7 @@ class AuthleteApiImpl implements AuthleteApi
      * @param string $subject
      *     {@inheritdoc}
      */
-    public function getGrantedScopes($clientId, $subject)
+    public function getGrantedScopes(int|string $clientId, string $subject): GrantedScopesGetResponse
     {
         ValidationUtility::ensureStringOrInteger('$clientId', $clientId);
         ValidationUtility::ensureString('$subject', $subject);
@@ -1037,7 +1037,7 @@ class AuthleteApiImpl implements AuthleteApi
      * @param string $subject
      *     {@inheritdoc}
      */
-    public function deleteGrantedScopes($clientId, $subject)
+    public function deleteGrantedScopes(int|string $clientId, string $subject)
     {
         ValidationUtility::ensureStringOrInteger('$clientId', $clientId);
         ValidationUtility::ensureString('$subject', $subject);
@@ -1063,7 +1063,7 @@ class AuthleteApiImpl implements AuthleteApi
      * @param string $subject
      *     {@inheritdoc}
      */
-    public function deleteClientAuthorization($clientId, $subject)
+    public function deleteClientAuthorization(int|string $clientId, string $subject)
     {
         ValidationUtility::ensureStringOrInteger('$clientId', $clientId);
         ValidationUtility::ensureString('$subject', $subject);
@@ -1086,7 +1086,7 @@ class AuthleteApiImpl implements AuthleteApi
      * @param ClientAuthorizationGetListRequest $request
      *     {@inheritdoc}
      */
-    public function getClientAuthorizationList(ClientAuthorizationGetListRequest $request)
+    public function getClientAuthorizationList(ClientAuthorizationGetListRequest $request): AuthorizedClientListResponse
     {
         return $this->callServicePostApi(
             '\Authlete\Dto\AuthorizedClientListResponse::fromJson',
@@ -1105,7 +1105,7 @@ class AuthleteApiImpl implements AuthleteApi
      *
      * @param ClientAuthorizationUpdateRequest $request
      */
-    public function updateClientAuthorization($clientId, ClientAuthorizationUpdateRequest $request)
+    public function updateClientAuthorization(int|string $clientId, ClientAuthorizationUpdateRequest $request): ApiResponse
     {
         ValidationUtility::ensureStringOrInteger('$clientId', $clientId);
 
@@ -1124,7 +1124,7 @@ class AuthleteApiImpl implements AuthleteApi
      * @param integer|string $clientId
      *     {@inheritdoc}
      */
-    public function refreshClientSecret($clientId)
+    public function refreshClientSecret(int|string $clientId): ClientSecretRefreshResponse
     {
         return $this->callServiceGetApi(
             '\Authlete\Dto\ClientSecretRefreshResponse::fromJson',
@@ -1143,7 +1143,7 @@ class AuthleteApiImpl implements AuthleteApi
      * @param string $clientSecret
      *     {@inheritdoc}
      */
-    public function updateClientSecret($clientId, $clientSecret)
+    public function updateClientSecret(int|string $clientId, string $clientSecret): ClientSecretUpdateResponse
     {
         ValidationUtility::ensureStringOrInteger('$clientId', $clientId);
         ValidationUtility::ensureString('$clientSecret', $clientSecret);
@@ -1166,7 +1166,7 @@ class AuthleteApiImpl implements AuthleteApi
      * @param BackchannelAuthenticationRequest $request
      *     {@inheritdoc}
      */
-    public function backchannelAuthentication(BackchannelAuthenticationRequest $request)
+    public function backchannelAuthentication(BackchannelAuthenticationRequest $request): BackchannelAuthenticationResponse
     {
         return $this->callServicePostApi(
             '\Authlete\Dto\BackchannelAuthenticationResponse::fromJson',
@@ -1183,7 +1183,7 @@ class AuthleteApiImpl implements AuthleteApi
      * @param BackchannelAuthenticationIssueRequest $request
      *     {@inheritdoc}
      */
-    public function backchannelAuthenticationIssue(BackchannelAuthenticationIssueRequest $request)
+    public function backchannelAuthenticationIssue(BackchannelAuthenticationIssueRequest $request): BackchannelAuthenticationIssueResponse
     {
         return $this->callServicePostApi(
             '\Authlete\Dto\BackchannelAuthenticationIssueResponse::fromJson',
@@ -1200,7 +1200,7 @@ class AuthleteApiImpl implements AuthleteApi
      * @param BackchannelAuthenticationFailRequest $request
      *     {@inheritdoc}
      */
-    public function backchannelAuthenticationFail(BackchannelAuthenticationFailRequest $request)
+    public function backchannelAuthenticationFail(BackchannelAuthenticationFailRequest $request): BackchannelAuthenticationFailResponse
     {
         return $this->callServicePostApi(
             '\Authlete\Dto\BackchannelAuthenticationFailResponse::fromJson',
@@ -1217,7 +1217,7 @@ class AuthleteApiImpl implements AuthleteApi
      * @param BackchannelAuthenticationCompleteRequest $request
      *     {@inheritdoc}
      */
-    public function backchannelAuthenticationComplete(BackchannelAuthenticationCompleteRequest $request)
+    public function backchannelAuthenticationComplete(BackchannelAuthenticationCompleteRequest $request): BackchannelAuthenticationCompleteResponse
     {
         return $this->callServicePostApi(
             '\Authlete\Dto\BackchannelAuthenticationCompleteResponse::fromJson',
@@ -1234,7 +1234,7 @@ class AuthleteApiImpl implements AuthleteApi
      * @param DeviceAuthorizationRequest $request
      *     {@inheritdoc}
      */
-    public function deviceAuthorization(DeviceAuthorizationRequest $request)
+    public function deviceAuthorization(DeviceAuthorizationRequest $request): DeviceAuthorizationResponse
     {
         return $this->callServicePostApi(
             '\Authlete\Dto\DeviceAuthorizationResponse::fromJson',
@@ -1251,7 +1251,7 @@ class AuthleteApiImpl implements AuthleteApi
      * @param DeviceCompleteRequest $request
      *     {@inheritdoc}
      */
-    public function deviceComplete(DeviceCompleteRequest $request)
+    public function deviceComplete(DeviceCompleteRequest $request): DeviceCompleteResponse
     {
         return $this->callServicePostApi(
             '\Authlete\Dto\DeviceCompleteResponse::fromJson',
@@ -1268,7 +1268,7 @@ class AuthleteApiImpl implements AuthleteApi
      * @param DeviceVerificationRequest $request
      *     {@inheritdoc}
      */
-    public function deviceVerification(DeviceVerificationRequest $request)
+    public function deviceVerification(DeviceVerificationRequest $request): DeviceVerificationResponse
     {
         return $this->callServicePostApi(
             '\Authlete\Dto\DeviceVerificationResponse::fromJson',
@@ -1285,7 +1285,7 @@ class AuthleteApiImpl implements AuthleteApi
      * @param PushedAuthReqRequest $request
      *     {@inheritdoc}
      */
-    public function pushAuthorizationRequest(PushedAuthReqRequest $request)
+    public function pushAuthorizationRequest(PushedAuthReqRequest $request): PushedAuthReqResponse
     {
         return $this->callServicePostApi(
             '\Authlete\Dto\PushedAuthReqResponse::fromJson',
@@ -1299,9 +1299,8 @@ class AuthleteApiImpl implements AuthleteApi
      *
      * {@inheritdoc}
      */
-    public function getSettings()
+    public function getSettings(): Settings
     {
         return $this->settings;
     }
 }
-?>

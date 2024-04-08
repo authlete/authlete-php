@@ -61,9 +61,9 @@ class HttpHeaders
      * @return HttpHeaders
      *     `$this` object.
      */
-    public function add($name, $value)
+    public function add(string $name, string $value): HttpHeaders
     {
-        if (is_null($name) || empty($name))
+        if (empty($name))
         {
             return $this;
         }
@@ -94,12 +94,12 @@ class HttpHeaders
      * @param string $name
      *     HTTP header name. For example, `Location`. Case-insensitive.
      *
-     * @return array
+     * @return array|null
      *     Values of the HTTP header.
      */
-    public function get($name)
+    public function get(string $name): ?array
     {
-        if (is_null($name) || empty($name))
+        if (empty($name))
         {
             return null;
         }
@@ -123,10 +123,10 @@ class HttpHeaders
      * @param string $name
      *     HTTP header name. For example, `Location`. Case-insensitive.
      *
-     * @return string
+     * @return string|null
      *     The first value of the HTTP header.
      */
-    public function getFirst($name)
+    public function getFirst(string $name): ?string
     {
         $array = $this->get($name);
 
@@ -145,7 +145,7 @@ class HttpHeaders
      * @return array
      *     A map that holds pairs of HTTP header name and values.
      */
-    public function getMap()
+    public function getMap(): array
     {
         return $this->headerMap;
     }
@@ -170,11 +170,11 @@ class HttpHeaders
      * @return HttpHeaders
      *     An HttpHeaders instance that represents the given HTTP headers.
      */
-    public static function parse($input)
+    public static function parse(string $input): HttpHeaders
     {
         $headers = new HttpHeaders();
 
-        if (is_null($input) || empty($input))
+        if (empty($input))
         {
             return $headers;
         }
@@ -196,4 +196,4 @@ class HttpHeaders
         return $headers;
     }
 }
-?>
+

@@ -26,14 +26,14 @@ namespace Authlete\Dto;
 
 
 use Authlete\Types\EnumTrait;
-use Authlete\Util\LanguageUtility;
+use Authlete\Types\Valuable;
 
 
 /**
  * The value of "action" in responses from Authlete's
  * /api/auth/authorization API.
  */
-class AuthorizationAction
+enum AuthorizationAction: string implements Valuable
 {
     use EnumTrait;
 
@@ -43,33 +43,24 @@ class AuthorizationAction
      * or an error occurred in Authlete. The authorization server
      * implementation should return "500 Internal Server Error" to the
      * client application.
-     *
-     * @static
-     * @var AuthorizationAction
      */
-    public static $INTERNAL_SERVER_ERROR;
+    case INTERNAL_SERVER_ERROR = 'internal_server_error';
 
 
     /**
      * The authorization request was wrong and the authorization server
      * implementation should notify the client application of the error
      * by "400 Bad Request".
-     *
-     * @static
-     * @var AuthorizationAction
      */
-    public static $BAD_REQUEST;
+    case BAD_REQUEST = 'bad_request';
 
 
     /**
      * The authorization request was wrong and the authorization server
      * implementation should notify the client application of the error
      * by "302 Found".
-     *
-     * @static
-     * @var AuthorizationAction
      */
-    public static $LOCATION;
+    case LOCATION = 'location';
 
 
     /**
@@ -77,37 +68,24 @@ class AuthorizationAction
      * implementation should notify the client application of the error
      * by "200 OK" with an HTML which triggers redirection by JavaScript.
      *
-     * @static
-     * @var AuthorizationAction
-     *
      * @see https://openid.net/specs/oauth-v2-form-post-response-mode-1_0.html OAuth 2.0 Form Post Response Mode
      */
-    public static $FORM;
+    case FORM = 'form';
 
 
     /**
      * The authorization request was valid and the authorization server
      * implementation should issue an authorization code, an ID token
      * and/or an access token without interaction with the end-user.
-     *
-     * @static
-     * @var AuthorizationAction
      */
-    public static $NO_INTERACTION;
+    case NO_INTERACTION = 'no_interaction';
 
 
     /**
      * The authorization request was valid and the authorization server
      * implementation should display UI to ask for authorization from
      * the end-user.
-     *
-     * @static
-     * @var AuthorizationAction
      */
-    public static $INTERACTION;
+    case INTERACTION = 'interaction';
 }
 
-
-// Call AuthorizationAction::initialize().
-LanguageUtility::initializeClass(__NAMESPACE__ . '\AuthorizationAction');
-?>

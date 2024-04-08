@@ -35,7 +35,7 @@ use Authlete\Util\LanguageUtility;
  *
  * @since 1.8
  */
-class DeliveryMode
+enum DeliveryMode: string implements Valuable
 {
     use EnumTrait;
 
@@ -43,35 +43,22 @@ class DeliveryMode
     /**
      * Poll mode, a backchannel token delivery mode where a client polls
      * the token endpoint until it gets tokens.
-     *
-     * @static
-     * @var DeliveryMode
      */
-    public static $POLL;
+    case POLL = 'poll';
 
 
     /**
      * Ping mode, a backchannel token delivery mode where a client is
      * notified via its client notification endpoint and then gets tokens
      * from the token endpoint.
-     *
-     * @static
-     * @var DeliveryMode
      */
-    public static $PING;
+    case PING = 'ping';
 
 
     /**
      * Push mode, a backchannel token delivery mode where a client receives
      * tokens at its client notification endpoint.
-     *
-     * @static
-     * @var DeliveryMode
      */
-    public static $PUSH;
+    case PUSH = 'push';
 }
 
-
-// Call DeliveryMode::initialize().
-LanguageUtility::initializeClass(__NAMESPACE__ . '\DeliveryMode');
-?>

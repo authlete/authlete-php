@@ -34,7 +34,7 @@ use Authlete\Util\LanguageUtility;
  *
  * @see https://tools.ietf.org/html/rfc7636 RFC 7636
  */
-class CodeChallengeMethod
+enum CodeChallengeMethod: string implements Valuable
 {
     use EnumTrait;
 
@@ -50,11 +50,8 @@ class CodeChallengeMethod
      *
      * See "[4.2. Client Creates the Code Challenge](https://tools.ietf.org/html/rfc7636#section-4.2)"
      * of [RFC 7636](https://tools.ietf.org/html/rfc7636) for details.
-     *
-     * @static
-     * @var CodeChallengeMethod
      */
-    public static $PLAIN;
+    case PLAIN = 'plain';
 
 
     /**
@@ -68,14 +65,7 @@ class CodeChallengeMethod
      *
      * See "[4.2. Client Creates the Code Challenge](https://tools.ietf.org/html/rfc7636#section-4.2)"
      * of [RFC 7636](https://tools.ietf.org/html/rfc7636) for details.
-     *
-     * @static
-     * @var CodeChallengeMethod
      */
-    public static $S256;
+    case S256 = 's256';
 }
 
-
-// Call CodeChallengeMethod::initialize().
-LanguageUtility::initializeClass(__NAMESPACE__ . '\CodeChallengeMethod');
-?>

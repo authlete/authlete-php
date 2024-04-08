@@ -46,21 +46,21 @@ class ClientAuthorizationGetListRequest implements ArrayCopyable, Arrayable, Jso
     use JsonTrait;
 
 
-    private $subject   = null;  // string
-    private $developer = null;  // string
-    private $start     = 0;     // integer
-    private $end       = 0;     // integer
+    private string $subject;
+    private string $developer;
+    private int $start;
+    private int $end;
 
 
     /**
      * Constructor.
      *
-     * @param string $subject
+     * @param string|null $subject
      *     The subject (= unique identifier) of the end-user. This argument
      *     is optional. The default value is `null`. However, note that
      *     `subject` request parameter is mandatory for the Authlete API.
      *
-     * @param string $developer
+     * @param string|null $developer
      *     The unique identifier of a developer. This argument is optional.
      *     The default value is `null`.
      *
@@ -73,7 +73,7 @@ class ClientAuthorizationGetListRequest implements ArrayCopyable, Arrayable, Jso
      *     optional. The default value is 5.
      */
     public function __construct(
-        $subject = null, $developer = null, $start = 0, $end = 5)
+        string $subject = null, string $developer = null, int $start = 0, int $end = 5)
     {
         $this->subject   = $subject;
         $this->developer = $developer;
@@ -86,10 +86,10 @@ class ClientAuthorizationGetListRequest implements ArrayCopyable, Arrayable, Jso
      * Get the subject (= unique identifier) of the end-user who has granted
      * authorization to the client application.
      *
-     * @return string
+     * @return string|null
      *     The subject of the end-user.
      */
-    public function getSubject()
+    public function getSubject(): ?string
     {
         return $this->subject;
     }
@@ -105,7 +105,7 @@ class ClientAuthorizationGetListRequest implements ArrayCopyable, Arrayable, Jso
      * @return ClientAuthorizationGetListRequest
      *     `$this` object.
      */
-    public function setSubject($subject)
+    public function setSubject(string $subject): ClientAuthorizationGetListRequest
     {
         ValidationUtility::ensureNullOrString('$subject', $subject);
 
@@ -118,10 +118,10 @@ class ClientAuthorizationGetListRequest implements ArrayCopyable, Arrayable, Jso
     /**
      * Get the unique identifier of a developer.
      *
-     * @return string
+     * @return string|null
      *     The unique identifier of a developer.
      */
-    public function getDeveloper()
+    public function getDeveloper(): ?string
     {
         return $this->developer;
     }
@@ -140,7 +140,7 @@ class ClientAuthorizationGetListRequest implements ArrayCopyable, Arrayable, Jso
      * @return ClientAuthorizationGetListRequest
      *     `$this` object.
      */
-    public function setDeveloper($developer)
+    public function setDeveloper(string $developer): ClientAuthorizationGetListRequest
     {
         ValidationUtility::ensureNullOrString('$developer', $developer);
 
@@ -156,7 +156,7 @@ class ClientAuthorizationGetListRequest implements ArrayCopyable, Arrayable, Jso
      * @return integer
      *     A start index of search results (inclusive).
      */
-    public function getStart()
+    public function getStart(): int
     {
         return $this->start;
     }
@@ -171,7 +171,7 @@ class ClientAuthorizationGetListRequest implements ArrayCopyable, Arrayable, Jso
      * @return ClientAuthorizationGetListRequest
      *     `$this` object.
      */
-    public function setStart($start)
+    public function setStart(int $start): ClientAuthorizationGetListRequest
     {
         ValidationUtility::ensureInteger('$start', $start);
 
@@ -187,7 +187,7 @@ class ClientAuthorizationGetListRequest implements ArrayCopyable, Arrayable, Jso
      * @return integer
      *     An end index of search results (exclusive).
      */
-    public function getEnd()
+    public function getEnd(): int
     {
         return $this->end;
     }
@@ -202,7 +202,7 @@ class ClientAuthorizationGetListRequest implements ArrayCopyable, Arrayable, Jso
      * @return ClientAuthorizationGetListRequest
      *     `$this` object.
      */
-    public function setEnd($end)
+    public function setEnd(int $end): ClientAuthorizationGetListRequest
     {
         ValidationUtility::ensureInteger('$end', $end);
 
@@ -220,7 +220,7 @@ class ClientAuthorizationGetListRequest implements ArrayCopyable, Arrayable, Jso
      * @param array $array
      *     {@inheritdoc}
      */
-    public function copyToArray(array &$array)
+    public function copyToArray(array &$array): void
     {
         $array['subject']   = $this->subject;
         $array['developer'] = $this->developer;
@@ -237,7 +237,7 @@ class ClientAuthorizationGetListRequest implements ArrayCopyable, Arrayable, Jso
      * @param array $array
      *     {@inheritdoc}
      */
-    public function copyFromArray(array &$array)
+    public function copyFromArray(array &$array): void
     {
         // subject
         $this->setSubject(
@@ -250,12 +250,12 @@ class ClientAuthorizationGetListRequest implements ArrayCopyable, Arrayable, Jso
         // start
         $this->setStart(
             LanguageUtility::parseInteger(
-                getFromArray('start', $array)));
+                LanguageUtility::getFromArray('start', $array)));
 
         // end
         $this->setEnd(
             LanguageUtility::parseInteger(
-                getFromArray('end', $array)));
+                LanguageUtility::getFromArray('end', $array)));
     }
 }
-?>
+

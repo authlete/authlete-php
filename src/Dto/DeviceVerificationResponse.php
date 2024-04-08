@@ -72,25 +72,25 @@ use Authlete\Util\ValidationUtility;
  */
 class DeviceVerificationResponse extends ApiResponse
 {
-    private $action            = null;  // \Authlete\Dto\DeviceVerificationAction
-    private $clientId          = null;  // string or (64-bit) integer
-    private $clientIdAlias     = null;  // string
-    private $clientIdAliasUsed = false; // boolean
-    private $clientName        = null;  // string
-    private $scopes            = null;  // array of \Authlete\Dto\Scope
-    private $claimNames        = null;  // array of string
-    private $acrs              = null;  // array of string
-    private $expiresAt         = null;  // string or (64-bit) integer
-    private $resources         = null;  // array of string
+    private ?DeviceVerificationAction $action = null;
+    private string|int|null $clientId         = null;
+    private ?string $clientIdAlias            = null;
+    private bool $clientIdAliasUsed           = false;
+    private ?string $clientName               = null;
+    private ?array $scopes                    = null;
+    private ?array $claimNames                = null;
+    private ?array $acrs                      = null;
+    private string|int|null $expiresAt        = null;
+    private ?array $resources                 = null;
 
 
     /**
      * Get the next action that the authorization server should take.
      *
-     * @return DeviceVerificationAction
+     * @return DeviceVerificationAction|null
      *     The next action that the authorization server should take.
      */
-    public function getAction()
+    public function getAction(): ?DeviceVerificationAction
     {
         return $this->action;
     }
@@ -99,13 +99,13 @@ class DeviceVerificationResponse extends ApiResponse
     /**
      * Set the next action that the authorization server should take.
      *
-     * @param DeviceVerificationAction $action
+     * @param DeviceVerificationAction|null $action
      *     The next action that the authorization server should take.
      *
      * @return DeviceVerificationResponse
      *     `$this` object.
      */
-    public function setAction(DeviceVerificationAction $action = null)
+    public function setAction(DeviceVerificationAction $action = null): DeviceVerificationResponse
     {
         $this->action = $action;
 
@@ -117,10 +117,10 @@ class DeviceVerificationResponse extends ApiResponse
      * Get the ID of the client application to which the user code has been
      * issued.
      *
-     * @return integer|string
+     * @return int|string|null
      *     The client ID.
      */
-    public function getClientId()
+    public function getClientId(): int|string|null
     {
         return $this->clientId;
     }
@@ -136,7 +136,7 @@ class DeviceVerificationResponse extends ApiResponse
      * @return DeviceVerificationResponse
      *     `$this` object.
      */
-    public function setClientId($clientId)
+    public function setClientId(int|string $clientId): DeviceVerificationResponse
     {
         ValidationUtility::ensureNullOrStringOrInteger('$clientId', $clientId);
 
@@ -150,10 +150,10 @@ class DeviceVerificationResponse extends ApiResponse
      * Get the client ID alias of the client application to which the user code
      * has been issued.
      *
-     * @return string
+     * @return string|null
      *     The client ID alias.
      */
-    public function getClientIdAlias()
+    public function getClientIdAlias(): ?string
     {
         return $this->clientIdAlias;
     }
@@ -169,7 +169,7 @@ class DeviceVerificationResponse extends ApiResponse
      * @return DeviceVerificationResponse
      *     `$this` object.
      */
-    public function setClientIdAlias($alias)
+    public function setClientIdAlias(string $alias): DeviceVerificationResponse
     {
         ValidationUtility::ensureNullOrString('$alias', $alias);
 
@@ -186,7 +186,7 @@ class DeviceVerificationResponse extends ApiResponse
      * @return boolean
      *     `true` if the client ID alias was used in the request.
      */
-    public function isClientIdAliasUsed()
+    public function isClientIdAliasUsed(): bool
     {
         return $this->clientIdAliasUsed;
     }
@@ -202,7 +202,7 @@ class DeviceVerificationResponse extends ApiResponse
      * @return DeviceVerificationResponse
      *     `$this` object.
      */
-    public function setClientIdAliasUsed($used)
+    public function setClientIdAliasUsed(bool $used): DeviceVerificationResponse
     {
         ValidationUtility::ensureBoolean('$used', $used);
 
@@ -216,10 +216,10 @@ class DeviceVerificationResponse extends ApiResponse
      * Get the name of the client application to which the user code has been
      * issued.
      *
-     * @return string
+     * @return string|null
      *     The name of the client application.
      */
-    public function getClientName()
+    public function getClientName(): ?string
     {
         return $this->clientName;
     }
@@ -235,7 +235,7 @@ class DeviceVerificationResponse extends ApiResponse
      * @return DeviceVerificationResponse
      *     `$this` object.
      */
-    public function setClientName($name)
+    public function setClientName(string $name): DeviceVerificationResponse
     {
         ValidationUtility::ensureNullOrString('$name', $name);
 
@@ -254,10 +254,10 @@ class DeviceVerificationResponse extends ApiResponse
      * this method always return `null` even if descriptions of the scopes are
      * registered.
      *
-     * @return Scope[]
+     * @return array|null
      *     The requested scopes.
      */
-    public function getScopes()
+    public function getScopes(): ?array
     {
         return $this->scopes;
     }
@@ -273,10 +273,10 @@ class DeviceVerificationResponse extends ApiResponse
      * @return DeviceVerificationResponse
      *     `$this` object.
      */
-    public function setScopes(array $scopes = null)
+    public function setScopes(array $scopes = null): DeviceVerificationResponse
     {
         ValidationUtility::ensureNullOrArrayOfType(
-            '$scopes', $scopes, __NAMESPACE__ . '\Scope');
+            '$scopes', __NAMESPACE__ . '\Scope', $scopes);
 
         $this->scopes = $scopes;
 
@@ -296,10 +296,10 @@ class DeviceVerificationResponse extends ApiResponse
      * (unless the `openid` scope is included in the default set of scopes
      * which is used when the `scope` request parameter is omitted).
      *
-     * @return string[]
+     * @return array|null
      *     The names of the requested claims.
      */
-    public function getClaimNames()
+    public function getClaimNames(): ?array
     {
         return $this->claimNames;
     }
@@ -315,7 +315,7 @@ class DeviceVerificationResponse extends ApiResponse
      * @return DeviceVerificationResponse
      *     `$this` object.
      */
-    public function setClaimNames(array $names = null)
+    public function setClaimNames(array $names = null): DeviceVerificationResponse
     {
         ValidationUtility::ensureNullOrArrayOfString('$names', $names);
 
@@ -329,10 +329,10 @@ class DeviceVerificationResponse extends ApiResponse
      * Get the list of ACR values requestsed by the device authorization
      * request.
      *
-     * @return string[]
+     * @return array|null
      *     The list of requested ACR values.
      */
-    public function getAcrs()
+    public function getAcrs(): ?array
     {
         return $this->acrs;
     }
@@ -348,7 +348,7 @@ class DeviceVerificationResponse extends ApiResponse
      * @return DeviceVerificationResponse
      *     `$this` object.
      */
-    public function setAcrs(array $acrs = null)
+    public function setAcrs(array $acrs = null): DeviceVerificationResponse
     {
         ValidationUtility::ensureNullOrArrayOfString('$acrs', $acrs);
 
@@ -362,11 +362,11 @@ class DeviceVerificationResponse extends ApiResponse
      * Get the date in milliseconds since the Unix epoch (1970-Jan-01) at
      * which the user code will expire.
      *
-     * @return integer|string
+     * @return int|string|null
      *     The expiration date in milliseconds since the Unix epoch
      *     (1970-Jan-01) at which the user code will expire.
      */
-    public function getExpiresAt()
+    public function getExpiresAt(): int|string|null
     {
         return $this->expiresAt;
     }
@@ -383,7 +383,7 @@ class DeviceVerificationResponse extends ApiResponse
      * @return DeviceVerificationResponse
      *     `$this` object.
      */
-    public function setExpiresAt($expiresAt)
+    public function setExpiresAt(int|string $expiresAt): DeviceVerificationResponse
     {
         ValidationUtility::ensureNullOrStringOrInteger('$expiresAt', $expiresAt);
 
@@ -397,12 +397,12 @@ class DeviceVerificationResponse extends ApiResponse
      * Get the resources specified by the `resource` request parameters in the
      * preceding device authorization request.
      *
-     * @return string[]
+     * @return array|null
      *     The target resources.
      *
      * @see https://www.rfc-editor.org/rfc/rfc8707.html RFC 8707 Resource Indicators for OAuth 2.0
      */
-    public function getResources()
+    public function getResources(): ?array
     {
         return $this->resources;
     }
@@ -420,7 +420,7 @@ class DeviceVerificationResponse extends ApiResponse
      *
      * @see https://www.rfc-editor.org/rfc/rfc8707.html RFC 8707 Resource Indicators for OAuth 2.0
      */
-    public function setResources(array $resources = null)
+    public function setResources(array $resources = null): DeviceVerificationResponse
     {
         ValidationUtility::ensureNullOrArrayOfString('$resources', $resources);
 
@@ -438,7 +438,7 @@ class DeviceVerificationResponse extends ApiResponse
      * @param array $array
      *     {@inheritdoc}
      */
-    public function copyToArray(array &$array)
+    public function copyToArray(array &$array): void
     {
         parent::copyToArray($array);
 
@@ -463,7 +463,7 @@ class DeviceVerificationResponse extends ApiResponse
      * @param array $array
      *     {@inheritdoc}
      */
-    public function copyFromArray(array &$array)
+    public function copyFromArray(array &$array): void
     {
         parent::copyFromArray($array);
 
@@ -490,7 +490,7 @@ class DeviceVerificationResponse extends ApiResponse
 
         // scopes
         $_scopes = LanguageUtility::getFromArray('scopes', $array);
-        $_scopes = LanguageUtility::convertArrayToArrayOfArrayCopyable($_scopes, __NAMESPACE__ . '\Scope');
+        $_scopes = LanguageUtility::convertArrayToArrayOfArrayCopyable(__NAMESPACE__ . '\Scope', $_scopes);
         $this->setScopes($_scopes);
 
         // claimNames
@@ -510,4 +510,3 @@ class DeviceVerificationResponse extends ApiResponse
         $this->setResources($_resources);
     }
 }
-?>

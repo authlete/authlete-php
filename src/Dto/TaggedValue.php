@@ -45,21 +45,21 @@ class TaggedValue implements ArrayCopyable, Arrayable, Jsonable
     use JsonTrait;
 
 
-    private $tag   = null;  // string
-    private $value = null;  // string
+    private ?string $tag;
+    private ?string $value;
 
 
     /**
      * Constructor.
      *
-     * @param string $tag
+     * @param string|null $tag
      *     The language tag. This parameter is optional. Its default value
      *     is `null`.
      *
-     * @param string $value
+     * @param string|null $value
      *     The value. This parameter is optional. Its default value is `null`.
      */
-    public function __construct($tag = null, $value = null)
+    public function __construct(string $tag = null, string $value = null)
     {
         ValidationUtility::ensureNullOrString('$tag',    $tag);
         ValidationUtility::ensureNullOrString('$value',  $value);
@@ -75,7 +75,7 @@ class TaggedValue implements ArrayCopyable, Arrayable, Jsonable
      * @return string
      *     The language tag.
      */
-    public function getTag()
+    public function getTag(): ?string
     {
         return $this->tag;
     }
@@ -90,7 +90,7 @@ class TaggedValue implements ArrayCopyable, Arrayable, Jsonable
      * @return TaggedValue
      *     `$this` object.
      */
-    public function setTag($tag)
+    public function setTag(string $tag): TaggedValue
     {
         ValidationUtility::ensureNullOrString('$tag', $tag);
 
@@ -106,7 +106,7 @@ class TaggedValue implements ArrayCopyable, Arrayable, Jsonable
      * @return string
      *     The value.
      */
-    public function getValue()
+    public function getValue(): ?string
     {
         return $this->value;
     }
@@ -121,7 +121,7 @@ class TaggedValue implements ArrayCopyable, Arrayable, Jsonable
      * @return TaggedValue
      *     `$this` object.
      */
-    public function setValue($value)
+    public function setValue(string $value): TaggedValue
     {
         ValidationUtility::ensureNullOrString('$value', $value);
 
@@ -165,4 +165,3 @@ class TaggedValue implements ArrayCopyable, Arrayable, Jsonable
             LanguageUtility::getFromArray('value', $array));
     }
 }
-?>

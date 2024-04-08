@@ -71,7 +71,7 @@ interface AuthleteApi
      *
      * @throws AuthleteApiException
      */
-    public function authorization(AuthorizationRequest $request);
+    public function authorization(AuthorizationRequest $request): \Authlete\Dto\AuthorizationResponse;
 
 
     /**
@@ -85,7 +85,7 @@ interface AuthleteApi
      *
      * @throws AuthleteApiException
      */
-    public function authorizationFail(AuthorizationFailRequest $request);
+    public function authorizationFail(AuthorizationFailRequest $request): \Authlete\Dto\AuthorizationFailResponse;
 
 
     /**
@@ -99,7 +99,7 @@ interface AuthleteApi
      *
      * @throws AuthleteApiException
      */
-    public function authorizationIssue(AuthorizationIssueRequest $request);
+    public function authorizationIssue(AuthorizationIssueRequest $request): \Authlete\Dto\AuthorizationIssueResponse;
 
 
     /**
@@ -113,7 +113,7 @@ interface AuthleteApi
      *
      * @throws AuthleteApiException
      */
-    public function token(TokenRequest $request);
+    public function token(TokenRequest $request): \Authlete\Dto\TokenResponse;
 
 
     /**
@@ -127,7 +127,7 @@ interface AuthleteApi
      *
      * @throws AuthleteApiException
      */
-    public function tokenCreate(TokenCreateRequest $request);
+    public function tokenCreate(TokenCreateRequest $request): \Authlete\Dto\TokenCreateResponse;
 
 
     /**
@@ -155,7 +155,7 @@ interface AuthleteApi
      *
      * @throws AuthleteApiException
      */
-    public function tokenFail(TokenFailRequest $request);
+    public function tokenFail(TokenFailRequest $request): \Authlete\Dto\TokenFailResponse;
 
 
     /**
@@ -169,7 +169,7 @@ interface AuthleteApi
      *
      * @throws AuthleteApiException
      */
-    public function tokenIssue(TokenIssueRequest $request);
+    public function tokenIssue(TokenIssueRequest $request): \Authlete\Dto\TokenIssueResponse;
 
 
     /**
@@ -183,7 +183,7 @@ interface AuthleteApi
      *
      * @throws AuthleteApiException
      */
-    public function tokenUpdate(TokenUpdateRequest $request);
+    public function tokenUpdate(TokenUpdateRequest $request): \Authlete\Dto\TokenUpdateResponse;
 
 
     /**
@@ -197,7 +197,7 @@ interface AuthleteApi
      *
      * @throws AuthleteApiException
      */
-    public function revocation(RevocationRequest $request);
+    public function revocation(RevocationRequest $request): \Authlete\Dto\RevocationResponse;
 
 
     /**
@@ -211,7 +211,7 @@ interface AuthleteApi
      *
      * @throws AuthleteApiException
      */
-    public function userInfo(UserInfoRequest $request);
+    public function userInfo(UserInfoRequest $request): \Authlete\Dto\UserInfoResponse;
 
 
     /**
@@ -225,7 +225,7 @@ interface AuthleteApi
      *
      * @throws AuthleteApiException
      */
-    public function userInfoIssue(UserInfoIssueRequest $request);
+    public function userInfoIssue(UserInfoIssueRequest $request): \Authlete\Dto\UserInfoIssueResponse;
 
 
     /**
@@ -239,7 +239,7 @@ interface AuthleteApi
      *
      * @throws AuthleteApiException
      */
-    public function introspection(IntrospectionRequest $request);
+    public function introspection(IntrospectionRequest $request): \Authlete\Dto\IntrospectionResponse;
 
 
     /**
@@ -253,7 +253,7 @@ interface AuthleteApi
      *
      * @throws AuthleteApiException
      */
-    public function standardIntrospection(StandardIntrospectionRequest $request);
+    public function standardIntrospection(StandardIntrospectionRequest $request): \Authlete\Dto\StandardIntrospectionResponse;
 
 
     /**
@@ -268,7 +268,7 @@ interface AuthleteApi
      *
      * @throws AuthleteApiException
      */
-    public function createService(Service $service);
+    public function createService(Service $service): Service;
 
 
     /**
@@ -295,7 +295,7 @@ interface AuthleteApi
      *
      * @throws AuthleteApiException
      */
-    public function getService($apiKey);
+    public function getService($apiKey): Service;
 
 
     /**
@@ -339,7 +339,7 @@ interface AuthleteApi
      *
      * @throws AuthleteApiException
      */
-    public function getServiceList($start = 0, $end = 5);
+    public function getServiceList($start = 0, $end = 5): \Authlete\Dto\ServiceListResponse;
 
 
     /**
@@ -356,7 +356,7 @@ interface AuthleteApi
      *
      * @throws AuthleteApiException
      */
-    public function updateService(Service $service);
+    public function updateService(Service $service): Service;
 
 
     /**
@@ -377,7 +377,7 @@ interface AuthleteApi
      *
      * @throws AuthleteApiException
      */
-    public function getServiceJwks($pretty = false, $includePrivateKeys = false);
+    public function getServiceJwks(bool $pretty = false, bool $includePrivateKeys = false): string;
 
 
     /**
@@ -401,7 +401,7 @@ interface AuthleteApi
      *
      * @see https://openid.net/specs/openid-connect-discovery-1_0.html OpenID Connect Discovery 1.0
      */
-    public function getServiceConfiguration($pretty = true);
+    public function getServiceConfiguration(bool $pretty = true): string;
 
 
     /**
@@ -416,7 +416,7 @@ interface AuthleteApi
      *
      * @throws AuthleteApiException
      */
-    public function createClient(Client $client);
+    public function createClient(Client $client): Client;
 
 
     /**
@@ -428,7 +428,7 @@ interface AuthleteApi
      *
      * @throws AuthleteApiException
      */
-    public function deleteClient($clientId);
+    public function deleteClient(int|string $clientId);
 
 
     /**
@@ -443,7 +443,7 @@ interface AuthleteApi
      *
      * @throws AuthleteApiException
      */
-    public function getClient($clientId);
+    public function getClient(int|string $clientId): Client;
 
 
     /**
@@ -475,7 +475,7 @@ interface AuthleteApi
      * $totalCount = $response->getTotalCount();
      * ```
      *
-     * @param string $developer
+     * @param string|null $developer
      *     The developer of the targeted clients, or `null` to get a
      *     list of clients of the entire service. This argument is
      *     optional and its default value is `null`.
@@ -492,7 +492,7 @@ interface AuthleteApi
      *
      * @throws AuthleteApiException
      */
-    public function getClientList($developer = null, $start = 0, $end = 5);
+    public function getClientList(string $developer = null, int $start = 0, int $end = 5);
 
 
     /**
@@ -509,7 +509,7 @@ interface AuthleteApi
      *
      * @throws AuthleteApiException
      */
-    public function updateClient(Client $client);
+    public function updateClient(Client $client): Client;
 
 
     /**
@@ -525,7 +525,7 @@ interface AuthleteApi
      * expired. Note that this functionality is not provided by the
      * shared Authlete server.
      *
-     * @param string|integer $clientId
+     * @param integer|string $clientId
      *     Client ID.
      *
      * @param string $subject
@@ -536,7 +536,7 @@ interface AuthleteApi
      *
      * @throws AuthleteApiException
      */
-    public function getGrantedScopes($clientId, $subject);
+    public function getGrantedScopes(int|string $clientId, string $subject): \Authlete\Dto\GrantedScopesGetResponse;
 
 
     /**
@@ -560,7 +560,7 @@ interface AuthleteApi
      *
      * @throws AuthleteApiException
      */
-    public function deleteGrantedScopes($clientId, $subject);
+    public function deleteGrantedScopes(int|string $clientId, string $subject);
 
 
     /**
@@ -568,7 +568,7 @@ interface AuthleteApi
      * application by the end-user (= call Authlete's
      * /api/client/authorization/delete/{clientId} API).
      *
-     * @param string|integer $clientId
+     * @param integer|string $clientId
      *     Client ID.
      *
      * @param string $subject
@@ -576,7 +576,7 @@ interface AuthleteApi
      *
      * @throws AuthleteApiException
      */
-    public function deleteClientAuthorization($clientId, $subject);
+    public function deleteClientAuthorization(int|string $clientId, string $subject);
 
 
     /**
@@ -593,7 +593,7 @@ interface AuthleteApi
      * @throws AuthleteApiException
      */
     public function getClientAuthorizationList(
-        ClientAuthorizationGetListRequest $request);
+        ClientAuthorizationGetListRequest $request): \Authlete\Dto\AuthorizedClientListResponse;
 
 
     /**
@@ -613,7 +613,7 @@ interface AuthleteApi
      * @throws AuthleteApiException
      */
     public function updateClientAuthorization(
-        $clientId, ClientAuthorizationUpdateRequest $request);
+        int|string $clientId, ClientAuthorizationUpdateRequest $request): \Authlete\Dto\ApiResponse;
 
 
     /**
@@ -632,7 +632,7 @@ interface AuthleteApi
      *
      * @throws AuthleteApiException
      */
-    public function refreshClientSecret($clientId);
+    public function refreshClientSecret(int|string $clientId): \Authlete\Dto\ClientSecretRefreshResponse;
 
 
     /**
@@ -656,7 +656,7 @@ interface AuthleteApi
      *
      * @throws AuthleteApiException
      */
-    public function updateClientSecret($clientId, $clientSecret);
+    public function updateClientSecret(int|string $clientId, string $clientSecret): \Authlete\Dto\ClientSecretUpdateResponse;
 
 
     /**
@@ -672,7 +672,7 @@ interface AuthleteApi
      *
      * @since 1.8
      */
-    public function backchannelAuthentication(BackchannelAuthenticationRequest $request);
+    public function backchannelAuthentication(BackchannelAuthenticationRequest $request): \Authlete\Dto\BackchannelAuthenticationResponse;
 
 
     /**
@@ -688,7 +688,7 @@ interface AuthleteApi
      *
      * @since 1.8
      */
-    public function backchannelAuthenticationIssue(BackchannelAuthenticationIssueRequest $request);
+    public function backchannelAuthenticationIssue(BackchannelAuthenticationIssueRequest $request): \Authlete\Dto\BackchannelAuthenticationIssueResponse;
 
 
     /**
@@ -704,7 +704,7 @@ interface AuthleteApi
      *
      * @since 1.8
      */
-    public function backchannelAuthenticationFail(BackchannelAuthenticationFailRequest $request);
+    public function backchannelAuthenticationFail(BackchannelAuthenticationFailRequest $request): \Authlete\Dto\BackchannelAuthenticationFailResponse;
 
 
     /**
@@ -720,7 +720,7 @@ interface AuthleteApi
      *
      * @since 1.8
      */
-    public function backchannelAuthenticationComplete(BackchannelAuthenticationCompleteRequest $request);
+    public function backchannelAuthenticationComplete(BackchannelAuthenticationCompleteRequest $request): \Authlete\Dto\BackchannelAuthenticationCompleteResponse;
 
 
     /**
@@ -736,7 +736,7 @@ interface AuthleteApi
      *
      * @since 1.8
      */
-    public function deviceAuthorization(DeviceAuthorizationRequest $request);
+    public function deviceAuthorization(DeviceAuthorizationRequest $request): \Authlete\Dto\DeviceAuthorizationResponse;
 
 
     /**
@@ -752,7 +752,7 @@ interface AuthleteApi
      *
      * @since 1.8
      */
-    public function deviceComplete(DeviceCompleteRequest $request);
+    public function deviceComplete(DeviceCompleteRequest $request): \Authlete\Dto\DeviceCompleteResponse;
 
 
     /**
@@ -768,7 +768,7 @@ interface AuthleteApi
      *
      * @since 1.8
      */
-    public function deviceVerification(DeviceVerificationRequest $request);
+    public function deviceVerification(DeviceVerificationRequest $request): \Authlete\Dto\DeviceVerificationResponse;
 
 
     /**
@@ -784,7 +784,7 @@ interface AuthleteApi
      *
      * @since 1.8
      */
-    public function pushAuthorizationRequest(PushedAuthReqRequest $request);
+    public function pushAuthorizationRequest(PushedAuthReqRequest $request): \Authlete\Dto\PushedAuthReqResponse;
 
 
     /**
@@ -793,6 +793,6 @@ interface AuthleteApi
      * @return Settings
      *     The settings of this `AuthleteApi` implementation.
      */
-    public function getSettings();
+    public function getSettings(): Settings;
 }
 ?>

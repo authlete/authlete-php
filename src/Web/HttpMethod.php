@@ -35,9 +35,8 @@ use Authlete\Util\LanguageUtility;
  *
  * @see https://tools.ietf.org/html/rfc7231#section-4.3 RFC 7231 (HTTP/1.1), 4.3. Method Definitions
  */
-class HttpMethod
+enum HttpMethod
 {
-    use EnumTrait;
 
 
     /**
@@ -46,7 +45,7 @@ class HttpMethod
      * @var HttpMethod
      * @see https://tools.ietf.org/html/rfc7231#section-4.3.1 RFC 7231, 4.3.1. GET
      */
-    public static $GET;
+    case GET;
 
 
     /**
@@ -55,7 +54,7 @@ class HttpMethod
      * @var HttpMethod
      * @see https://tools.ietf.org/html/rfc7231#section-4.3.2 RFC 7231, 4.3.2. HEAD
      */
-    public static $HEAD;
+    case HEAD;
 
 
     /**
@@ -64,7 +63,7 @@ class HttpMethod
      * @var HttpMethod
      * @see https://tools.ietf.org/html/rfc7231#section-4.3.3 RFC 7231, 4.3.3. POST
      */
-    public static $POST;
+    case POST;
 
 
     /**
@@ -73,7 +72,7 @@ class HttpMethod
      * @var HttpMethod
      * @see https://tools.ietf.org/html/rfc7231#section-4.3.4 RFC 7231, 4.3.4. PUT
      */
-    public static $PUT;
+    case PUT;
 
 
     /**
@@ -82,7 +81,7 @@ class HttpMethod
      * @var HttpMethod
      * @see https://tools.ietf.org/html/rfc7231#section-4.3.5 RFC 7231, 4.3.5. DELETE
      */
-    public static $DELETE;
+    case DELETE;
 
 
     /**
@@ -91,7 +90,7 @@ class HttpMethod
      * @var HttpMethod
      * @see https://tools.ietf.org/html/rfc7231#section-4.3.6 RFC 7231, 4.3.6. CONNECT
      */
-    public static $CONNECT;
+    case CONNECT;
 
 
     /**
@@ -100,7 +99,7 @@ class HttpMethod
      * @var HttpMethod
      * @see https://tools.ietf.org/html/rfc7231#section-4.3.7 RFC 7231, 4.3.7. OPTIONS
      */
-    public static $OPTIONS;
+    case OPTIONS;
 
 
     /**
@@ -109,10 +108,5 @@ class HttpMethod
      * @var HttpMethod
      * @see https://tools.ietf.org/html/rfc7231#section-4.3.8 RFC 7231, 4.3.8. TRACE
      */
-    public static $TRACE;
+    case TRACE;
 }
-
-
-// Call HttpMethod::initialize().
-LanguageUtility::initializeClass(__NAMESPACE__ . '\HttpMethod');
-?>

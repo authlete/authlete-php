@@ -26,16 +26,15 @@ namespace Authlete\Dto;
 
 
 use Authlete\Types\EnumTrait;
-use Authlete\Util\LanguageUtility;
+use Authlete\Types\Valuable;
 
 
 /**
  * The value of "action" in responses from Authlete's /api/auth/userinfo API.
  */
-class UserInfoAction
+enum UserInfoAction: string implements Valuable
 {
     use EnumTrait;
-
 
     /**
      * The request from your system was wrong or an error occurred in Authlete.
@@ -44,10 +43,8 @@ class UserInfoAction
      * implementation should return `500 Internal Server Error` to the client
      * application.
      *
-     * @static
-     * @var UserInfoAction
      */
-    public static $INTERNAL_SERVER_ERROR;
+    case INTERNAL_SERVER_ERROR = 'internal_server_error';
 
 
     /**
@@ -57,10 +54,8 @@ class UserInfoAction
      * implementation should return `400 Bad Request` to the client
      * application.
      *
-     * @static
-     * @var UserInfoAction
      */
-    public static $BAD_REQUEST;
+    case BAD_REQUEST = 'bad_request';
 
 
     /**
@@ -70,10 +65,8 @@ class UserInfoAction
      * implementation should return `401 Unauthorized` to the client
      * application.
      *
-     * @static
-     * @var UserInfoAction
      */
-    public static $UNAUTHORIZED;
+    case UNAUTHORIZED = 'unauthorized';
 
 
     /**
@@ -83,10 +76,8 @@ class UserInfoAction
      * The [userinfo endpoint](https://openid.net/specs/openid-connect-core-1_0.html#UserInfo)
      * implementation should return `403 Forbidden` to the client application.
      *
-     * @static
-     * @var UserInfoAction
      */
-    public static $FORBIDDEN;
+    case FORBIDDEN = 'forbidden';
 
 
     /**
@@ -97,13 +88,6 @@ class UserInfoAction
      * pass the information to Authlete's `/api/auth/userinfo/issue` API in
      * order to make Authlete generate a userinfo response.
      *
-     * @static
-     * @var UserInfoAction
      */
-    public static $OK;
+    case OK = 'ok';
 }
-
-
-// Call UserInfoAction::initialize().
-LanguageUtility::initializeClass(__NAMESPACE__ . '\UserInfoAction');
-?>

@@ -26,6 +26,7 @@ namespace Authlete\Dto;
 
 
 use Authlete\Types\EnumTrait;
+use Authlete\Types\Valuable;
 use Authlete\Util\LanguageUtility;
 
 
@@ -35,7 +36,7 @@ use Authlete\Util\LanguageUtility;
  *
  * @since 1.8
  */
-class DeviceAuthorizationAction
+enum DeviceAuthorizationAction: string implements Valuable
 {
     use EnumTrait;
 
@@ -44,33 +45,24 @@ class DeviceAuthorizationAction
      * The device authorization request is valid. The authorization server
      * implementation should return a successful response with `200 OK` and
      * `application/json` to the client application.
-     *
-     * @static
-     * @var DeviceAuthorizationAction
      */
-    public static $OK;
+    case OK = 'ok';
 
 
     /**
      * The device authorization request is invalid. The authorization server
      * implementation should return an error response with `400 Bad Request`
      * and `application/json` to the client application.
-     *
-     * @static
-     * @var DeviceAuthorizationAction
      */
-    public static $BAD_REQUEST;
+    case BAD_REQUEST = 'bad_request';
 
 
     /**
      * Client authentication of the device authorization request failed.
      * The authorization server implementation should return an error response
      * with `401 Unauthorized` and `application/json` to the client application.
-     *
-     * @static
-     * @var DeviceAuthorizationAction
      */
-    public static $UNAUTHORIZED;
+    case UNAUTHORIZED = 'unauthorized';
 
 
     /**
@@ -78,14 +70,7 @@ class DeviceAuthorizationAction
      * an error occurred on Authlete side. The authorization server
      * implementation should return response with `500 Internal Server Error`
      * and `application/json` to the client application.
-     *
-     * @static
-     * @var DeviceAuthorizationAction
      */
-    public static $INTERNAL_SERVER_ERROR;
+    case INTERNAL_SERVER_ERROR = 'internal_server_error';
 }
 
-
-// Call DeviceAuthorizationAction::initialize().
-LanguageUtility::initializeClass(__NAMESPACE__ . '\DeviceAuthorizationAction');
-?>

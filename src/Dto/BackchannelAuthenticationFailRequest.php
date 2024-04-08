@@ -50,20 +50,20 @@ class BackchannelAuthenticationFailRequest implements ArrayCopyable, Arrayable, 
     use JsonTrait;
 
 
-    private $ticket           = null;  // string
-    private $reason           = null;  // \Authlete\Dto\BackchannelAuthenticationFailReason
-    private $errorDescription = null;  // string
-    private $errorUri         = null;  // string
+    private ?BackchannelAuthenticationFailReason $reason = null;
+    private ?string $ticket                              = null;
+    private ?string $errorDescription                    = null;
+    private ?string $errorUri                            = null;
 
 
     /**
      * Get the ticket which should be deleted on a call of Authlete's
      * `/api/backchannle/authentication/fail` API.
      *
-     * @return string
+     * @return string|null
      *     A ticket.
      */
-    public function getTicket()
+    public function getTicket(): ?string
     {
         return $this->ticket;
     }
@@ -85,7 +85,7 @@ class BackchannelAuthenticationFailRequest implements ArrayCopyable, Arrayable, 
      * @return BackchannelAuthenticationFailRequest
      *     `$this` object.
      */
-    public function setTicket($ticket)
+    public function setTicket(string $ticket): BackchannelAuthenticationFailRequest
     {
         ValidationUtility::ensureNullOrString('$ticket', $ticket);
 
@@ -98,10 +98,10 @@ class BackchannelAuthenticationFailRequest implements ArrayCopyable, Arrayable, 
     /**
      * Get the reason of the failure of the backchannel authentication request.
      *
-     * @return BackchannelAuthenticationFailReason
+     * @return BackchannelAuthenticationFailReason|null
      *     The reason of the failure of the backchannel authentication request.
      */
-    public function getReason()
+    public function getReason(): ?BackchannelAuthenticationFailReason
     {
         return $this->reason;
     }
@@ -114,13 +114,13 @@ class BackchannelAuthenticationFailRequest implements ArrayCopyable, Arrayable, 
      * this parameter is recommended. If omitted, `SERVER_ERROR` is used as a
      * reason.
      *
-     * @param BackchannelAuthenticationFailReason $reason
+     * @param BackchannelAuthenticationFailReason|null $reason
      *     The reason of the failure of the backchannel authentication request.
      *
      * @return BackchannelAuthenticationFailRequest
      *     `$this` object.
      */
-    public function setReason(BackchannelAuthenticationFailReason $reason = null)
+    public function setReason(BackchannelAuthenticationFailReason $reason = null): BackchannelAuthenticationFailRequest
     {
         $this->reason = $reason;
 
@@ -132,10 +132,10 @@ class BackchannelAuthenticationFailRequest implements ArrayCopyable, Arrayable, 
      * Get the description of the error. This corresponds to the
      * `error_description` property in the response to the client.
      *
-     * @return string
+     * @return string|null
      *     The description of the error.
      */
-    public function getErrorDescription()
+    public function getErrorDescription(): ?string
     {
         return $this->errorDescription;
     }
@@ -157,7 +157,7 @@ class BackchannelAuthenticationFailRequest implements ArrayCopyable, Arrayable, 
      * @return BackchannelAuthenticationFailRequest
      *     `$this` object.
      */
-    public function setErrorDescription($description)
+    public function setErrorDescription(string $description): BackchannelAuthenticationFailRequest
     {
         ValidationUtility::ensureNullOrString('$description', $description);
 
@@ -171,10 +171,10 @@ class BackchannelAuthenticationFailRequest implements ArrayCopyable, Arrayable, 
      * Get the URI of a document which describes the error in detail. This
      * corresponds to the `error_uri` property in the response to the client.
      *
-     * @return string
+     * @return string|null
      *     The URI of a document which describes the error in detail.
      */
-    public function getErrorUri()
+    public function getErrorUri(): ?string
     {
         return $this->errorUri;
     }
@@ -193,7 +193,7 @@ class BackchannelAuthenticationFailRequest implements ArrayCopyable, Arrayable, 
      * @return BackchannelAuthenticationFailRequest
      *     `$this` object.
      */
-    public function setErrorUri($uri)
+    public function setErrorUri(string $uri): BackchannelAuthenticationFailRequest
     {
         ValidationUtility::ensureNullOrString('$uri', $uri);
 
@@ -211,7 +211,7 @@ class BackchannelAuthenticationFailRequest implements ArrayCopyable, Arrayable, 
      * @param array $array
      *     {@inheritdoc}
      */
-    public function copyToArray(array &$array)
+    public function copyToArray(array &$array): void
     {
         $array['ticket']           = $this->ticket;
         $array['reason']           = LanguageUtility::toString($this->reason);
@@ -228,7 +228,7 @@ class BackchannelAuthenticationFailRequest implements ArrayCopyable, Arrayable, 
      * @param array $array
      *     {@inheritdoc}
      */
-    public function copyFromArray(array &$array)
+    public function copyFromArray(array &$array): void
     {
         // ticket
         $this->setTicket(
@@ -248,4 +248,4 @@ class BackchannelAuthenticationFailRequest implements ArrayCopyable, Arrayable, 
             LanguageUtility::getFromArray('errorUri', $array));
     }
 }
-?>
+

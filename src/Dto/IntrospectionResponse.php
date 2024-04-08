@@ -158,37 +158,37 @@ use Authlete\Util\ValidationUtility;
  */
 class IntrospectionResponse extends ApiResponse
 {
-    private $action                = null;  // \Authlete\Dto\IntrospectionAction
-    private $clientId              = null;  // string or (64-bit) integer
-    private $subject               = null;  // string
-    private $scopes                = null;  // array of string
-    private $scopeDetails          = null;  // array of string
-    private $existent              = false; // boolean
-    private $usable                = false; // boolean
-    private $sufficient            = false; // boolean
-    private $refreshable           = false; // boolean
-    private $responseContent       = null;  // string
-    private $expiresAt             = null;  // string or (64-bit) integer
-    private $properties            = null;  // array of \Authlete\Dto\Property
-    private $clientIdAlias         = null;  // string
-    private $clientIdAliasUsed     = false; // boolean
-    private $certificateThumbprint = null;  // string
-    private $resources             = null;  // array of string
-    private $accessTokenResources  = null;  // array of string
-    private $grantId               = null;  // string
-    private $consentedClaims       = null;  // array of string
-    private $serviceAttributes     = null;  // array of \Authlete\Dto\Pair
-    private $clientAttributes      = null;  // array of \Authlete\Dto\Pair
-    private $forExternalAttachment = false; // boolean
+    private ?IntrospectionAction $action   = null;
+    private string|int|null $clientId      = null;
+    private ?string $subject               = null;
+    private ?array $scopes                 = null;  // array of string
+    private ?array $scopeDetails           = null;  // array of string
+    private bool $existent                 = false;
+    private bool $usable                   = false;
+    private bool $sufficient               = false;
+    private bool $refreshable              = false;
+    private ?string $responseContent       = null;
+    private string|int|null $expiresAt     = null;
+    private ?array $properties             = null;  // array of \Authlete\Dto\Property
+    private ?string $clientIdAlias         = null;
+    private bool $clientIdAliasUsed        = false;
+    private ?string $certificateThumbprint = null;
+    private ?array $resources              = null;  // array of string
+    private ?array $accessTokenResources   = null;  // array of string
+    private ?string $grantId               = null;
+    private ?array $consentedClaims        = null;  // array of string
+    private ?array $serviceAttributes      = null;  // array of \Authlete\Dto\Pair
+    private ?array $clientAttributes       = null;  // array of \Authlete\Dto\Pair
+    private bool $forExternalAttachment    = false;
 
 
     /**
      * Get the next action that the resource server should take.
      *
-     * @return IntrospectionAction
+     * @return IntrospectionAction|null
      *     The next action that the resource server should take.
      */
-    public function getAction()
+    public function getAction(): ?IntrospectionAction
     {
         return $this->action;
     }
@@ -197,13 +197,13 @@ class IntrospectionResponse extends ApiResponse
     /**
      * Set the next action that the resource server should take.
      *
-     * @param IntrospectionAction $action
+     * @param IntrospectionAction|null $action
      *     The next action that the resource server should take.
      *
-     * @return IntrospectionAction
+     * @return IntrospectionResponse
      *     `$this` object.
      */
-    public function setAction(IntrospectionAction $action = null)
+    public function setAction(IntrospectionAction $action = null): IntrospectionResponse
     {
         $this->action = $action;
 
@@ -215,10 +215,10 @@ class IntrospectionResponse extends ApiResponse
      * Get the client ID of the client application to which the access token
      * has been issued.
      *
-     * @return integer|string
+     * @return int|string|null
      *     The ID of the client application associated with the access token.
      */
-    public function getClientId()
+    public function getClientId(): int|string|null
     {
         return $this->clientId;
     }
@@ -231,10 +231,10 @@ class IntrospectionResponse extends ApiResponse
      * @param integer|string $clientId
      *     The ID of the client application associated with the access token.
      *
-     * @return IntrospectionAction
+     * @return IntrospectionResponse
      *     `$this` object.
      */
-    public function setClientId($clientId)
+    public function setClientId(int|string $clientId): IntrospectionResponse
     {
         ValidationUtility::ensureNullOrStringOrInteger('$clientId', $clientId);
 
@@ -249,10 +249,10 @@ class IntrospectionResponse extends ApiResponse
      * who allowed the authorization server  to issue the access token to the
      * client application.
      *
-     * @return string
+     * @return string|null
      *     The subject of the end-user associated with the access token.
      */
-    public function getSubject()
+    public function getSubject(): ?string
     {
         return $this->subject;
     }
@@ -266,10 +266,10 @@ class IntrospectionResponse extends ApiResponse
      * @param string $subject
      *     The subject of the end-user associated with the access token.
      *
-     * @return IntrospectionAction
+     * @return IntrospectionResponse
      *     `$this` object.
      */
-    public function setSubject($subject)
+    public function setSubject(string $subject): IntrospectionResponse
     {
         ValidationUtility::ensureNullOrString('$subject', $subject);
 
@@ -282,10 +282,10 @@ class IntrospectionResponse extends ApiResponse
     /**
      * Get the scopes that are associated with the access token.
      *
-     * @return string[]
+     * @return array|null
      *     The scopes associated with the access token.
      */
-    public function getScopes()
+    public function getScopes(): ?array
     {
         return $this->scopes;
     }
@@ -300,7 +300,7 @@ class IntrospectionResponse extends ApiResponse
      * @return IntrospectionResponse
      *     `$this` object.
      */
-    public function setScopes(array $scopes = null)
+    public function setScopes(array $scopes = null): IntrospectionResponse
     {
         ValidationUtility::ensureNullOrArrayOfString('$scopes', $scopes);
 
@@ -318,12 +318,12 @@ class IntrospectionResponse extends ApiResponse
      * `scopeDetails` property was newly created to convey information
      * about scope attributes.
      *
-     * @return Scope[]
+     * @return array|null
      *     The details of the scopes.
      *
      * @since 1.11
      */
-    public function getScopeDetails()
+    public function getScopeDetails(): ?array
     {
         return $this->scopeDetails;
     }
@@ -345,10 +345,10 @@ class IntrospectionResponse extends ApiResponse
      *
      * @since 1.11
      */
-    public function setScopeDetails(array $scopeDetails = null)
+    public function setScopeDetails(array $scopeDetails = null): IntrospectionResponse
     {
         ValidationUtility::ensureNullOrArrayOfType(
-            '$scopeDetails', $scopeDetails, __NAMESPACE__ . '\Scope');
+            '$scopeDetails', __NAMESPACE__ . '\Scope', $scopeDetails);
 
         $this->scopeDetails = $scopeDetails;
 
@@ -362,7 +362,7 @@ class IntrospectionResponse extends ApiResponse
      * @return boolean
      *     `true` if the access token exists.
      */
-    public function isExistent()
+    public function isExistent(): bool
     {
         return $this->existent;
     }
@@ -377,7 +377,7 @@ class IntrospectionResponse extends ApiResponse
      * @return IntrospectionResponse
      *     `$this` object.
      */
-    public function setExistent($existent)
+    public function setExistent(bool $existent): IntrospectionResponse
     {
         ValidationUtility::ensureBoolean('$existent', $existent);
 
@@ -394,7 +394,7 @@ class IntrospectionResponse extends ApiResponse
      * @return boolean
      *     `true` if the access token is usable (= exists and has not expired).
      */
-    public function isUsable()
+    public function isUsable(): bool
     {
         return $this->usable;
     }
@@ -410,7 +410,7 @@ class IntrospectionResponse extends ApiResponse
      * @return IntrospectionResponse
      *     `$this` object.
      */
-    public function setUsable($usable)
+    public function setUsable(bool $usable): IntrospectionResponse
     {
         ValidationUtility::ensureBoolean('$usable', $usable);
 
@@ -427,7 +427,7 @@ class IntrospectionResponse extends ApiResponse
      * @return boolean
      *     `true` if the access token covers the required scopes.
      */
-    public function isSufficient()
+    public function isSufficient(): bool
     {
         return $this->sufficient;
     }
@@ -443,7 +443,7 @@ class IntrospectionResponse extends ApiResponse
      * @return IntrospectionResponse
      *     `$this` object.
      */
-    public function setSufficient($sufficient)
+    public function setSufficient(bool $sufficient): IntrospectionResponse
     {
         ValidationUtility::ensureBoolean('$sufficient', $sufficient);
 
@@ -464,7 +464,7 @@ class IntrospectionResponse extends ApiResponse
      *     `true` if the access token can be refreshed using the associated
      *     refresh token.
      */
-    public function isRefreshable()
+    public function isRefreshable(): bool
     {
         return $this->refreshable;
     }
@@ -481,7 +481,7 @@ class IntrospectionResponse extends ApiResponse
      * @return IntrospectionResponse
      *     `$this` object.
      */
-    public function setRefreshable($refreshable)
+    public function setRefreshable(bool $refreshable): IntrospectionResponse
     {
         ValidationUtility::ensureBoolean('$refreshable', $refreshable);
 
@@ -498,7 +498,7 @@ class IntrospectionResponse extends ApiResponse
      * @return string
      *     The response content.
      */
-    public function getResponseContent()
+    public function getResponseContent(): string
     {
         return $this->responseContent;
     }
@@ -514,7 +514,7 @@ class IntrospectionResponse extends ApiResponse
      * @return IntrospectionResponse
      *     `$this` object.
      */
-    public function setResponseContent($responseContent)
+    public function setResponseContent(string $responseContent): IntrospectionResponse
     {
         ValidationUtility::ensureNullOrString('$responseContent', $responseContent);
 
@@ -527,11 +527,11 @@ class IntrospectionResponse extends ApiResponse
     /**
      * Get the time at which the access token will expire.
      *
-     * @return integer|string
+     * @return int|string|null
      *     The time at which the access token will expire. The value is
      *     represented as milliseconds since the Unix epoch (1970-Jan-1).
      */
-    public function getExpiresAt()
+    public function getExpiresAt(): int|string|null
     {
         return $this->expiresAt;
     }
@@ -544,7 +544,7 @@ class IntrospectionResponse extends ApiResponse
      *     The time at which the access token will expire. The value should
      *     be represented as milliseconds since the Unix epoch (1970-Jan-1).
      */
-    public function setExpiresAt($expiresAt)
+    public function setExpiresAt(int|string $expiresAt): IntrospectionResponse
     {
         ValidationUtility::ensureNullOrStringOrInteger('$expiresAt', $expiresAt);
 
@@ -562,7 +562,7 @@ class IntrospectionResponse extends ApiResponse
      *
      * @since 1.3
      */
-    public function getProperties()
+    public function getProperties(): array
     {
         return $this->properties;
     }
@@ -579,10 +579,10 @@ class IntrospectionResponse extends ApiResponse
      *
      * @since 1.3
      */
-    public function setProperties(array $properties = null)
+    public function setProperties(array $properties = null): IntrospectionResponse
     {
         ValidationUtility::ensureNullOrArrayOfType(
-            '$properties', $properties, __NAMESPACE__ . '\Property');
+            '$properties', __NAMESPACE__ . '\Property', $properties);
 
         $this->properties = $properties;
 
@@ -602,7 +602,7 @@ class IntrospectionResponse extends ApiResponse
      *
      * @since 1.3
      */
-    public function getClientIdAlias()
+    public function getClientIdAlias(): string
     {
         return $this->clientIdAlias;
     }
@@ -620,7 +620,7 @@ class IntrospectionResponse extends ApiResponse
      *
      * @since 1.3
      */
-    public function setClientIdAlias($alias)
+    public function setClientIdAlias(string $alias): IntrospectionResponse
     {
         ValidationUtility::ensureNullOrString('$alias', $alias);
 
@@ -641,7 +641,7 @@ class IntrospectionResponse extends ApiResponse
      *
      * @since 1.3
      */
-    public function isClientIdAliasUsed()
+    public function isClientIdAliasUsed(): bool
     {
         return $this->clientIdAliasUsed;
     }
@@ -661,7 +661,7 @@ class IntrospectionResponse extends ApiResponse
      *
      * @since 1.3
      */
-    public function setClientIdAliasUsed($used)
+    public function setClientIdAliasUsed(bool $used): IntrospectionResponse
     {
         ValidationUtility::ensureBoolean('$used', $used);
 
@@ -674,13 +674,13 @@ class IntrospectionResponse extends ApiResponse
     /**
      * Get the client certificate thumbprint used to validate the access token.
      *
-     * @return string
+     * @return string|null
      *     The certificate thumbprint, calculated as the SHA-256 hash of the
      *     DER-encoded certificate value.
      *
      * @since 1.3
      */
-    public function getCertificateThumbprint()
+    public function getCertificateThumbprint(): ?string
     {
         return $this->certificateThumbprint;
     }
@@ -698,7 +698,7 @@ class IntrospectionResponse extends ApiResponse
      *
      * @since 1.3
      */
-    public function setCertificateThumbprint($thumbprint)
+    public function setCertificateThumbprint(string $thumbprint): IntrospectionResponse
     {
         ValidationUtility::ensureNullOrString('$thumbprint', $thumbprint);
 
@@ -713,14 +713,14 @@ class IntrospectionResponse extends ApiResponse
      * the `resource` request parameters or by the `resource` property in
      * the request object.
      *
-     * @return string[]
+     * @return array|null
      *     The target resources.
      *
      * @see https://www.rfc-editor.org/rfc/rfc8707.html RFC 8707 Resource Indicators for OAuth 2.0
      *
      * @since 1.8
      */
-    public function getResources()
+    public function getResources(): ?array
     {
         return $this->resources;
     }
@@ -741,7 +741,7 @@ class IntrospectionResponse extends ApiResponse
      *
      * @since 1.8
      */
-    public function setResources(array $resources = null)
+    public function setResources(array $resources = null): IntrospectionResponse
     {
         ValidationUtility::ensureNullOrArrayOfString('$resources', $resources);
 
@@ -770,14 +770,14 @@ class IntrospectionResponse extends ApiResponse
      * by this method are different. This method returns the narrowed set
      * of target resources.
      *
-     * @return string[]
+     * @return array|null
      *     The target resources of the access token.
      *
      * @see https://www.rfc-editor.org/rfc/rfc8707.html RFC 8707 Resource Indicators for OAuth 2.0
      *
      * @since 1.8
      */
-    public function getAccessTokenResources()
+    public function getAccessTokenResources(): ?array
     {
         return $this->accessTokenResources;
     }
@@ -799,7 +799,7 @@ class IntrospectionResponse extends ApiResponse
      *
      * @since 1.8
      */
-    public function setAccessTokenResources(array $resources = null)
+    public function setAccessTokenResources(array $resources = null): IntrospectionResponse
     {
         ValidationUtility::ensureNullOrArrayOfString('$resources', $resources);
 
@@ -817,12 +817,12 @@ class IntrospectionResponse extends ApiResponse
      * one specified by the `grant_id` request parameter) is tied to the access token
      * which is created as a result of the authorization request.
      *
-     * @return string
+     * @return string|null
      *     The grant ID tied to the access token.
      *
      * @since 1.11
      */
-    public function getGrantId()
+    public function getGrantId(): ?string
     {
         return $this->grantId;
     }
@@ -839,12 +839,12 @@ class IntrospectionResponse extends ApiResponse
      * @param string $grantId
      *     The grant ID tied to the access token.
      *
-     * @return IntrospectionAction
+     * @return IntrospectionResponse
      *     `$this` object.
      *
      * @since 1.11
      */
-    public function setGrantId($grantId)
+    public function setGrantId(string $grantId): IntrospectionResponse
     {
         ValidationUtility::ensureNullOrString('$grantId', $grantId);
 
@@ -862,12 +862,12 @@ class IntrospectionResponse extends ApiResponse
      * is available from Authlete 2.3). This `consentedClaims` property holds
      * the value specified by the request parameter.
      *
-     * @return string[]
+     * @return array|null The consented claims.
      *     The consented claims.
      *
      * @since 1.11
      */
-    public function getConsentedClaims()
+    public function getConsentedClaims(): ?array
     {
         return $this->consentedClaims;
     }
@@ -889,7 +889,7 @@ class IntrospectionResponse extends ApiResponse
      *
      * @since 1.11
      */
-    public function setConsentedClaims(array $claims = null)
+    public function setConsentedClaims(array $claims = null): IntrospectionResponse
     {
         ValidationUtility::ensureNullOrArrayOfString('$claims', $claims);
 
@@ -902,12 +902,12 @@ class IntrospectionResponse extends ApiResponse
     /**
      * Get the attributes of the service that the client application belongs to.
      *
-     * @return Pair[]
+     * @return array|null The attributes of the service.
      *     The attributes of the service.
      *
      * @since 1.11
      */
-    public function getServiceAttributes()
+    public function getServiceAttributes(): ?array
     {
         return $this->serviceAttributes;
     }
@@ -924,10 +924,10 @@ class IntrospectionResponse extends ApiResponse
      *
      * @since 1.11
      */
-    public function setServiceAttributes(array $attributes = null)
+    public function setServiceAttributes(array $attributes = null): IntrospectionResponse
     {
         ValidationUtility::ensureNullOrArrayOfType(
-            '$attributes', $attributes, __NAMESPACE__ . '\Pair');
+            '$attributes', __NAMESPACE__ . '\Pair', $attributes);
 
         $this->serviceAttributes = $attributes;
 
@@ -938,12 +938,12 @@ class IntrospectionResponse extends ApiResponse
     /**
      * Get the attributes of the client that the access token has been issued to.
      *
-     * @return Pair[]
+     * @return array|null
      *     The attributes of the client.
      *
      * @since 1.11
      */
-    public function getClientAttributes()
+    public function getClientAttributes(): ?array
     {
         return $this->clientAttributes;
     }
@@ -960,10 +960,10 @@ class IntrospectionResponse extends ApiResponse
      *
      * @since 1.11
      */
-    public function setClientAttributes(array $attributes = null)
+    public function setClientAttributes(array $attributes = null): IntrospectionResponse
     {
         ValidationUtility::ensureNullOrArrayOfType(
-            '$attributes', $attributes, __NAMESPACE__ . '\Pair');
+            '$attributes', __NAMESPACE__ . '\Pair', $attributes);
 
         $this->clientAttributes = $attributes;
 
@@ -987,7 +987,7 @@ class IntrospectionResponse extends ApiResponse
      *
      * @since 1.11
      */
-    public function isForExternalAttachment()
+    public function isForExternalAttachment(): bool
     {
         return $this->forExternalAttachment;
     }
@@ -1012,7 +1012,7 @@ class IntrospectionResponse extends ApiResponse
      *
      * @since 1.11
      */
-    public function setForExternalAttachment($forExternalAttachment)
+    public function setForExternalAttachment(bool $forExternalAttachment): IntrospectionResponse
     {
         ValidationUtility::ensureBoolean('$forExternalAttachment', $forExternalAttachment);
 
@@ -1034,7 +1034,7 @@ class IntrospectionResponse extends ApiResponse
      * @return boolean
      *     `true` if the access token is active (= exists and has not expired).
      */
-    public function isActive()
+    public function isActive(): bool
     {
         return $this->isUsable();
     }
@@ -1055,7 +1055,7 @@ class IntrospectionResponse extends ApiResponse
      * @return IntrospectionResponse
      *     `$this` object.
      */
-    public function setActive($active)
+    public function setActive(bool $active): IntrospectionResponse
     {
         ValidationUtility::ensureBoolean('$active', $active);
 
@@ -1071,7 +1071,7 @@ class IntrospectionResponse extends ApiResponse
      * @param array $array
      *     {@inheritdoc}
      */
-    public function copyToArray(array &$array)
+    public function copyToArray(array &$array): void
     {
         parent::copyToArray($array);
 
@@ -1108,7 +1108,7 @@ class IntrospectionResponse extends ApiResponse
      * @param array $array
      *     {@inheritdoc}
      */
-    public function copyFromArray(array &$array)
+    public function copyFromArray(array &$array): void
     {
         parent::copyFromArray($array);
 
@@ -1131,7 +1131,7 @@ class IntrospectionResponse extends ApiResponse
 
         // scopeDetails
         $_scopeDetails = LanguageUtility::getFromArray('scopeDetails', $array);
-        $_scopeDetails = LanguageUtility::convertArrayToArrayOfArrayCopyable($_scopeDetails, __NAMESPACE__ . '\Scope');
+        $_scopeDetails = LanguageUtility::convertArrayToArrayOfArrayCopyable(__NAMESPACE__ . '\Scope', $_scopeDetails);
         $this->setScopeDetails($_scopeDetails);
 
         // existent
@@ -1160,7 +1160,7 @@ class IntrospectionResponse extends ApiResponse
 
         // properties
         $_properties = LanguageUtility::getFromArray('properties', $array);
-        $_properties = LanguageUtility::convertArrayToArrayOfArrayCopyable($_properties, __NAMESPACE__ . '\Property');
+        $_properties = LanguageUtility::convertArrayToArrayOfArrayCopyable(__NAMESPACE__ . '\Property', $_properties);
         $this->setProperties($_properties);
 
         // clientIdAlias
@@ -1193,12 +1193,12 @@ class IntrospectionResponse extends ApiResponse
 
         // serviceAttributes
         $_serviceAttributes = LanguageUtility::getFromArray('serviceAttributes', $array);
-        $_serviceAttributes = LanguageUtility::convertArrayToArrayOfArrayCopyable($_serviceAttributes, __NAMESPACE__ . '\Pair');
+        $_serviceAttributes = LanguageUtility::convertArrayToArrayOfArrayCopyable(__NAMESPACE__ . '\Pair', $_serviceAttributes);
         $this->setServiceAttributes($_serviceAttributes);
 
         // clientAttributes
         $_clientAttributes = LanguageUtility::getFromArray('clientAttributes', $array);
-        $_clientAttributes = LanguageUtility::convertArrayToArrayOfArrayCopyable($_clientAttributes, __NAMESPACE__ . '\Pair');
+        $_clientAttributes = LanguageUtility::convertArrayToArrayOfArrayCopyable(__NAMESPACE__ . '\Pair', $_clientAttributes);
         $this->setClientAttributes($_clientAttributes);
 
         // forExternalAttachment
@@ -1206,4 +1206,3 @@ class IntrospectionResponse extends ApiResponse
             LanguageUtility::getFromArrayAsBoolean('forExternalAttachment', $array));
     }
 }
-?>

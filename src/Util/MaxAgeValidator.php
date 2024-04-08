@@ -33,9 +33,9 @@ namespace Authlete\Util;
  */
 class MaxAgeValidator
 {
-    private $maxAge;
-    private $authTime;
-    private $currentTime;
+    private int|string $maxAge;
+    private int|string $authTime;
+    private int|string $currentTime;
 
 
     /**
@@ -58,7 +58,7 @@ class MaxAgeValidator
      * @return MaxAgeValidator
      *     `$this` object.
      */
-    public function setMaxAge($maxAge)
+    public function setMaxAge(int|string $maxAge): MaxAgeValidator
     {
         $this->maxAge = $maxAge;
 
@@ -75,7 +75,7 @@ class MaxAgeValidator
      * @return MaxAgeValidator
      *     `$this` object.
      */
-    public function setAuthenticationTime($authTime)
+    public function setAuthenticationTime(int|string $authTime): MaxAgeValidator
     {
         $this->authTime = $authTime;
 
@@ -91,7 +91,7 @@ class MaxAgeValidator
      * @return MaxAgeValidator
      *     `$this` object.
      */
-    public function setCurrentTime($currentTime)
+    public function setCurrentTime(int|string $currentTime): MaxAgeValidator
     {
         $this->currentTime = $currentTime;
 
@@ -108,7 +108,7 @@ class MaxAgeValidator
      *     last user authentication time. If `false` is returned, it means
      *     re-authentication is necessary.
      */
-    public function validate()
+    public function validate(): bool
     {
         $maxAge      = $this->maxAge;
         $authTime    = $this->authTime;
@@ -122,7 +122,7 @@ class MaxAgeValidator
         }
 
         if (PHP_INT_SIZE <= 4 ||
-            is_integer($maxAge) === false || is_integer($authTime) === false)
+            is_int($maxAge) || !is_int($authTime))
         {
             // The variables may be strings.
             return $this->validateAsStrings($maxAge, $authTime, $currentTime);
@@ -134,7 +134,7 @@ class MaxAgeValidator
     }
 
 
-    private function validateAsStrings($maxAge, $authTime, $currentTime)
+    private function validateAsStrings($maxAge, $authTime, $currentTime): bool
     {
         // Note that behaviors of GMP functions in PHP 5.6+ are slightly
         // different from those in older PHP versions.
@@ -161,19 +161,12 @@ class MaxAgeValidator
     }
 
 
-    private function validateAsIntegers($maxAge, $authTime, $currentTime)
+    private function validateAsIntegers(int $maxAge,int $authTime, int $currentTime): bool
     {
         // Calculate the expiration time in seconds.
         $expiresAt = $authTime + $maxAge;
 
-        if ($currentTime < $expiresAt)
-        {
-            // The max age has not been reached.
-            return true;
-        }
-
-        // The max age has been reached.
-        return false;
+        return $currentTime < $expiresAt;
     }
 }
-?>
+

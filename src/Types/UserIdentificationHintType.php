@@ -33,39 +33,25 @@ use Authlete\Util\LanguageUtility;
  *
  * @since 1.8
  */
-class UserIdentificationHintType
+enum UserIdentificationHintType: string implements Valuable
 {
     use EnumTrait;
 
-
     /**
      * An ID token previously issued to the client.
-     *
-     * @static
-     * @var UserIdentificationHintType
      */
-    public static $ID_TOKEN_HINT;
+    case ID_TOKEN_HINT = 'id_token_hint';
 
 
     /**
      * An arbitrary string whose interpretation varies depending on contexts.
-     *
-     * @static
-     * @var UserIdentificationHintType
      */
-    public static $LOGIN_HINT;
+    case LOGIN_HINT = 'login_hint';
 
 
     /**
      * A token whose format is deployment or profile specific.
-     *
-     * @static
-     * @var UserIdentificationHintType
      */
-    public static $LOGIN_HINT_TOKEN;
+    case LOGIN_HINT_TOKEN = 'login_hint_token';
 }
 
-
-// Call UserIdentificationHintType::initialize().
-LanguageUtility::initializeClass(__NAMESPACE__ . '\UserIdentificationHintType');
-?>

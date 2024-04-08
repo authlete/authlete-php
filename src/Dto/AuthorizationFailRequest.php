@@ -46,9 +46,9 @@ class AuthorizationFailRequest implements ArrayCopyable, Arrayable, Jsonable
     use JsonTrait;
 
 
-    private $ticket      = null;  // string
-    private $reason      = null;  // \Authlete\Dto\AuthorizationFailReason
-    private $description = null;  // string
+    private ?string $ticket                  = null;
+    private ?AuthorizationFailReason $reason = null;
+    private ?string $description             = null;
 
 
     /**
@@ -57,10 +57,10 @@ class AuthorizationFailRequest implements ArrayCopyable, Arrayable, Jsonable
      * The ticket is necessary to call Authlete's /api/auth/authorization/fail
      * API.
      *
-     * @return string
+     * @return string|null The ticket issued by Authlete's /api/auth/authorization API.
      *     The ticket issued by Authlete's /api/auth/authorization API.
      */
-    public function getTicket()
+    public function getTicket(): ?string
     {
         return $this->ticket;
     }
@@ -79,7 +79,7 @@ class AuthorizationFailRequest implements ArrayCopyable, Arrayable, Jsonable
      * @return AuthorizationFailRequest
      *     `$this` object.
      */
-    public function setTicket($ticket)
+    public function setTicket(string $ticket): AuthorizationFailRequest
     {
         ValidationUtility::ensureNullOrString('$ticket', $ticket);
 
@@ -92,10 +92,10 @@ class AuthorizationFailRequest implements ArrayCopyable, Arrayable, Jsonable
     /**
      * Get the reason of the failure of the authorization request.
      *
-     * @return string
+     * @return AuthorizationFailReason|null The reason of the failure of the authorization request.
      *     The reason of the failure of the authorization request.
      */
-    public function getReason()
+    public function getReason(): ?AuthorizationFailReason
     {
         return $this->reason;
     }
@@ -105,13 +105,13 @@ class AuthorizationFailRequest implements ArrayCopyable, Arrayable, Jsonable
      * Set the reason of the failure of the authorization request.
      * This request parameter is mandatory.
      *
-     * @param string $reason
+     * @param AuthorizationFailReason|null $reason
      *     The reason of the failure of the authorization request.
      *
      * @return AuthorizationFailRequest
      *     `$this` object.
      */
-    public function setReason(AuthorizationFailReason $reason = null)
+    public function setReason(AuthorizationFailReason $reason = null): AuthorizationFailRequest
     {
         $this->reason = $reason;
 
@@ -122,10 +122,10 @@ class AuthorizationFailRequest implements ArrayCopyable, Arrayable, Jsonable
     /**
      * Get the custom description about the authorization failure.
      *
-     * @return string
+     * @return string|null The custom description.
      *     The custom description.
      */
-    public function getDescription()
+    public function getDescription(): ?string
     {
         return $this->description;
     }
@@ -141,7 +141,7 @@ class AuthorizationFailRequest implements ArrayCopyable, Arrayable, Jsonable
      * @return AuthorizationFailRequest
      *     `$this` object.
      */
-    public function setDescription($description)
+    public function setDescription(string $description): AuthorizationFailRequest
     {
         ValidationUtility::ensureNullOrString('$description', $description);
 
@@ -159,7 +159,7 @@ class AuthorizationFailRequest implements ArrayCopyable, Arrayable, Jsonable
      * @param array $array
      *     {@inheritdoc}
      */
-    public function copyToArray(array &$array)
+    public function copyToArray(array &$array): void
     {
         $array['ticket']      = $this->ticket;
         $array['reason']      = LanguageUtility::toString($this->reason);
@@ -175,7 +175,7 @@ class AuthorizationFailRequest implements ArrayCopyable, Arrayable, Jsonable
      * @param array $array
      *     {@inheritdoc}
      */
-    public function copyFromArray(array &$array)
+    public function copyFromArray(array &$array): void
     {
         // ticket
         $this->setTicket(
@@ -191,4 +191,4 @@ class AuthorizationFailRequest implements ArrayCopyable, Arrayable, Jsonable
             LanguageUtility::getFromArray('description', $array));
     }
 }
-?>
+

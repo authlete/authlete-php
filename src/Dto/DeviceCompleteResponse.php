@@ -26,7 +26,6 @@ namespace Authlete\Dto;
 
 
 use Authlete\Util\LanguageUtility;
-use Authlete\Util\ValidationUtility;
 
 
 /**
@@ -79,16 +78,16 @@ use Authlete\Util\ValidationUtility;
  */
 class DeviceCompleteResponse extends ApiResponse
 {
-    private $action = null;  // \Authlete\Dto\DeviceCompleteAction
+    private ?DeviceCompleteAction $action = null;
 
 
     /**
      * Get the next action that the authorization server should take.
      *
-     * @return DeviceAuthorizationAction
+     * @return DeviceCompleteAction|null
      *     The next action that the authorization server should take.
      */
-    public function getAction()
+    public function getAction(): ?DeviceCompleteAction
     {
         return $this->action;
     }
@@ -97,13 +96,13 @@ class DeviceCompleteResponse extends ApiResponse
     /**
      * Set the next action that the authorization server should take.
      *
-     * @param DeviceCompleteAction $action
+     * @param DeviceCompleteAction|null $action
      *     The next action that the authorization server should take.
      *
      * @return DeviceCompleteResponse
      *     `$this` object.
      */
-    public function setAction(DeviceCompleteAction $action = null)
+    public function setAction(DeviceCompleteAction $action = null): DeviceCompleteResponse
     {
         $this->action = $action;
 
@@ -119,7 +118,7 @@ class DeviceCompleteResponse extends ApiResponse
      * @param array $array
      *     {@inheritdoc}
      */
-    public function copyToArray(array &$array)
+    public function copyToArray(array &$array): void
     {
         parent::copyToArray($array);
 
@@ -135,7 +134,7 @@ class DeviceCompleteResponse extends ApiResponse
      * @param array $array
      *     {@inheritdoc}
      */
-    public function copyFromArray(array &$array)
+    public function copyFromArray(array &$array): void
     {
         parent::copyFromArray($array);
 
@@ -145,4 +144,4 @@ class DeviceCompleteResponse extends ApiResponse
                 LanguageUtility::getFromArray('action', $array)));
     }
 }
-?>
+

@@ -34,17 +34,17 @@ use Authlete\Util\ValidationUtility;
  */
 class AuthorizedClientListResponse extends ClientListResponse
 {
-    private $subject = null;  // string
+    private ?string $subject = null;
 
 
     /**
      * Get the identifier of the end-user who has granted authorization to
      * the client applications.
      *
-     * @return string
+     * @return string|null
      *     The identifier of the end-user.
      */
-    public function getSubject()
+    public function getSubject(): ?string
     {
         return $this->subject;
     }
@@ -60,7 +60,7 @@ class AuthorizedClientListResponse extends ClientListResponse
      * @return AuthorizedClientListResponse
      *     `$this` object.
      */
-    public function setSubject($subject)
+    public function setSubject(string $subject): AuthorizedClientListResponse
     {
         ValidationUtility::ensureNullOrString('$subject', $subject);
 
@@ -78,7 +78,7 @@ class AuthorizedClientListResponse extends ClientListResponse
      * @param array $array
      *     {@inheritdoc}
      */
-    public function copyToArray(array &$array)
+    public function copyToArray(array &$array): void
     {
         parent::copyToArray($array);
 
@@ -94,7 +94,7 @@ class AuthorizedClientListResponse extends ClientListResponse
      * @param array $array
      *     {@inheritdoc}
      */
-    public function copyFromArray(array &$array)
+    public function copyFromArray(array &$array): void
     {
         parent::copyFromArray($array);
 
@@ -103,4 +103,4 @@ class AuthorizedClientListResponse extends ClientListResponse
             LanguageUtility::getFromArray('subject', $array));
     }
 }
-?>
+

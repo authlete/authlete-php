@@ -33,166 +33,111 @@ use Authlete\Util\LanguageUtility;
  *
  * @see https://tools.ietf.org/html/rfc7518#section-4.1 RFC 7518, 4.1. "alg" (Algorithm) Header Parameter Values for JWE
  */
-class JWEAlg
+enum JWEAlg: string implements Valuable
 {
     use EnumTrait;
 
 
     /**
      * RSAES-PKCS1-V1_5.
-     *
-     * @static
-     * @var JWEAlg
      */
-    public static $RSA1_5;
+    case RSA1_5 = 'rsa1_5';
 
 
     /**
      * RSAES OAEP using default parameters.
-     *
-     * @static
-     * @var JWEAlg
      */
-    public static $RSA_OAEP;
+    case RSA_OAEP = 'rsa_oaep';
 
 
     /**
      * RSAES OAEP using SHA-256 and MGF1 with SHA-256.
-     *
-     * @static
-     * @var JWEAlg
      */
-    public static $RSA_OAEP_256;
+    case RSA_OAEP_256 = 'rsa_oaep_256';
 
 
     /**
      * AES Key Wrap with default initial value using 128 bit key.
-     *
-     * @static
-     * @var JWEAlg
      */
-    public static $A128KW;
+    case A128KW = 'a128kw';
 
 
     /**
      * AES Key Wrap with default initial value using 192 bit key.
-     *
-     * @static
-     * @var JWEAlg
      */
-    public static $A192KW;
+    case A192KW = 'a192kw';
 
 
     /**
      * AES Key Wrap with default initial value using 256 bit key.
-     *
-     * @static
-     * @var JWEAlg
      */
-    public static $A256KW;
+    case A256KW = 'a256kw';
 
 
     /**
      * Direct use of a shared symmetric key as the CEK.
-     *
-     * @static
-     * @var JWEAlg
      */
-    public static $DIR;
+    case DIR = 'dir';
 
 
     /**
      * Elliptic Curve Diffie-Hellman Ephemeral Static key agreement
      * using Concat KDF.
-     *
-     * @static
-     * @var JWEAlg
      */
-    public static $ECDH_ES;
+    case ECDH_ES = 'ecdh_es';
 
 
     /**
      * ECDH-ES using Concat KDF and CEK wrapped with "A128KW".
-     *
-     * @static
-     * @var JWEAlg
      */
-    public static $ECDH_ES_A128KW;
+    case ECDH_ES_A128KW = 'ecdh_es_a128kw';
 
 
     /**
      * ECDH-ES using Concat KDF and CEK wrapped with "A192KW".
-     *
-     * @static
-     * @var JWEAlg
      */
-    public static $ECDH_ES_A192KW;
+    case ECDH_ES_A192KW = 'ecdh_es_a192kw';
 
 
     /**
      * ECDH-ES using Concat KDF and CEK wrapped with "A256KW".
-     *
-     * @static
-     * @var JWEAlg
      */
-    public static $ECDH_ES_A256KW;
+    case ECDH_ES_A256KW = 'ecdh_es_a256kw';
 
 
     /**
      * Key wrapping with AES GCM using 128 bit key.
-     *
-     * @static
-     * @var JWEAlg
      */
-    public static $A128GCMKW;
+    case A128GCMKW = 'A128gcmkw';
 
 
     /**
      * Key wrapping with AES GCM using 192 bit key.
-     *
-     * @static
-     * @var JWEAlg
      */
-    public static $A192GCMKW;
+    case A192GCMKW = 'a192gcmkw';
 
 
     /**
      * Key wrapping with AES GCM using 256 bit key.
-     *
-     * @static
-     * @var JWEAlg
      */
-    public static $A256GCMKW;
+    case A256GCMKW = 'a256gcmkw';
 
 
     /**
      * PBES2 with HMAC SHA-256 and "A128KW".
-     *
-     * @static
-     * @var JWEAlg
      */
-    public static $PBES2_HS256_A128KW;
+    case PBES2_HS256_A128KW = 'pbes2_hs256_a128kw';
 
 
     /**
      * PBES2 with HMAC SHA-384 and "A192KW".
-     *
-     * @static
-     * @var JWEAlg
      */
-    public static $PBES2_HS384_A192KW;
+    case PBES2_HS384_A192KW = 'pbes2_hs384_a192kw';
 
 
     /**
      * PBES2 with HMAC SHA-512 and "A256KW".
-     *
-     * @static
-     * @var JWEAlg
      */
-    public static $PBES2_HS512_A256KW;
+    case PBES2_HS512_A256KW = 'pbes2_hs512_a256kw';
 }
 
-
-// Call JWEAlg::initialize().
-LanguageUtility::initializeClass(__NAMESPACE__ . '\JWEAlg');
-?>

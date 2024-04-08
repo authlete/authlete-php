@@ -25,7 +25,6 @@
 namespace Authlete\Dto;
 
 
-use Authlete\Dto\Scope;
 use Authlete\Types\DeliveryMode;
 use Authlete\Types\UserIdentificationHintType;
 use Authlete\Util\LanguageUtility;
@@ -382,38 +381,38 @@ use Authlete\Util\ValidationUtility;
  */
 class BackchannelAuthenticationResponse extends ApiResponse
 {
-    private $action                  = null;  // \Authlete\Dto\BackchannelAuthenticationAction
-    private $responseContent         = null;  // string
-    private $clientId                = null;  // string or (64-bit) integer
-    private $clientIdAlias           = null;  // string
-    private $clientIdAliasUsed       = false; // boolean
-    private $clientName              = null;  // string
-    private $deliveryMode            = null;  // \Authlete\Types\DeliveryMode
-    private $scopes                  = null;  // array of \Authlete\Dto\Scope
-    private $claimNames              = null;  // array of string
-    private $clientNotificationToken = null;  // string
-    private $acrs                    = null;  // array of string
-    private $hintType                = null;  // \Authlete\Types\UserIdentificationHintType
-    private $hint                    = null;  // string
-    private $sub                     = null;  // string
-    private $bindingMessage          = null;  // string
-    private $userCode                = null;  // string
-    private $userCodeRequired        = false; // boolean
-    private $requestedExpiry         = 0;     // integer
-    private $requestContext          = null;  // string
-    private $resources               = null;  // array of string
-    private $warnings                = null;  // array of string
-    private $ticket                  = null;  // string
+    private ?BackchannelAuthenticationAction $action = null;
+    private ?string $responseContent                 = null;
+    private string|int|null $clientId                = null;
+    private ?string $clientIdAlias                   = null;
+    private bool $clientIdAliasUsed                  = false;
+    private ?string $clientName                      = null;
+    private ?DeliveryMode $deliveryMode              = null;  
+    private ?array $scopes                           = null;  // array of \Authlete\Dto\Scope
+    private ?array $claimNames                       = null;
+    private ?string $clientNotificationToken         = null;   
+    private ?array $acrs                             = null;  // array of string
+    private ?UserIdentificationHintType $hintType    = null;
+    private ?string $hint                            = null;  
+    private ?string $sub                             = null;
+    private ?string $bindingMessage                  = null;
+    private ?string $userCode                        = null; 
+    private bool $userCodeRequired                   = false; 
+    private int $requestedExpiry                     = 0;     
+    private ?string $requestContext                  = null;
+    private ?array $resources                        = null;  // array of string
+    private ?array $warnings                         = null;  // array of string
+    private ?string $ticket                          = null;  
 
 
     /**
      * Get the next action that the implementation of the backchannel
      * authentication endpoint should take.
      *
-     * @return BackchannelAuthenticationAction
+     * @return BackchannelAuthenticationAction|null
      *     The next action.
      */
-    public function getAction()
+    public function getAction(): ?BackchannelAuthenticationAction
     {
         return $this->action;
     }
@@ -423,13 +422,13 @@ class BackchannelAuthenticationResponse extends ApiResponse
      * Set the next action that the implementation of the backchannel
      * authentication endpoint should take.
      *
-     * @param BackchannelAuthenticationAction $action
+     * @param BackchannelAuthenticationAction|null $action
      *     The next action.
      *
      * @return BackchannelAuthenticationResponse
      *     `$this` object.
      */
-    public function setAction(BackchannelAuthenticationAction $action = null)
+    public function setAction(BackchannelAuthenticationAction $action = null): BackchannelAuthenticationResponse
     {
         $this->action = $action;
 
@@ -445,10 +444,10 @@ class BackchannelAuthenticationResponse extends ApiResponse
      * information. When `getAction()` returns `USER_IDENTIFICATION`, this
      * method returns null.
      *
-     * @return string
+     * @return string|null
      *     The content of a response to the client.
      */
-    public function getResponseContent()
+    public function getResponseContent(): ?string
     {
         return $this->responseContent;
     }
@@ -464,7 +463,7 @@ class BackchannelAuthenticationResponse extends ApiResponse
      * @return BackchannelAuthenticationResponse
      *     `$this` object.
      */
-    public function setResponseContent($responseContent)
+    public function setResponseContent(string $responseContent): BackchannelAuthenticationResponse
     {
         ValidationUtility::ensureNullOrString('$responseContent', $responseContent);
 
@@ -478,10 +477,10 @@ class BackchannelAuthenticationResponse extends ApiResponse
      * Get the client ID of the client application that has made the
      * backchannel authentication request.
      *
-     * @return integer|string
+     * @return int|string|null
      *     The client ID.
      */
-    public function getClientId()
+    public function getClientId(): int|string|null
     {
         return $this->clientId;
     }
@@ -497,7 +496,7 @@ class BackchannelAuthenticationResponse extends ApiResponse
      * @return BackchannelAuthenticationResponse
      *     `$this` object.
      */
-    public function setClientId($clientId)
+    public function setClientId(int|string $clientId): BackchannelAuthenticationResponse
     {
         ValidationUtility::ensureNullOrStringOrInteger('$clientId', $clientId);
 
@@ -511,10 +510,10 @@ class BackchannelAuthenticationResponse extends ApiResponse
      * Get the client ID alias of the client application that has made the
      * backchannel authentication request.
      *
-     * @return string
+     * @return string|null
      *     The client ID alias.
      */
-    public function getClientIdAlias()
+    public function getClientIdAlias(): ?string
     {
         return $this->clientIdAlias;
     }
@@ -530,7 +529,7 @@ class BackchannelAuthenticationResponse extends ApiResponse
      * @return BackchannelAuthenticationResponse
      *     `$this` object.
      */
-    public function setClientIdAlias($alias)
+    public function setClientIdAlias(string $alias): BackchannelAuthenticationResponse
     {
         ValidationUtility::ensureNullOrString('$alias', $alias);
 
@@ -547,7 +546,7 @@ class BackchannelAuthenticationResponse extends ApiResponse
      * @return boolean
      *     `true` if the client ID alias was used in the request.
      */
-    public function isClientIdAliasUsed()
+    public function isClientIdAliasUsed(): bool
     {
         return $this->clientIdAliasUsed;
     }
@@ -563,7 +562,7 @@ class BackchannelAuthenticationResponse extends ApiResponse
      * @return BackchannelAuthenticationResponse
      *     `$this` object.
      */
-    public function setClientIdAliasUsed($used)
+    public function setClientIdAliasUsed(bool $used): BackchannelAuthenticationResponse
     {
         ValidationUtility::ensureBoolean('$used', $used);
 
@@ -577,10 +576,10 @@ class BackchannelAuthenticationResponse extends ApiResponse
      * Get the name of the client application which has made the backchannel
      * authentication request.
      *
-     * @return string
+     * @return string|null
      *     The name of the client application.
      */
-    public function getClientName()
+    public function getClientName(): ?string
     {
         return $this->clientName;
     }
@@ -596,7 +595,7 @@ class BackchannelAuthenticationResponse extends ApiResponse
      * @return BackchannelAuthenticationResponse
      *     `$this` object.
      */
-    public function setClientName($name)
+    public function setClientName(string $name): BackchannelAuthenticationResponse
     {
         ValidationUtility::ensureNullOrString('$name', $name);
 
@@ -609,10 +608,10 @@ class BackchannelAuthenticationResponse extends ApiResponse
     /**
      * Get the backchannel token delivery mode of the client application.
      *
-     * @return DeliveryMode
+     * @return DeliveryMode|null
      *     The backchannel token delivery mode.
      */
-    public function getDeliveryMode()
+    public function getDeliveryMode(): ?DeliveryMode
     {
         return $this->deliveryMode;
     }
@@ -621,13 +620,13 @@ class BackchannelAuthenticationResponse extends ApiResponse
     /**
      * Set the backchannel token delivery mode of the client application.
      *
-     * @param DeliveryMode $mode
+     * @param DeliveryMode|null $mode
      *     The backchannel token delivery mode.
      *
      * @return BackchannelAuthenticationResponse
      *     `$this` object.
      */
-    public function setDeliveryMode(DeliveryMode $mode = null)
+    public function setDeliveryMode(DeliveryMode $mode = null): BackchannelAuthenticationResponse
     {
         $this->deliveryMode = $mode;
 
@@ -649,10 +648,10 @@ class BackchannelAuthenticationResponse extends ApiResponse
      * this method always return `null` even if descriptions of the scopes are
      * registered.
      *
-     * @return Scope[]
+     * @return array|null
      *     The requested scopes.
      */
-    public function getScopes()
+    public function getScopes(): ?array
     {
         return $this->scopes;
     }
@@ -667,10 +666,10 @@ class BackchannelAuthenticationResponse extends ApiResponse
      * @return BackchannelAuthenticationResponse
      *     `$this` object.
      */
-    public function setScopes(array $scopes = null)
+    public function setScopes(array $scopes = null): BackchannelAuthenticationResponse
     {
         ValidationUtility::ensureNullOrArrayOfType(
-            '$scopes', $scopes, __NAMESPACE__ . '\Scope');
+            '$scopes', __NAMESPACE__ . '\Scope', $scopes);
 
         $this->scopes = $scopes;
 
@@ -684,10 +683,10 @@ class BackchannelAuthenticationResponse extends ApiResponse
      * in [OpenID Connect Core 1.0](https://openid.net/specs/openid-connect-core-1_0.html#ScopeClaims)
      * for details.
      *
-     * @return string[]
+     * @return string[]|null
      *     The names of the requested claims.
      */
-    public function getClaimNames()
+    public function getClaimNames(): ?array
     {
         return $this->claimNames;
     }
@@ -703,7 +702,7 @@ class BackchannelAuthenticationResponse extends ApiResponse
      * @return BackchannelAuthenticationResponse
      *     `$this` object.
      */
-    public function setClaimNames(array $names = null)
+    public function setClaimNames(array $names = null): BackchannelAuthenticationResponse
     {
         ValidationUtility::ensureNullOrArrayOfString('$names', $names);
 
@@ -722,10 +721,10 @@ class BackchannelAuthenticationResponse extends ApiResponse
      * backchannel authentication request must include a client notification
      * token.
      *
-     * @return string
+     * @return string|null
      *     The client notification token.
      */
-    public function getClientNotificationToken()
+    public function getClientNotificationToken(): ?string
     {
         return $this->clientNotificationToken;
     }
@@ -746,7 +745,7 @@ class BackchannelAuthenticationResponse extends ApiResponse
      * @return BackchannelAuthenticationResponse
      *     `$this` object.
      */
-    public function setClientNotificationToken($token)
+    public function setClientNotificationToken(string $token): BackchannelAuthenticationResponse
     {
         ValidationUtility::ensureNullOrString('$token', $token);
 
@@ -767,10 +766,10 @@ class BackchannelAuthenticationResponse extends ApiResponse
      * by this method becomes different from the value of the `acr_values`
      * request parameter.
      *
-     * @return string[]
+     * @return string[]|null
      *     The list of requested ACR values.
      */
-    public function getAcrs()
+    public function getAcrs(): ?array
     {
         return $this->acrs;
     }
@@ -786,7 +785,7 @@ class BackchannelAuthenticationResponse extends ApiResponse
      * @return BackchannelAuthenticationResponse
      *     `$this` object.
      */
-    public function setAcrs(array $acrs = null)
+    public function setAcrs(array $acrs = null): BackchannelAuthenticationResponse
     {
         ValidationUtility::ensureNullOrArrayOfString('$acrs', $acrs);
 
@@ -811,10 +810,10 @@ class BackchannelAuthenticationResponse extends ApiResponse
      * only one hint among `id_token_hint`, `login_hint` and
      * `login_hint_token`.
      *
-     * @return DeliveryMode
+     * @return UserIdentificationHintType|null
      *     The type of the hint for end-user identification.
      */
-    public function getHintType()
+    public function getHintType(): ?UserIdentificationHintType
     {
         return $this->hintType;
     }
@@ -824,13 +823,13 @@ class BackchannelAuthenticationResponse extends ApiResponse
      * Set the type of the hint for end-user identification which was
      * included in the backchannel authentication request.
      *
-     * @param UserIdentificationHintType $hintType
+     * @param UserIdentificationHintType|null $hintType
      *     The type of the hint for end-user identification.
      *
      * @return BackchannelAuthenticationResponse
      *     `$this` object.
      */
-    public function setHintType(UserIdentificationHintType $hintType = null)
+    public function setHintType(UserIdentificationHintType $hintType = null): BackchannelAuthenticationResponse
     {
         $this->hintType = $hintType;
 
@@ -849,10 +848,10 @@ class BackchannelAuthenticationResponse extends ApiResponse
      * returns the value of the `login_hint_token` request parameter when
      * `getHintType()` returns `UserIdentificationHintType::$LOGIN_HINT_TOKEN`.
      *
-     * @return string
+     * @return string|null
      *     The value of the hint for end-user identification.
      */
-    public function getHint()
+    public function getHint(): ?string
     {
         return $this->hint;
     }
@@ -867,7 +866,7 @@ class BackchannelAuthenticationResponse extends ApiResponse
      * @return BackchannelAuthenticationResponse
      *     `$this` object.
      */
-    public function setHint($hint)
+    public function setHint(string $hint): BackchannelAuthenticationResponse
     {
         ValidationUtility::ensureNullOrString('$hint', $hint);
 
@@ -884,10 +883,10 @@ class BackchannelAuthenticationResponse extends ApiResponse
      * This method works only when the backchannel authentication request
      * contains the `id_token_hint` request parameter.
      *
-     * @return string
+     * @return string|null
      *     The value of the `sub` claim contained in the ID token hint.
      */
-    public function getSub()
+    public function getSub(): ?string
     {
         return $this->sub;
     }
@@ -903,7 +902,7 @@ class BackchannelAuthenticationResponse extends ApiResponse
      * @return BackchannelAuthenticationResponse
      *     `$this` object.
      */
-    public function setSub($sub)
+    public function setSub(string $sub): BackchannelAuthenticationResponse
     {
         ValidationUtility::ensureNullOrString('$sub', $sub);
 
@@ -917,10 +916,10 @@ class BackchannelAuthenticationResponse extends ApiResponse
      * Get the binding message included in the backchannel authentication
      * request. It is the value of the `binding_message` request parameter.
      *
-     * @return string
+     * @return string|null
      *     The binding message.
      */
-    public function getBindingMessage()
+    public function getBindingMessage(): ?string
     {
         return $this->bindingMessage;
     }
@@ -936,7 +935,7 @@ class BackchannelAuthenticationResponse extends ApiResponse
      * @return BackchannelAuthenticationResponse
      *     `$this` object.
      */
-    public function setBindingMessage($message)
+    public function setBindingMessage(string $message): BackchannelAuthenticationResponse
     {
         ValidationUtility::ensureNullOrString('$message', $message);
 
@@ -950,10 +949,10 @@ class BackchannelAuthenticationResponse extends ApiResponse
      * Get the user code included in the backchannel authentication request.
      * It is the value of the `user_code` request parameter.
      *
-     * @return string
+     * @return string|null
      *     The user code.
      */
-    public function getUserCode()
+    public function getUserCode(): ?string
     {
         return $this->userCode;
     }
@@ -968,7 +967,7 @@ class BackchannelAuthenticationResponse extends ApiResponse
      * @return BackchannelAuthenticationResponse
      *     `$this` object.
      */
-    public function setUserCode($code)
+    public function setUserCode(string $code): BackchannelAuthenticationResponse
     {
         ValidationUtility::ensureNullOrString('$code', $code);
 
@@ -990,7 +989,7 @@ class BackchannelAuthenticationResponse extends ApiResponse
      * @return boolean
      *     `true` when a user code is required.
      */
-    public function isUserCodeRequired()
+    public function isUserCodeRequired(): bool
     {
         return $this->userCodeRequired;
     }
@@ -1005,7 +1004,7 @@ class BackchannelAuthenticationResponse extends ApiResponse
      * @return BackchannelAuthenticationResponse
      *     `$this` object.
      */
-    public function setUserCodeRequired($required)
+    public function setUserCodeRequired(bool $required): BackchannelAuthenticationResponse
     {
         ValidationUtility::ensureBoolean('$required', $required);
 
@@ -1023,7 +1022,7 @@ class BackchannelAuthenticationResponse extends ApiResponse
      * @return integer
      *     The requested expiry in seconds.
      */
-    public function getRequestedExpiry()
+    public function getRequestedExpiry(): int
     {
         return $this->requestedExpiry;
     }
@@ -1040,7 +1039,7 @@ class BackchannelAuthenticationResponse extends ApiResponse
      * @return BackchannelAuthenticationResponse
      *     `$this` object.
      */
-    public function setRequestedExpiry($seconds)
+    public function setRequestedExpiry(int $seconds): BackchannelAuthenticationResponse
     {
         ValidationUtility::ensureInteger('$seconds', $seconds);
 
@@ -1060,10 +1059,10 @@ class BackchannelAuthenticationResponse extends ApiResponse
      * not include a `request` request parameter or the JWT specified by the
      * request parameter does not include a `request_context` claim.
      *
-     * @return string
+     * @return string|null
      *     The request context in JSON format.
      */
-    public function getRequestContext()
+    public function getRequestContext(): ?string
     {
         return $this->requestContext;
     }
@@ -1081,7 +1080,7 @@ class BackchannelAuthenticationResponse extends ApiResponse
      * @return BackchannelAuthenticationResponse
      *     `$this` object.
      */
-    public function setRequestContext($context)
+    public function setRequestContext(string $context): BackchannelAuthenticationResponse
     {
         ValidationUtility::ensureNullOrString('$context', $context);
 
@@ -1096,12 +1095,12 @@ class BackchannelAuthenticationResponse extends ApiResponse
      * the `resource` property in the request object. If both are given, the
      * values in the request object take precedence.
      *
-     * @return string[]
+     * @return string[]|null
      *     The target resources.
      *
      * @see https://www.rfc-editor.org/rfc/rfc8707.html RFC 8707 Resource Indicators for OAuth 2.0
      */
-    public function getResources()
+    public function getResources(): ?array
     {
         return $this->resources;
     }
@@ -1120,7 +1119,7 @@ class BackchannelAuthenticationResponse extends ApiResponse
      *
      * @see https://www.rfc-editor.org/rfc/rfc8707.html RFC 8707 Resource Indicators for OAuth 2.0
      */
-    public function setResources(array $resources = null)
+    public function setResources(array $resources = null): BackchannelAuthenticationResponse
     {
         ValidationUtility::ensureNullOrArrayOfString('$resources', $resources);
 
@@ -1134,10 +1133,10 @@ class BackchannelAuthenticationResponse extends ApiResponse
      * Get the warnings raised during processing the backchannel authentication
      * request.
      *
-     * @return string[]
+     * @return string[]|null
      *     Warnings. This may be null.
      */
-    public function getWarnings()
+    public function getWarnings(): ?array
     {
         return $this->warnings;
     }
@@ -1153,7 +1152,7 @@ class BackchannelAuthenticationResponse extends ApiResponse
      * @return BackchannelAuthenticationResponse
      *     `$this` object.
      */
-    public function setWarnings(array $warnings = null)
+    public function setWarnings(array $warnings = null): BackchannelAuthenticationResponse
     {
         ValidationUtility::ensureNullOrArrayOfString('$warnings', $warnings);
 
@@ -1168,10 +1167,10 @@ class BackchannelAuthenticationResponse extends ApiResponse
      * backchannel authentication endpoint to call
      * `/api/backchannel/authentication/*` API.
      *
-     * @return string
+     * @return string|null
      *     The ticket issued from `/api/backchannel/authentication` API.
      */
-    public function getTicket()
+    public function getTicket(): ?string
     {
         return $this->ticket;
     }
@@ -1188,7 +1187,7 @@ class BackchannelAuthenticationResponse extends ApiResponse
      * @return BackchannelAuthenticationResponse
      *     `$this` object.
      */
-    public function setTicket($ticket)
+    public function setTicket(string $ticket): BackchannelAuthenticationResponse
     {
         ValidationUtility::ensureNullOrString('$ticket', $ticket);
 
@@ -1206,7 +1205,7 @@ class BackchannelAuthenticationResponse extends ApiResponse
      * @param array $array
      *     {@inheritdoc}
      */
-    public function copyToArray(array &$array)
+    public function copyToArray(array &$array): void
     {
         parent::copyToArray($array);
 
@@ -1243,7 +1242,7 @@ class BackchannelAuthenticationResponse extends ApiResponse
      * @param array $array
      *     {@inheritdoc}
      */
-    public function copyFromArray(array &$array)
+    public function copyFromArray(array &$array): void
     {
         parent::copyFromArray($array);
 
@@ -1279,7 +1278,7 @@ class BackchannelAuthenticationResponse extends ApiResponse
 
         // scopes
         $_scopes = LanguageUtility::getFromArray('scopes', $array);
-        $_scopes = LanguageUtility::convertArrayToArrayOfArrayCopyable($_scopes, __NAMESPACE__ . '\Scope');
+        $_scopes = LanguageUtility::convertArrayToArrayOfArrayCopyable(__NAMESPACE__ . '\Scope', $_scopes);
         $this->setScopes($_scopes);
 
         // claimNames
@@ -1340,4 +1339,4 @@ class BackchannelAuthenticationResponse extends ApiResponse
             LanguageUtility::getFromArray('ticket', $array));
     }
 }
-?>
+

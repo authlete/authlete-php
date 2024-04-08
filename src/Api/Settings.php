@@ -38,7 +38,7 @@ interface Settings
      * @return int
      *     Connection timeout in seconds. 0 means infinite.
      */
-    public function getConnectionTimeout();
+    public function getConnectionTimeout(): int;
 
 
     /**
@@ -53,7 +53,7 @@ interface Settings
      * @throws \InvalidArgumentException
      *     The type of the argument is not `integer` or its value is negative.
      */
-    public function setConnectionTimeout($timeout);
+    public function setConnectionTimeout(int $timeout): Settings;
 
 
     /**
@@ -62,7 +62,7 @@ interface Settings
      * @return string
      *     Proxy host.
      */
-    public function getProxyHost();
+    public function getProxyHost(): string;
 
 
     /**
@@ -77,7 +77,7 @@ interface Settings
      * @throws \InvalidArgumentException
      *     The type of the argument is not `string`.
      */
-    public function setProxyHost($host);
+    public function setProxyHost($host): Settings;
 
 
     /**
@@ -86,7 +86,7 @@ interface Settings
      * @return integer
      *     Proxy port.
      */
-    public function getProxyPort();
+    public function getProxyPort(): int;
 
 
     /**
@@ -101,7 +101,7 @@ interface Settings
      * @throws \InvalidArgumentException
      *     The type of the argument is not `integer`.
      */
-    public function setProxyPort($port);
+    public function setProxyPort(int $port): Settings;
 
 
     /**
@@ -110,7 +110,7 @@ interface Settings
      * @return boolean
      *     `true` if HTTP proxy tunnel is used.
      */
-    public function isHttpProxyTunnelUsed();
+    public function isHttpProxyTunnelUsed(): bool;
 
 
     /**
@@ -125,6 +125,6 @@ interface Settings
      * @throws \InvalidArgumentException
      *     The type of the argument is not `boolean`.
      */
-    public function setHttpProxyTunnelUsed($used);
+    public function setHttpProxyTunnelUsed($used): Settings;
 }
 ?>

@@ -47,28 +47,28 @@ class TokenCreateRequest implements ArrayCopyable, Arrayable, Jsonable
     use JsonTrait;
 
 
-    private $grantType             = null;  // \Authlete\Types\GrantType
-    private $clientId              = null;  // string or (64-bit) integer
-    private $subject               = null;  // string
-    private $scopes                = null;  // array of string
-    private $accessTokenDuration   = null;  // string or (64-bit) integer
-    private $refreshTokenDuration  = null;  // string or (64-bit) integer
-    private $properties            = null;  // array of \Authlete\Dto\Property
-    private $clientIdAliasUsed     = false; // boolean
-    private $accessToken           = null;  // string
-    private $refreshToken          = null;  // string
-    private $accessTokenPersistent = false; // boolean
-    private $certificateThumbprint = null;  // string
-    private $dpopKeyThumbprint     = null;  // string
+    private ?GrantType $grantType                 = null;
+    private string|int|null $clientId             = null;
+    private ?string $subject                      = null;
+    private ?array $scopes                        = null;  // array of string
+    private string|int|null $accessTokenDuration  = null;
+    private string|int|null $refreshTokenDuration = null;
+    private ?array $properties                    = null;  // array of \Authlete\Dto\Property
+    private bool $clientIdAliasUsed               = false;
+    private ?string $accessToken                  = null;
+    private ?string $refreshToken                 = null;
+    private bool $accessTokenPersistent           = false;
+    private ?string $certificateThumbprint        = null;
+    private ?string $dpopKeyThumbprint            = null;
 
 
     /**
      * Get the grant type to be emulated for a newly created access token.
      *
-     * @return GrantType
+     * @return GrantType|null
      *     The grant type.
      */
-    public function getGrantType()
+    public function getGrantType(): ?GrantType
     {
         return $this->grantType;
     }
@@ -81,13 +81,13 @@ class TokenCreateRequest implements ArrayCopyable, Arrayable, Jsonable
      * `GrantType::$CLIENT_CREDENTIALS`, a refresh token is not issued.
      * This request parameter is mandatory.
      *
-     * @param GrantType $grantType
+     * @param GrantType|null $grantType
      *     The grant type.
      *
      * @return TokenCreateRequest
      *     `$this` object.
      */
-    public function setGrantType(GrantType $grantType = null)
+    public function setGrantType(GrantType $grantType = null): TokenCreateRequest
     {
         $this->grantType = $grantType;
 
@@ -99,10 +99,10 @@ class TokenCreateRequest implements ArrayCopyable, Arrayable, Jsonable
      * Get the ID of the client application which will be associated with a
      * newly created access token.
      *
-     * @return integer|string
+     * @return integer|string|null
      *     The client ID.
      */
-    public function getClientId()
+    public function getClientId(): int|string|null
     {
         return $this->clientId;
     }
@@ -120,7 +120,7 @@ class TokenCreateRequest implements ArrayCopyable, Arrayable, Jsonable
      * @return TokenCreateRequest
      *     `$this` object.
      */
-    public function setClientId($clientId)
+    public function setClientId(int|string $clientId): TokenCreateRequest
     {
         ValidationUtility::ensureNullOrStringOrInteger('$clientId', $clientId);
 
@@ -134,10 +134,10 @@ class TokenCreateRequest implements ArrayCopyable, Arrayable, Jsonable
      * Get the subject (= unique identifier) of the end-user who will be
      * associated with a newly created access token.
      *
-     * @return string
+     * @return string|null
      *     The subject of the end-user.
      */
-    public function getSubject()
+    public function getSubject(): ?string
     {
         return $this->subject;
     }
@@ -157,7 +157,7 @@ class TokenCreateRequest implements ArrayCopyable, Arrayable, Jsonable
      * @return TokenCreateRequest
      *     `$this` object.
      */
-    public function setSubject($subject)
+    public function setSubject(string $subject): TokenCreateRequest
     {
         ValidationUtility::ensureNullOrString('$subject', $subject);
 
@@ -171,10 +171,10 @@ class TokenCreateRequest implements ArrayCopyable, Arrayable, Jsonable
      * Get the scopes which will be associated with a newly created access
      * token.
      *
-     * @return string[]
+     * @return array|null
      *     The scopes.
      */
-    public function getScopes()
+    public function getScopes(): ?array
     {
         return $this->scopes;
     }
@@ -193,7 +193,7 @@ class TokenCreateRequest implements ArrayCopyable, Arrayable, Jsonable
      * @return TokenCreateRequest
      *     `$this` object.
      */
-    public function setScopes(array $scopes = null)
+    public function setScopes(array $scopes = null): TokenCreateRequest
     {
         ValidationUtility::ensureNullOrArrayOfString('$scopes', $scopes);
 
@@ -206,10 +206,10 @@ class TokenCreateRequest implements ArrayCopyable, Arrayable, Jsonable
     /**
      * Get the duration of a newly created access token in seconds.
      *
-     * @return integer|string
+     * @return integer|string|null
      *     The duration of the access token.
      */
-    public function getAccessTokenDuration()
+    public function getAccessTokenDuration(): int|string|null
     {
         return $this->accessTokenDuration;
     }
@@ -227,7 +227,7 @@ class TokenCreateRequest implements ArrayCopyable, Arrayable, Jsonable
      * @return TokenCreateRequest
      *     `$this` object.
      */
-    public function setAccessTokenDuration($duration)
+    public function setAccessTokenDuration(int|string $duration): TokenCreateRequest
     {
         ValidationUtility::ensureNullOrStringOrInteger('$duration', $duration);
 
@@ -240,10 +240,10 @@ class TokenCreateRequest implements ArrayCopyable, Arrayable, Jsonable
     /**
      * Get the duration of a newly created refresh token in seconds.
      *
-     * @return integer|string
+     * @return integer|string|null
      *     The duration of the refresh token.
      */
-    public function getRefreshTokenDuration()
+    public function getRefreshTokenDuration(): int|string|null
     {
         return $this->refreshTokenDuration;
     }
@@ -266,7 +266,7 @@ class TokenCreateRequest implements ArrayCopyable, Arrayable, Jsonable
      * @return TokenCreateRequest
      *     `$this` object.
      */
-    public function setRefreshTokenDuration($duration)
+    public function setRefreshTokenDuration(int|string $duration): TokenCreateRequest
     {
         ValidationUtility::ensureNullOrStringOrInteger('$duration', $duration);
 
@@ -279,10 +279,10 @@ class TokenCreateRequest implements ArrayCopyable, Arrayable, Jsonable
     /**
      * Get properties to be associated with a newly created access token.
      *
-     * @return Property[]
+     * @return array|null
      *     Properties.
      */
-    public function getProperties()
+    public function getProperties(): ?array
     {
         return $this->properties;
     }
@@ -302,10 +302,10 @@ class TokenCreateRequest implements ArrayCopyable, Arrayable, Jsonable
      * @return TokenCreateRequest
      *     `$this` object.
      */
-    public function setProperties(array $properties = null)
+    public function setProperties(array $properties = null): TokenCreateRequest
     {
         ValidationUtility::ensureNullOrArrayOfType(
-            '$properties', $properties, __NAMESPACE__ . '\Property');
+            '$properties', __NAMESPACE__ . '\Property', $properties);
 
         $this->properties = $properties;
 
@@ -321,7 +321,7 @@ class TokenCreateRequest implements ArrayCopyable, Arrayable, Jsonable
      * @return boolean
      *     `true` if use of the client ID alias is emulated.
      */
-    public function isClientIdAliasUsed()
+    public function isClientIdAliasUsed(): bool
     {
         return $this->clientIdAliasUsed;
     }
@@ -351,7 +351,7 @@ class TokenCreateRequest implements ArrayCopyable, Arrayable, Jsonable
      * @return TokenCreateRequest
      *     `$this` object.
      */
-    public function setClientIdAliasUsed($used)
+    public function setClientIdAliasUsed(bool $used): TokenCreateRequest
     {
         ValidationUtility::ensureBoolean('$used', $used);
 
@@ -364,10 +364,10 @@ class TokenCreateRequest implements ArrayCopyable, Arrayable, Jsonable
     /**
      * Get the value of the new access token.
      *
-     * @return string
+     * @return string|null
      *     The value of the new access token.
      */
-    public function getAccessToken()
+    public function getAccessToken(): ?string
     {
         return $this->accessToken;
     }
@@ -399,7 +399,7 @@ class TokenCreateRequest implements ArrayCopyable, Arrayable, Jsonable
      * @return TokenCreateRequest
      *     `$this` object.
      */
-    public function setAccessToken($accessToken)
+    public function setAccessToken(string $accessToken): TokenCreateRequest
     {
         ValidationUtility::ensureNullOrString('$accessToken', $accessToken);
 
@@ -412,10 +412,10 @@ class TokenCreateRequest implements ArrayCopyable, Arrayable, Jsonable
     /**
      * Get the value of the new refresh token.
      *
-     * @return string
+     * @return string|null
      *     The value of the new refresh token.
      */
-    public function getRefreshToken()
+    public function getRefreshToken(): ?string
     {
         return $this->refreshToken;
     }
@@ -447,7 +447,7 @@ class TokenCreateRequest implements ArrayCopyable, Arrayable, Jsonable
      * @return TokenCreateRequest
      *     `$this` object.
      */
-    public function setRefreshToken($refreshToken)
+    public function setRefreshToken(string $refreshToken): TokenCreateRequest
     {
         ValidationUtility::ensureNullOrString('$refreshToken', $refreshToken);
 
@@ -472,7 +472,7 @@ class TokenCreateRequest implements ArrayCopyable, Arrayable, Jsonable
      *
      * @since 1.8
      */
-    public function isAccessTokenPersistent()
+    public function isAccessTokenPersistent(): bool
     {
         return $this->accessTokenPersistent;
     }
@@ -496,7 +496,7 @@ class TokenCreateRequest implements ArrayCopyable, Arrayable, Jsonable
      *
      * @since 1.8
      */
-    public function setAccessTokenPersistent($persistent)
+    public function setAccessTokenPersistent(bool $persistent): TokenCreateRequest
     {
         ValidationUtility::ensureBoolean('$persistent', $persistent);
 
@@ -511,14 +511,14 @@ class TokenCreateRequest implements ArrayCopyable, Arrayable, Jsonable
      * If this request parameter is set, a certificate whose thumbprint matches
      * the value must be presented when the client uses the access token.
      *
-     * @return string
+     * @return string|null
      *     The base64url-encoded SHA-256 certificate thumbprint.
      *
      * @see https://www.rfc-editor.org/rfc/rfc8705.html RFC 8705 OAuth 2.0 Mutual-TLS Client Authentication and Certificate-Bound Access Tokens
      *
      * @since 1.8
      */
-    public function getCertificateThumbprint()
+    public function getCertificateThumbprint(): ?string
     {
         return $this->certificateThumbprint;
     }
@@ -539,7 +539,7 @@ class TokenCreateRequest implements ArrayCopyable, Arrayable, Jsonable
      *
      * @since 1.8
      */
-    public function setCertificateThumbprint($thumbprint)
+    public function setCertificateThumbprint(string $thumbprint): TokenCreateRequest
     {
         ValidationUtility::ensureNullOrString('$thumbprint', $thumbprint);
 
@@ -558,12 +558,12 @@ class TokenCreateRequest implements ArrayCopyable, Arrayable, Jsonable
      * See "OAuth 2.0 Demonstration of Proof-of-Possession at the Application
      * Layer (DPoP)" for details.
      *
-     * @return string
+     * @return string|null
      *     The JWK publick key thumbprint.
      *
      * @since 1.8
      */
-    public function getDpopKeyThumbprint()
+    public function getDpopKeyThumbprint(): ?string
     {
         return $this->dpopKeyThumbprint;
     }
@@ -586,7 +586,7 @@ class TokenCreateRequest implements ArrayCopyable, Arrayable, Jsonable
      *
      * @since 1.8
      */
-    public function setDpopKeyThumbprint($thumbprint)
+    public function setDpopKeyThumbprint(string $thumbprint): TokenCreateRequest
     {
         ValidationUtility::ensureNullOrString('$thumbprint', $thumbprint);
 
@@ -604,7 +604,7 @@ class TokenCreateRequest implements ArrayCopyable, Arrayable, Jsonable
      * @param array $array
      *     {@inheritdoc}
      */
-    public function copyToArray(array &$array)
+    public function copyToArray(array &$array): void
     {
         $array['grantType']             = LanguageUtility::toString($this->grantType);
         $array['clientId']              = LanguageUtility::orZero($this->clientId);
@@ -630,7 +630,7 @@ class TokenCreateRequest implements ArrayCopyable, Arrayable, Jsonable
      * @param array $array
      *     {@inheritdoc}
      */
-    public function copyFromArray(array &$array)
+    public function copyFromArray(array &$array): void
     {
         // grantType
         $this->setGrantType(
@@ -659,7 +659,7 @@ class TokenCreateRequest implements ArrayCopyable, Arrayable, Jsonable
 
         // properties
         $_properties = LanguageUtility::getFromArray('properties', $array);
-        $_properties = LanguageUtility::convertArrayToArrayOfArrayCopyable($_properties, __NAMESPACE__ . '\Property');
+        $_properties = LanguageUtility::convertArrayToArrayOfArrayCopyable(__NAMESPACE__ . '\Property', $_properties);
         $this->setProperties($_properties);
 
         // clientIdAliasUsed
@@ -687,4 +687,3 @@ class TokenCreateRequest implements ArrayCopyable, Arrayable, Jsonable
             LanguageUtility::getFromArray('dpopKeyThumbprint', $array));
     }
 }
-?>

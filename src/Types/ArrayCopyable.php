@@ -58,4 +58,4 @@ interface ArrayCopyable
      */
     public function copyFromArray(array &$array);
 }
-?>
+

@@ -52,11 +52,11 @@ class DeviceAuthorizationRequest implements ArrayCopyable, Arrayable, Jsonable
     use JsonTrait;
 
 
-    private $parameters            = null;  // string
-    private $clientId              = null;  // string
-    private $clientSecret          = null;  // string
-    private $clientCertificate     = null;  // string
-    private $clientCertificatePath = null;  // array of string
+    private ?string $parameters            = null;
+    private ?string $clientId              = null;
+    private ?string $clientSecret          = null;
+    private ?string $clientCertificate     = null;
+    private ?array $clientCertificatePath  = null;
 
 
     /**
@@ -64,11 +64,11 @@ class DeviceAuthorizationRequest implements ArrayCopyable, Arrayable, Jsonable
      * device authorization endpoint of the authorization server implementation
      * received from a client application.
      *
-     * @return string
+     * @return string|null
      *     The request parameters of a device authorization request in
      *     `application/x-www-form-urlencoded` format.
      */
-    public function getParameters()
+    public function getParameters(): ?string
     {
         return $this->parameters;
     }
@@ -86,7 +86,7 @@ class DeviceAuthorizationRequest implements ArrayCopyable, Arrayable, Jsonable
      * @return DeviceAuthorizationRequest
      *     `$this` object.
      */
-    public function setParameters($parameters)
+    public function setParameters($parameters): DeviceAuthorizationRequest
     {
         ValidationUtility::ensureNullOrString('$parameters', $parameters);
 
@@ -100,10 +100,10 @@ class DeviceAuthorizationRequest implements ArrayCopyable, Arrayable, Jsonable
      * Get the client ID extracted from the `Authorization` header of the
      * device authorization request from a client application.
      *
-     * @return string
+     * @return string|null
      *     The client ID extracted from the `Authorization` header.
      */
-    public function getClientId()
+    public function getClientId(): ?string
     {
         return $this->clientId;
     }
@@ -119,7 +119,7 @@ class DeviceAuthorizationRequest implements ArrayCopyable, Arrayable, Jsonable
      * @return DeviceAuthorizationRequest
      *     `$this` object.
      */
-    public function setClientId($clientId)
+    public function setClientId($clientId): DeviceAuthorizationRequest
     {
         ValidationUtility::ensureNullOrString('$clientId', $clientId);
 
@@ -133,10 +133,10 @@ class DeviceAuthorizationRequest implements ArrayCopyable, Arrayable, Jsonable
      * Get the client secret extracted from the `Authorization` header of the
      * device authorization request from a client application.
      *
-     * @return string
+     * @return string|null
      *     The client secret extracted from the `Authorization` header.
      */
-    public function getClientSecret()
+    public function getClientSecret(): ?string
     {
         return $this->clientSecret;
     }
@@ -152,7 +152,7 @@ class DeviceAuthorizationRequest implements ArrayCopyable, Arrayable, Jsonable
      * @return DeviceAuthorizationRequest
      *     `$this` object.
      */
-    public function setClientSecret($clientSecret)
+    public function setClientSecret($clientSecret): DeviceAuthorizationRequest
     {
         ValidationUtility::ensureNullOrString('$clientSecret', $clientSecret);
 
@@ -167,10 +167,10 @@ class DeviceAuthorizationRequest implements ArrayCopyable, Arrayable, Jsonable
      * application and the device authorization endpoint of the authorization
      * server.
      *
-     * @return string
+     * @return string|null
      *     The client certificate.
      */
-    public function getClientCertificate()
+    public function getClientCertificate(): ?string
     {
         return $this->clientCertificate;
     }
@@ -187,7 +187,7 @@ class DeviceAuthorizationRequest implements ArrayCopyable, Arrayable, Jsonable
      * @return DeviceAuthorizationRequest
      *     `$this` object.
      */
-    public function setClientCertificate($certificate)
+    public function setClientCertificate($certificate): DeviceAuthorizationRequest
     {
         ValidationUtility::ensureNullOrString('$certificate', $certificate);
 
@@ -201,10 +201,10 @@ class DeviceAuthorizationRequest implements ArrayCopyable, Arrayable, Jsonable
      * Get the certificate path presented by the client during client
      * authentication.
      *
-     * @return string[]
+     * @return array|null
      *     The client certificate path. Each element is a string in PEM format.
      */
-    public function getClientCertificatePath()
+    public function getClientCertificatePath(): ?array
     {
         return $this->clientCertificatePath;
     }
@@ -220,7 +220,7 @@ class DeviceAuthorizationRequest implements ArrayCopyable, Arrayable, Jsonable
      * @return DeviceAuthorizationRequest
      *     `$this` object.
      */
-    public function setClientCertificatePath(array $path = null)
+    public function setClientCertificatePath(array $path = null): DeviceAuthorizationRequest
     {
         ValidationUtility::ensureNullOrArrayOfString('$path', $path);
 
@@ -238,7 +238,7 @@ class DeviceAuthorizationRequest implements ArrayCopyable, Arrayable, Jsonable
      * @param array $array
      *     {@inheritdoc}
      */
-    public function copyToArray(array &$array)
+    public function copyToArray(array &$array): void
     {
         $array['parameters']            = $this->parameters;
         $array['clientId']              = $this->clientId;
@@ -256,7 +256,7 @@ class DeviceAuthorizationRequest implements ArrayCopyable, Arrayable, Jsonable
      * @param array $array
      *     {@inheritdoc}
      */
-    public function copyFromArray(array &$array)
+    public function copyFromArray(array &$array): void
     {
         // parameters
         $this->setParameters(
@@ -279,4 +279,4 @@ class DeviceAuthorizationRequest implements ArrayCopyable, Arrayable, Jsonable
         $this->setClientCertificatePath($_client_certificate_path);
     }
 }
-?>
+

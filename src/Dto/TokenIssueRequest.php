@@ -43,18 +43,18 @@ class TokenIssueRequest implements ArrayCopyable, Arrayable, Jsonable
     use JsonTrait;
 
 
-    private $ticket     = null;  // string
-    private $subject    = null;  // string
-    private $properties = null;  // array of \Authlete\Dto\Property
+    private ?string $ticket     = null;
+    private ?string $subject    = null;
+    private ?array $properties  = null;  // array of \Authlete\Dto\Property
 
 
     /**
      * Get the ticket issued by Authlete's /api/auth/token API.
      *
-     * @return string
+     * @return string|null
      *     The ticket issued by Authlete's /api/auth/token API.
      */
-    public function getTicket()
+    public function getTicket(): ?string
     {
         return $this->ticket;
     }
@@ -69,7 +69,7 @@ class TokenIssueRequest implements ArrayCopyable, Arrayable, Jsonable
      * @return TokenIssueRequest
      *     `$this` object.
      */
-    public function setTicket($ticket)
+    public function setTicket(string $ticket): TokenIssueRequest
     {
         ValidationUtility::ensureNullOrString('$ticket', $ticket);
 
@@ -82,10 +82,10 @@ class TokenIssueRequest implements ArrayCopyable, Arrayable, Jsonable
     /**
      * Get the subject (= unique identifier) of the authenticated end-user.
      *
-     * @return string
+     * @return string|null
      *     The subject of the end-user.
      */
-    public function getSubject()
+    public function getSubject(): ?string
     {
         return $this->subject;
     }
@@ -100,7 +100,7 @@ class TokenIssueRequest implements ArrayCopyable, Arrayable, Jsonable
      * @return TokenIssueRequest
      *     `$this` object.
      */
-    public function setSubject($subject)
+    public function setSubject(string $subject): TokenIssueRequest
     {
         ValidationUtility::ensureNullOrString('$subject', $subject);
 
@@ -113,10 +113,10 @@ class TokenIssueRequest implements ArrayCopyable, Arrayable, Jsonable
     /**
      * Get properties that are associated with a newly created access token.
      *
-     * @return Property[]
+     * @return array|null
      *     Properties associated with the access token.
      */
-    public function getProperties()
+    public function getProperties(): ?array
     {
         return $this->properties;
     }
@@ -131,10 +131,10 @@ class TokenIssueRequest implements ArrayCopyable, Arrayable, Jsonable
      * @return TokenIssueRequest
      *     `$this` object.
      */
-    public function setProperties(array $properties = null)
+    public function setProperties(array $properties = null): TokenIssueRequest
     {
         ValidationUtility::ensureNullOrArrayOfType(
-            '$properties', $properties, __NAMESPACE__ . '\Property');
+            '$properties', __NAMESPACE__ . '\Property', $properties);
 
         $this->properties = $properties;
 
@@ -150,7 +150,7 @@ class TokenIssueRequest implements ArrayCopyable, Arrayable, Jsonable
      * @param array $array
      *     {@inheritdoc}
      */
-    public function copyToArray(array &$array)
+    public function copyToArray(array &$array): void
     {
         $array['ticket']     = $this->ticket;
         $array['subject']    = $this->subject;
@@ -166,7 +166,7 @@ class TokenIssueRequest implements ArrayCopyable, Arrayable, Jsonable
      * @param array $array
      *     {@inheritdoc}
      */
-    public function copyFromArray(array &$array)
+    public function copyFromArray(array &$array): void
     {
         // ticket
         $this->setTicket(
@@ -178,8 +178,7 @@ class TokenIssueRequest implements ArrayCopyable, Arrayable, Jsonable
 
         // properties
         $_properties = LanguageUtility::getFromArray('properties', $array);
-        $_properties = LanguageUtility::convertArrayToArrayOfArrayCopyable($_properties, __NAMESPACE__ . '\Property');
+        $_properties = LanguageUtility::convertArrayToArrayOfArrayCopyable(__NAMESPACE__ . '\Property', $_properties);
         $this->setProperties($_properties);
     }
 }
-?>

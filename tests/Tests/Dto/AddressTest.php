@@ -23,18 +23,19 @@ namespace Authlete\Tests\Dto;
 require_once('vendor/autoload.php');
 
 
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Authlete\Dto\Address;
 
 
 class AddressTest extends TestCase
 {
-    private const FORMATTED      = '_formatted_';
-    private const STREET_ADDRESS = '_street_address_';
-    private const LOCALITY       = '_locality_';
-    private const REGION         = '_region_';
-    private const POSTAL_CODE    = '_postal_code_';
-    private const COUNTRY        = '_country_';
+    const FORMATTED      = '_formatted_';
+    const STREET_ADDRESS = '_street_address_';
+    const LOCALITY       = '_locality_';
+    const REGION         = '_region_';
+    const POSTAL_CODE    = '_postal_code_';
+    const COUNTRY        = '_country_';
 
 
     public function testFormattedValidValue()
@@ -55,11 +56,9 @@ class AddressTest extends TestCase
     }
 
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
     public function testFormattedInvalidValue()
     {
+        $this->expectException(InvalidArgumentException::class);
         $obj = new Address();
 
         $invalid = array();
@@ -85,9 +84,9 @@ class AddressTest extends TestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testStreetAddressInvalidValue()
     {
+        $this->expectException(InvalidArgumentException::class);
         $obj = new Address();
 
         $invalid = array();
@@ -113,9 +112,9 @@ class AddressTest extends TestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testLocalityInvalidValue()
     {
+        $this->expectException(InvalidArgumentException::class);
         $obj = new Address();
 
         $invalid = array();
@@ -141,9 +140,9 @@ class AddressTest extends TestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testRegionInvalidValue()
     {
+        $this->expectException(InvalidArgumentException::class);
         $obj = new Address();
 
         $invalid = array();
@@ -169,9 +168,9 @@ class AddressTest extends TestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testPostalCodeInvalidValue()
     {
+        $this->expectException(InvalidArgumentException::class);
         $obj = new Address();
 
         $invalid = array();
@@ -197,9 +196,9 @@ class AddressTest extends TestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testCountryInvalidArray()
     {
+        $this->expectException(InvalidArgumentException::class);
         $obj = new Address();
 
         $invalid = array();
@@ -234,33 +233,33 @@ class AddressTest extends TestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonFormattedInvalidBool()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"formatted":true}';
         $obj  = Address::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonFormattedInvalidNumber()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"formatted":123}';
         $obj  = Address::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonFormattedInvalidArray()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"formatted":["a","b"]}';
         $obj  = Address::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonFormattedInvalidObject()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"formatted":{"a":"b"}}';
         $obj  = Address::fromJson($json);
     }
@@ -284,9 +283,9 @@ class AddressTest extends TestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonStreetAddressInvalidBool()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"street_address":true}';
         $obj  = Address::fromJson($json);
     }
@@ -300,17 +299,17 @@ class AddressTest extends TestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonStreetAddressInvalidArray()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"street_address":["a","b"]}';
         $obj  = Address::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonStreetAddressInvalidObject()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"street_address":{"a":"b"}}';
         $obj  = Address::fromJson($json);
     }
@@ -334,33 +333,33 @@ class AddressTest extends TestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonLocalityInvalidBool()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"locality":true}';
         $obj  = Address::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonLocalityInvalidNumber()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"locality":123}';
         $obj  = Address::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonLocalityInvalidArray()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"locality":["a","b"]}';
         $obj  = Address::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonLocalityInvalidObject()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"locality":{"a":"b"}}';
         $obj  = Address::fromJson($json);
     }
@@ -384,33 +383,33 @@ class AddressTest extends TestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonRegionInvalidBool()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"region":true}';
         $obj  = Address::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonRegionInvalidNumber()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"region":123}';
         $obj  = Address::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonRegionInvalidArray()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"region":["a","b"]}';
         $obj  = Address::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonRegionInvalidObject()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"region":{"a":"b"}}';
         $obj  = Address::fromJson($json);
     }
@@ -434,33 +433,33 @@ class AddressTest extends TestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonPostalCodeInvalidBool()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"postal_code":true}';
         $obj  = Address::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonPostalCodeInvalidNumber()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"postal_code":123}';
         $obj  = Address::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonPostalCodeInvalidArray()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"postal_code":["a","b"]}';
         $obj  = Address::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonPostalCodeInvalidObject()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"postal_code":{"a":"b"}}';
         $obj  = Address::fromJson($json);
     }
@@ -484,33 +483,33 @@ class AddressTest extends TestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonCountryInvalidBool()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"country":true}';
         $obj  = Address::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonCountryInvalidNumber()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"country":123}';
         $obj  = Address::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonCountryInvalidArray()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"country":["a","b"]}';
         $obj  = Address::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonCountryInvalidObject()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"country":{"a":"b"}}';
         $obj  = Address::fromJson($json);
     }
@@ -616,4 +615,4 @@ class AddressTest extends TestCase
         $this->assertEquals(self::COUNTRY, $array['country']);
     }
 }
-?>
+

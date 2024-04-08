@@ -26,8 +26,7 @@ namespace Authlete\Dto;
 
 
 use Authlete\Types\EnumTrait;
-use Authlete\Util\LanguageUtility;
-
+use Authlete\Types\Valuable;
 
 /**
  * The value of "result" in requests to Authlete's
@@ -35,7 +34,7 @@ use Authlete\Util\LanguageUtility;
  *
  * @since 1.8
  */
-class BackchannelAuthenticationCompleteResult
+enum BackchannelAuthenticationCompleteResult: string implements Valuable
 {
     use EnumTrait;
 
@@ -43,20 +42,14 @@ class BackchannelAuthenticationCompleteResult
     /**
      * The end-user was authenticated and has granted authorization to the
      * client application.
-     *
-     * @static
-     * @var BackchannelAuthenticationCompleteResult
      */
-    public static $AUTHORIZED;
+    case AUTHORIZED = 'authorized';
 
 
     /**
      * The end-user denied the backchannel authentication request.
-     *
-     * @static
-     * @var BackchannelAuthenticationCompleteResult
      */
-    public static $ACCESS_DENIED;
+    case ACCESS_DENIED = 'access_denied';
 
 
     /**
@@ -69,14 +62,7 @@ class BackchannelAuthenticationCompleteResult
      * not return a response within a reasonable time, etc.
      *
      * This result can be used as a generic error.
-     *
-     * @static
-     * @var BackchannelAuthenticationCompleteResult
      */
-    public static $TRANSACTION_FAILED;
+    case TRANSACTION_FAILED = 'transaction_failed';
 }
 
-
-// Call BackchannelAuthenticationCompleteResult::initialize().
-LanguageUtility::initializeClass(__NAMESPACE__ . '\BackchannelAuthenticationCompleteResult');
-?>

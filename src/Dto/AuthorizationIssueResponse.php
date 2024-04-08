@@ -126,25 +126,25 @@ use Authlete\Util\ValidationUtility;
  */
 class AuthorizationIssueResponse extends ApiResponse
 {
-    private $action               = null;  // \Authlete\Dto\AuthorizationIssueAction
-    private $responseContent      = null;  // string
-    private $accessToken          = null;  // string
-    private $accessTokenExpiresAt = null;  // string or (64-bit) integer
-    private $accessTokenDuration  = null;  // string or (64-bit) integer
-    private $idToken              = null;  // string
-    private $authorizationCode    = null;  // string
-    private $jwtAccessToken       = null;  // string
+    private ?AuthorizationIssueAction $action     = null;
+    private ?string $responseContent              = null;
+    private ?string $accessToken                  = null;
+    private string|int|null $accessTokenExpiresAt = null;
+    private string|int|null $accessTokenDuration  = null;
+    private ?string $idToken                      = null;
+    private ?string $authorizationCode            = null;
+    private ?string $jwtAccessToken               = null;
 
 
     /**
      * Get the next action that the authorization server implementation
      * should take.
      *
-     * @return AuthorizationIssueAction
+     * @return AuthorizationIssueAction|null
      *     The next action that the authorization server implementation
      *     should take.
      */
-    public function getAction()
+    public function getAction(): ?AuthorizationIssueAction
     {
         return $this->action;
     }
@@ -154,14 +154,14 @@ class AuthorizationIssueResponse extends ApiResponse
      * Set the next action that the authorization server implementation
      * should take.
      *
-     * @param AuthorizationIssueAction $action
+     * @param AuthorizationIssueAction|null $action
      *     The next action that the authorization server implementation
      *     should take.
      *
      * @return AuthorizationIssueResponse
      *     `$this` object.
      */
-    public function setAction(AuthorizationIssueAction $action = null)
+    public function setAction(AuthorizationIssueAction $action = null): AuthorizationIssueResponse
     {
         $this->action = $action;
 
@@ -176,11 +176,11 @@ class AuthorizationIssueResponse extends ApiResponse
      * The format of the value varies depending on the value returned from
      * `getAction()` method.
      *
-     * @return string
+     * @return string|null
      *     The response content which can be used to generate a response to
      *     the client application.
      */
-    public function getResponseContent()
+    public function getResponseContent(): ?string
     {
         return $this->responseContent;
     }
@@ -197,7 +197,7 @@ class AuthorizationIssueResponse extends ApiResponse
      * @return AuthorizationIssueResponse
      *     `$this` object.
      */
-    public function setResponseContent($responseContent)
+    public function setResponseContent(string $responseContent): AuthorizationIssueResponse
     {
         ValidationUtility::ensureNullOrString('$responseContent', $responseContent);
 
@@ -217,12 +217,12 @@ class AuthorizationIssueResponse extends ApiResponse
      * JWT-based access token is issued additionally. In the case,
      * `getJwtAccessToken()` returns the JWT-based access token.
      *
-     * @return string
+     * @return string|null
      *     The newly issued access token.
      *
      * @since 1.8
      */
-    public function getAccessToken()
+    public function getAccessToken(): ?string
     {
         return $this->accessToken;
     }
@@ -239,7 +239,7 @@ class AuthorizationIssueResponse extends ApiResponse
      *
      * @since 1.8
      */
-    public function setAccessToken($accessToken)
+    public function setAccessToken(string $accessToken): AuthorizationIssueResponse
     {
         ValidationUtility::ensureNullOrString('$accessToken', $accessToken);
 
@@ -252,13 +252,13 @@ class AuthorizationIssueResponse extends ApiResponse
     /**
      * Get the date at which the access token will expire.
      *
-     * @return integer|string
+     * @return int|string|null
      *     The date at which the access token will expire. The value is
      *     expressed in milliseconds since the Unix epoch (1970-Jan-1).
      *
      * @since 1.8
      */
-    public function getAccessTokenExpiresAt()
+    public function getAccessTokenExpiresAt(): int|string|null
     {
         return $this->accessTokenExpiresAt;
     }
@@ -277,7 +277,7 @@ class AuthorizationIssueResponse extends ApiResponse
      *
      * @since 1.8
      */
-    public function setAccessTokenExpiresAt($expiresAt)
+    public function setAccessTokenExpiresAt(int|string $expiresAt): AuthorizationIssueResponse
     {
         ValidationUtility::ensureNullOrStringOrInteger('$expiresAt', $expiresAt);
 
@@ -290,12 +290,12 @@ class AuthorizationIssueResponse extends ApiResponse
     /**
      * Get the duration of the access token in seconds.
      *
-     * @return integer|string
+     * @return int|string|null
      *     The duration of the access token in seconds.
      *
      * @since 1.8
      */
-    public function getAccessTokenDuration()
+    public function getAccessTokenDuration(): int|string|null
     {
         return $this->accessTokenDuration;
     }
@@ -312,7 +312,7 @@ class AuthorizationIssueResponse extends ApiResponse
      *
      * @since 1.8
      */
-    public function setAccessTokenDuration($duration)
+    public function setAccessTokenDuration(int|string $duration): AuthorizationIssueResponse
     {
         ValidationUtility::ensureNullOrStringOrInteger('$duration', $duration);
 
@@ -328,12 +328,12 @@ class AuthorizationIssueResponse extends ApiResponse
      * An ID token is issued when the `response_type` request parameter of the
      * authorization request includes `id_token`.
      *
-     * @return string
+     * @return string|null
      *     The newly issued ID token.
      *
      * @since 1.8
      */
-    public function getIdToken()
+    public function getIdToken(): ?string
     {
         return $this->idToken;
     }
@@ -350,7 +350,7 @@ class AuthorizationIssueResponse extends ApiResponse
      *
      * @since 1.8
      */
-    public function setIdToken($idToken)
+    public function setIdToken(string $idToken): AuthorizationIssueResponse
     {
         ValidationUtility::ensureNullOrString('$idToken', $idToken);
 
@@ -366,12 +366,12 @@ class AuthorizationIssueResponse extends ApiResponse
      * An authorization code is issued when the `response_type` request
      * parameter of the authorization request includes `code`.
      *
-     * @return string
+     * @return string|null
      *     The newly issued authorization code.
      *
      * @since 1.8
      */
-    public function getAuthorizationCode()
+    public function getAuthorizationCode(): ?string
     {
         return $this->authorizationCode;
     }
@@ -388,7 +388,7 @@ class AuthorizationIssueResponse extends ApiResponse
      *
      * @since 1.8
      */
-    public function setAuthorizationCode($code)
+    public function setAuthorizationCode(string $code): AuthorizationIssueResponse
     {
         ValidationUtility::ensureNullOrString('$code', $code);
 
@@ -406,12 +406,12 @@ class AuthorizationIssueResponse extends ApiResponse
      * value), a JWT-based access token is issued along with the original
      * random-string one.
      *
-     * @return string
+     * @return string|null
      *     The newly issued access token in JWT format.
      *
      * @since 1.8
      */
-    public function getJwtAccessToken()
+    public function getJwtAccessToken(): ?string
     {
         return $this->jwtAccessToken;
     }
@@ -428,7 +428,7 @@ class AuthorizationIssueResponse extends ApiResponse
      *
      * @since 1.8
      */
-    public function setJwtAccessToken($jwtAccessToken)
+    public function setJwtAccessToken(string $jwtAccessToken): AuthorizationIssueResponse
     {
         ValidationUtility::ensureNullOrString('$jwtAccessToken', $jwtAccessToken);
 
@@ -446,7 +446,7 @@ class AuthorizationIssueResponse extends ApiResponse
      * @param array $array
      *     {@inheritdoc}
      */
-    public function copyToArray(array &$array)
+    public function copyToArray(array &$array): void
     {
         parent::copyToArray($array);
 
@@ -469,7 +469,7 @@ class AuthorizationIssueResponse extends ApiResponse
      * @param array $array
      *     {@inheritdoc}
      */
-    public function copyFromArray(array &$array)
+    public function copyFromArray(array &$array): void
     {
         parent::copyFromArray($array);
 
@@ -507,4 +507,4 @@ class AuthorizationIssueResponse extends ApiResponse
             LanguageUtility::getFromArray('jwtAccessToken', $array));
     }
 }
-?>
+
