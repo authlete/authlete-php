@@ -312,7 +312,7 @@ class AuthleteApiImpl implements AuthleteApi
             $value = self::toQueryParamValue($value);
 
             // Build "key=value" and add it to the list.
-            $params[] = "${key}=${value}";
+            $params[] = "{$key}={$value}";
         }
 
         if (count($params) === 0)
@@ -418,7 +418,7 @@ class AuthleteApiImpl implements AuthleteApi
         $resultMessage = LanguageUtility::orEmpty(self::extractResultMessage($body));
 
         throw new AuthleteApiException(
-            "Unexpected response: path=${path}, statusCode=${statusCode}, resultMessage=${resultMessage}",
+            "Unexpected response: path={$path}, statusCode={$statusCode}, resultMessage={$resultMessage}",
             $statusCode, HttpHeaders::parse($headers), $body);
     }
 
