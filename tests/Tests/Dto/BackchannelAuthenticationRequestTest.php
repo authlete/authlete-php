@@ -17,7 +17,7 @@
 //
 
 
-namespace Authlete\Tests\Dto;
+namespace Tests\Dto;
 
 
 require_once('vendor/autoload.php');
@@ -35,7 +35,7 @@ class BackchannelAuthenticationRequestTest extends TestCase
     private const CLIENT_CERTIFICATE = '_client_certificate_';
 
 
-    public function buildObj()
+    public function buildObj(): BackchannelAuthenticationRequest
     {
         $obj = new BackchannelAuthenticationRequest();
         $obj->setParameters(self::PARAMETERS)
@@ -112,4 +112,3 @@ class BackchannelAuthenticationRequestTest extends TestCase
         $this->assertEquals('certificate-1', $certificates[1]);
     }
 }
-?>

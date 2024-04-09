@@ -26,6 +26,7 @@ require_once('tests/Tests/Types/EnumTestCase.php');
 
 use Authlete\Dto\DeviceCompleteResult;
 use Authlete\Tests\Types\EnumTestCase;
+use InvalidArgumentException;
 
 
 class DeviceCompleteResultTest extends EnumTestCase
@@ -40,23 +41,22 @@ class DeviceCompleteResultTest extends EnumTestCase
     {
         $cls = $this->getTargetClass();
 
-        $this->enumTest($cls::$AUTHORIZED,         'AUTHORIZED');
-        $this->enumTest($cls::$ACCESS_DENIED,      'ACCESS_DENIED');
-        $this->enumTest($cls::$TRANSACTION_FAILED, 'TRANSACTION_FAILED');
+        $this->enumTest($cls::AUTHORIZED,         'AUTHORIZED');
+        $this->enumTest($cls::ACCESS_DENIED,      'ACCESS_DENIED');
+        $this->enumTest($cls::TRANSACTION_FAILED, 'TRANSACTION_FAILED');
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testValueOfInvalidValue()
     {
+        $this->expectException(InvalidArgumentException::class);
         $this->enumTestInvalidValue();
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testValueOfInvalidArray()
     {
+        $this->expectException(InvalidArgumentException::class);
         $this->enumTestInvalidArray();
     }
 }
-?>

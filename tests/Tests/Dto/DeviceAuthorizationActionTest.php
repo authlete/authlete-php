@@ -26,6 +26,7 @@ require_once('tests/Tests/Types/EnumTestCase.php');
 
 use Authlete\Dto\DeviceAuthorizationAction;
 use Authlete\Tests\Types\EnumTestCase;
+use InvalidArgumentException;
 
 
 class DeviceAuthorizationActionTest extends EnumTestCase
@@ -40,24 +41,24 @@ class DeviceAuthorizationActionTest extends EnumTestCase
     {
         $cls = $this->getTargetClass();
 
-        $this->enumTest($cls::$OK,                    'OK');
-        $this->enumTest($cls::$BAD_REQUEST,           'BAD_REQUEST');
-        $this->enumTest($cls::$UNAUTHORIZED,          'UNAUTHORIZED');
-        $this->enumTest($cls::$INTERNAL_SERVER_ERROR, 'INTERNAL_SERVER_ERROR');
+        $this->enumTest($cls::OK,                    'OK');
+        $this->enumTest($cls::BAD_REQUEST,           'BAD_REQUEST');
+        $this->enumTest($cls::UNAUTHORIZED,          'UNAUTHORIZED');
+        $this->enumTest($cls::INTERNAL_SERVER_ERROR, 'INTERNAL_SERVER_ERROR');
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testValueOfInvalidValue()
     {
+        $this->expectException(InvalidArgumentException::class);
         $this->enumTestInvalidValue();
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testValueOfInvalidArray()
     {
+        $this->expectException(InvalidArgumentException::class);
         $this->enumTestInvalidArray();
     }
 }
-?>
+

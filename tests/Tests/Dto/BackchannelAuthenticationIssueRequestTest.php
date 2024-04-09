@@ -17,7 +17,7 @@
 //
 
 
-namespace Authlete\Tests\Dto;
+namespace Tests\Dto;
 
 
 require_once('vendor/autoload.php');
@@ -32,7 +32,7 @@ class BackchannelAuthenticationIssueRequestTest extends TestCase
     private const TICKET = '_ticket_';
 
 
-    public function buildObj()
+    public function buildObj(): BackchannelAuthenticationIssueRequest
     {
         $obj = new BackchannelAuthenticationIssueRequest();
         $obj->setTicket(self::TICKET)
@@ -62,4 +62,3 @@ class BackchannelAuthenticationIssueRequestTest extends TestCase
         $this->assertEquals(self::TICKET, $obj->getTicket());
     }
 }
-?>

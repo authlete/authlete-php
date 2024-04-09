@@ -17,7 +17,7 @@
 //
 
 
-namespace Authlete\Tests\Dto;
+namespace Tests\Dto;
 
 
 require_once('vendor/autoload.php');
@@ -26,6 +26,7 @@ require_once('tests/Tests/Types/EnumTestCase.php');
 
 use Authlete\Dto\BackchannelAuthenticationFailReason;
 use Authlete\Tests\Types\EnumTestCase;
+use InvalidArgumentException;
 
 
 class BackchannelAuthenticationFailReasonTest extends EnumTestCase
@@ -52,17 +53,16 @@ class BackchannelAuthenticationFailReasonTest extends EnumTestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testValueOfInvalidValue()
     {
+        $this->expectException(InvalidArgumentException::class);
         $this->enumTestInvalidValue();
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testValueOfInvalidArray()
     {
+        $this->expectException(InvalidArgumentException::class);
         $this->enumTestInvalidArray();
     }
 }
-?>

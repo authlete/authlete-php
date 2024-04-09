@@ -17,12 +17,14 @@
 //
 
 
-namespace Authlete\Tests\Dto;
+namespace Tests\Dto;
 
 
 require_once('vendor/autoload.php');
 
 
+use Error;
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Authlete\Dto\ClientExtension;
 
@@ -34,13 +36,13 @@ class ClientExtensionTest extends TestCase
         $obj = new ClientExtension();
         $obj->setRequestableScopesEnabled(true);
 
-        $this->assertEquals(true, $obj->isRequestableScopesEnabled());
+        $this->assertTrue($obj->isRequestableScopesEnabled());
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testRequestableScopesEnabledInvalidValue()
     {
+        $this->expectException(InvalidArgumentException::class);
         $obj = new ClientExtension();
 
         $invalid = array();
@@ -48,9 +50,9 @@ class ClientExtensionTest extends TestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testRequestableScopesEnabledInvalidNull()
     {
+        $this->expectException(InvalidArgumentException::class);
         $obj = new ClientExtension();
         $obj->setRequestableScopesEnabled(null);
     }
@@ -91,11 +93,9 @@ class ClientExtensionTest extends TestCase
     }
 
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
     public function testRequestableScopesInvalidArray()
     {
+        $this->expectException(InvalidArgumentException::class);
         $obj = new ClientExtension();
 
         $invalid = array(array(), array());
@@ -157,9 +157,9 @@ class ClientExtensionTest extends TestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonRequestableScopesEnabledInvalidType()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"requestableScopesEnabled":["a","b"]}';
         $obj  = ClientExtension::fromJson($json);
     }
@@ -188,17 +188,17 @@ class ClientExtensionTest extends TestCase
     }
 
 
-    /** @expectedException Error */
     public function testFromJsonRequestableScopesInvalidBool()
     {
+        $this->expectException(Error::class);
         $json = '{"requestableScopes":true}';
         $obj  = ClientExtension::fromJson($json);
     }
 
 
-    /** @expectedException Error */
     public function testFromJsonRequestableScopesInvalidNumber()
     {
+        $this->expectException(Error::class);
         $json = '{"requestableScopes":123}';
         $obj  = ClientExtension::fromJson($json);
     }
@@ -238,4 +238,3 @@ class ClientExtensionTest extends TestCase
         $this->assertEquals(5678, $array['refreshTokenDuration']);
     }
 }
-?>

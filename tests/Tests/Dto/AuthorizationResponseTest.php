@@ -17,12 +17,14 @@
 //
 
 
-namespace Authlete\Tests\Dto;
+namespace Tests\Dto;
 
 
 require_once('vendor/autoload.php');
 
 
+use Error;
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Authlete\Dto\AuthorizationAction;
 use Authlete\Dto\AuthorizationResponse;
@@ -31,6 +33,7 @@ use Authlete\Dto\Scope;
 use Authlete\Dto\Service;
 use Authlete\Types\Display;
 use Authlete\Types\Prompt;
+use TypeError;
 
 
 class AuthorizationResponseTest extends TestCase
@@ -55,11 +58,9 @@ class AuthorizationResponseTest extends TestCase
     }
 
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
     public function testResultCodeInvalidValue()
     {
+        $this->expectException(InvalidArgumentException::class);
         $obj = new AuthorizationResponse();
 
         $invalid = array();
@@ -87,9 +88,9 @@ class AuthorizationResponseTest extends TestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testResultMessageInvalidValue()
     {
+        $this->expectException(InvalidArgumentException::class);
         $obj = new AuthorizationResponse();
 
         $invalid = array();
@@ -101,7 +102,7 @@ class AuthorizationResponseTest extends TestCase
     {
         $obj = new AuthorizationResponse();
 
-        $action = AuthorizationAction::$INTERACTION;
+        $action = AuthorizationAction::INTERACTION;
         $obj->setAction($action);
 
         $this->assertSame($action, $obj->getAction());
@@ -166,9 +167,9 @@ class AuthorizationResponseTest extends TestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testClientIdAliasUsedInvalidValue()
     {
+        $this->expectException(InvalidArgumentException::class);
         $obj = new AuthorizationResponse();
 
         $invalid = array();
@@ -176,9 +177,9 @@ class AuthorizationResponseTest extends TestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testClientIdAliasUsedInvalidNull()
     {
+        $this->expectException(InvalidArgumentException::class);
         $obj = new AuthorizationResponse();
         $obj->setClientIdAliasUsed(null);
     }
@@ -188,7 +189,7 @@ class AuthorizationResponseTest extends TestCase
     {
         $obj = new AuthorizationResponse();
 
-        $display = Display::$PAGE;
+        $display = Display::PAGE;
         $obj->setDisplay($display);
 
         $this->assertSame($display, $obj->getDisplay());
@@ -231,11 +232,9 @@ class AuthorizationResponseTest extends TestCase
     }
 
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
     public function testMaxAgeInvalidValue()
     {
+        $this->expectException(InvalidArgumentException::class);
         $obj = new AuthorizationResponse();
 
         $invalid = array();
@@ -271,11 +270,9 @@ class AuthorizationResponseTest extends TestCase
     }
 
 
-    /**
-     * @expectedException Error
-     */
     public function testScopesInvalidType()
     {
+        $this->expectException(Error::class);
         $obj = new AuthorizationResponse();
 
         $invalid = '__INVALID__';
@@ -283,11 +280,9 @@ class AuthorizationResponseTest extends TestCase
     }
 
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
     public function testScopesInvalidElement()
     {
+        $this->expectException(InvalidArgumentException::class);
         $obj = new AuthorizationResponse();
 
         $invalid = array('__INVALID__');
@@ -318,11 +313,9 @@ class AuthorizationResponseTest extends TestCase
     }
 
 
-    /**
-     * @expectedException Error
-     */
     public function testUiLocalesInvalidString()
     {
+        $this->expectException(Error::class);
         $obj = new AuthorizationResponse();
 
         $invalid = '__INVALID__';
@@ -330,11 +323,9 @@ class AuthorizationResponseTest extends TestCase
     }
 
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
     public function testUiLocalesInvalidArray()
     {
+        $this->expectException(InvalidArgumentException::class);
         $obj = new AuthorizationResponse();
 
         $invalid = array(array(), array());
@@ -365,11 +356,9 @@ class AuthorizationResponseTest extends TestCase
     }
 
 
-    /**
-     * @expectedException Error
-     */
     public function testClaimsLocalesInvalidString()
     {
+        $this->expectException(Error::class);
         $obj = new AuthorizationResponse();
 
         $invalid = '__INVALID__';
@@ -377,11 +366,9 @@ class AuthorizationResponseTest extends TestCase
     }
 
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
     public function testClaimsLocalesInvalidArray()
     {
+        $this->expectException(InvalidArgumentException::class);
         $obj = new AuthorizationResponse();
 
         $invalid = array(array(), array());
@@ -412,11 +399,9 @@ class AuthorizationResponseTest extends TestCase
     }
 
 
-    /**
-     * @expectedException Error
-     */
     public function testClaimsInvalidString()
     {
+        $this->expectException(Error::class);
         $obj = new AuthorizationResponse();
 
         $invalid = '__INVALID__';
@@ -424,11 +409,9 @@ class AuthorizationResponseTest extends TestCase
     }
 
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
     public function testClaimsInvalidArray()
     {
+        $this->expectException(InvalidArgumentException::class);
         $obj = new AuthorizationResponse();
 
         $invalid = array(array(), array());
@@ -441,13 +424,13 @@ class AuthorizationResponseTest extends TestCase
         $obj = new AuthorizationResponse();
         $obj->setAcrEssential(true);
 
-        $this->assertEquals(true, $obj->isAcrEssential());
+        $this->assertTrue($obj->isAcrEssential());
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testAcrEssentialInvalidValue()
     {
+        $this->expectException(InvalidArgumentException::class);
         $obj = new AuthorizationResponse();
 
         $invalid = array();
@@ -455,9 +438,9 @@ class AuthorizationResponseTest extends TestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testAcrEssentialInvalidNull()
     {
+        $this->expectException(InvalidArgumentException::class);
         $obj = new AuthorizationResponse();
         $obj->setAcrEssential(null);
     }
@@ -486,11 +469,9 @@ class AuthorizationResponseTest extends TestCase
     }
 
 
-    /**
-     * @expectedException Error
-     */
     public function testAcrsInvalidString()
     {
+        $this->expectException(Error::class);
         $obj = new AuthorizationResponse();
 
         $invalid = '__INVALID__';
@@ -498,11 +479,9 @@ class AuthorizationResponseTest extends TestCase
     }
 
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
     public function testAcrsInvalidArray()
     {
+        $this->expectException(InvalidArgumentException::class);
         $obj = new AuthorizationResponse();
 
         $invalid = array(array(), array());
@@ -528,9 +507,9 @@ class AuthorizationResponseTest extends TestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testSubjectInvalidValue()
     {
+        $this->expectException(InvalidArgumentException::class);
         $obj = new AuthorizationResponse();
 
         $invalid = array();
@@ -556,9 +535,9 @@ class AuthorizationResponseTest extends TestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testLoginHintInvalidValue()
     {
+        $this->expectException(InvalidArgumentException::class);
         $obj = new AuthorizationResponse();
 
         $invalid = array();
@@ -571,8 +550,8 @@ class AuthorizationResponseTest extends TestCase
         $obj = new AuthorizationResponse();
 
         $array = array(
-            Prompt::$NONE,
-            Prompt::$LOGIN
+            Prompt::NONE,
+            Prompt::LOGIN
         );
         $obj->setPrompts($array);
 
@@ -580,8 +559,8 @@ class AuthorizationResponseTest extends TestCase
 
         $this->assertTrue(is_array($prompts));
         $this->assertCount(2, $prompts);
-        $this->assertSame(Prompt::$NONE,  $prompts[0]);
-        $this->assertSame(Prompt::$LOGIN, $prompts[1]);
+        $this->assertSame(Prompt::NONE,  $prompts[0]);
+        $this->assertSame(Prompt::LOGIN, $prompts[1]);
     }
 
 
@@ -594,11 +573,9 @@ class AuthorizationResponseTest extends TestCase
     }
 
 
-    /**
-     * @expectedException Error
-     */
     public function testPromptsInvalidType()
     {
+        $this->expectException(Error::class);
         $obj = new AuthorizationResponse();
 
         $invalid = '__INVALID__';
@@ -606,11 +583,9 @@ class AuthorizationResponseTest extends TestCase
     }
 
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
     public function testPromptsInvalidElement()
     {
+        $this->expectException(InvalidArgumentException::class);
         $obj = new AuthorizationResponse();
 
         $invalid = array('__INVALID__');
@@ -638,9 +613,9 @@ class AuthorizationResponseTest extends TestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testRequestObjectPayloadInvalidValue()
     {
+        $this->expectException(InvalidArgumentException::class);
         $obj = new AuthorizationResponse();
 
         $invalid = array();
@@ -668,9 +643,10 @@ class AuthorizationResponseTest extends TestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
+
     public function testIdTokenClaimsInvalidValue()
     {
+        $this->expectException(InvalidArgumentException::class);
         $obj = new AuthorizationResponse();
 
         $invalid = array();
@@ -698,9 +674,9 @@ class AuthorizationResponseTest extends TestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testUserInfoClaimsInvalidValue()
     {
+        $this->expectException(InvalidArgumentException::class);
         $obj = new AuthorizationResponse();
 
         $invalid = array();
@@ -728,9 +704,9 @@ class AuthorizationResponseTest extends TestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testResponseContentInvalidValue()
     {
+        $this->expectException(InvalidArgumentException::class);
         $obj = new AuthorizationResponse();
 
         $invalid = array();
@@ -758,9 +734,9 @@ class AuthorizationResponseTest extends TestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testTicketInvalidValue()
     {
+        $this->expectException(InvalidArgumentException::class);
         $obj = new AuthorizationResponse();
 
         $invalid = array();
@@ -795,33 +771,33 @@ class AuthorizationResponseTest extends TestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonResultCodeInvalidBool()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"resultCode":true}';
         $obj  = AuthorizationResponse::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonResultCodeInvalidNumber()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"resultCode":123}';
         $obj  = AuthorizationResponse::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonResultCodeInvalidArray()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"resultCode":["a","b"]}';
         $obj  = AuthorizationResponse::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonResultCodeInvalidObject()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"resultCode":{"a":"b"}}';
         $obj  = AuthorizationResponse::fromJson($json);
     }
@@ -845,33 +821,33 @@ class AuthorizationResponseTest extends TestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonResultMessageInvalidBool()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"resultMessage":true}';
         $obj  = AuthorizationResponse::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonResultMessageInvalidNumber()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"resultMessage":123}';
         $obj  = AuthorizationResponse::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonResultMessageInvalidArray()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"resultMessage":["a","b"]}';
         $obj  = AuthorizationResponse::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonResultMessageInvalidObject()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"resultMessage":{"a":"b"}}';
         $obj  = AuthorizationResponse::fromJson($json);
     }
@@ -882,7 +858,7 @@ class AuthorizationResponseTest extends TestCase
         $json = '{"action":"INTERACTION"}';
         $obj  = AuthorizationResponse::fromJson($json);
 
-        $this->assertSame(AuthorizationAction::$INTERACTION, $obj->getAction());
+        $this->assertSame(AuthorizationAction::INTERACTION, $obj->getAction());
     }
 
 
@@ -895,33 +871,33 @@ class AuthorizationResponseTest extends TestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonActionInvalidBool()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"action":true}';
         $obj  = AuthorizationResponse::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonActionInvalidNumber()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"action":123}';
         $obj  = AuthorizationResponse::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonActionInvalidArray()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"action":["a","b"]}';
         $obj  = AuthorizationResponse::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonActionInvalidObject()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"action":{"a":"b"}}';
         $obj  = AuthorizationResponse::fromJson($json);
     }
@@ -946,17 +922,17 @@ class AuthorizationResponseTest extends TestCase
     }
 
 
-    /** @expectedException TypeError */
     public function testFromJsonServiceInvalidBool()
     {
+        $this->expectException(TypeError::class);
         $json = '{"service":true}';
         $obj  = AuthorizationResponse::fromJson($json);
     }
 
 
-    /** @expectedException TypeError */
     public function testFromJsonServiceInvalidNumber()
     {
+        $this->expectException(TypeError::class);
         $json = '{"service":123}';
         $obj  = AuthorizationResponse::fromJson($json);
     }
@@ -981,17 +957,17 @@ class AuthorizationResponseTest extends TestCase
     }
 
 
-    /** @expectedException TypeError */
     public function testFromJsonClientInvalidBool()
     {
+        $this->expectException(TypeError::class);
         $json = '{"client":true}';
         $obj  = AuthorizationResponse::fromJson($json);
     }
 
 
-    /** @expectedException TypeError */
     public function testFromJsonClientInvalidNumber()
     {
+        $this->expectException(TypeError::class);
         $json = '{"client":123}';
         $obj  = AuthorizationResponse::fromJson($json);
     }
@@ -1020,7 +996,7 @@ class AuthorizationResponseTest extends TestCase
         $json = '{"clientIdAliasUsed":"true"}';
         $obj  = AuthorizationResponse::fromJson($json);
 
-        $this->assertEquals(true, $obj->isClientIdAliasUsed());
+        $this->assertTrue($obj->isClientIdAliasUsed());
     }
 
 
@@ -1029,7 +1005,7 @@ class AuthorizationResponseTest extends TestCase
         $json = '{"clientIdAliasUsed":"false"}';
         $obj  = AuthorizationResponse::fromJson($json);
 
-        $this->assertEquals(false, $obj->isClientIdAliasUsed());
+        $this->assertFalse($obj->isClientIdAliasUsed());
     }
 
 
@@ -1038,13 +1014,13 @@ class AuthorizationResponseTest extends TestCase
         $json = '{"clientIdAliasUsed":"__INVALID__"}';
         $obj  = AuthorizationResponse::fromJson($json);
 
-        $this->assertEquals(false, $obj->isClientIdAliasUsed());
+        $this->assertFalse($obj->isClientIdAliasUsed());
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonClientIdAliasUsedInvalidType()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"clientIdAliasUsed":["a","b"]}';
         $obj  = AuthorizationResponse::fromJson($json);
     }
@@ -1055,7 +1031,7 @@ class AuthorizationResponseTest extends TestCase
         $json = '{"display":"PAGE"}';
         $obj  = AuthorizationResponse::fromJson($json);
 
-        $this->assertSame(Display::$PAGE, $obj->getDisplay());
+        $this->assertSame(Display::PAGE, $obj->getDisplay());
     }
 
 
@@ -1068,33 +1044,33 @@ class AuthorizationResponseTest extends TestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonDisplayInvalidBool()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"display":true}';
         $obj  = AuthorizationResponse::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonDisplayInvalidNumber()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"display":123}';
         $obj  = AuthorizationResponse::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonDisplayInvalidArray()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"display":["a","b"]}';
         $obj  = AuthorizationResponse::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonDisplayInvalidObject()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"display":{"a":"b"}}';
         $obj  = AuthorizationResponse::fromJson($json);
     }
@@ -1127,25 +1103,25 @@ class AuthorizationResponseTest extends TestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonMaxAgeInvalidBool()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"maxAge":true}';
         $obj  = AuthorizationResponse::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonMaxAgeInvalidArray()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"maxAge":["a","b"]}';
         $obj  = AuthorizationResponse::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonMaxAgeInvalidObject()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"maxAge":{"a":"b"}}';
         $obj  = AuthorizationResponse::fromJson($json);
     }
@@ -1177,33 +1153,33 @@ class AuthorizationResponseTest extends TestCase
     }
 
 
-    /** @expectedException Error */
     public function testFromJsonScopesInvalidBool()
     {
+        $this->expectException(Error::class);
         $json = '{"scopes":true}';
         $obj  = AuthorizationResponse::fromJson($json);
     }
 
 
-    /** @expectedException Error */
     public function testFromJsonScopesInvalidNumber()
     {
+        $this->expectException(Error::class);
         $json = '{"scopes":123}';
         $obj  = AuthorizationResponse::fromJson($json);
     }
 
 
-    /** @expectedException Error */
     public function testFromJsonScopesInvalidArray()
     {
+        $this->expectException(Error::class);
         $json = '{"scopes":["a","b"]}';
         $obj  = AuthorizationResponse::fromJson($json);
     }
 
 
-    /** @expectedException Error */
     public function testFromJsonScopesInvalidObject()
     {
+        $this->expectException(Error::class);
         $json = '{"scopes":{"a":"b"}}';
         $obj  = AuthorizationResponse::fromJson($json);
     }
@@ -1232,17 +1208,17 @@ class AuthorizationResponseTest extends TestCase
     }
 
 
-    /** @expectedException Error */
     public function testFromJsonUiLocalesInvalidBool()
     {
+        $this->expectException(Error::class);
         $json = '{"uiLocales":true}';
         $obj  = AuthorizationResponse::fromJson($json);
     }
 
 
-    /** @expectedException Error */
     public function testFromJsonUiLocalesInvalidNumber()
     {
+        $this->expectException(Error::class);
         $json = '{"uiLocales":123}';
         $obj  = AuthorizationResponse::fromJson($json);
     }
@@ -1271,17 +1247,17 @@ class AuthorizationResponseTest extends TestCase
     }
 
 
-    /** @expectedException Error */
     public function testFromJsonClaimsLocalesInvalidBool()
     {
+        $this->expectException(Error::class);
         $json = '{"claimsLocales":true}';
         $obj  = AuthorizationResponse::fromJson($json);
     }
 
 
-    /** @expectedException Error */
     public function testFromJsonClaimsLocalesInvalidNumber()
     {
+        $this->expectException(Error::class);
         $json = '{"claimsLocales":123}';
         $obj  = AuthorizationResponse::fromJson($json);
     }
@@ -1310,17 +1286,17 @@ class AuthorizationResponseTest extends TestCase
     }
 
 
-    /** @expectedException Error */
     public function testFromJsonClaimsInvalidBool()
     {
+        $this->expectException(Error::class);
         $json = '{"claims":true}';
         $obj  = AuthorizationResponse::fromJson($json);
     }
 
 
-    /** @expectedException Error */
     public function testFromJsonClaimsInvalidNumber()
     {
+        $this->expectException(Error::class);
         $json = '{"claims":123}';
         $obj  = AuthorizationResponse::fromJson($json);
     }
@@ -1331,7 +1307,7 @@ class AuthorizationResponseTest extends TestCase
         $json = '{"acrEssential":true}';
         $obj  = AuthorizationResponse::fromJson($json);
 
-        $this->assertEquals(true, $obj->isAcrEssential());
+        $this->assertTrue($obj->isAcrEssential());
     }
 
 
@@ -1340,7 +1316,7 @@ class AuthorizationResponseTest extends TestCase
         $json = '{"acrEssential":null}';
         $obj  = AuthorizationResponse::fromJson($json);
 
-        $this->assertEquals(false, $obj->isAcrEssential());
+        $this->assertFalse($obj->isAcrEssential());
     }
 
 
@@ -1349,7 +1325,7 @@ class AuthorizationResponseTest extends TestCase
         $json = '{"acrEssential":"true"}';
         $obj  = AuthorizationResponse::fromJson($json);
 
-        $this->assertEquals(true, $obj->isAcrEssential());
+        $this->assertTrue($obj->isAcrEssential());
     }
 
 
@@ -1358,7 +1334,7 @@ class AuthorizationResponseTest extends TestCase
         $json = '{"acrEssential":"false"}';
         $obj  = AuthorizationResponse::fromJson($json);
 
-        $this->assertEquals(false, $obj->isAcrEssential());
+        $this->assertFalse($obj->isAcrEssential());
     }
 
 
@@ -1367,7 +1343,7 @@ class AuthorizationResponseTest extends TestCase
         $json = '{"acrEssential":"__INVALID__"}';
         $obj  = AuthorizationResponse::fromJson($json);
 
-        $this->assertEquals(false, $obj->isAcrEssential());
+        $this->assertFalse($obj->isAcrEssential());
     }
 
 
@@ -1402,17 +1378,17 @@ class AuthorizationResponseTest extends TestCase
     }
 
 
-    /** @expectedException Error */
     public function testFromJsonAcrsInvalidBool()
     {
+        $this->expectException(Error::class);
         $json = '{"acrs":true}';
         $obj  = AuthorizationResponse::fromJson($json);
     }
 
 
-    /** @expectedException Error */
     public function testFromJsonAcrsInvalidNumber()
     {
+        $this->expectException(Error::class);
         $json = '{"acrs":123}';
         $obj  = AuthorizationResponse::fromJson($json);
     }
@@ -1436,33 +1412,33 @@ class AuthorizationResponseTest extends TestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonSubjectInvalidBool()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"subject":true}';
         $obj  = AuthorizationResponse::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonSubjectInvalidNumber()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"subject":123}';
         $obj  = AuthorizationResponse::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonSubjectInvalidArray()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"subject":["a","b"]}';
         $obj  = AuthorizationResponse::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonSubjectInvalidObject()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"subject":{"a":"b"}}';
         $obj  = AuthorizationResponse::fromJson($json);
     }
@@ -1486,33 +1462,33 @@ class AuthorizationResponseTest extends TestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonLoginHintInvalidBool()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"loginHint":true}';
         $obj  = AuthorizationResponse::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonLoginHintInvalidNumber()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"loginHint":123}';
         $obj  = AuthorizationResponse::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonLoginHintInvalidArray()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"loginHint":["a","b"]}';
         $obj  = AuthorizationResponse::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonLoginHintInvalidObject()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"loginHint":{"a":"b"}}';
         $obj  = AuthorizationResponse::fromJson($json);
     }
@@ -1527,8 +1503,8 @@ class AuthorizationResponseTest extends TestCase
 
         $this->assertTrue(is_array($prompts));
         $this->assertCount(2, $prompts);
-        $this->assertEquals(Prompt::$NONE,  $prompts[0]);
-        $this->assertEquals(Prompt::$LOGIN, $prompts[1]);
+        $this->assertEquals(Prompt::NONE,  $prompts[0]);
+        $this->assertEquals(Prompt::LOGIN, $prompts[1]);
     }
 
 
@@ -1541,33 +1517,33 @@ class AuthorizationResponseTest extends TestCase
     }
 
 
-    /** @expectedException Error */
     public function testFromJsonPromptsInvalidBool()
     {
+        $this->expectException(Error::class);
         $json = '{"prompts":true}';
         $obj  = AuthorizationResponse::fromJson($json);
     }
 
 
-    /** @expectedException Error */
     public function testFromJsonPromptsInvalidNumber()
     {
+        $this->expectException(Error::class);
         $json = '{"prompts":123}';
         $obj  = AuthorizationResponse::fromJson($json);
     }
 
 
-    /** @expectedException Error */
     public function testFromJsonPromptsInvalidString()
     {
+        $this->expectException(Error::class);
         $json = '{"prompts":"__INVALID__"}';
         $obj  = AuthorizationResponse::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonPromptsInvalidElement()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"prompts":["__INVALID__"]}';
         $obj  = AuthorizationResponse::fromJson($json);
     }
@@ -1591,33 +1567,33 @@ class AuthorizationResponseTest extends TestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonRequestObjectPayloadInvalidBool()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"requestObjectPayload":true}';
         $obj  = AuthorizationResponse::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonRequestObjectPayloadInvalidNumber()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"requestObjectPayload":123}';
         $obj  = AuthorizationResponse::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonRequestObjectPayloadInvalidArray()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"requestObjectPayload":["a","b"]}';
         $obj  = AuthorizationResponse::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonRequestObjectPayloadInvalidObject()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"requestObjectPayload":{"a":"b"}}';
         $obj  = AuthorizationResponse::fromJson($json);
     }
@@ -1641,33 +1617,33 @@ class AuthorizationResponseTest extends TestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonIdTokenClaimsInvalidBool()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"idTokenClaims":true}';
         $obj  = AuthorizationResponse::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonIdTokenClaimsInvalidNumber()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"idTokenClaims":123}';
         $obj  = AuthorizationResponse::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonIdTokenClaimsInvalidArray()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"idTokenClaims":["a","b"]}';
         $obj  = AuthorizationResponse::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonIdTokenClaimsInvalidObject()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"idTokenClaims":{"a":"b"}}';
         $obj  = AuthorizationResponse::fromJson($json);
     }
@@ -1691,33 +1667,33 @@ class AuthorizationResponseTest extends TestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonUserInfoClaimsInvalidBool()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"userInfoClaims":true}';
         $obj  = AuthorizationResponse::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonUserInfoClaimsInvalidNumber()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"userInfoClaims":123}';
         $obj  = AuthorizationResponse::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonUserInfoClaimsInvalidArray()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"userInfoClaims":["a","b"]}';
         $obj  = AuthorizationResponse::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonUserInfoClaimsInvalidObject()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"userInfoClaims":{"a":"b"}}';
         $obj  = AuthorizationResponse::fromJson($json);
     }
@@ -1741,33 +1717,33 @@ class AuthorizationResponseTest extends TestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonResponseContentInvalidBool()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"responseContent":true}';
         $obj  = AuthorizationResponse::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonResponseContentInvalidNumber()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"responseContent":123}';
         $obj  = AuthorizationResponse::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonResponseContentInvalidArray()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"responseContent":["a","b"]}';
         $obj  = AuthorizationResponse::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonResponseContentInvalidObject()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"responseContent":{"a":"b"}}';
         $obj  = AuthorizationResponse::fromJson($json);
     }
@@ -1791,33 +1767,33 @@ class AuthorizationResponseTest extends TestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonTicketInvalidBool()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"ticket":true}';
         $obj  = AuthorizationResponse::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonTicketInvalidNumber()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"ticket":123}';
         $obj  = AuthorizationResponse::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonTicketInvalidArray()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"ticket":["a","b"]}';
         $obj  = AuthorizationResponse::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonTicketInvalidObject()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"ticket":{"a":"b"}}';
         $obj  = AuthorizationResponse::fromJson($json);
     }
@@ -1832,17 +1808,17 @@ class AuthorizationResponseTest extends TestCase
         $claimsLocales = array('en', 'ja');
         $claims        = array('name', 'email');
         $acrs          = array('acr0', 'acr1');
-        $prompts       = array(Prompt::$NONE, Prompt::$LOGIN);
+        $prompts       = array(Prompt::NONE, Prompt::LOGIN);
         $resources     = array('rsc0', 'rsc1');
 
         $obj = new AuthorizationResponse();
         $obj->setResultCode('code')
             ->setResultMessage('message')
-            ->setAction(AuthorizationAction::$INTERACTION)
+            ->setAction(AuthorizationAction::INTERACTION)
             ->setService($service)
             ->setClient($client)
             ->setClientIdAliasUsed(true)
-            ->setDisplay(Display::$PAGE)
+            ->setDisplay(Display::PAGE)
             ->setMaxAge(1)
             ->setScopes($scopes)
             ->setUiLocales($uiLocales)

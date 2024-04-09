@@ -44,7 +44,7 @@ enum AuthorizationFailReason: string implements Valuable
      *
      * Using this reason will result in `error=server_error`.
      */
-    case UNKNOWN = 'unknown';
+    case UNKNOWN = 'UNKNOWN';
 
 
     /**
@@ -53,7 +53,7 @@ enum AuthorizationFailReason: string implements Valuable
      *
      * Using this reason will result in `error=login_required`.
      */
-    case NOT_LOGGED_IN = 'not_logged_in';
+    case NOT_LOGGED_IN = 'NOT_LOGGED_IN';
 
 
     /**
@@ -67,7 +67,7 @@ enum AuthorizationFailReason: string implements Valuable
      *
      * Using this reason will result in `error=login_required`.
      */
-    case MAX_AGE_NOT_SUPPORTED = 'max_age_not_supported';
+    case MAX_AGE_NOT_SUPPORTED = 'MAX_AGE_NOT_SUPPORTED';
 
 
     /**
@@ -78,7 +78,7 @@ enum AuthorizationFailReason: string implements Valuable
      *
      * Using this reason will result in `error=login_required`.
      */
-    case EXCEEDS_MAX_AGE = 'exceeds_max_age';
+    case EXCEEDS_MAX_AGE = 'EXCEEDS_MAX_AGE';
 
 
     /**
@@ -89,7 +89,7 @@ enum AuthorizationFailReason: string implements Valuable
      *
      * Using this reason will result in `error=login_required`.
      */
-    case DIFFERENT_SUBJECT = 'different_subject';
+    case DIFFERENT_SUBJECT = 'DIFFERENT_SUBJECT';
 
 
     /**
@@ -100,7 +100,7 @@ enum AuthorizationFailReason: string implements Valuable
      *
      * Using this reason will result in `error=login_required`.
      */
-    case ACR_NOT_SATISFIED = 'acr_not_satisfied';
+    case ACR_NOT_SATISFIED = 'ACR_NOT_SATISFIED';
 
 
     /**
@@ -109,7 +109,7 @@ enum AuthorizationFailReason: string implements Valuable
      *
      * Using this reason will result in `error=access_denied`.
      */
-    case DENIED = 'denied';
+    case DENIED = 'DENIED';
 
 
     /**
@@ -117,7 +117,7 @@ enum AuthorizationFailReason: string implements Valuable
      *
      * Using this reason will result in `error=server_error`.
      */
-    case SERVER_ERROR = 'server_error';
+    case SERVER_ERROR = 'SERVER_ERROR';
 
 
     /**
@@ -125,7 +125,7 @@ enum AuthorizationFailReason: string implements Valuable
      *
      * Using this reason will result in `error=login_required`.
      */
-    case NOT_AUTHENTICATED = 'not_authenticated';
+    case NOT_AUTHENTICATED = 'NOT_AUTHENTICATED';
 
 
     /**
@@ -134,7 +134,7 @@ enum AuthorizationFailReason: string implements Valuable
      *
      * Using this reason will result in `error=account_selection_required`.
      */
-    case ACCOUNT_SELECTION_REQUIRED = 'account_selection_required';
+    case ACCOUNT_SELECTION_REQUIRED = 'ACCOUNT_SELECTION_REQUIRED';
 
 
     /**
@@ -142,7 +142,7 @@ enum AuthorizationFailReason: string implements Valuable
      *
      * Using this reason will result in `error=consent_required`.
      */
-    case CONSENT_REQUIRED = 'consent_required';
+    case CONSENT_REQUIRED = 'CONSENT_REQUIRED';
 
 
     /**
@@ -150,7 +150,7 @@ enum AuthorizationFailReason: string implements Valuable
      *
      * Using this reason will result in `error=interaction_required`.
      */
-    case INTERACTION_REQUIRED = 'interaction_required';
+    case INTERACTION_REQUIRED = 'INTERACTION_REQUIRED';
 
 
     /**
@@ -162,6 +162,6 @@ enum AuthorizationFailReason: string implements Valuable
      *
      * @since 1.8
      */
-    case INVALID_TARGET = 'invalid_target';
+    case INVALID_TARGET = 'INVALID_TARGET';
 }
 

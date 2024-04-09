@@ -172,9 +172,9 @@ class ValidationUtility
      *     Value of a parameter.
      *
      */
-    public static function ensureNullOrString(?string $name, ?string $value):void
+    public static function ensureNullOrString(?string $name, mixed $value):void
     {
-        if (is_null($value))
+        if (is_null($value) || is_string($value))
         {
             return;
         }

@@ -17,7 +17,7 @@
 //
 
 
-namespace Authlete\Tests\Dto;
+namespace Tests\Dto;
 
 
 require_once('vendor/autoload.php');
@@ -32,7 +32,7 @@ class DeviceVerificationRequestTest extends TestCase
     private const USER_CODE = '_user_code_';
 
 
-    public function buildObj()
+    public function buildObj(): DeviceVerificationRequest
     {
         $obj = new DeviceVerificationRequest();
         $obj->setUserCode(self::USER_CODE)
@@ -62,4 +62,3 @@ class DeviceVerificationRequestTest extends TestCase
         $this->assertEquals(self::USER_CODE, $obj->getUserCode());
     }
 }
-?>

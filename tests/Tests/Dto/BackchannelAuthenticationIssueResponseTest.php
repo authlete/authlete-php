@@ -17,7 +17,7 @@
 //
 
 
-namespace Authlete\Tests\Dto;
+namespace Tests\Dto;
 
 
 require_once('vendor/autoload.php');
@@ -26,7 +26,6 @@ require_once('vendor/autoload.php');
 use PHPUnit\Framework\TestCase;
 use Authlete\Dto\BackchannelAuthenticationIssueAction;
 use Authlete\Dto\BackchannelAuthenticationIssueResponse;
-use Authlete\Dto\Scope;
 
 
 class BackchannelAuthenticationIssueResponseTest extends TestCase
@@ -40,7 +39,7 @@ class BackchannelAuthenticationIssueResponseTest extends TestCase
     public function buildObj()
     {
         $obj = new BackchannelAuthenticationIssueResponse();
-        $obj->setAction(BackchannelAuthenticationIssueAction::$OK)
+        $obj->setAction(BackchannelAuthenticationIssueAction::OK)
             ->setResponseContent(self::RESPONSE_CONTENT)
             ->setAuthReqId(self::AUTH_REQ_ID)
             ->setExpiresIn(self::EXPIRES_IN)
@@ -84,7 +83,7 @@ class BackchannelAuthenticationIssueResponseTest extends TestCase
         $obj = $this->buildObj();
 
         // action
-        $this->assertEquals(BackchannelAuthenticationIssueAction::$OK, $obj->getAction());
+        $this->assertEquals(BackchannelAuthenticationIssueAction::OK, $obj->getAction());
 
         // responseContent
         $this->assertEquals(self::RESPONSE_CONTENT, $obj->getResponseContent());

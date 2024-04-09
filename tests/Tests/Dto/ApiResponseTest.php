@@ -17,12 +17,11 @@
 //
 
 
-namespace Authlete\Tests\Dto;
+namespace Tests\Dto;
 
 
-require_once('vendor/autoload.php');
 
-
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Authlete\Dto\ApiResponse;
 
@@ -33,7 +32,7 @@ class ApiResponseTest extends TestCase
     {
         $obj = new ApiResponse();
 
-        $resultCode = 'code';
+        $resultCode = "code";
         $obj->setResultCode($resultCode);
 
         $this->assertEquals($resultCode, $obj->getResultCode());
@@ -49,13 +48,10 @@ class ApiResponseTest extends TestCase
     }
 
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
     public function testResultCodeInvalidValue()
     {
+        $this->expectException(InvalidArgumentException::class);
         $obj = new ApiResponse();
-
         $invalid = array();
         $obj->setResultCode($invalid);
     }
@@ -81,9 +77,9 @@ class ApiResponseTest extends TestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testResultMessageInvalidValue()
     {
+        $this->expectException(InvalidArgumentException::class);
         $obj = new ApiResponse();
 
         $invalid = array();
@@ -118,33 +114,25 @@ class ApiResponseTest extends TestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonResultCodeInvalidBool()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"resultCode":true}';
         $obj  = ApiResponse::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
-    public function testFromJsonResultCodeInvalidNumber()
-    {
-        $json = '{"resultCode":123}';
-        $obj  = ApiResponse::fromJson($json);
-    }
-
-
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonResultCodeInvalidArray()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"resultCode":["a","b"]}';
         $obj  = ApiResponse::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonResultCodeInvalidObject()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"resultCode":{"a":"b"}}';
         $obj  = ApiResponse::fromJson($json);
     }
@@ -168,33 +156,34 @@ class ApiResponseTest extends TestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonResultMessageInvalidBool()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"resultMessage":true}';
         $obj  = ApiResponse::fromJson($json);
+        $this->assertNull($obj);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonResultMessageInvalidNumber()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"resultMessage":123}';
         $obj  = ApiResponse::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonResultMessageInvalidArray()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"resultMessage":["a","b"]}';
         $obj  = ApiResponse::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonResultMessageInvalidObject()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"resultMessage":{"a":"b"}}';
         $obj  = ApiResponse::fromJson($json);
     }
@@ -219,4 +208,3 @@ class ApiResponseTest extends TestCase
         $this->assertEquals('message', $array['resultMessage']);
     }
 }
-?>

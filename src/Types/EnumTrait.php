@@ -34,12 +34,13 @@ namespace Authlete\Types;
 trait EnumTrait
 {
     public static function valueOf(string $value): ?static {
+        $class = get_called_class();
         foreach (static::cases() as $case) {
             if ($case->value === $value) {
                 return $case;
             }
         }
-        return null;
+        throw new \InvalidArgumentException("The given string cannot be parsed as $class.");
     }
 }
 

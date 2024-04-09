@@ -17,7 +17,7 @@
 //
 
 
-namespace Authlete\Tests\Dto;
+namespace Tests\Dto;
 
 
 require_once('vendor/autoload.php');
@@ -40,7 +40,7 @@ class DeviceVerificationResponseTest extends TestCase
     public function buildObj()
     {
         $obj = new DeviceVerificationResponse();
-        $obj->setAction(DeviceVerificationAction::$VALID)
+        $obj->setAction(DeviceVerificationAction::VALID)
             ->setClientId(self::CLIENT_ID)
             ->setClientIdAlias(self::CLIENT_ID_ALIAS)
             ->setClientIdAliasUsed(true)
@@ -157,7 +157,7 @@ class DeviceVerificationResponseTest extends TestCase
         $obj = $this->buildObj();
 
         // action
-        $this->assertEquals(DeviceVerificationAction::$VALID, $obj->getAction());
+        $this->assertEquals(DeviceVerificationAction::VALID, $obj->getAction());
 
         // clientId
         $this->assertEquals(self::CLIENT_ID, $obj->getClientId());
@@ -211,4 +211,3 @@ class DeviceVerificationResponseTest extends TestCase
         $this->assertEquals('resource-1', $resources[1]);
     }
 }
-?>

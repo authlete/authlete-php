@@ -44,7 +44,7 @@ enum AuthorizationFailAction: string implements Valuable
      * implementation should return "500 Internal Server Error" to the
      * client application.
      */
-    case INTERNAL_SERVER_ERROR = 'internal_server_error';
+    case INTERNAL_SERVER_ERROR = 'INTERNAL_SERVER_ERROR';
 
 
     /**
@@ -52,14 +52,14 @@ enum AuthorizationFailAction: string implements Valuable
      * implementation should return "400 Bad Request" to the client
      * application.
      */
-    case BAD_REQUEST = 'bad_request';
+    case BAD_REQUEST = 'BAD_REQUEST';
 
 
     /**
      * The authorization server implementation should return "302 Found"
      * to the client application with a "Location" header.
      */
-    case LOCATION = 'location';
+    case LOCATION = 'LOCATION';
 
 
     /**
@@ -68,5 +68,5 @@ enum AuthorizationFailAction: string implements Valuable
      *
      * @see https://openid.net/specs/oauth-v2-form-post-response-mode-1_0.html OAuth 2.0 Form Post Response Mode
      */
-    case FORM = 'form';
+    case FORM = 'FORM';
 }

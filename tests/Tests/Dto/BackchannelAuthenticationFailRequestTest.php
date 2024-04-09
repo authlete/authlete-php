@@ -17,7 +17,7 @@
 //
 
 
-namespace Authlete\Tests\Dto;
+namespace Tests\Dto;
 
 
 require_once('vendor/autoload.php');
@@ -26,7 +26,6 @@ require_once('vendor/autoload.php');
 use PHPUnit\Framework\TestCase;
 use Authlete\Dto\BackchannelAuthenticationFailReason;
 use Authlete\Dto\BackchannelAuthenticationFailRequest;
-use Authlete\Dto\Property;
 
 
 class BackchannelAuthenticationFailRequestTest extends TestCase
@@ -36,11 +35,11 @@ class BackchannelAuthenticationFailRequestTest extends TestCase
     private const ERROR_URI         = '_error_uri_';
 
 
-    public function buildObj()
+    public function buildObj(): BackchannelAuthenticationFailRequest
     {
         $obj = new BackchannelAuthenticationFailRequest();
         $obj->setTicket(self::TICKET)
-            ->setReason(BackchannelAuthenticationFailReason::$UNKNOWN_USER_ID)
+            ->setReason(BackchannelAuthenticationFailReason::UNKNOWN_USER_ID)
             ->setErrorDescription(self::ERROR_DESCRIPTION)
             ->setErrorUri(self::ERROR_URI)
         ;
@@ -81,7 +80,7 @@ class BackchannelAuthenticationFailRequestTest extends TestCase
         $this->assertEquals(self::TICKET, $obj->getTicket());
 
         // reason
-        $this->assertEquals(BackchannelAuthenticationFailReason::$UNKNOWN_USER_ID, $obj->getReason());
+        $this->assertEquals(BackchannelAuthenticationFailReason::UNKNOWN_USER_ID, $obj->getReason());
 
         // errorDescription
         $this->assertEquals(self::ERROR_DESCRIPTION, $obj->getErrorDescription());
@@ -90,4 +89,3 @@ class BackchannelAuthenticationFailRequestTest extends TestCase
         $this->assertEquals(self::ERROR_URI, $obj->getErrorUri());
     }
 }
-?>

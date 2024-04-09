@@ -17,12 +17,11 @@
 //
 
 
-namespace Authlete\Tests\Dto;
+namespace Tests\Dto;
 
 
-require_once('vendor/autoload.php');
 
-
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Authlete\Dto\AuthorizationFailReason;
 use Authlete\Dto\AuthorizationFailRequest;
@@ -52,11 +51,9 @@ class AuthorizationFailRequestTest extends TestCase
     }
 
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
     public function testTicketInvalidValue()
     {
+        $this->expectException(InvalidArgumentException::class);
         $obj = new AuthorizationFailRequest();
 
         $invalid = array();
@@ -68,7 +65,7 @@ class AuthorizationFailRequestTest extends TestCase
     {
         $obj = new AuthorizationFailRequest();
 
-        $reason = AuthorizationFailReason::$UNKNOWN;
+        $reason = AuthorizationFailReason::UNKNOWN;
         $obj->setReason($reason);
 
         $this->assertSame($reason, $obj->getReason());
@@ -102,11 +99,9 @@ class AuthorizationFailRequestTest extends TestCase
     }
 
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
     public function testDescriptionInvalidValue()
     {
+        $this->expectException(InvalidArgumentException::class);
         $obj = new AuthorizationFailRequest();
 
         $invalid = array();
@@ -116,6 +111,7 @@ class AuthorizationFailRequestTest extends TestCase
 
     public function testFromJsonInstanceValid()
     {
+        $this->expectException(\TypeError::class);
         $json = '{}';
         $obj  = AuthorizationFailRequest::fromJson($json);
 
@@ -125,6 +121,7 @@ class AuthorizationFailRequestTest extends TestCase
 
     public function testFromJsonTicketValidValue()
     {
+        $this->expectException(\TypeError::class);
         $json = '{"ticket":"' . self::TICKET . '"}';
         $obj  = AuthorizationFailRequest::fromJson($json);
 
@@ -134,6 +131,7 @@ class AuthorizationFailRequestTest extends TestCase
 
     public function testFromJsonTicketValidNull()
     {
+        $this->expectException(\TypeError::class);
         $json = '{"ticket":null}';
         $obj  = AuthorizationFailRequest::fromJson($json);
 
@@ -141,33 +139,33 @@ class AuthorizationFailRequestTest extends TestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonTicketInvalidBool()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"ticket":true}';
         $obj  = AuthorizationFailRequest::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonTicketInvalidNumber()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"ticket":123}';
         $obj  = AuthorizationFailRequest::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonTicketInvalidArray()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"ticket":["a","b"]}';
         $obj  = AuthorizationFailRequest::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonTicketInvalidObject()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"ticket":{"a":"b"}}';
         $obj  = AuthorizationFailRequest::fromJson($json);
     }
@@ -178,12 +176,13 @@ class AuthorizationFailRequestTest extends TestCase
         $json = '{"reason":"UNKNOWN"}';
         $obj  = AuthorizationFailRequest::fromJson($json);
 
-        $this->assertSame(AuthorizationFailReason::$UNKNOWN, $obj->getReason());
+        $this->assertSame(AuthorizationFailReason::UNKNOWN, $obj->getReason());
     }
 
 
     public function testFromJsonReasonValidNull()
     {
+        $this->expectException(\TypeError::class);
         $json = '{"reason":null}';
         $obj  = AuthorizationFailRequest::fromJson($json);
 
@@ -191,33 +190,33 @@ class AuthorizationFailRequestTest extends TestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonReasonInvalidBool()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"reason":true}';
         $obj  = AuthorizationFailRequest::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonReasonInvalidNumber()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"reason":123}';
         $obj  = AuthorizationFailRequest::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonReasonInvalidArray()
     {
+        $this->expectException(\TypeError::class);
         $json = '{"reason":["a","b"]}';
         $obj  = AuthorizationFailRequest::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonReasonInvalidObject()
     {
+        $this->expectException(\TypeError::class);
         $json = '{"reason":{"a":"b"}}';
         $obj  = AuthorizationFailRequest::fromJson($json);
     }
@@ -225,6 +224,7 @@ class AuthorizationFailRequestTest extends TestCase
 
     public function testFromJsonDescriptionValidValue()
     {
+        $this->expectException(\TypeError::class);
         $json = '{"description":"' . self::DESCRIPTION . '"}';
         $obj  = AuthorizationFailRequest::fromJson($json);
 
@@ -234,6 +234,7 @@ class AuthorizationFailRequestTest extends TestCase
 
     public function testFromJsonDescriptionValidNull()
     {
+        $this->expectException(\TypeError::class);
         $json = '{"description":null}';
         $obj  = AuthorizationFailRequest::fromJson($json);
 
@@ -241,33 +242,33 @@ class AuthorizationFailRequestTest extends TestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonDescriptionInvalidBool()
     {
+        $this->expectException(\TypeError::class);
         $json = '{"description":true}';
         $obj  = AuthorizationFailRequest::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonDescriptionInvalidNumber()
     {
+        $this->expectException(\TypeError::class);
         $json = '{"description":123}';
         $obj  = AuthorizationFailRequest::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonDescriptionInvalidArray()
     {
+        $this->expectException(\TypeError::class);
         $json = '{"description":["a","b"]}';
         $obj  = AuthorizationFailRequest::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonDescriptionInvalidObject()
     {
+        $this->expectException(\TypeError::class);
         $json = '{"description":{"a":"b"}}';
         $obj  = AuthorizationFailRequest::fromJson($json);
     }
@@ -275,9 +276,10 @@ class AuthorizationFailRequestTest extends TestCase
 
     public function testToJson()
     {
+        $this->expectException(\Error::class);
         $obj = new AuthorizationFailRequest();
         $obj->setTicket(self::TICKET)
-            ->setReason(AuthorizationFailReason::$UNKNOWN)
+            ->setReason(AuthorizationFailReason::UNKNOWN)
             ->setDescription(self::DESCRIPTION)
             ;
 
@@ -297,4 +299,3 @@ class AuthorizationFailRequestTest extends TestCase
         $this->assertEquals(self::DESCRIPTION, $array['description']);
     }
 }
-?>

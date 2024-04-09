@@ -43,7 +43,7 @@ class DeviceAuthorizationResponseTest extends TestCase
     private const INTERVAL                  = 789;
 
 
-    public function buildObj()
+    public function buildObj(): DeviceAuthorizationResponse
     {
         $obj = new DeviceAuthorizationResponse();
         $obj->setAction(DeviceAuthorizationAction::$OK)
@@ -208,7 +208,7 @@ class DeviceAuthorizationResponseTest extends TestCase
         $obj = $this->buildObj();
 
         // action
-        $this->assertEquals(DeviceAuthorizationAction::$OK, $obj->getAction());
+        $this->assertEquals(DeviceAuthorizationAction::OK, $obj->getAction());
 
         // responseContent
         $this->assertEquals(self::RESPONSE_CONTENT, $obj->getResponseContent());
@@ -288,4 +288,3 @@ class DeviceAuthorizationResponseTest extends TestCase
         $this->assertEquals('warning-1', $warnings[1]);
     }
 }
-?>

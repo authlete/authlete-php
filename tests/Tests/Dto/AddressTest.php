@@ -20,8 +20,6 @@
 namespace Tests\Dto;
 
 
-require_once('vendor/autoload.php');
-
 
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
@@ -291,9 +289,9 @@ class AddressTest extends TestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonStreetAddressInvalidNumber()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"street_address":123}';
         $obj  = Address::fromJson($json);
     }

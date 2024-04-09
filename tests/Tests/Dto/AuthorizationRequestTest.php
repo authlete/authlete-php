@@ -23,6 +23,7 @@ namespace Authlete\Tests\Dto;
 require_once('vendor/autoload.php');
 
 
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Authlete\Dto\AuthorizationRequest;
 
@@ -50,11 +51,9 @@ class AuthorizationRequestTest extends TestCase
     }
 
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
     public function testParametersInvalidValue()
     {
+        $this->expectException(InvalidArgumentException::class);
         $obj = new AuthorizationRequest();
 
         $invalid = array();
@@ -89,33 +88,33 @@ class AuthorizationRequestTest extends TestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonParametersInvalidBool()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"parameters":true}';
         $obj  = AuthorizationRequest::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonParametersInvalidNumber()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"parameters":123}';
         $obj  = AuthorizationRequest::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonParametersInvalidArray()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"parameters":["a","b"]}';
         $obj  = AuthorizationRequest::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonParametersInvalidObject()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"parameters":{"a":"b"}}';
         $obj  = AuthorizationRequest::fromJson($json);
     }
@@ -134,4 +133,4 @@ class AuthorizationRequestTest extends TestCase
         $this->assertEquals(self::PARAMETERS, $array['parameters']);
     }
 }
-?>
+

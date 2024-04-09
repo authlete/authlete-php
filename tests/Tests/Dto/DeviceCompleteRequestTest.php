@@ -46,7 +46,7 @@ class DeviceCompleteRequestTest extends TestCase
     {
         $obj = new DeviceCompleteRequest();
         $obj->setUserCode(self::USER_CODE)
-            ->setResult(DeviceCompleteResult::$AUTHORIZED)
+            ->setResult(DeviceCompleteResult::AUTHORIZED)
             ->setSubject(self::SUBJECT)
             ->setSub(self::SUB)
             ->setAuthTime(self::AUTH_TIME)
@@ -220,4 +220,3 @@ class DeviceCompleteRequestTest extends TestCase
         $this->assertEquals(self::ERROR_URI, $obj->getErrorUri());
     }
 }
-?>

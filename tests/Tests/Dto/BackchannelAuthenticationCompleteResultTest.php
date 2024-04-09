@@ -26,6 +26,7 @@ require_once('tests/Tests/Types/EnumTestCase.php');
 
 use Authlete\Dto\BackchannelAuthenticationCompleteResult;
 use Authlete\Tests\Types\EnumTestCase;
+use InvalidArgumentException;
 
 
 class BackchannelAuthenticationCompleteResultTest extends EnumTestCase
@@ -46,17 +47,16 @@ class BackchannelAuthenticationCompleteResultTest extends EnumTestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testValueOfInvalidValue()
     {
+        $this->expectException(InvalidArgumentException::class);
         $this->enumTestInvalidValue();
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testValueOfInvalidArray()
     {
+        $this->expectException(InvalidArgumentException::class);
         $this->enumTestInvalidArray();
     }
 }
-?>

@@ -31,68 +31,68 @@ class IntrospectionActionTest extends TestCase
 {
     public function testNameOfInternalServerError()
     {
-        $action = IntrospectionAction::$INTERNAL_SERVER_ERROR;
+        $action = IntrospectionAction::INTERNAL_SERVER_ERROR;
 
-        $this->assertEquals('INTERNAL_SERVER_ERROR', $action->name());
+        $this->assertEquals('INTERNAL_SERVER_ERROR', $action->name);
     }
 
 
     public function testValueOfInternalServerError()
     {
-        $action = IntrospectionAction::$INTERNAL_SERVER_ERROR;
+        $action = IntrospectionAction::INTERNAL_SERVER_ERROR;
 
-        $this->assertSame($action, IntrospectionAction::valueOf($action));
+        $this->assertSame($action, IntrospectionAction::valueOf($action->name));
         $this->assertSame($action, IntrospectionAction::valueOf('INTERNAL_SERVER_ERROR'));
     }
 
 
     public function testNameOfBadRequest()
     {
-        $action = IntrospectionAction::$BAD_REQUEST;
+        $action = IntrospectionAction::BAD_REQUEST;
 
-        $this->assertEquals('BAD_REQUEST', $action->name());
+        $this->assertEquals('BAD_REQUEST', $action->name);
     }
 
 
     public function testValueOfBadRequest()
     {
-        $action = IntrospectionAction::$BAD_REQUEST;
+        $action = IntrospectionAction::BAD_REQUEST;
 
-        $this->assertSame($action, IntrospectionAction::valueOf($action));
+        $this->assertSame($action, IntrospectionAction::valueOf($action->name2));
         $this->assertSame($action, IntrospectionAction::valueOf('BAD_REQUEST'));
     }
 
 
     public function testNameOfUnauthorized()
     {
-        $action = IntrospectionAction::$UNAUTHORIZED;
+        $action = IntrospectionAction::UNAUTHORIZED;
 
-        $this->assertEquals('UNAUTHORIZED', $action->name());
+        $this->assertEquals('UNAUTHORIZED', $action->name);
     }
 
 
     public function testValueOfUnauthorized()
     {
-        $action = IntrospectionAction::$UNAUTHORIZED;
+        $action = IntrospectionAction::UNAUTHORIZED;
 
-        $this->assertSame($action, IntrospectionAction::valueOf($action));
+        $this->assertSame($action, IntrospectionAction::valueOf($action->name));
         $this->assertSame($action, IntrospectionAction::valueOf('UNAUTHORIZED'));
     }
 
 
     public function testNameOfForbidden()
     {
-        $action = IntrospectionAction::$FORBIDDEN;
+        $action = IntrospectionAction::FORBIDDEN;
 
-        $this->assertEquals('FORBIDDEN', $action->name());
+        $this->assertEquals('FORBIDDEN', $action->name);
     }
 
 
     public function testValueOfForbidden()
     {
-        $action = IntrospectionAction::$FORBIDDEN;
+        $action = IntrospectionAction::FORBIDDEN;
 
-        $this->assertSame($action, IntrospectionAction::valueOf($action));
+        $this->assertSame($action, IntrospectionAction::valueOf($action->name));
         $this->assertSame($action, IntrospectionAction::valueOf('FORBIDDEN'));
     }
 

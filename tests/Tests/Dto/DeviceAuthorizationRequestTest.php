@@ -35,7 +35,7 @@ class DeviceAuthorizationRequestTest extends TestCase
     private const CLIENT_CERTIFICATE = '_client_certificate_';
 
 
-    public function buildObj()
+    public function buildObj(): DeviceAuthorizationRequest
     {
         $obj = new DeviceAuthorizationRequest();
         $obj->setParameters(self::PARAMETERS)
@@ -112,4 +112,3 @@ class DeviceAuthorizationRequestTest extends TestCase
         $this->assertEquals('certificate-1', $certificates[1]);
     }
 }
-?>

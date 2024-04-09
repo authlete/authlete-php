@@ -76,7 +76,7 @@ class AuthorizationIssueRequest implements ArrayCopyable, Arrayable, Jsonable
      * @return AuthorizationIssueRequest
      *     `$this` object.
      */
-    public function setTicket(string $ticket): AuthorizationIssueRequest
+    public function setTicket(mixed $ticket): AuthorizationIssueRequest
     {
         ValidationUtility::ensureNullOrString('$ticket', $ticket);
 
@@ -125,7 +125,7 @@ class AuthorizationIssueRequest implements ArrayCopyable, Arrayable, Jsonable
      * @return AuthorizationIssueRequest
      *     `$this` object.
      */
-    public function setSubject(string $subject): AuthorizationIssueRequest
+    public function setSubject(mixed $subject): AuthorizationIssueRequest
     {
         ValidationUtility::ensureNullOrString('$subject', $subject);
 
@@ -163,7 +163,7 @@ class AuthorizationIssueRequest implements ArrayCopyable, Arrayable, Jsonable
      * @return AuthorizationIssueRequest
      *     `$this` object.
      */
-    public function setSub(string $sub): AuthorizationIssueRequest
+    public function setSub(mixed $sub): AuthorizationIssueRequest
     {
         ValidationUtility::ensureNullOrString('$sub', $sub);
 
@@ -202,7 +202,7 @@ class AuthorizationIssueRequest implements ArrayCopyable, Arrayable, Jsonable
      * @return AuthorizationIssueRequest
      *     `$this` object.
      */
-    public function setAuthTime(int|string $authTime): AuthorizationIssueRequest
+    public function setAuthTime(mixed $authTime): AuthorizationIssueRequest
     {
         ValidationUtility::ensureNullOrStringOrInteger('$authTime', $authTime);
 
@@ -235,7 +235,7 @@ class AuthorizationIssueRequest implements ArrayCopyable, Arrayable, Jsonable
      * @return AuthorizationIssueRequest
      *     `$this` object.
      */
-    public function setAcr(string $acr): AuthorizationIssueRequest
+    public function setAcr(mixed $acr): AuthorizationIssueRequest
     {
         ValidationUtility::ensureNullOrString('$acr', $acr);
 
@@ -289,7 +289,7 @@ class AuthorizationIssueRequest implements ArrayCopyable, Arrayable, Jsonable
      * @return AuthorizationIssueRequest
      *     `$this` object.
      */
-    public function setClaims(string $claims): AuthorizationIssueRequest
+    public function setClaims(mixed $claims): AuthorizationIssueRequest
     {
         ValidationUtility::ensureNullOrString('$claims', $claims);
 
@@ -383,7 +383,7 @@ class AuthorizationIssueRequest implements ArrayCopyable, Arrayable, Jsonable
      * @return AuthorizationIssueRequest
      *     `$this` object.
      */
-    public function setProperties(array $properties = null): AuthorizationIssueRequest
+    public function setProperties(?array $properties = null): AuthorizationIssueRequest
     {
         ValidationUtility::ensureNullOrArrayOfType(
             '$properties', __NAMESPACE__ . '\Property', $properties);
@@ -477,7 +477,7 @@ class AuthorizationIssueRequest implements ArrayCopyable, Arrayable, Jsonable
      * Set JSON that represents additional JWS header parameters for ID tokens
      * that may be issued based on the authorization request.
      *
-     * @param string $params
+     * @param string|null $params
      *     JSON that represents additional JWS header parameters for ID tokens.
      *
      * @return AuthorizationIssueRequest
@@ -485,7 +485,7 @@ class AuthorizationIssueRequest implements ArrayCopyable, Arrayable, Jsonable
      *
      * @since 1.8
      */
-    public function setIdtHeaderParams(string $params): AuthorizationIssueRequest
+    public function setIdtHeaderParams(?string $params): AuthorizationIssueRequest
     {
         ValidationUtility::ensureNullOrString('$idtHeaderParams', $params);
 

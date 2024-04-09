@@ -79,7 +79,7 @@ class AuthorizationFailRequest implements ArrayCopyable, Arrayable, Jsonable
      * @return AuthorizationFailRequest
      *     `$this` object.
      */
-    public function setTicket(string $ticket): AuthorizationFailRequest
+    public function setTicket(mixed $ticket): AuthorizationFailRequest
     {
         ValidationUtility::ensureNullOrString('$ticket', $ticket);
 
@@ -141,7 +141,7 @@ class AuthorizationFailRequest implements ArrayCopyable, Arrayable, Jsonable
      * @return AuthorizationFailRequest
      *     `$this` object.
      */
-    public function setDescription(string $description): AuthorizationFailRequest
+    public function setDescription(mixed $description): AuthorizationFailRequest
     {
         ValidationUtility::ensureNullOrString('$description', $description);
 

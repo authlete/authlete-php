@@ -34,7 +34,7 @@ class DeviceCompleteResponseTest extends TestCase
     public function buildObj()
     {
         $obj = new DeviceCompleteResponse();
-        $obj->setAction(DeviceCompleteAction::$SUCCESS)
+        $obj->setAction(DeviceCompleteAction::SUCCESS)
         ;
 
         return $obj;
@@ -58,7 +58,6 @@ class DeviceCompleteResponseTest extends TestCase
         $obj = $this->buildObj();
 
         // action
-        $this->assertEquals(DeviceCompleteAction::$SUCCESS, $obj->getAction());
+        $this->assertEquals(DeviceCompleteAction::SUCCESS, $obj->getAction());
     }
 }
-?>

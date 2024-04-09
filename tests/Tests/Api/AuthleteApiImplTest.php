@@ -20,9 +20,8 @@
 namespace Authlete\Tests\Api;
 
 
-require_once('vendor/autoload.php');
 
-
+use Authlete\Api\AuthleteApiException;
 use PHPUnit\Framework\TestCase;
 use Authlete\Api\AuthleteApiImpl;
 use Authlete\Conf\AuthleteEnvConfiguration;
@@ -34,7 +33,7 @@ class AuthleteApiImplTest extends TestCase
     private static $api;
 
 
-    public static function setUpBeforeClass()
+    public static function setUpBeforeClass(): void
     {
         // Create an instance which implements the AuthleteConfiguration
         // interface which holds parameters to access Authlete APIs.
@@ -61,7 +60,7 @@ class AuthleteApiImplTest extends TestCase
     }
 
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->skipIfEmpty(self::$configuration->getBaseUrl(),          'AUTHLETE_BASE_URL') ||
         $this->skipIfEmpty(self::$configuration->getServiceApiKey(),    'AUTHLETE_SERVICE_APIKEY') ||
@@ -70,9 +69,9 @@ class AuthleteApiImplTest extends TestCase
     }
 
 
-    private function skipIfEmpty($value, $envname)
+    private function skipIfEmpty($value, $envname): bool
     {
-        if (is_null($value) || empty($value))
+        if (empty($value))
         {
             $this->markTestSkipped("The environment variable, ${envname}, is not set.");
             return true;
@@ -82,6 +81,9 @@ class AuthleteApiImplTest extends TestCase
     }
 
 
+    /**
+     * @throws AuthleteApiException
+     */
     public function testConfiguration()
     {
         $json = self::$api->getServiceConfiguration();
@@ -96,4 +98,4 @@ class AuthleteApiImplTest extends TestCase
         $this->assertArrayHasKey('issuer', $array);
     }
 }
-?>
+

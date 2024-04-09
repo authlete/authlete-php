@@ -17,14 +17,13 @@
 //
 
 
-namespace Authlete\Tests\Dto;
+namespace Tests\Dto;
 
 
-require_once('vendor/autoload.php');
 
-
+use Error;
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
-use Authlete\Dto\AuthorizationIssueReason;
 use Authlete\Dto\AuthorizationIssueRequest;
 use Authlete\Dto\Property;
 
@@ -59,11 +58,9 @@ class AuthorizationIssueRequestTest extends TestCase
     }
 
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
     public function testTicketInvalidValue()
     {
+        $this->expectException(InvalidArgumentException::class);
         $obj = new AuthorizationIssueRequest();
 
         $invalid = array();
@@ -89,11 +86,9 @@ class AuthorizationIssueRequestTest extends TestCase
     }
 
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
     public function testSubjectInvalidValue()
     {
+        $this->expectException(InvalidArgumentException::class);
         $obj = new AuthorizationIssueRequest();
 
         $invalid = array();
@@ -119,11 +114,9 @@ class AuthorizationIssueRequestTest extends TestCase
     }
 
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
     public function testSubInvalidValue()
     {
+        $this->expectException(InvalidArgumentException::class);
         $obj = new AuthorizationIssueRequest();
 
         $invalid = array();
@@ -158,11 +151,9 @@ class AuthorizationIssueRequestTest extends TestCase
     }
 
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
     public function testAuthTimeInvalidValue()
     {
+        $this->expectException(InvalidArgumentException::class);
         $obj = new AuthorizationIssueRequest();
 
         $invalid = array();
@@ -188,11 +179,9 @@ class AuthorizationIssueRequestTest extends TestCase
     }
 
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
     public function testAcrInvalidValue()
     {
+        $this->expectException(InvalidArgumentException::class);
         $obj = new AuthorizationIssueRequest();
 
         $invalid = array();
@@ -218,11 +207,9 @@ class AuthorizationIssueRequestTest extends TestCase
     }
 
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
     public function testClaimsInvalidValue()
     {
+        $this->expectException(InvalidArgumentException::class);
         $obj = new AuthorizationIssueRequest();
 
         $invalid = array();
@@ -258,11 +245,9 @@ class AuthorizationIssueRequestTest extends TestCase
     }
 
 
-    /**
-     * @expectedException Error
-     */
     public function testPropertiesInvalidType()
     {
+        $this->expectException(Error::class);
         $obj = new AuthorizationIssueRequest();
 
         $invalid = '__INVALID__';
@@ -270,11 +255,9 @@ class AuthorizationIssueRequestTest extends TestCase
     }
 
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
     public function testPropertiesInvalidElement()
     {
+        $this->expectException(InvalidArgumentException::class);
         $obj = new AuthorizationIssueRequest();
 
         $invalid = array('__INVALID__');
@@ -307,11 +290,9 @@ class AuthorizationIssueRequestTest extends TestCase
     }
 
 
-    /**
-     * @expectedException Error
-     */
     public function testScopesInvalidType()
     {
+        $this->expectException(Error::class);
         $obj = new AuthorizationIssueRequest();
 
         $invalid = '__INVALID__';
@@ -319,11 +300,9 @@ class AuthorizationIssueRequestTest extends TestCase
     }
 
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
     public function testScopesInvalidElement()
     {
+        $this->expectException(InvalidArgumentException::class);
         $obj = new AuthorizationIssueRequest();
 
         $invalid = array(array(), array());
@@ -358,33 +337,33 @@ class AuthorizationIssueRequestTest extends TestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonTicketInvalidBool()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"ticket":true}';
         $obj  = AuthorizationIssueRequest::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonTicketInvalidNumber()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"ticket":123}';
         $obj  = AuthorizationIssueRequest::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonTicketInvalidArray()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"ticket":["a","b"]}';
         $obj  = AuthorizationIssueRequest::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonTicketInvalidObject()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"ticket":{"a":"b"}}';
         $obj  = AuthorizationIssueRequest::fromJson($json);
     }
@@ -408,33 +387,33 @@ class AuthorizationIssueRequestTest extends TestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonSubjectInvalidBool()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"subject":true}';
         $obj  = AuthorizationIssueRequest::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonSubjectInvalidNumber()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"subject":123}';
         $obj  = AuthorizationIssueRequest::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonSubjectInvalidArray()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"subject":["a","b"]}';
         $obj  = AuthorizationIssueRequest::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonSubjectInvalidObject()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"subject":{"a":"b"}}';
         $obj  = AuthorizationIssueRequest::fromJson($json);
     }
@@ -458,33 +437,33 @@ class AuthorizationIssueRequestTest extends TestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonSubInvalidBool()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"sub":true}';
         $obj  = AuthorizationIssueRequest::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonSubInvalidNumber()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"sub":123}';
         $obj  = AuthorizationIssueRequest::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonSubInvalidArray()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"sub":["a","b"]}';
         $obj  = AuthorizationIssueRequest::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonSubInvalidObject()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"sub":{"a":"b"}}';
         $obj  = AuthorizationIssueRequest::fromJson($json);
     }
@@ -517,25 +496,25 @@ class AuthorizationIssueRequestTest extends TestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonAuthTimeInvalidBool()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"authTime":true}';
         $obj  = AuthorizationIssueRequest::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonAuthTimeInvalidArray()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"authTime":["a","b"]}';
         $obj  = AuthorizationIssueRequest::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonAuthTimeInvalidObject()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"authTime":{"a":"b"}}';
         $obj  = AuthorizationIssueRequest::fromJson($json);
     }
@@ -559,33 +538,33 @@ class AuthorizationIssueRequestTest extends TestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonAcrInvalidBool()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"acr":true}';
         $obj  = AuthorizationIssueRequest::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonAcrInvalidNumber()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"acr":123}';
         $obj  = AuthorizationIssueRequest::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonAcrInvalidArray()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"acr":["a","b"]}';
         $obj  = AuthorizationIssueRequest::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonAcrInvalidObject()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"acr":{"a":"b"}}';
         $obj  = AuthorizationIssueRequest::fromJson($json);
     }
@@ -609,33 +588,33 @@ class AuthorizationIssueRequestTest extends TestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonClaimsInvalidBool()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"claims":true}';
         $obj  = AuthorizationIssueRequest::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonClaimsInvalidNumber()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"claims":123}';
         $obj  = AuthorizationIssueRequest::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonClaimsInvalidArray()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"claims":["a","b"]}';
         $obj  = AuthorizationIssueRequest::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonClaimsInvalidObject()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"claims":{"a":"b"}}';
         $obj  = AuthorizationIssueRequest::fromJson($json);
     }
@@ -655,13 +634,13 @@ class AuthorizationIssueRequestTest extends TestCase
         $this->assertInstanceOf(Property::class, $property0);
         $this->assertEquals('key0',   $property0->getKey());
         $this->assertEquals('value0', $property0->getValue());
-        $this->assertEquals(true,     $property0->isHidden());
+        $this->assertTrue($property0->isHidden());
 
         $property1 = $properties[1];
         $this->assertInstanceOf(Property::class, $property1);
         $this->assertEquals('key1',   $property1->getKey());
         $this->assertEquals('value1', $property1->getValue());
-        $this->assertEquals(false,    $property1->isHidden());
+        $this->assertFalse($property1->isHidden());
     }
 
 
@@ -674,33 +653,33 @@ class AuthorizationIssueRequestTest extends TestCase
     }
 
 
-    /** @expectedException Error */
     public function testFromJsonPropertiesInvalidBool()
     {
+        $this->expectException(Error::class);
         $json = '{"properties":true}';
         $obj  = AuthorizationIssueRequest::fromJson($json);
     }
 
 
-    /** @expectedException Error */
     public function testFromJsonPropertiesInvalidNumber()
     {
+        $this->expectException(Error::class);
         $json = '{"properties":123}';
         $obj  = AuthorizationIssueRequest::fromJson($json);
     }
 
 
-    /** @expectedException Error */
     public function testFromJsonPropertiesInvalidArray()
     {
+        $this->expectException(Error::class);
         $json = '{"properties":["a","b"]}';
         $obj  = AuthorizationIssueRequest::fromJson($json);
     }
 
 
-    /** @expectedException Error */
     public function testFromJsonPropertiesInvalidObject()
     {
+        $this->expectException(Error::class);
         $json = '{"properties":{"a":"b"}}';
         $obj  = AuthorizationIssueRequest::fromJson($json);
     }
@@ -729,17 +708,17 @@ class AuthorizationIssueRequestTest extends TestCase
     }
 
 
-    /** @expectedException Error */
     public function testFromJsonScopesInvalidBool()
     {
+        $this->expectException(Error::class);
         $json = '{"scopes":true}';
         $obj  = AuthorizationIssueRequest::fromJson($json);
     }
 
 
-    /** @expectedException Error */
     public function testFromJsonScopesInvalidNumber()
     {
+        $this->expectException(Error::class);
         $json = '{"scopes":123}';
         $obj  = AuthorizationIssueRequest::fromJson($json);
     }
@@ -834,4 +813,3 @@ class AuthorizationIssueRequestTest extends TestCase
         $this->assertEquals(self::IDT_HEADER_PARAMS, $array['idtHeaderParams']);
     }
 }
-?>

@@ -97,7 +97,7 @@ class Property implements ArrayCopyable, Arrayable, Jsonable
      * @return Property
      *     `$this` object.
      */
-    public function setKey(string $key): Property
+    public function setKey(mixed $key): Property
     {
         ValidationUtility::ensureNullOrString('$key', $key);
 
@@ -128,7 +128,7 @@ class Property implements ArrayCopyable, Arrayable, Jsonable
      * @return Property
      *     `$this` object.
      */
-    public function setValue(string $value): Property
+    public function setValue(mixed $value): Property
     {
         ValidationUtility::ensureNullOrString('$value', $value);
 

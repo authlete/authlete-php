@@ -23,6 +23,7 @@ namespace Authlete\Tests\Dto;
 require_once('vendor/autoload.php');
 
 
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Authlete\Dto\AuthorizationIssueAction;
 use Authlete\Dto\AuthorizationIssueResponse;
@@ -50,11 +51,9 @@ class AuthorizationIssueResponseTest extends TestCase
     }
 
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
     public function testResultCodeInvalidValue()
     {
+        $this->expectException(InvalidArgumentException::class);
         $obj = new AuthorizationIssueResponse();
 
         $invalid = array();
@@ -82,9 +81,9 @@ class AuthorizationIssueResponseTest extends TestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testResultMessageInvalidValue()
     {
+        $this->expectException(InvalidArgumentException::class);
         $obj = new AuthorizationIssueResponse();
 
         $invalid = array();
@@ -132,9 +131,9 @@ class AuthorizationIssueResponseTest extends TestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testResponseContentInvalidValue()
     {
+        $this->expectException(InvalidArgumentException::class);
         $obj = new AuthorizationIssueResponse();
 
         $invalid = array();
@@ -169,33 +168,33 @@ class AuthorizationIssueResponseTest extends TestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonResultCodeInvalidBool()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"resultCode":true}';
         $obj  = AuthorizationIssueResponse::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonResultCodeInvalidNumber()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"resultCode":123}';
         $obj  = AuthorizationIssueResponse::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonResultCodeInvalidArray()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"resultCode":["a","b"]}';
         $obj  = AuthorizationIssueResponse::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonResultCodeInvalidObject()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"resultCode":{"a":"b"}}';
         $obj  = AuthorizationIssueResponse::fromJson($json);
     }
@@ -219,33 +218,33 @@ class AuthorizationIssueResponseTest extends TestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonResultMessageInvalidBool()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"resultMessage":true}';
         $obj  = AuthorizationIssueResponse::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonResultMessageInvalidNumber()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"resultMessage":123}';
         $obj  = AuthorizationIssueResponse::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonResultMessageInvalidArray()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"resultMessage":["a","b"]}';
         $obj  = AuthorizationIssueResponse::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonResultMessageInvalidObject()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"resultMessage":{"a":"b"}}';
         $obj  = AuthorizationIssueResponse::fromJson($json);
     }
@@ -269,33 +268,33 @@ class AuthorizationIssueResponseTest extends TestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonActionInvalidBool()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"action":true}';
         $obj  = AuthorizationIssueResponse::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonActionInvalidNumber()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"action":123}';
         $obj  = AuthorizationIssueResponse::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonActionInvalidArray()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"action":["a","b"]}';
         $obj  = AuthorizationIssueResponse::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonActionInvalidObject()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"action":{"a":"b"}}';
         $obj  = AuthorizationIssueResponse::fromJson($json);
     }
@@ -319,33 +318,33 @@ class AuthorizationIssueResponseTest extends TestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonResponseContentInvalidBool()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"responseContent":true}';
         $obj  = AuthorizationIssueResponse::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonResponseContentInvalidNumber()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"responseContent":123}';
         $obj  = AuthorizationIssueResponse::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonResponseContentInvalidArray()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"responseContent":["a","b"]}';
         $obj  = AuthorizationIssueResponse::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonResponseContentInvalidObject()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"responseContent":{"a":"b"}}';
         $obj  = AuthorizationIssueResponse::fromJson($json);
     }
@@ -410,4 +409,4 @@ class AuthorizationIssueResponseTest extends TestCase
         $this->assertEquals('jwt_access_token', $array['jwtAccessToken']);
     }
 }
-?>
+

@@ -26,6 +26,7 @@ require_once('tests/Tests/Types/EnumTestCase.php');
 
 use Authlete\Dto\DeviceCompleteAction;
 use Authlete\Tests\Types\EnumTestCase;
+use InvalidArgumentException;
 
 
 class DeviceCompleteActionTest extends EnumTestCase
@@ -40,25 +41,24 @@ class DeviceCompleteActionTest extends EnumTestCase
     {
         $cls = $this->getTargetClass();
 
-        $this->enumTest($cls::$SUCCESS,             'SUCCESS');
-        $this->enumTest($cls::$INVALID_REQUEST,     'INVALID_REQUEST');
-        $this->enumTest($cls::$USER_CODE_EXPIRED,   'USER_CODE_EXPIRED');
-        $this->enumTest($cls::$USER_CODE_NOT_EXIST, 'USER_CODE_NOT_EXIST');
-        $this->enumTest($cls::$SERVER_ERROR,        'SERVER_ERROR');
+        $this->enumTest($cls::SUCCESS,             'SUCCESS');
+        $this->enumTest($cls::INVALID_REQUEST,     'INVALID_REQUEST');
+        $this->enumTest($cls::USER_CODE_EXPIRED,   'USER_CODE_EXPIRED');
+        $this->enumTest($cls::USER_CODE_NOT_EXIST, 'USER_CODE_NOT_EXIST');
+        $this->enumTest($cls::SERVER_ERROR,        'SERVER_ERROR');
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testValueOfInvalidValue()
     {
+        $this->expectException(InvalidArgumentException::class);
         $this->enumTestInvalidValue();
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testValueOfInvalidArray()
     {
+        $this->expectException(InvalidArgumentException::class);
         $this->enumTestInvalidArray();
     }
 }
-?>

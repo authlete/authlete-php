@@ -17,7 +17,7 @@
 //
 
 
-namespace Authlete\Tests\Dto;
+namespace Tests\Dto;
 
 
 require_once('vendor/autoload.php');
@@ -33,10 +33,10 @@ class BackchannelAuthenticationFailResponseTest extends TestCase
     private const RESPONSE_CONTENT = '_response_content_';
 
 
-    public function buildObj()
+    public function buildObj(): BackchannelAuthenticationFailResponse
     {
         $obj = new BackchannelAuthenticationFailResponse();
-        $obj->setAction(BackchannelAuthenticationFailAction::$BAD_REQUEST)
+        $obj->setAction(BackchannelAuthenticationFailAction::BAD_REQUEST)
             ->setResponseContent(self::RESPONSE_CONTENT)
         ;
 
@@ -65,10 +65,9 @@ class BackchannelAuthenticationFailResponseTest extends TestCase
         $obj = $this->buildObj();
 
         // action
-        $this->assertEquals(BackchannelAuthenticationFailAction::$BAD_REQUEST, $obj->getAction());
+        $this->assertEquals(BackchannelAuthenticationFailAction::BAD_REQUEST, $obj->getAction());
 
         // responseContent
         $this->assertEquals(self::RESPONSE_CONTENT, $obj->getResponseContent());
     }
 }
-?>

@@ -17,7 +17,7 @@
 //
 
 
-namespace Authlete\Tests\Dto;
+namespace Tests\Dto;
 
 
 require_once('vendor/autoload.php');
@@ -47,16 +47,16 @@ class BackchannelAuthenticationCompleteResponseTest extends TestCase
     private const JWT_ACCESS_TOKEN             = '_jwt_access_token_';
 
 
-    public function buildObj()
+    public function buildObj(): BackchannelAuthenticationCompleteResponse
     {
         $obj = new BackchannelAuthenticationCompleteResponse();
-        $obj->setAction(BackchannelAuthenticationCompleteAction::$NOTIFICATION)
+        $obj->setAction(BackchannelAuthenticationCompleteAction::NOTIFICATION)
             ->setResponseContent(self::RESPONSE_CONTENT)
             ->setClientId(self::CLIENT_ID)
             ->setClientIdAlias(self::CLIENT_ID_ALIAS)
             ->setClientIdAliasUsed(true)
             ->setClientName(self::CLIENT_NAME)
-            ->setDeliveryMode(DeliveryMode::$POLL)
+            ->setDeliveryMode(DeliveryMode::POLL)
             ->setClientNotificationEndpoint(self::CLIENT_NOTIFICATION_ENDPOINT)
             ->setClientNotificationToken(self::CLIENT_NOTIFICATION_TOKEN)
             ->setAuthReqId(self::AUTH_REQ_ID)
@@ -169,7 +169,7 @@ class BackchannelAuthenticationCompleteResponseTest extends TestCase
         $obj = $this->buildObj();
 
         // action
-        $this->assertEquals(BackchannelAuthenticationCompleteAction::$NOTIFICATION, $obj->getAction());
+        $this->assertEquals(BackchannelAuthenticationCompleteAction::NOTIFICATION, $obj->getAction());
 
         // responseContent
         $this->assertEquals(self::RESPONSE_CONTENT, $obj->getResponseContent());
@@ -187,7 +187,7 @@ class BackchannelAuthenticationCompleteResponseTest extends TestCase
         $this->assertEquals(self::CLIENT_NAME, $obj->getClientName());
 
         // deliveryMode
-        $this->assertEquals(DeliveryMode::$POLL, $obj->getDeliveryMode());
+        $this->assertEquals(DeliveryMode::POLL, $obj->getDeliveryMode());
 
         // clientNotificationEndpoint
         $this->assertEquals(self::CLIENT_NOTIFICATION_ENDPOINT, $obj->getClientNotificationEndpoint());
@@ -228,4 +228,4 @@ class BackchannelAuthenticationCompleteResponseTest extends TestCase
         $this->assertEquals('resource-1', $resources[1]);
     }
 }
-?>
+

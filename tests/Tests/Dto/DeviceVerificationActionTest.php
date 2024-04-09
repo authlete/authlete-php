@@ -26,6 +26,7 @@ require_once('tests/Tests/Types/EnumTestCase.php');
 
 use Authlete\Dto\DeviceVerificationAction;
 use Authlete\Tests\Types\EnumTestCase;
+use InvalidArgumentException;
 
 
 class DeviceVerificationActionTest extends EnumTestCase
@@ -40,24 +41,23 @@ class DeviceVerificationActionTest extends EnumTestCase
     {
         $cls = $this->getTargetClass();
 
-        $this->enumTest($cls::$VALID,        'VALID');
-        $this->enumTest($cls::$EXPIRED,      'EXPIRED');
-        $this->enumTest($cls::$NOT_EXIST,    'NOT_EXIST');
-        $this->enumTest($cls::$SERVER_ERROR, 'SERVER_ERROR');
+        $this->enumTest($cls::VALID,        'VALID');
+        $this->enumTest($cls::EXPIRED,      'EXPIRED');
+        $this->enumTest($cls::NOT_EXIST,    'NOT_EXIST');
+        $this->enumTest($cls::SERVER_ERROR, 'SERVER_ERROR');
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testValueOfInvalidValue()
     {
+        $this->expectException(InvalidArgumentException::class);
         $this->enumTestInvalidValue();
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testValueOfInvalidArray()
     {
+        $this->expectException(InvalidArgumentException::class);
         $this->enumTestInvalidArray();
     }
 }
-?>

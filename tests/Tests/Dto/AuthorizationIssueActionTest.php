@@ -17,12 +17,11 @@
 //
 
 
-namespace Authlete\Tests\Dto;
+namespace Tests\Dto;
 
 
-require_once('vendor/autoload.php');
 
-
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Authlete\Dto\AuthorizationIssueAction;
 
@@ -31,89 +30,89 @@ class AuthorizationIssueActionTest extends TestCase
 {
     public function testNameOfInternalServerError()
     {
-        $action = AuthorizationIssueAction::$INTERNAL_SERVER_ERROR;
+        $action = AuthorizationIssueAction::INTERNAL_SERVER_ERROR;
 
-        $this->assertEquals('INTERNAL_SERVER_ERROR', $action->name());
+        $this->assertEquals('INTERNAL_SERVER_ERROR', $action->name);
     }
 
 
     public function testValueOfInternalServerError()
     {
-        $action = AuthorizationIssueAction::$INTERNAL_SERVER_ERROR;
+        $action = AuthorizationIssueAction::INTERNAL_SERVER_ERROR;
 
-        $this->assertSame($action, AuthorizationIssueAction::valueOf($action));
+        $this->assertSame($action, AuthorizationIssueAction::valueOf($action->name));
         $this->assertSame($action, AuthorizationIssueAction::valueOf('INTERNAL_SERVER_ERROR'));
     }
 
 
     public function testNameOfBadRequest()
     {
-        $action = AuthorizationIssueAction::$BAD_REQUEST;
+        $action = AuthorizationIssueAction::BAD_REQUEST;
 
-        $this->assertEquals('BAD_REQUEST', $action->name());
+        $this->assertEquals('BAD_REQUEST', $action->name);
     }
 
 
     public function testValueOfBadRequest()
     {
-        $action = AuthorizationIssueAction::$BAD_REQUEST;
+        $action = AuthorizationIssueAction::BAD_REQUEST;
 
-        $this->assertSame($action, AuthorizationIssueAction::valueOf($action));
+        $this->assertSame($action, AuthorizationIssueAction::valueOf($action->name));
         $this->assertSame($action, AuthorizationIssueAction::valueOf('BAD_REQUEST'));
     }
 
 
     public function testNameOfLocation()
     {
-        $action = AuthorizationIssueAction::$LOCATION;
+        $action = AuthorizationIssueAction::LOCATION;
 
-        $this->assertEquals('LOCATION', $action->name());
+        $this->assertEquals('LOCATION', $action->name);
     }
 
 
     public function testValueOfLocation()
     {
-        $action = AuthorizationIssueAction::$LOCATION;
+        $action = AuthorizationIssueAction::LOCATION;
 
-        $this->assertSame($action, AuthorizationIssueAction::valueOf($action));
+        $this->assertSame($action, AuthorizationIssueAction::valueOf($action->name));
         $this->assertSame($action, AuthorizationIssueAction::valueOf('LOCATION'));
     }
 
 
     public function testNameOfForm()
     {
-        $action = AuthorizationIssueAction::$FORM;
+        $action = AuthorizationIssueAction::FORM;
 
-        $this->assertEquals('FORM', $action->name());
+        $this->assertEquals('FORM', $action->name);
     }
 
 
     public function testValueOfForm()
     {
-        $action = AuthorizationIssueAction::$FORM;
+        $action = AuthorizationIssueAction::FORM;
 
-        $this->assertSame($action, AuthorizationIssueAction::valueOf($action));
+        $this->assertSame($action, AuthorizationIssueAction::valueOf($action->name));
         $this->assertSame($action, AuthorizationIssueAction::valueOf('FORM'));
     }
 
 
     public function testValueOfNull()
     {
+        $this->expectException(\TypeError::class);
         $this->assertNull(AuthorizationIssueAction::valueOf(null));
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testValueOfInvalidValue()
     {
+        $this->expectException(InvalidArgumentException::class);
         AuthorizationIssueAction::valueOf('__INVALID_VALUE__');
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testValueOfInvalidArray()
     {
+        $this->expectException(\TypeError::class);
         AuthorizationIssueAction::valueOf(array());
     }
 }
-?>

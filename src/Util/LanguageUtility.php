@@ -370,9 +370,14 @@ class LanguageUtility
      * @return mixed
      *     An instance of the class which is specified by the class name.
      */
-    public static function convertArrayToArrayCopyable(string $className, array &$array = null): mixed
+    public static function convertArrayToArrayCopyable(mixed $className, array &$array = null): mixed
     {
         if (is_null($array))
+        {
+            return null;
+        }
+
+        if (is_null($className) || !is_string($className))
         {
             return null;
         }

@@ -17,7 +17,7 @@
 //
 
 
-namespace Authlete\Tests\Dto;
+namespace Tests\Dto;
 
 
 require_once('vendor/autoload.php');
@@ -47,16 +47,16 @@ class BackchannelAuthenticationResponseTest extends TestCase
     private const TICKET                    = '_ticket_';
 
 
-    public function buildObj()
+    public function buildObj(): BackchannelAuthenticationResponse
     {
         $obj = new BackchannelAuthenticationResponse();
-        $obj->setAction(BackchannelAuthenticationAction::$USER_IDENTIFICATION)
+        $obj->setAction(BackchannelAuthenticationAction::USER_IDENTIFICATION)
             ->setResponseContent(self::RESPONSE_CONTENT)
             ->setClientId(self::CLIENT_ID)
             ->setClientIdAlias(self::CLIENT_ID_ALIAS)
             ->setClientIdAliasUsed(true)
             ->setClientName(self::CLIENT_NAME)
-            ->setDeliveryMode(DeliveryMode::$POLL)
+            ->setDeliveryMode(DeliveryMode::POLL)
             ->setScopes(
                 array(
                     (new Scope())->setName('scope-0'),
@@ -76,7 +76,7 @@ class BackchannelAuthenticationResponseTest extends TestCase
                     "acr-1"
                 )
             )
-            ->setHintType(UserIdentificationHintType::$LOGIN_HINT)
+            ->setHintType(UserIdentificationHintType::LOGIN_HINT)
             ->setHint(self::HINT)
             ->setSub(self::SUB)
             ->setBindingMessage(self::BINDING_MESSAGE)
@@ -233,7 +233,7 @@ class BackchannelAuthenticationResponseTest extends TestCase
         $obj = $this->buildObj();
 
         // action
-        $this->assertEquals(BackchannelAuthenticationAction::$USER_IDENTIFICATION, $obj->getAction());
+        $this->assertEquals(BackchannelAuthenticationAction::USER_IDENTIFICATION, $obj->getAction());
 
         // responseContent
         $this->assertEquals(self::RESPONSE_CONTENT, $obj->getResponseContent());
@@ -251,7 +251,7 @@ class BackchannelAuthenticationResponseTest extends TestCase
         $this->assertEquals(self::CLIENT_NAME, $obj->getClientName());
 
         // deliveryMode
-        $this->assertEquals(DeliveryMode::$POLL, $obj->getDeliveryMode());
+        $this->assertEquals(DeliveryMode::POLL, $obj->getDeliveryMode());
 
         // scopes
         $scopes = $obj->getScopes();
@@ -285,7 +285,7 @@ class BackchannelAuthenticationResponseTest extends TestCase
         $this->assertEquals('acr-1', $acrs[1]);
 
         // hintType
-        $this->assertEquals(UserIdentificationHintType::$LOGIN_HINT, $obj->getHintType());
+        $this->assertEquals(UserIdentificationHintType::LOGIN_HINT, $obj->getHintType());
 
         // hint
         $this->assertEquals(self::HINT, $obj->getHint());
@@ -328,4 +328,3 @@ class BackchannelAuthenticationResponseTest extends TestCase
         $this->assertEquals(self::TICKET, $obj->getTicket());
     }
 }
-?>

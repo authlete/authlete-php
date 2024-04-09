@@ -17,12 +17,14 @@
 //
 
 
-namespace Authlete\Tests\Dto;
+namespace Tests\Dto;
 
 
 require_once('vendor/autoload.php');
 
 
+use Error;
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Authlete\Dto\Client;
 use Authlete\Dto\ClientExtension;
@@ -92,11 +94,9 @@ class ClientTest extends TestCase
     }
 
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
     public function testDeveloperInvalidValue()
     {
+        $this->expectException(InvalidArgumentException::class);
         $obj = new Client();
 
         $invalid = array();
@@ -131,11 +131,9 @@ class ClientTest extends TestCase
     }
 
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
     public function testClientIdInvalidValue()
     {
+        $this->expectException(InvalidArgumentException::class);
         $obj = new Client();
 
         $invalid = array();
@@ -192,9 +190,9 @@ class ClientTest extends TestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testClientIdAliasEnabledInvalidNull()
     {
+        $this->expectException(InvalidArgumentException::class);
         $obj = new Client();
         $obj->setClientIdAliasEnabled(null);
     }
@@ -218,9 +216,9 @@ class ClientTest extends TestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testClientSecretInvalidValue()
     {
+        $this->expectException(InvalidArgumentException::class);
         $obj = new Client();
 
         $invalid = array();
@@ -248,11 +246,9 @@ class ClientTest extends TestCase
     }
 
 
-    /**
-     * @expectedException Error
-     */
     public function testClientTypeInvalidValue()
     {
+        $this->expectException(Error::class);
         $obj = new Client();
 
         $invalid = '__INVALID__';
@@ -283,11 +279,9 @@ class ClientTest extends TestCase
     }
 
 
-    /**
-     * @expectedException Error
-     */
     public function testRedirectUrisInvalidString()
     {
+        $this->expectException(Error::class);
         $obj = new Client();
 
         $invalid = '__INVALID__';
@@ -295,11 +289,9 @@ class ClientTest extends TestCase
     }
 
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
     public function testRedirectUrisInvalidArray()
     {
+        $this->expectException(InvalidArgumentException::class);
         $obj = new Client();
 
         $invalid = array(array(), array());
@@ -335,11 +327,9 @@ class ClientTest extends TestCase
     }
 
 
-    /**
-     * @expectedException Error
-     */
     public function testResponseTypesInvalidType()
     {
+        $this->expectException(Error::class);
         $obj = new Client();
 
         $invalid = '__INVALID__';
@@ -347,11 +337,9 @@ class ClientTest extends TestCase
     }
 
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
     public function testResponseTypesInvalidElement()
     {
+        $this->expectException(InvalidArgumentException::class);
         $obj = new Client();
 
         $invalid = array('__INVALID__');
@@ -364,8 +352,8 @@ class ClientTest extends TestCase
         $obj = new Client();
 
         $array = array(
-            GrantType::$AUTHORIZATION_CODE,
-            GrantType::$IMPLICIT
+            GrantType::AUTHORIZATION_CODE,
+            GrantType::IMPLICIT
         );
         $obj->setGrantTypes($array);
 
@@ -373,8 +361,8 @@ class ClientTest extends TestCase
 
         $this->assertTrue(is_array($types));
         $this->assertCount(2, $types);
-        $this->assertSame(GrantType::$AUTHORIZATION_CODE,  $types[0]);
-        $this->assertSame(GrantType::$IMPLICIT,            $types[1]);
+        $this->assertSame(GrantType::AUTHORIZATION_CODE,  $types[0]);
+        $this->assertSame(GrantType::IMPLICIT,            $types[1]);
     }
 
 
@@ -415,7 +403,7 @@ class ClientTest extends TestCase
     {
         $obj = new Client();
 
-        $type = ApplicationType::$WEB;
+        $type = ApplicationType::WEB;
         $obj->setApplicationType($type);
 
         $this->assertSame($type, $obj->getApplicationType());
@@ -871,11 +859,9 @@ class ClientTest extends TestCase
     }
 
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
     public function testJwksUriInvalidValue()
     {
+        $this->expectException(InvalidArgumentException::class);
         $obj = new Client();
 
         $invalid = array('__INVALID__');
@@ -901,11 +887,9 @@ class ClientTest extends TestCase
     }
 
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
     public function testJwksInvalidValue()
     {
+        $this->expectException(InvalidArgumentException::class);
         $obj = new Client();
 
         $invalid = array('__INVALID__');
@@ -931,11 +915,9 @@ class ClientTest extends TestCase
     }
 
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
     public function testSectorIdentifierUriInvalidValue()
     {
+        $this->expectException(InvalidArgumentException::class);
         $obj = new Client();
 
         $invalid = array('__INVALID__');
@@ -963,11 +945,9 @@ class ClientTest extends TestCase
     }
 
 
-    /**
-     * @expectedException Error
-     */
     public function testSubjectTypeInvalidValue()
     {
+        $this->expectException(Error::class);
         $obj = new Client();
 
         $invalid = '__INVALID__';
@@ -979,7 +959,7 @@ class ClientTest extends TestCase
     {
         $obj = new Client();
 
-        $alg = JWSAlg::$HS256;
+        $alg = JWSAlg::HS256;
         $obj->setIdTokenSignAlg($alg);
 
         $this->assertSame($alg, $obj->getIdTokenSignAlg());
@@ -995,11 +975,9 @@ class ClientTest extends TestCase
     }
 
 
-    /**
-     * @expectedException Error
-     */
     public function testIdTokenSignAlgInvalidValue()
     {
+        $this->expectException(Error::class);
         $obj = new Client();
 
         $invalid = '__INVALID__';
@@ -1011,7 +989,7 @@ class ClientTest extends TestCase
     {
         $obj = new Client();
 
-        $alg = JWEAlg::$RSA1_5;
+        $alg = JWEAlg::RSA1_5;
         $obj->setIdTokenEncryptionAlg($alg);
 
         $this->assertSame($alg, $obj->getIdTokenEncryptionAlg());
@@ -1027,11 +1005,9 @@ class ClientTest extends TestCase
     }
 
 
-    /**
-     * @expectedException Error
-     */
     public function testIdTokenEncryptionAlgInvalidValue()
     {
+        $this->expectException(Error::class);
         $obj = new Client();
 
         $invalid = '__INVALID__';
@@ -1043,7 +1019,7 @@ class ClientTest extends TestCase
     {
         $obj = new Client();
 
-        $enc = JWEEnc::$A128CBC_HS256;
+        $enc = JWEEnc::A128CBC_HS256;
         $obj->setIdTokenEncryptionEnc($enc);
 
         $this->assertSame($enc, $obj->getIdTokenEncryptionEnc());
@@ -1059,11 +1035,9 @@ class ClientTest extends TestCase
     }
 
 
-    /**
-     * @expectedException Error
-     */
     public function testIdTokenEncryptionEncInvalidValue()
     {
+        $this->expectException(Error::class);
         $obj = new Client();
 
         $invalid = '__INVALID__';
@@ -1091,11 +1065,9 @@ class ClientTest extends TestCase
     }
 
 
-    /**
-     * @expectedException Error
-     */
     public function testUserInfoSignAlgInvalidValue()
     {
+        $this->expectException(Error::class);
         $obj = new Client();
 
         $invalid = '__INVALID__';
@@ -1107,7 +1079,7 @@ class ClientTest extends TestCase
     {
         $obj = new Client();
 
-        $alg = JWEAlg::$A128KW;
+        $alg = JWEAlg::A128KW;
         $obj->setUserInfoEncryptionAlg($alg);
 
         $this->assertSame($alg, $obj->getUserInfoEncryptionAlg());
@@ -1123,11 +1095,9 @@ class ClientTest extends TestCase
     }
 
 
-    /**
-     * @expectedException Error
-     */
     public function testUserInfoEncryptionAlgInvalidValue()
     {
+        $this->expectException(Error::class);
         $obj = new Client();
 
         $invalid = '__INVALID__';
@@ -1139,7 +1109,7 @@ class ClientTest extends TestCase
     {
         $obj = new Client();
 
-        $enc = JWEEnc::$A128GCM;
+        $enc = JWEEnc::A128GCM;
         $obj->setUserInfoEncryptionEnc($enc);
 
         $this->assertSame($enc, $obj->getUserInfoEncryptionEnc());
@@ -1155,11 +1125,9 @@ class ClientTest extends TestCase
     }
 
 
-    /**
-     * @expectedException Error
-     */
     public function testUserInfoEncryptionEncInvalidValue()
     {
+        $this->expectException(Error::class);
         $obj = new Client();
 
         $invalid = '__INVALID__';
@@ -1171,7 +1139,7 @@ class ClientTest extends TestCase
     {
         $obj = new Client();
 
-        $alg = JWSAlg::$ES256;
+        $alg = JWSAlg::ES256;
         $obj->setRequestSignAlg($alg);
 
         $this->assertSame($alg, $obj->getRequestSignAlg());
@@ -1187,11 +1155,9 @@ class ClientTest extends TestCase
     }
 
 
-    /**
-     * @expectedException Error
-     */
     public function testRequestSignAlgInvalidValue()
     {
+        $this->expectException(Error::class);
         $obj = new Client();
 
         $invalid = '__INVALID__';
@@ -1203,7 +1169,7 @@ class ClientTest extends TestCase
     {
         $obj = new Client();
 
-        $alg = JWEAlg::$ECDH_ES;
+        $alg = JWEAlg::ECDH_ES;
         $obj->setRequestEncryptionAlg($alg);
 
         $this->assertSame($alg, $obj->getRequestEncryptionAlg());
@@ -1219,11 +1185,9 @@ class ClientTest extends TestCase
     }
 
 
-    /**
-     * @expectedException Error
-     */
     public function testRequestEncryptionAlgInvalidValue()
     {
+        $this->expectException(Error::class);
         $obj = new Client();
 
         $invalid = '__INVALID__';
@@ -1235,7 +1199,7 @@ class ClientTest extends TestCase
     {
         $obj = new Client();
 
-        $enc = JWEEnc::$A192CBC_HS384;
+        $enc = JWEEnc::A192CBC_HS384;
         $obj->setRequestEncryptionEnc($enc);
 
         $this->assertSame($enc, $obj->getRequestEncryptionEnc());
@@ -1251,11 +1215,9 @@ class ClientTest extends TestCase
     }
 
 
-    /**
-     * @expectedException Error
-     */
     public function testRequestEncryptionEncInvalidValue()
     {
+        $this->expectException(Error::class);
         $obj = new Client();
 
         $invalid = '__INVALID__';
@@ -1267,7 +1229,7 @@ class ClientTest extends TestCase
     {
         $obj = new Client();
 
-        $method = ClientAuthMethod::$CLIENT_SECRET_BASIC;
+        $method = ClientAuthMethod::CLIENT_SECRET_BASIC;
         $obj->setTokenAuthMethod($method);
 
         $this->assertSame($method, $obj->getTokenAuthMethod());
@@ -1283,11 +1245,9 @@ class ClientTest extends TestCase
     }
 
 
-    /**
-     * @expectedException Error
-     */
     public function testTokenAuthMethodInvalidValue()
     {
+        $this->expectException(Error::class);
         $obj = new Client();
 
         $invalid = '__INVALID__';
@@ -1299,7 +1259,7 @@ class ClientTest extends TestCase
     {
         $obj = new Client();
 
-        $alg = JWSAlg::$PS256;
+        $alg = JWSAlg::PS256;
         $obj->setTokenAuthSignAlg($alg);
 
         $this->assertSame($alg, $obj->getTokenAuthSignAlg());
@@ -1315,11 +1275,9 @@ class ClientTest extends TestCase
     }
 
 
-    /**
-     * @expectedException Error
-     */
     public function testTokenAuthSignAlgInvalidValue()
     {
+        $this->expectException(Error::class);
         $obj = new Client();
 
         $invalid = '__INVALID__';
@@ -1354,11 +1312,9 @@ class ClientTest extends TestCase
     }
 
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
     public function testDefaultMaxAgeInvalidValue()
     {
+        $this->expectException(InvalidArgumentException::class);
         $obj = new Client();
 
         $invalid = array();
@@ -1375,9 +1331,9 @@ class ClientTest extends TestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testAuthTimeRequiredInvalidValue()
     {
+        $this->expectException(InvalidArgumentException::class);
         $obj = new Client();
 
         $invalid = array();
@@ -1385,9 +1341,9 @@ class ClientTest extends TestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testAuthTimeRequiredInvalidNull()
     {
+        $this->expectException(InvalidArgumentException::class);
         $obj = new Client();
         $obj->setAuthTimeRequired(null);
     }
@@ -1416,11 +1372,9 @@ class ClientTest extends TestCase
     }
 
 
-    /**
-     * @expectedException Error
-     */
     public function testDefaultAcrsInvalidString()
     {
+        $this->expectException(Error::class);
         $obj = new Client();
 
         $invalid = '__INVALID__';
@@ -1428,11 +1382,9 @@ class ClientTest extends TestCase
     }
 
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
     public function testDefaultAcrsInvalidArray()
     {
+        $this->expectException(InvalidArgumentException::class);
         $obj = new Client();
 
         $invalid = array(array(), array());
@@ -1458,11 +1410,9 @@ class ClientTest extends TestCase
     }
 
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
     public function testLoginUriInvalidValue()
     {
+        $this->expectException(InvalidArgumentException::class);
         $obj = new Client();
 
         $invalid = array('__INVALID__');
@@ -1493,11 +1443,9 @@ class ClientTest extends TestCase
     }
 
 
-    /**
-     * @expectedException Error
-     */
     public function testRequestUrisInvalidString()
     {
+        $this->expectException(Error::class);
         $obj = new Client();
 
         $invalid = '__INVALID__';
@@ -1505,11 +1453,9 @@ class ClientTest extends TestCase
     }
 
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
     public function testRequestUrisInvalidArray()
     {
+        $this->expectException(InvalidArgumentException::class);
         $obj = new Client();
 
         $invalid = array(array(), array());
@@ -1535,9 +1481,9 @@ class ClientTest extends TestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testDescriptionInvalidValue()
     {
+        $this->expectException(InvalidArgumentException::class);
         $obj = new Client();
 
         $invalid = array();
@@ -1566,11 +1512,9 @@ class ClientTest extends TestCase
     }
 
 
-    /**
-     * @expectedException Error
-     */
     public function testDescriptionsInvalidType()
     {
+        $this->expectException(Error::class);
         $obj = new Client();
 
         $invalid = '__INVALID__';
@@ -1578,11 +1522,9 @@ class ClientTest extends TestCase
     }
 
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
     public function testDescriptionsInvalidElement()
     {
+        $this->expectException(InvalidArgumentException::class);
         $obj = new Client();
 
         $invalid = array('__INVALID__');
@@ -1617,11 +1559,9 @@ class ClientTest extends TestCase
     }
 
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
     public function testCreatedAtInvalidValue()
     {
+        $this->expectException(InvalidArgumentException::class);
         $obj = new Client();
 
         $invalid = array();
@@ -1656,11 +1596,9 @@ class ClientTest extends TestCase
     }
 
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
     public function testModifiedAtInvalidValue()
     {
+        $this->expectException(InvalidArgumentException::class);
         $obj = new Client();
 
         $invalid = array();
@@ -1689,9 +1627,9 @@ class ClientTest extends TestCase
     }
 
 
-    /** @expectedException TypeError */
     public function testExtensionInvalidValue()
     {
+        $this->expectException(TypeError::class);
         $obj = new Client();
 
         $invalid = array();
@@ -1717,9 +1655,9 @@ class ClientTest extends TestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testTlsClientAuthSubjectDnInvalidValue()
     {
+        $this->expectException(InvalidArgumentException::class);
         $obj = new Client();
 
         $invalid = array();
@@ -1736,9 +1674,9 @@ class ClientTest extends TestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testTlsClientCertificateBoundAccessTokensInvalidValue()
     {
+        $this->expectException(InvalidArgumentException::class);
         $obj = new Client();
 
         $invalid = array();
@@ -1746,9 +1684,9 @@ class ClientTest extends TestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testTlsClientCertificateBoundAccessTokensInvalidNull()
     {
+        $this->expectException(InvalidArgumentException::class);
         $obj = new Client();
         $obj->setTlsClientCertificateBoundAccessTokens(null);
     }
@@ -1799,33 +1737,33 @@ class ClientTest extends TestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonDeveloperInvalidBool()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"developer":true}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonDeveloperInvalidNumber()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"developer":123}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonDeveloperInvalidArray()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"developer":["a","b"]}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonDeveloperInvalidObject()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"developer":{"a":"b"}}';
         $obj  = Client::fromJson($json);
     }
@@ -1858,25 +1796,25 @@ class ClientTest extends TestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonClientIdInvalidBool()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"clientId":true}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonClientIdInvalidArray()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"clientId":["a","b"]}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonClientIdInvalidObject()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"clientId":{"a":"b"}}';
         $obj  = Client::fromJson($json);
     }
@@ -1900,33 +1838,33 @@ class ClientTest extends TestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonClientIdAliasInvalidBool()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"clientIdAlias":true}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonClientIdAliasInvalidNumber()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"clientIdAlias":123}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonClientIdAliasInvalidArray()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"clientIdAlias":["a","b"]}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonClientIdAliasInvalidObject()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"clientIdAlias":{"a":"b"}}';
         $obj  = Client::fromJson($json);
     }
@@ -1977,9 +1915,9 @@ class ClientTest extends TestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonClientIdAliasEnabledInvalidType()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"clientIdAliasEnabled":["a","b"]}';
         $obj  = Client::fromJson($json);
     }
@@ -2003,33 +1941,33 @@ class ClientTest extends TestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonClientSecretInvalidBool()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"clientSecret":true}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonClientSecretInvalidNumber()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"clientSecret":123}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonClientSecretInvalidArray()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"clientSecret":["a","b"]}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonClientSecretInvalidObject()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"clientSecret":{"a":"b"}}';
         $obj  = Client::fromJson($json);
     }
@@ -2040,7 +1978,7 @@ class ClientTest extends TestCase
         $json = '{"clientType":"PUBLIC"}';
         $obj  = Client::fromJson($json);
 
-        $this->assertSame(ClientType::$PUBLIC, $obj->getClientType());
+        $this->assertSame(ClientType::PUBLIC, $obj->getClientType());
     }
 
 
@@ -2053,33 +1991,33 @@ class ClientTest extends TestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonClientTypeInvalidBool()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"clientType":true}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonClientTypeInvalidNumber()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"clientType":123}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonClientTypeInvalidArray()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"clientType":["a","b"]}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonClientTypeInvalidObject()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"clientType":{"a":"b"}}';
         $obj  = Client::fromJson($json);
     }
@@ -2108,17 +2046,17 @@ class ClientTest extends TestCase
     }
 
 
-    /** @expectedException Error */
     public function testFromJsonRedirectUrisInvalidBool()
     {
+        $this->expectException(Error::class);
         $json = '{"redirectUris":true}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException Error */
     public function testFromJsonRedirectUrisInvalidNumber()
     {
+        $this->expectException(Error::class);
         $json = '{"redirectUris":123}';
         $obj  = Client::fromJson($json);
     }
@@ -2133,8 +2071,8 @@ class ClientTest extends TestCase
 
         $this->assertTrue(is_array($types));
         $this->assertCount(2, $types);
-        $this->assertEquals(ResponseType::$CODE,  $types[0]);
-        $this->assertEquals(ResponseType::$TOKEN, $types[1]);
+        $this->assertEquals(ResponseType::CODE,  $types[0]);
+        $this->assertEquals(ResponseType::TOKEN, $types[1]);
     }
 
 
@@ -2147,33 +2085,33 @@ class ClientTest extends TestCase
     }
 
 
-    /** @expectedException Error */
     public function testFromJsonResponseTypesInvalidBool()
     {
+        $this->expectException(Error::class);
         $json = '{"responseTypes":true}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException Error */
     public function testFromJsonResponseTypesInvalidNumber()
     {
+        $this->expectException(Error::class);
         $json = '{"responseTypes":123}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException Error */
     public function testFromJsonResponseTypesInvalidString()
     {
+        $this->expectException(Error::class);
         $json = '{"responseTypes":"__INVALID__"}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonResponseTypesInvalidElement()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"responseTypes":["__INVALID__"]}';
         $obj  = Client::fromJson($json);
     }
@@ -2188,8 +2126,8 @@ class ClientTest extends TestCase
 
         $this->assertTrue(is_array($types));
         $this->assertCount(2, $types);
-        $this->assertEquals(GrantType::$AUTHORIZATION_CODE, $types[0]);
-        $this->assertEquals(GrantType::$IMPLICIT,           $types[1]);
+        $this->assertEquals(GrantType::AUTHORIZATION_CODE, $types[0]);
+        $this->assertEquals(GrantType::IMPLICIT,           $types[1]);
     }
 
 
@@ -2202,33 +2140,33 @@ class ClientTest extends TestCase
     }
 
 
-    /** @expectedException Error */
     public function testFromJsonGrantTypesInvalidBool()
     {
+        $this->expectException(Error::class);
         $json = '{"grantTypes":true}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException Error */
     public function testFromJsonGrantTypesInvalidNumber()
     {
+        $this->expectException(Error::class);
         $json = '{"grantTypes":123}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException Error */
     public function testFromJsonGrantTypesInvalidString()
     {
+        $this->expectException(Error::class);
         $json = '{"grantTypes":"__INVALID__"}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonGrantTypesInvalidElement()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"grantTypes":["__INVALID__"]}';
         $obj  = Client::fromJson($json);
     }
@@ -2239,7 +2177,7 @@ class ClientTest extends TestCase
         $json = '{"applicationType":"WEB"}';
         $obj  = Client::fromJson($json);
 
-        $this->assertSame(ApplicationType::$WEB, $obj->getApplicationType());
+        $this->assertSame(ApplicationType::WEB, $obj->getApplicationType());
     }
 
 
@@ -2252,33 +2190,33 @@ class ClientTest extends TestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonApplicationTypeInvalidBool()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"applicationType":true}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonApplicationTypeInvalidNumber()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"applicationType":123}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonApplicationTypeInvalidArray()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"applicationType":["a","b"]}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonApplicationTypeInvalidObject()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"applicationType":{"a":"b"}}';
         $obj  = Client::fromJson($json);
     }
@@ -2307,17 +2245,17 @@ class ClientTest extends TestCase
     }
 
 
-    /** @expectedException Error */
     public function testFromJsonContactsInvalidBool()
     {
+        $this->expectException(Error::class);
         $json = '{"contacts":true}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException Error */
     public function testFromJsonContactsInvalidNumber()
     {
+        $this->expectException(Error::class);
         $json = '{"contacts":123}';
         $obj  = Client::fromJson($json);
     }
@@ -2341,33 +2279,33 @@ class ClientTest extends TestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonClientNameInvalidBool()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"clientName":true}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonClientNameInvalidNumber()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"clientName":123}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonClientNameInvalidArray()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"clientName":["a","b"]}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonClientNameInvalidObject()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"clientName":{"a":"b"}}';
         $obj  = Client::fromJson($json);
     }
@@ -2392,33 +2330,33 @@ class ClientTest extends TestCase
     }
 
 
-    /** @expectedException Error */
     public function testFromJsonClientNamesInvalidBool()
     {
+        $this->expectException(Error::class);
         $json = '{"clientNames":true}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException Error */
     public function testFromJsonClientNamesInvalidNumber()
     {
+        $this->expectException(Error::class);
         $json = '{"clientNames":123}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException Error */
     public function testFromJsonClientNamesInvalidArray()
     {
+        $this->expectException(Error::class);
         $json = '{"clientNames":["a","b"]}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException Error */
     public function testFromJsonClientNamesInvalidObject()
     {
+        $this->expectException(Error::class);
         $json = '{"clientNames":{"a":"b"}}';
         $obj  = Client::fromJson($json);
     }
@@ -2442,33 +2380,33 @@ class ClientTest extends TestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonLogoUriInvalidBool()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"logoUri":true}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonLogoUriInvalidNumber()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"logoUri":123}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonLogoUriInvalidArray()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"logoUri":["a","b"]}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonLogoUriInvalidObject()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"logoUri":{"a":"b"}}';
         $obj  = Client::fromJson($json);
     }
@@ -2493,33 +2431,33 @@ class ClientTest extends TestCase
     }
 
 
-    /** @expectedException Error */
     public function testFromJsonLogoUrisInvalidBool()
     {
+        $this->expectException(Error::class);
         $json = '{"logoUris":true}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException Error */
     public function testFromJsonLogoUrisInvalidNumber()
     {
+        $this->expectException(Error::class);
         $json = '{"logoUris":123}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException Error */
     public function testFromJsonLogoUrisInvalidArray()
     {
+        $this->expectException(Error::class);
         $json = '{"logoUris":["a","b"]}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException Error */
     public function testFromJsonLogoUrisInvalidObject()
     {
+        $this->expectException(Error::class);
         $json = '{"logoUris":{"a":"b"}}';
         $obj  = Client::fromJson($json);
     }
@@ -2543,33 +2481,33 @@ class ClientTest extends TestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonClientUriInvalidBool()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"clientUri":true}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonClientUriInvalidNumber()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"clientUri":123}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonClientUriInvalidArray()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"clientUri":["a","b"]}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonClientUriInvalidObject()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"clientUri":{"a":"b"}}';
         $obj  = Client::fromJson($json);
     }
@@ -2594,33 +2532,33 @@ class ClientTest extends TestCase
     }
 
 
-    /** @expectedException Error */
     public function testFromJsonClientUrisInvalidBool()
     {
+        $this->expectException(Error::class);
         $json = '{"clientUris":true}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException Error */
     public function testFromJsonClientUrisInvalidNumber()
     {
+        $this->expectException(Error::class);
         $json = '{"clientUris":123}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException Error */
     public function testFromJsonClientUrisInvalidArray()
     {
+        $this->expectException(Error::class);
         $json = '{"clientUris":["a","b"]}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException Error */
     public function testFromJsonClientUrisInvalidObject()
     {
+        $this->expectException(Error::class);
         $json = '{"clientUris":{"a":"b"}}';
         $obj  = Client::fromJson($json);
     }
@@ -2644,33 +2582,33 @@ class ClientTest extends TestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonPolicyUriInvalidBool()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"policyUri":true}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonPolicyUriInvalidNumber()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"policyUri":123}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonPolicyUriInvalidArray()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"policyUri":["a","b"]}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonPolicyUriInvalidObject()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"policyUri":{"a":"b"}}';
         $obj  = Client::fromJson($json);
     }
@@ -2695,33 +2633,33 @@ class ClientTest extends TestCase
     }
 
 
-    /** @expectedException Error */
     public function testFromJsonPolicyUrisInvalidBool()
     {
+        $this->expectException(Error::class);
         $json = '{"policyUris":true}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException Error */
     public function testFromJsonPolicyUrisInvalidNumber()
     {
+        $this->expectException(Error::class);
         $json = '{"policyUris":123}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException Error */
     public function testFromJsonPolicyUrisInvalidArray()
     {
+        $this->expectException(Error::class);
         $json = '{"policyUris":["a","b"]}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException Error */
     public function testFromJsonPolicyUrisInvalidObject()
     {
+        $this->expectException(Error::class);
         $json = '{"policyUris":{"a":"b"}}';
         $obj  = Client::fromJson($json);
     }
@@ -2745,33 +2683,33 @@ class ClientTest extends TestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonTosUriInvalidBool()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"tosUri":true}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonTosUriInvalidNumber()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"tosUri":123}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonTosUriInvalidArray()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"tosUri":["a","b"]}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonTosUriInvalidObject()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"tosUri":{"a":"b"}}';
         $obj  = Client::fromJson($json);
     }
@@ -2796,33 +2734,33 @@ class ClientTest extends TestCase
     }
 
 
-    /** @expectedException Error */
     public function testFromJsonTosUrisInvalidBool()
     {
+        $this->expectException(Error::class);
         $json = '{"tosUris":true}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException Error */
     public function testFromJsonTosUrisInvalidNumber()
     {
+        $this->expectException(Error::class);
         $json = '{"tosUris":123}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException Error */
     public function testFromJsonTosUrisInvalidArray()
     {
+        $this->expectException(Error::class);
         $json = '{"tosUris":["a","b"]}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException Error */
     public function testFromJsonTosUrisInvalidObject()
     {
+        $this->expectException(Error::class);
         $json = '{"tosUris":{"a":"b"}}';
         $obj  = Client::fromJson($json);
     }
@@ -2846,33 +2784,33 @@ class ClientTest extends TestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonJwksUriInvalidBool()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"jwksUri":true}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonJwksUriInvalidNumber()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"jwksUri":123}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonJwksUriInvalidArray()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"jwksUri":["a","b"]}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonJwksUriInvalidObject()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"jwksUri":{"a":"b"}}';
         $obj  = Client::fromJson($json);
     }
@@ -2896,33 +2834,33 @@ class ClientTest extends TestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonJwksInvalidBool()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"jwks":true}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonJwksInvalidNumber()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"jwks":123}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonJwksInvalidArray()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"jwks":["a","b"]}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonJwksInvalidObject()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"jwks":{"a":"b"}}';
         $obj  = Client::fromJson($json);
     }
@@ -2946,33 +2884,33 @@ class ClientTest extends TestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonSectorIdentifierUriInvalidBool()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"sectorIdentifierUri":true}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonSectorIdentifierUriInvalidNumber()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"sectorIdentifierUri":123}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonSectorIdentifierUriInvalidArray()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"sectorIdentifierUri":["a","b"]}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonSectorIdentifierUriInvalidObject()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"sectorIdentifierUri":{"a":"b"}}';
         $obj  = Client::fromJson($json);
     }
@@ -2996,33 +2934,33 @@ class ClientTest extends TestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonSubjectTypeInvalidBool()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"subjectType":true}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonSubjectTypeInvalidNumber()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"subjectType":123}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonSubjectTypeInvalidArray()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"subjectType":["a","b"]}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonSubjectTypeInvalidObject()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"subjectType":{"a":"b"}}';
         $obj  = Client::fromJson($json);
     }
@@ -3046,33 +2984,33 @@ class ClientTest extends TestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonIdTokenSignAlgInvalidBool()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"idTokenSignAlg":true}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonIdTokenSignAlgInvalidNumber()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"idTokenSignAlg":123}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonIdTokenSignAlgInvalidArray()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"idTokenSignAlg":["a","b"]}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonIdTokenSignAlgInvalidObject()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"idTokenSignAlg":{"a":"b"}}';
         $obj  = Client::fromJson($json);
     }
@@ -3096,33 +3034,33 @@ class ClientTest extends TestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonIdTokenEncryptionAlgInvalidBool()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"idTokenEncryptionAlg":true}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonIdTokenEncryptionAlgInvalidNumber()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"idTokenEncryptionAlg":123}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonIdTokenEncryptionAlgInvalidArray()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"idTokenEncryptionAlg":["a","b"]}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonIdTokenEncryptionAlgInvalidObject()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"idTokenEncryptionAlg":{"a":"b"}}';
         $obj  = Client::fromJson($json);
     }
@@ -3146,33 +3084,33 @@ class ClientTest extends TestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonIdTokenEncryptionEncInvalidBool()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"idTokenEncryptionEnc":true}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonIdTokenEncryptionEncInvalidNumber()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"idTokenEncryptionEnc":123}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonIdTokenEncryptionEncInvalidArray()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"idTokenEncryptionEnc":["a","b"]}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonIdTokenEncryptionEncInvalidObject()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"idTokenEncryptionEnc":{"a":"b"}}';
         $obj  = Client::fromJson($json);
     }
@@ -3196,33 +3134,33 @@ class ClientTest extends TestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonUserInfoSignAlgInvalidBool()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"userInfoSignAlg":true}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonUserInfoSignAlgInvalidNumber()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"userInfoSignAlg":123}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonUserInfoSignAlgInvalidArray()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"userInfoSignAlg":["a","b"]}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonUserInfoSignAlgInvalidObject()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"userInfoSignAlg":{"a":"b"}}';
         $obj  = Client::fromJson($json);
     }
@@ -3246,33 +3184,33 @@ class ClientTest extends TestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonUserInfoEncryptionAlgInvalidBool()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"userInfoEncryptionAlg":true}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonUserInfoEncryptionAlgInvalidNumber()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"userInfoEncryptionAlg":123}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonUserInfoEncryptionAlgInvalidArray()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"userInfoEncryptionAlg":["a","b"]}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonUserInfoEncryptionAlgInvalidObject()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"userInfoEncryptionAlg":{"a":"b"}}';
         $obj  = Client::fromJson($json);
     }
@@ -3296,33 +3234,33 @@ class ClientTest extends TestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonUserInfoEncryptionEncInvalidBool()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"userInfoEncryptionEnc":true}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonUserInfoEncryptionEncInvalidNumber()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"userInfoEncryptionEnc":123}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonUserInfoEncryptionEncInvalidArray()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"userInfoEncryptionEnc":["a","b"]}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonUserInfoEncryptionEncInvalidObject()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"userInfoEncryptionEnc":{"a":"b"}}';
         $obj  = Client::fromJson($json);
     }
@@ -3346,33 +3284,33 @@ class ClientTest extends TestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonRequestSignAlgInvalidBool()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"requestSignAlg":true}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonRequestSignAlgInvalidNumber()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"requestSignAlg":123}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonRequestSignAlgInvalidArray()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"requestSignAlg":["a","b"]}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonRequestSignAlgInvalidObject()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"requestSignAlg":{"a":"b"}}';
         $obj  = Client::fromJson($json);
     }
@@ -3383,7 +3321,7 @@ class ClientTest extends TestCase
         $json = '{"requestEncryptionAlg":"ECDH_ES"}';
         $obj  = Client::fromJson($json);
 
-        $this->assertSame(JWEAlg::$ECDH_ES, $obj->getRequestEncryptionAlg());
+        $this->assertSame(JWEAlg::ECDH_ES, $obj->getRequestEncryptionAlg());
     }
 
 
@@ -3396,33 +3334,33 @@ class ClientTest extends TestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonRequestEncryptionAlgInvalidBool()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"requestEncryptionAlg":true}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonRequestEncryptionAlgInvalidNumber()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"requestEncryptionAlg":123}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonRequestEncryptionAlgInvalidArray()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"requestEncryptionAlg":["a","b"]}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonRequestEncryptionAlgInvalidObject()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"requestEncryptionAlg":{"a":"b"}}';
         $obj  = Client::fromJson($json);
     }
@@ -3446,33 +3384,33 @@ class ClientTest extends TestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonRequestEncryptionEncInvalidBool()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"requestEncryptionEnc":true}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonRequestEncryptionEncInvalidNumber()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"requestEncryptionEnc":123}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonRequestEncryptionEncInvalidArray()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"requestEncryptionEnc":["a","b"]}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonRequestEncryptionEncInvalidObject()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"requestEncryptionEnc":{"a":"b"}}';
         $obj  = Client::fromJson($json);
     }
@@ -3483,7 +3421,7 @@ class ClientTest extends TestCase
         $json = '{"tokenAuthMethod":"CLIENT_SECRET_POST"}';
         $obj  = Client::fromJson($json);
 
-        $this->assertSame(ClientAuthMethod::$CLIENT_SECRET_POST, $obj->getTokenAuthMethod());
+        $this->assertSame(ClientAuthMethod::CLIENT_SECRET_POST, $obj->getTokenAuthMethod());
     }
 
 
@@ -3504,25 +3442,25 @@ class ClientTest extends TestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonTokenAuthMethodInvalidNumber()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"tokenAuthMethod":123}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonTokenAuthMethodInvalidArray()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"tokenAuthMethod":["a","b"]}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonTokenAuthMethodInvalidObject()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"tokenAuthSignAlg":{"a":"b"}}';
         $obj  = Client::fromJson($json);
     }
@@ -3533,7 +3471,7 @@ class ClientTest extends TestCase
         $json = '{"tokenAuthSignAlg":"ES256"}';
         $obj  = Client::fromJson($json);
 
-        $this->assertSame(JWSAlg::$ES256, $obj->getTokenAuthSignAlg());
+        $this->assertSame(JWSAlg::ES256, $obj->getTokenAuthSignAlg());
     }
 
 
@@ -3546,33 +3484,33 @@ class ClientTest extends TestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonTokenAuthSignAlgInvalidBool()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"tokenAuthSignAlg":true}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonTokenAuthSignAlgInvalidNumber()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"tokenAuthSignAlg":123}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonTokenAuthSignAlgInvalidArray()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"tokenAuthSignAlg":["a","b"]}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonTokenAuthSignAlgInvalidObject()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"tokenAuthSignAlg":{"a":"b"}}';
         $obj  = Client::fromJson($json);
     }
@@ -3605,25 +3543,25 @@ class ClientTest extends TestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonDefaultMaxAgeInvalidBool()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"defaultMaxAge":true}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonDefaultMaxAgeInvalidArray()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"defaultMaxAge":["a","b"]}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonDefaultMaxAgeInvalidObject()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"defaultMaxAge":{"a":"b"}}';
         $obj  = Client::fromJson($json);
     }
@@ -3643,7 +3581,7 @@ class ClientTest extends TestCase
         $json = '{"authTimeRequired":null}';
         $obj  = Client::fromJson($json);
 
-        $this->assertEquals(false, $obj->isAuthTimeRequired());
+        $this->assertFalse($obj->isAuthTimeRequired());
     }
 
 
@@ -3652,7 +3590,7 @@ class ClientTest extends TestCase
         $json = '{"authTimeRequired":"true"}';
         $obj  = Client::fromJson($json);
 
-        $this->assertEquals(true, $obj->isAuthTimeRequired());
+        $this->assertTrue($obj->isAuthTimeRequired());
     }
 
 
@@ -3661,7 +3599,7 @@ class ClientTest extends TestCase
         $json = '{"authTimeRequired":"false"}';
         $obj  = Client::fromJson($json);
 
-        $this->assertEquals(false, $obj->isAuthTimeRequired());
+        $this->assertFalse($obj->isAuthTimeRequired());
     }
 
 
@@ -3670,7 +3608,7 @@ class ClientTest extends TestCase
         $json = '{"authTimeRequired":"__INVALID__"}';
         $obj  = Client::fromJson($json);
 
-        $this->assertEquals(false, $obj->isAuthTimeRequired());
+        $this->assertFalse($obj->isAuthTimeRequired());
     }
 
 
@@ -3705,17 +3643,17 @@ class ClientTest extends TestCase
     }
 
 
-    /** @expectedException Error */
     public function testFromJsonDefaultAcrsInvalidBool()
     {
+        $this->expectException(Error::class);
         $json = '{"defaultAcrs":true}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException Error */
     public function testFromJsonDefaultAcrsInvalidNumber()
     {
+        $this->expectException(Error::class);
         $json = '{"defaultAcrs":123}';
         $obj  = Client::fromJson($json);
     }
@@ -3739,33 +3677,33 @@ class ClientTest extends TestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonLoginUriInvalidBool()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"loginUri":true}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonLoginUriInvalidNumber()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"loginUri":123}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonLoginUriInvalidArray()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"loginUri":["a","b"]}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonLoginUriInvalidObject()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"loginUri":{"a":"b"}}';
         $obj  = Client::fromJson($json);
     }
@@ -3794,17 +3732,17 @@ class ClientTest extends TestCase
     }
 
 
-    /** @expectedException Error */
     public function testFromJsonRequestUrisInvalidBool()
     {
+        $this->expectException(Error::class);
         $json = '{"requestUris":true}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException Error */
     public function testFromJsonRequestUrisInvalidNumber()
     {
+        $this->expectException(Error::class);
         $json = '{"requestUris":123}';
         $obj  = Client::fromJson($json);
     }
@@ -3828,33 +3766,33 @@ class ClientTest extends TestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonDescriptionInvalidBool()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"description":true}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonDescriptionInvalidNumber()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"description":123}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonDescriptionInvalidArray()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"description":["a","b"]}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonDescriptionInvalidObject()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"description":{"a":"b"}}';
         $obj  = Client::fromJson($json);
     }
@@ -3879,33 +3817,33 @@ class ClientTest extends TestCase
     }
 
 
-    /** @expectedException Error */
     public function testFromJsonDescriptionsInvalidBool()
     {
+        $this->expectException(Error::class);
         $json = '{"descriptions":true}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException Error */
     public function testFromJsonDescriptionsInvalidNumber()
     {
+        $this->expectException(Error::class);
         $json = '{"descriptions":123}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException Error */
     public function testFromJsonDescriptionsInvalidArray()
     {
+        $this->expectException(Error::class);
         $json = '{"descriptions":["a","b"]}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException Error */
     public function testFromJsonDescriptionsInvalidObject()
     {
+        $this->expectException(Error::class);
         $json = '{"descriptions":{"a":"b"}}';
         $obj  = Client::fromJson($json);
     }
@@ -3938,25 +3876,25 @@ class ClientTest extends TestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonCreatedAtInvalidBool()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"createdAt":true}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonCreatedAtInvalidArray()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"createdAt":["a","b"]}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonCreatedAtInvalidObject()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"createdAt":{"a":"b"}}';
         $obj  = Client::fromJson($json);
     }
@@ -3989,25 +3927,25 @@ class ClientTest extends TestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonModifiedAtInvalidBool()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"modifiedAt":true}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonModifiedAtInvalidArray()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"modifiedAt":["a","b"]}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonModifiedAtInvalidObject()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"modifiedAt":{"a":"b"}}';
         $obj  = Client::fromJson($json);
     }
@@ -4039,25 +3977,25 @@ class ClientTest extends TestCase
     }
 
 
-    /** @expectedException Error */
     public function testFromJsonExtensionInvalidBool()
     {
+        $this->expectException(Error::class);
         $json = '{"extension":true}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException Error */
     public function testFromJsonExtensionInvalidNumber()
     {
+        $this->expectException(Error::class);
         $json = '{"extension":123}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException Error */
     public function testFromJsonExtensionInvalidString()
     {
+        $this->expectException(Error::class);
         $json = '{"extension":"__INVALID__"}';
         $obj  = Client::fromJson($json);
     }
@@ -4081,33 +4019,33 @@ class ClientTest extends TestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonTlsClientAuthSubjectDnInvalidBool()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"tlsClientAuthSubjectDn":true}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonTlsClientAuthSubjectDnInvalidNumber()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"tlsClientAuthSubjectDn":123}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonTlsClientAuthSubjectDnInvalidArray()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"tlsClientAuthSubjectDn":["a","b"]}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonTlsClientAuthSubjectDnInvalidObject()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"tlsClientAuthSubjectDn":{"a":"b"}}';
         $obj  = Client::fromJson($json);
     }
@@ -4118,7 +4056,7 @@ class ClientTest extends TestCase
         $json = '{"tlsClientCertificateBoundAccessTokens":true}';
         $obj  = Client::fromJson($json);
 
-        $this->assertEquals(true, $obj->isTlsClientCertificateBoundAccessTokens());
+        $this->assertTrue($obj->isTlsClientCertificateBoundAccessTokens());
     }
 
 
@@ -4127,7 +4065,7 @@ class ClientTest extends TestCase
         $json = '{"tlsClientCertificateBoundAccessTokens":null}';
         $obj  = Client::fromJson($json);
 
-        $this->assertEquals(false, $obj->isTlsClientCertificateBoundAccessTokens());
+        $this->assertFalse($obj->isTlsClientCertificateBoundAccessTokens());
     }
 
 
@@ -4154,13 +4092,13 @@ class ClientTest extends TestCase
         $json = '{"tlsClientCertificateBoundAccessTokens":"__INVALID__"}';
         $obj  = Client::fromJson($json);
 
-        $this->assertEquals(false, $obj->isTlsClientCertificateBoundAccessTokens());
+        $this->assertFalse($obj->isTlsClientCertificateBoundAccessTokens());
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonTlsClientCertificateBoundAccessTokensInvalidType()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"tlsClientCertificateBoundAccessTokens":["a","b"]}';
         $obj  = Client::fromJson($json);
     }
@@ -4184,39 +4122,39 @@ class ClientTest extends TestCase
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonSelfSignedCertificateKeyIdInvalidBool()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"selfSignedCertificateKeyId":true}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonSelfSignedCertificateKeyIdInvalidNumber()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"selfSignedCertificateKeyId":123}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonSelfSignedCertificateKeyIdInvalidArray()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"selfSignedCertificateKeyId":["a","b"]}';
         $obj  = Client::fromJson($json);
     }
 
 
-    /** @expectedException InvalidArgumentException */
     public function testFromJsonSelfSignedCertificateKeyIdInvalidObject()
     {
+        $this->expectException(InvalidArgumentException::class);
         $json = '{"selfSignedCertificateKeyId":{"a":"b"}}';
         $obj  = Client::fromJson($json);
     }
 
 
-    public function buildObj()
+    public function buildObj(): Client
     {
         $obj = new Client();
         $obj->setDeveloper(self::DEVELOPER)
@@ -4224,7 +4162,7 @@ class ClientTest extends TestCase
             ->setClientIdAlias(self::CLIENT_ID_ALIAS)
             ->setClientIdAliasEnabled(true)
             ->setClientSecret(self::CLIENT_SECRET)
-            ->setClientType(ClientType::$PUBLIC)
+            ->setClientType(ClientType::PUBLIC)
             ->setRedirectUris(
                 array(
                     "redirect_uri-0",
@@ -4233,17 +4171,17 @@ class ClientTest extends TestCase
             )
             ->setResponseTypes(
                 array(
-                    ResponseType::$CODE,
-                    ResponseType::$TOKEN
+                    ResponseType::CODE,
+                    ResponseType::TOKEN
                 )
             )
             ->setGrantTypes(
                 array(
-                    GrantType::$AUTHORIZATION_CODE,
-                    GrantType::$IMPLICIT
+                    GrantType::AUTHORIZATION_CODE,
+                    GrantType::IMPLICIT
                 )
             )
-            ->setApplicationType(ApplicationType::$WEB)
+            ->setApplicationType(ApplicationType::WEB)
             ->setContacts(
                 array(
                     "contact-0",
@@ -4289,18 +4227,18 @@ class ClientTest extends TestCase
             ->setJwks(self::JWKS)
             ->setDerivedSectorIdentifier(self::DERIVED_SECTOR_IDENTIFIER)
             ->setSectorIdentifierUri(self::SECTOR_IDENTIFIER_URI)
-            ->setSubjectType(SubjectType::$PUBLIC)
-            ->setIdTokenSignAlg(JWSAlg::$HS256)
-            ->setIdTokenEncryptionAlg(JWEAlg::$A128KW)
-            ->setIdTokenEncryptionEnc(JWEEnc::$A128CBC_HS256)
-            ->setUserInfoSignAlg(JWSAlg::$HS256)
-            ->setUserInfoEncryptionAlg(JWEAlg::$A128KW)
-            ->setUserInfoEncryptionEnc(JWEEnc::$A128CBC_HS256)
-            ->setRequestSignAlg(JWSAlg::$HS256)
-            ->setRequestEncryptionAlg(JWEAlg::$A128KW)
-            ->setRequestEncryptionEnc(JWEEnc::$A128CBC_HS256)
-            ->setTokenAuthMethod(ClientAuthMethod::$CLIENT_SECRET_POST)
-            ->setTokenAuthSignAlg(JWSAlg::$HS256)
+            ->setSubjectType(SubjectType::PUBLIC)
+            ->setIdTokenSignAlg(JWSAlg::HS256)
+            ->setIdTokenEncryptionAlg(JWEAlg::A128KW)
+            ->setIdTokenEncryptionEnc(JWEEnc::A128CBC_HS256)
+            ->setUserInfoSignAlg(JWSAlg::HS256)
+            ->setUserInfoEncryptionAlg(JWEAlg::A128KW)
+            ->setUserInfoEncryptionEnc(JWEEnc::A128CBC_HS256)
+            ->setRequestSignAlg(JWSAlg::HS256)
+            ->setRequestEncryptionAlg(JWEAlg::A128KW)
+            ->setRequestEncryptionEnc(JWEEnc::A128CBC_HS256)
+            ->setTokenAuthMethod(ClientAuthMethod::CLIENT_SECRET_POST)
+            ->setTokenAuthSignAlg(JWSAlg::HS256)
             ->setDefaultMaxAge(self::DEFAULT_MAX_AGE_INT)
             ->setAuthTimeRequired(true)
             ->setDefaultAcrs(
@@ -4344,12 +4282,12 @@ class ClientTest extends TestCase
             ->setSelfSignedCertificateKeyId('keyId')
             ->setSoftwareId(self::SOFTWARE_ID)
             ->setSoftwareVersion(self::SOFTWARE_VERSION)
-            ->setAuthorizationSignAlg(JWSAlg::$HS256)
-            ->setAuthorizationEncryptionAlg(JWEAlg::$A128KW)
-            ->setAuthorizationEncryptionEnc(JWEEnc::$A128CBC_HS256)
-            ->setBcDeliveryMode(DeliveryMode::$POLL)
+            ->setAuthorizationSignAlg(JWSAlg::HS256)
+            ->setAuthorizationEncryptionAlg(JWEAlg::A128KW)
+            ->setAuthorizationEncryptionEnc(JWEEnc::A128CBC_HS256)
+            ->setBcDeliveryMode(DeliveryMode::POLL)
             ->setBcNotificationEndpoint(self::BC_NOTIFICATION_ENDPOINT)
-            ->setBcRequestSignAlg(JWSAlg::$ES256)
+            ->setBcRequestSignAlg(JWSAlg::ES256)
             ->setBcUserCodeRequired(true)
             ->setDynamicallyRegistered(true)
             ->setRegistrationAccessTokenHash(self::REGISTRATION_ACCESS_TOKEN_HASH)
@@ -4817,7 +4755,7 @@ class ClientTest extends TestCase
         $this->assertEquals(self::CLIENT_SECRET, $obj->getClientSecret());
 
         // clientType
-        $this->assertSame(ClientType::$PUBLIC, $obj->getClientType());
+        $this->assertSame(ClientType::PUBLIC, $obj->getClientType());
 
         // redirectUris
         $redirectUris = $obj->getRedirectUris();
@@ -4832,19 +4770,19 @@ class ClientTest extends TestCase
 
         $this->assertTrue(is_array($responseTypes));
         $this->assertCount(2, $responseTypes);
-        $this->assertSame(ResponseType::$CODE,  $responseTypes[0]);
-        $this->assertSame(ResponseType::$TOKEN, $responseTypes[1]);
+        $this->assertSame(ResponseType::CODE,  $responseTypes[0]);
+        $this->assertSame(ResponseType::TOKEN, $responseTypes[1]);
 
         // grantTypes
         $grantTypes = $obj->getGrantTypes();
 
         $this->assertTrue(is_array($grantTypes));
         $this->assertCount(2, $grantTypes);
-        $this->assertSame(GrantType::$AUTHORIZATION_CODE, $grantTypes[0]);
-        $this->assertSame(GrantType::$IMPLICIT,           $grantTypes[1]);
+        $this->assertSame(GrantType::AUTHORIZATION_CODE, $grantTypes[0]);
+        $this->assertSame(GrantType::IMPLICIT,           $grantTypes[1]);
 
         // applicationType
-        $this->assertSame(ApplicationType::$WEB, $obj->getApplicationType());
+        $this->assertSame(ApplicationType::WEB, $obj->getApplicationType());
 
         // contacts
         $contacts = $obj->getContacts();
@@ -4952,40 +4890,40 @@ class ClientTest extends TestCase
         $this->assertEquals(self::SECTOR_IDENTIFIER_URI, $obj->getSectorIdentifierUri());
 
         // subjectType
-        $this->assertSame(SubjectType::$PUBLIC, $obj->getSubjectType());
+        $this->assertSame(SubjectType::PUBLIC, $obj->getSubjectType());
 
         // idTokenSignAlg
-        $this->assertSame(JWSAlg::$HS256, $obj->getIdTokenSignAlg());
+        $this->assertSame(JWSAlg::HS256, $obj->getIdTokenSignAlg());
 
         // idTokenEncryptionAlg
-        $this->assertSame(JWEAlg::$A128KW, $obj->getIdTokenEncryptionAlg());
+        $this->assertSame(JWEAlg::A128KW, $obj->getIdTokenEncryptionAlg());
 
         // idTokenEncryptionEnc
-        $this->assertSame(JWEEnc::$A128CBC_HS256, $obj->getIdTokenEncryptionEnc());
+        $this->assertSame(JWEEnc::A128CBC_HS256, $obj->getIdTokenEncryptionEnc());
 
         // userInfoSignAlg
-        $this->assertSame(JWSAlg::$HS256, $obj->getUserInfoSignAlg());
+        $this->assertSame(JWSAlg::HS256, $obj->getUserInfoSignAlg());
 
         // userInfoEncryptionAlg
-        $this->assertSame(JWEAlg::$A128KW, $obj->getUserInfoEncryptionAlg());
+        $this->assertSame(JWEAlg::A128KW, $obj->getUserInfoEncryptionAlg());
 
         // userInfoEncryptionEnc
-        $this->assertSame(JWEEnc::$A128CBC_HS256, $obj->getUserInfoEncryptionEnc());
+        $this->assertSame(JWEEnc::A128CBC_HS256, $obj->getUserInfoEncryptionEnc());
 
         // requestSignAlg
-        $this->assertSame(JWSAlg::$HS256, $obj->getRequestSignAlg());
+        $this->assertSame(JWSAlg::HS256, $obj->getRequestSignAlg());
 
         // requestEncryptionAlg
-        $this->assertSame(JWEAlg::$A128KW, $obj->getRequestEncryptionAlg());
+        $this->assertSame(JWEAlg::A128KW, $obj->getRequestEncryptionAlg());
 
         // requestEncryptionEnc
-        $this->assertSame(JWEEnc::$A128CBC_HS256, $obj->getRequestEncryptionEnc());
+        $this->assertSame(JWEEnc::A128CBC_HS256, $obj->getRequestEncryptionEnc());
 
         // tokenAuthMethod
-        $this->assertSame(ClientAuthMethod::$CLIENT_SECRET_POST, $obj->getTokenAuthMethod());
+        $this->assertSame(ClientAuthMethod::CLIENT_SECRET_POST, $obj->getTokenAuthMethod());
 
         // tokenAuthSignAlg
-        $this->assertSame(JWSAlg::$HS256, $obj->getTokenAuthSignAlg());
+        $this->assertSame(JWSAlg::HS256, $obj->getTokenAuthSignAlg());
 
         // defaultMaxAge
         $this->assertEquals(self::DEFAULT_MAX_AGE_INT, $obj->getDefaultMaxAge());
@@ -5074,22 +5012,22 @@ class ClientTest extends TestCase
         $this->assertEquals(self::SOFTWARE_VERSION, $obj->getSoftwareVersion());
 
         // authorizationSignAlg
-        $this->assertSame(JWSAlg::$HS256, $obj->getAuthorizationSignAlg());
+        $this->assertSame(JWSAlg::HS256, $obj->getAuthorizationSignAlg());
 
         // authorizationEncryptionAlg
-        $this->assertSame(JWEAlg::$A128KW, $obj->getAuthorizationEncryptionAlg());
+        $this->assertSame(JWEAlg::A128KW, $obj->getAuthorizationEncryptionAlg());
 
         // authorizationEncryptionEnc
-        $this->assertSame(JWEEnc::$A128CBC_HS256, $obj->getAuthorizationEncryptionEnc());
+        $this->assertSame(JWEEnc::A128CBC_HS256, $obj->getAuthorizationEncryptionEnc());
 
         // bcDeliveryMode
-        $this->assertSame(DeliveryMode::$POLL, $obj->getBcDeliveryMode());
+        $this->assertSame(DeliveryMode::POLL, $obj->getBcDeliveryMode());
 
         // bcNotificationEndpoint
         $this->assertEquals(self::BC_NOTIFICATION_ENDPOINT, $obj->getBcNotificationEndpoint());
 
         // bcRequestSignAlg
-        $this->assertSame(JWSAlg::$ES256, $obj->getBcRequestSignAlg());
+        $this->assertSame(JWSAlg::ES256, $obj->getBcRequestSignAlg());
 
         // bcUserCodeRequired
         $this->assertEquals(true, $obj->isBcUserCodeRequired());
