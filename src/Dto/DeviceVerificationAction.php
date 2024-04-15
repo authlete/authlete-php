@@ -46,7 +46,7 @@ enum DeviceVerificationAction: string implements Valuable
      * implementation should interact with the end-user to ask whether she
      * approves or rejects the authorization request from the device.
      */
-    case VALID = 'valid';
+    case VALID = 'VALID';
 
 
     /**
@@ -54,7 +54,7 @@ enum DeviceVerificationAction: string implements Valuable
      * should tell the end-user that the user code has expired and urge her
      * to re-initiate a device flow.
      */
-     case EXPIRED = 'expired';
+     case EXPIRED = 'EXPIRED';
 
 
     /**
@@ -62,7 +62,7 @@ enum DeviceVerificationAction: string implements Valuable
      * should tell the end-user that the user code is invalid and urge her
      * to retry to input a valid user code.
      */
-    case NOT_EXIST = 'not_exist';
+    case NOT_EXIST = 'NOT_EXIST';
 
 
     /**
@@ -70,5 +70,5 @@ enum DeviceVerificationAction: string implements Valuable
      * implementation should tell the end-user that something wrong happened
      * and urge her to re-initiate a device flow.
      */
-    case SERVER_ERROR = 'server_error';
+    case SERVER_ERROR = 'SERVER_ERROR';
 }

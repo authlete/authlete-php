@@ -88,7 +88,7 @@ class BackchannelAuthenticationCompleteRequest implements ArrayCopyable, Arrayab
 
 
     private ?string $ticket           = null;  // string
-    private ?BackchannelAuthenticationCompleteResult $result = null;  // \Authlete\Dto\BackchannelAuthenticationCompleteResult
+    private ?string $result           = null;  // \Authlete\Dto\BackchannelAuthenticationCompleteResult
     private ?string $subject          = null;  // string
     private ?string $sub              = null;  // string
     private string|int|null $authTime = null;  // string or (64-bit) integer
@@ -147,7 +147,7 @@ class BackchannelAuthenticationCompleteRequest implements ArrayCopyable, Arrayab
      */
     public function getResult(): ?BackchannelAuthenticationCompleteResult
     {
-        return $this->result;
+        return BackchannelAuthenticationCompleteResult::valueOf($this->result);
     }
 
 
@@ -163,7 +163,7 @@ class BackchannelAuthenticationCompleteRequest implements ArrayCopyable, Arrayab
      */
     public function setResult(BackchannelAuthenticationCompleteResult $result = null): BackchannelAuthenticationCompleteRequest
     {
-        $this->result = $result;
+        $this->result = $result->value;
 
         return $this;
     }

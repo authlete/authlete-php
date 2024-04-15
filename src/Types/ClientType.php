@@ -44,12 +44,12 @@ enum ClientType: string implements Valuable
      * credentials. Typical examples are native applications on smart
      * phones.
      */
-    case PUBLIC = 'public';
+    case PUBLIC = 'PUBLIC';
 
 
     /**
      * Clients capable of maintaining the confidentiality of their
      * credentials.
      */
-    case CONFIDENTIAL = 'confidential';
+    case CONFIDENTIAL = 'CONFIDENTIAL';
 }

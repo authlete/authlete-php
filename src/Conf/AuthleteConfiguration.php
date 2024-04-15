@@ -33,46 +33,45 @@ interface AuthleteConfiguration
     /**
      * Get the base URL of an Authlete server.
      *
-     * @return string
+     * @return string|null
      *     The base URL of an Authlete server.
      *     For example, `https://api.authlete.com`.
      */
-    public function getBaseUrl(): string;
+    public function getBaseUrl(): ?string;
 
 
     /**
      * Get the API key of a service owner.
      *
-     * @return string
+     * @return string|null
      *     The API key of a service owner.
      */
-    public function getServiceOwnerApiKey(): string;
+    public function getServiceOwnerApiKey(): ?string;
 
 
     /**
      * Get the API secret of a service owner.
      *
-     * @return string
+     * @return string|null
      *     The API key of a service owner.
      */
-    public function getServiceOwnerApiSecret(): string;
+    public function getServiceOwnerApiSecret(): ?string;
 
 
     /**
      * Get the API key of a service.
      *
-     * @return string
+     * @return string|null
      *     The API key of a service.
      */
-    public function getServiceApiKey(): string;
+    public function getServiceApiKey(): ?string;
 
 
     /**
      * Get the API secret of a service.
      *
-     * @return string
+     * @return string|null
      *     The API key of a service.
      */
-    public function getServiceApiSecret(): string;
+    public function getServiceApiSecret(): ?string;
 }
-?>

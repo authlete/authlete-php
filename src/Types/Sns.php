@@ -39,6 +39,6 @@ enum Sns: string implements Valuable
      * Facebook.
      *
      */
-    case FACEBOOK = 'facebook';
+    case FACEBOOK = 'FACEBOOK';
 }
 

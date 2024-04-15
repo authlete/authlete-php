@@ -42,52 +42,52 @@ enum ResponseType: string implements Valuable
     /**
      * "none"; a "response_type" to request no access credentials.
      */
-    case NONE = 'none';
+    case NONE = 'NONE';
 
 
     /**
      * "code"; a "response_type" to request an authorization code.
      */
-    case CODE = 'code';
+    case CODE = 'CODE';
 
 
     /**
      * "token"; a "response_type" to request an access token.
      */
-    case TOKEN = 'token';
+    case TOKEN = 'TOKEN';
 
 
     /**
      * "id_token"; a "response_type" to request an ID token.
      */
-    case ID_TOKEN = 'id_token';
+    case ID_TOKEN = 'ID_TOKEN';
 
 
     /**
      * "code token"; a "response_type" to request an authorization
      * code and an access token.
      */
-    case CODE_TOKEN = 'code_token';
+    case CODE_TOKEN = 'CODE_TOKEN';
 
 
     /**
      * "code id_token"; a "response_type" to request an authorization
      * code and an ID token.
      */
-    case CODE_ID_TOKEN = 'code_id_token';
+    case CODE_ID_TOKEN = 'CODE_ID_TOKEN';
 
 
     /**
      * "id_token token"; a "response_type" to request an ID token
      * and an access token.
      */
-    case ID_TOKEN_TOKEN = 'id_token_token';
+    case ID_TOKEN_TOKEN = 'ID_TOKEN_TOKEN';
 
 
     /**
      * "code id_token token"; a "response_type" to request an
      * authorization code, an ID token and an access token.
      */
-    case CODE_ID_TOKEN_TOKEN = 'code_id_token_token';
+    case CODE_ID_TOKEN_TOKEN = 'CODE_ID_TOKEN_TOKEN';
 }
 

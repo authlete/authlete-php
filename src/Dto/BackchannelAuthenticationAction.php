@@ -46,7 +46,7 @@ enum BackchannelAuthenticationAction: string implements Valuable
      * server implementation should return an error response with
      * `400 Bad Request` and `application/json` to the client application.
      */
-    case BAD_REQUEST = 'bad_request';
+    case BAD_REQUEST = 'BAD_REQUEST';
 
 
     /**
@@ -54,7 +54,7 @@ enum BackchannelAuthenticationAction: string implements Valuable
      * The authorization server implementation should return an error response
      * with `401 Unauthorized` and `application/json` to the client application.
      */
-    case UNAUTHORIZED = 'unauthorized';
+    case UNAUTHORIZED = 'UNAUTHORIZED';
 
 
     /**
@@ -63,7 +63,7 @@ enum BackchannelAuthenticationAction: string implements Valuable
      * implementation should return response with `500 Internal Server Error`
      * and `application/json` to the client application.
      */
-    case INTERNAL_SERVER_ERROR = 'internal_server_error';
+    case INTERNAL_SERVER_ERROR = 'INTERNAL_SERVER_ERROR';
 
 
     /**
@@ -73,6 +73,6 @@ enum BackchannelAuthenticationAction: string implements Valuable
      * application, (3) communicate with an authentication device of the
      * end-user to perform end-user authentication and authorization, etc.
      */
-    case USER_IDENTIFICATION = 'user_identification';
+    case USER_IDENTIFICATION = 'USER_IDENTIFICATION';
 }
 

@@ -84,7 +84,7 @@ class DeviceCompleteRequest implements ArrayCopyable, Arrayable, Jsonable
     use JsonTrait;
 
 
-    private ?DeviceCompleteResult $result = null;
+    private ?string $result               = null;  // DeviceCompleteResult
     private ?string $userCode             = null;
     private ?string $subject              = null;
     private ?string $sub                  = null;
@@ -138,7 +138,7 @@ class DeviceCompleteRequest implements ArrayCopyable, Arrayable, Jsonable
      */
     public function getResult(): ?DeviceCompleteResult
     {
-        return $this->result;
+        return DeviceCompleteResult::valueOf($this->result);
     }
 
 
@@ -154,7 +154,7 @@ class DeviceCompleteRequest implements ArrayCopyable, Arrayable, Jsonable
      */
     public function setResult(DeviceCompleteResult $result = null): DeviceCompleteRequest
     {
-        $this->result = $result;
+        $this->result = $result->value;
 
         return $this;
     }

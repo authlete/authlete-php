@@ -44,7 +44,7 @@ enum TokenAction: string implements Valuable
      * The token endpoint implementation should return either
      * `400 Bad Request` or `401 Unauthorized` to the client application.
      */
-    case INVALID_CLIENT = 'invalid_client';
+    case INVALID_CLIENT = 'INVALID_CLIENT';
 
 
     /**
@@ -54,7 +54,7 @@ enum TokenAction: string implements Valuable
      * The token endpoint implementation should return
      * `500 Internal Server Error` to the client application.
      */
-    case INTERNAL_SERVER_ERROR = 'internal_server_error';
+    case INTERNAL_SERVER_ERROR = 'INTERNAL_SERVER_ERROR';
 
 
     /**
@@ -63,7 +63,7 @@ enum TokenAction: string implements Valuable
      * The token endpoint implementation should return `400 Bad Request` to
      * the client appication.
      */
-    case BAD_REQUEST = 'bad_request';
+    case BAD_REQUEST = 'BAD_REQUEST';
 
 
     /**
@@ -74,7 +74,7 @@ enum TokenAction: string implements Valuable
      * the resource owner and call Authlete's `/api/auth/token/issue` API or
      * `/api/auth/token/fail` API according to the result of the validation.
      */
-    case PASSWORD = 'password';
+    case PASSWORD = 'PASSWORD';
 
 
     /**
@@ -83,6 +83,6 @@ enum TokenAction: string implements Valuable
      * The token endpoint implementation should return `200 OK` to the client
      * application with an access token.
      */
-    case OK = 'ok';
+    case OK = 'OK';
 }
 

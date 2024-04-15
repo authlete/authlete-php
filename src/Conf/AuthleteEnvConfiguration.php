@@ -65,4 +65,4 @@ class AuthleteEnvConfiguration implements AuthleteConfiguration
         $this->serviceApiSecret      = LanguageUtility::getFromEnv(self::$ENV_SERVICE_API_SECRET);
     }
 }
-?>
+

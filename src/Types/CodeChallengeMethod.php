@@ -51,7 +51,7 @@ enum CodeChallengeMethod: string implements Valuable
      * See "[4.2. Client Creates the Code Challenge](https://tools.ietf.org/html/rfc7636#section-4.2)"
      * of [RFC 7636](https://tools.ietf.org/html/rfc7636) for details.
      */
-    case PLAIN = 'plain';
+    case PLAIN = 'PLAIN';
 
 
     /**
@@ -66,6 +66,6 @@ enum CodeChallengeMethod: string implements Valuable
      * See "[4.2. Client Creates the Code Challenge](https://tools.ietf.org/html/rfc7636#section-4.2)"
      * of [RFC 7636](https://tools.ietf.org/html/rfc7636) for details.
      */
-    case S256 = 's256';
+    case S256 = 'S256';
 }
 

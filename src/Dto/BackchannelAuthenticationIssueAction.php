@@ -45,7 +45,7 @@ enum BackchannelAuthenticationIssueAction: string implements Valuable
      * The implementation of the backchannel authentication endpoint should
      * return a `200 OK` response to the client application.
      */
-    case OK = 'ok';
+    case OK = 'OK';
 
 
     /**
@@ -54,13 +54,13 @@ enum BackchannelAuthenticationIssueAction: string implements Valuable
      * However, in most cases, commercial implementations prefer to use other
      * HTTP status code than 5xx.
      */
-    case INTERNAL_SERVER_ERROR = 'internal_server_error';
+    case INTERNAL_SERVER_ERROR = 'INTERNAL_SERVER_ERROR';
 
 
     /**
      * The ticket included in the API call is invalid. It does not exist or
      * has expired.
      */
-    case INVALID_TICKET = 'invalid_ticket';
+    case INVALID_TICKET = 'INVALID_TICKET';
 }
 

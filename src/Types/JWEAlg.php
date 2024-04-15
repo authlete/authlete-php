@@ -41,103 +41,103 @@ enum JWEAlg: string implements Valuable
     /**
      * RSAES-PKCS1-V1_5.
      */
-    case RSA1_5 = 'rsa1_5';
+    case RSA1_5 = 'RSA1_5';
 
 
     /**
      * RSAES OAEP using default parameters.
      */
-    case RSA_OAEP = 'rsa_oaep';
+    case RSA_OAEP = 'RSA_OAEP';
 
 
     /**
      * RSAES OAEP using SHA-256 and MGF1 with SHA-256.
      */
-    case RSA_OAEP_256 = 'rsa_oaep_256';
+    case RSA_OAEP_256 = 'RSA_OAEP_256';
 
 
     /**
      * AES Key Wrap with default initial value using 128 bit key.
      */
-    case A128KW = 'a128kw';
+    case A128KW = 'A128KW';
 
 
     /**
      * AES Key Wrap with default initial value using 192 bit key.
      */
-    case A192KW = 'a192kw';
+    case A192KW = 'A192KW';
 
 
     /**
      * AES Key Wrap with default initial value using 256 bit key.
      */
-    case A256KW = 'a256kw';
+    case A256KW = 'A256KW';
 
 
     /**
      * Direct use of a shared symmetric key as the CEK.
      */
-    case DIR = 'dir';
+    case DIR = 'DIR';
 
 
     /**
      * Elliptic Curve Diffie-Hellman Ephemeral Static key agreement
      * using Concat KDF.
      */
-    case ECDH_ES = 'ecdh_es';
+    case ECDH_ES = 'ECDH_ES';
 
 
     /**
      * ECDH-ES using Concat KDF and CEK wrapped with "A128KW".
      */
-    case ECDH_ES_A128KW = 'ecdh_es_a128kw';
+    case ECDH_ES_A128KW = 'ECDH_ES_A128KW';
 
 
     /**
      * ECDH-ES using Concat KDF and CEK wrapped with "A192KW".
      */
-    case ECDH_ES_A192KW = 'ecdh_es_a192kw';
+    case ECDH_ES_A192KW = 'ECDH_ES_A192KW';
 
 
     /**
      * ECDH-ES using Concat KDF and CEK wrapped with "A256KW".
      */
-    case ECDH_ES_A256KW = 'ecdh_es_a256kw';
+    case ECDH_ES_A256KW = 'ECDH_ES_A256KW';
 
 
     /**
      * Key wrapping with AES GCM using 128 bit key.
      */
-    case A128GCMKW = 'A128gcmkw';
+    case A128GCMKW = 'A128GCMKW';
 
 
     /**
      * Key wrapping with AES GCM using 192 bit key.
      */
-    case A192GCMKW = 'a192gcmkw';
+    case A192GCMKW = 'A192GCMKW';
 
 
     /**
      * Key wrapping with AES GCM using 256 bit key.
      */
-    case A256GCMKW = 'a256gcmkw';
+    case A256GCMKW = 'A256GCMKW';
 
 
     /**
      * PBES2 with HMAC SHA-256 and "A128KW".
      */
-    case PBES2_HS256_A128KW = 'pbes2_hs256_a128kw';
+    case PBES2_HS256_A128KW = 'PBES2_HS256_A128KW';
 
 
     /**
      * PBES2 with HMAC SHA-384 and "A192KW".
      */
-    case PBES2_HS384_A192KW = 'pbes2_hs384_a192kw';
+    case PBES2_HS384_A192KW = 'PBES2_HS384_A192KW';
 
 
     /**
      * PBES2 with HMAC SHA-512 and "A256KW".
      */
-    case PBES2_HS512_A256KW = 'pbes2_hs512_a256kw';
+    case PBES2_HS512_A256KW = 'PBES2_HS512_A256KW';
 }
 

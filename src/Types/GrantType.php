@@ -43,7 +43,7 @@ enum GrantType: string implements Valuable
      *
      * @see https://tools.ietf.org/html/rfc6749#section-4.1 RFC 6749, 4.1. Authorization Code Grant
      */
-    case AUTHORIZATION_CODE = 'authorization_code';
+    case AUTHORIZATION_CODE = 'AUTHORIZATION_CODE';
 
 
     /**
@@ -57,7 +57,7 @@ enum GrantType: string implements Valuable
      * @see https://tools.ietf.org/html/rfc6749#section-4.2 RFC 6749, 4.2. Implicit Grant
      * @see https://openid.net/specs/openid-connect-registration-1_0.html OpenID Connect Dynamic Client Registration 1.0
      */
-    case IMPLICIT = 'implicit';
+    case IMPLICIT = 'IMPLICIT';
 
 
     /**
@@ -68,7 +68,7 @@ enum GrantType: string implements Valuable
      *
      * @see https://tools.ietf.org/html/rfc6749#section-4.3 RFC 6749, 4.3. Resource Owner Password Credentials Grant
      */
-    case PASSWORD = 'password';
+    case PASSWORD = 'PASSWORD';
 
 
     /**
@@ -78,7 +78,7 @@ enum GrantType: string implements Valuable
      *
      * @see https://tools.ietf.org/html/rfc6749#section-4.4 RFC 6749, 4.4. Client Credentials Grant
      */
-    case CLIENT_CREDENTIALS = 'client_credentials';
+    case CLIENT_CREDENTIALS = 'CLIENT_CREDENTIALS';
 
 
     /**
@@ -89,7 +89,7 @@ enum GrantType: string implements Valuable
      *
      * @see https://tools.ietf.org/html/rfc6749#section-6 RFC 6749, 6. Refreshing an Access Token
      */
-    case REFRESH_TOKEN = 'refresh_token';
+    case REFRESH_TOKEN = 'REFRESH_TOKEN';
 
 
     /**
@@ -102,7 +102,7 @@ enum GrantType: string implements Valuable
      *
      * @since 1.8
      */
-    case CIBA = 'ciba';
+    case CIBA = 'CIBA';
 
 
     /**
@@ -114,6 +114,6 @@ enum GrantType: string implements Valuable
      *
      * @since 1.8
      */
-    case DEVICE_CODE = 'device_code';
+    case DEVICE_CODE = 'DEVICE_CODE';
 }
 

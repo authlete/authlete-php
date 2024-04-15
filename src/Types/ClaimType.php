@@ -41,14 +41,14 @@ enum ClaimType: string implements Valuable
     /**
      * Claims that are directly asserted by the OpenID provider.
      */
-    case NORMAL = 'normal';
+    case NORMAL = 'NORMAL';
 
 
     /**
      * Claims that are asserted by a Claims Provider other than
      * the OpenID Provider but are returned by the OpenID Provider.
      */
-    case AGGREGATED = 'aggregated';
+    case AGGREGATED = 'AGGREGATED';
 
 
     /**
@@ -56,6 +56,6 @@ enum ClaimType: string implements Valuable
      * the OpenID Provider but are returned as references by the
      * OpenID Provider.
      */
-    case DISTRIBUTED = 'distributed';
+    case DISTRIBUTED = 'DISTRIBUTED';
 }
 

@@ -45,13 +45,13 @@ class BasicCredentials
     /**
      * Constructor.
      *
-     * @param string $userId
+     * @param string|null $userId
      *     User ID.
      *
-     * @param string $password
+     * @param string|null $password
      *     Password.
      */
-    public function __construct(string $userId, string $password)
+    public function __construct(?string $userId, ?string $password)
     {
         ValidationUtility::ensureNullOrString('$userId', $userId);
         ValidationUtility::ensureNullOrString('$password', $password);
@@ -65,7 +65,7 @@ class BasicCredentials
     /**
      * Get the user ID.
      *
-     * @return string
+     * @return string|null
      *     User ID.
      */
     public function getUserId(): ?string
@@ -77,7 +77,7 @@ class BasicCredentials
     /**
      * Get the password.
      *
-     * @return string
+     * @return string|null
      *     Password.
      */
     public function getPassword(): ?string
@@ -90,7 +90,7 @@ class BasicCredentials
      * Get the credentials in "userid:password" format which is
      * suitable as a parameter part of Basic Authentication.
      *
-     * @return string
+     * @return string|null
      *     Credentials in "userid:password" format.
      */
     public function getCredentials(): ?string
@@ -123,7 +123,7 @@ class BasicCredentials
      *     A `BasicCredentials` instance generated based on the
      *     information of the given string.
      */
-    public static function parse(string $authorizationHeaderValue): BasicCredentials
+    public static function parse(mixed $authorizationHeaderValue): BasicCredentials
     {
         if (is_null($authorizationHeaderValue))
         {

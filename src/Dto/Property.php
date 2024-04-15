@@ -246,7 +246,7 @@ class Property implements ArrayCopyable, Arrayable, Jsonable
      * @return Property
      *     `$this` property.
      */
-    public function setHidden(bool $hidden): Property
+    public function setHidden(mixed $hidden): Property
     {
         ValidationUtility::ensureBoolean('$hidden', $hidden);
 

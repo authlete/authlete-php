@@ -62,11 +62,11 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
     private ?string $clientIdAlias                         = null;
     private bool $clientIdAliasEnabled                     = false;
     private ?string $clientSecret                          = null;
-    private ?ClientType $clientType                        = null;
+    private ?string $clientType                            = null;  //ClientType
     private ?array $redirectUris                           = null;  // array of string
     private ?array $responseTypes                          = null;  // array of \Authlete\Types\ResponseType
     private ?array $grantTypes                             = null;  // array of \Authlete\Types\GrantType
-    private ?ApplicationType $applicationType              = null;
+    private ?string $applicationType                       = null;  // ApplicationType
     private ?array $contacts                               = null;  // array of string
     private ?string $clientName                            = null;
     private ?array $clientNames                            = null;  // array of \Authlete\Dto\TaggedValue
@@ -82,18 +82,17 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
     private ?string $jwks                                  = null;
     private ?string $derivedSectorIdentifier               = null;
     private ?string $sectorIdentifierUri                   = null;
-    private ?SubjectType $subjectType                      = null;
-    private ?JWSAlg $idTokenSignAlg                        = null;
-    private ?JWEAlg $idTokenEncryptionAlg                  = null;
-    private ?JWEEnc $idTokenEncryptionEnc                  = null;
-    private ?JWSAlg $userInfoSignAlg                       = null;
-    private ?JWEAlg $userInfoEncryptionAlg                 = null;
-    private ?JWEEnc $userInfoEncryptionEnc                 = null;
-    private ?JWSAlg $requestSignAlg                        = null;
-    private ?JWEAlg $requestEncryptionAlg                  = null;
-    private ?JWEEnc $requestEncryptionEnc                  = null;
-    private ?ClientAuthMethod $tokenAuthMethod             = null;
-    private ?JWSAlg $tokenAuthSignAlg                      = null;
+    private ?string $subjectType                           = null;  // SubjectType
+    private ?string $idTokenSignAlg                        = null;  // JWSAlg
+    private ?string $idTokenEncryptionAlg                  = null;  // JWEAlg
+    private ?string $userInfoSignAlg                       = null;  // JWEEnc
+    private ?string $userInfoEncryptionAlg                 = null;  // JWEAlg
+    private ?string $userInfoEncryptionEnc                 = null;  // JWEEnc
+    private ?string $requestSignAlg                        = null;  // JWSAlg
+    private ?string $requestEncryptionAlg                  = null;  // JWEAlg
+    private ?string $requestEncryptionEnc                  = null;  // JWEEnc
+    private ?string $tokenAuthMethod                       = null;  // ClientAuthMethod
+    private ?string $tokenAuthSignAlg                      = null;  // JWSAlg
     private string|int|null $defaultMaxAge                 = null;
     private bool $authTimeRequired                         = false;
     private ?array $defaultAcrs                            = null;  // array of string
@@ -113,18 +112,19 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
     private ?string $selfSignedCertificateKeyId            = null;
     private ?string $softwareId                            = null;
     private ?string $softwareVersion                       = null;
-    private ?JWSAlg $authorizationSignAlg                  = null;
-    private ?JWEAlg $authorizationEncryptionAlg            = null;
-    private ?JWEEnc $authorizationEncryptionEnc            = null;
-    private ?DeliveryMode $bcDeliveryMode                  = null;
+    private ?string $authorizationSignAlg                  = null;  // JWSAlg
+    private ?string $authorizationEncryptionAlg            = null;  // JWEAlg
+    private ?string $authorizationEncryptionEnc            = null;  // JWEEnc
+    private ?string $bcDeliveryMode                  = null;  // DeliveryMode
     private ?string $bcNotificationEndpoint                = null;
-    private ?JWSAlg $bcRequestSignAlg                      = null;
+    private ?string $bcRequestSignAlg                      = null;  // JWSAlg
     private bool $bcUserCodeRequired                       = false;
     private bool $dynamicallyRegistered                    = false;
     private ?string $registrationAccessTokenHash           = null;
     private ?array $authorizationDataTypes                 = null;  // array of string
     private bool $parRequired                              = false;
     private bool $requestObjectRequired                    = false;
+    private ?string $idTokenEncryptionEnc                  = null;  // JWEEnc
 
 
     /**
@@ -148,7 +148,7 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
      * @return Client
      *     `$this` object.
      */
-    public function setDeveloper(string $developer): Client
+    public function setDeveloper(mixed $developer): Client
     {
         ValidationUtility::ensureNullOrString('$developer', $developer);
 
@@ -185,7 +185,7 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
      * @return Client
      *     `$this` object.
      */
-    public function setClientId(int|string $clientId): Client
+    public function setClientId(mixed $clientId): Client
     {
         ValidationUtility::ensureNullOrStringOrInteger('$clientId', $clientId);
 
@@ -224,7 +224,7 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
      * @return Client
      *     `$this` object.
      */
-    public function setClientIdAlias(string $alias): Client
+    public function setClientIdAlias(mixed $alias): Client
     {
         ValidationUtility::ensureNullOrString('$alias', $alias);
 
@@ -269,7 +269,7 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
      * @return Client
      *     `$this` object.
      */
-    public function setClientIdAliasEnabled(bool $enabled): Client
+    public function setClientIdAliasEnabled(mixed $enabled): Client
     {
         ValidationUtility::ensureBoolean('$enabled', $enabled);
 
@@ -302,7 +302,7 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
      * @return Client
      *     `$this` object.
      */
-    public function setClientSecret(string $secret): Client
+    public function setClientSecret(mixed $secret): Client
     {
         ValidationUtility::ensureNullOrString('$secret', $secret);
 
@@ -324,7 +324,7 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
      */
     public function getClientType(): ?ClientType
     {
-        return $this->clientType;
+        return ClientType::valueOf($this->clientType);
     }
 
 
@@ -341,7 +341,7 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
      */
     public function setClientType(ClientType $clientType = null): Client
     {
-        $this->clientType = $clientType;
+        $this->clientType = $clientType->value;
 
         return $this;
     }
@@ -392,7 +392,7 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
      * [2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata)
      * of [OpenID Connect Dynamic Client Registration 1.0](https://openid.net/specs/openid-connect-registration-1_0.html).
      *
-     * @return array|null
+     * @return string[]|null
      *     An array of \Authlete\Types\ResponseType.
      */
     public function getResponseTypes(): ?array
@@ -418,7 +418,7 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
     public function setResponseTypes(array $responseTypes = null): Client
     {
         ValidationUtility::ensureNullOrArrayOfType(
-            '$responseTypes', '\Authlete\Types\ResponseType', $responseTypes);
+            '$responseTypes','\Authlete\Types\ResponseType', $responseTypes);
 
         $this->responseTypes = $responseTypes;
 
@@ -434,8 +434,8 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
      * [2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata)
      * of [OpenID Connect Dynamic Client Registration 1.0](https://openid.net/specs/openid-connect-registration-1_0.html).
      *
-     * @return array|null
-     *     An array of \Authlete\Types\GrantType.
+     * @return string[]|null
+     *     An array of \Authlete\Types\GrantType values.
      */
     public function getGrantTypes(): ?array
     {
@@ -451,7 +451,7 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
      * [2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata)
      * of [OpenID Connect Dynamic Client Registration 1.0](https://openid.net/specs/openid-connect-registration-1_0.html).
      *
-     * @param GrantType[] $grantTypes
+     * @param string[] $grantTypes
      *     An array of \Authlete\Types\GrantType.
      *
      * @return Client
@@ -480,7 +480,7 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
      */
     public function getApplicationType(): ?ApplicationType
     {
-        return $this->applicationType;
+        return ApplicationType::valueOf($this->applicationType);
     }
 
 
@@ -499,7 +499,7 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
      */
     public function setApplicationType(ApplicationType $applicationType = null): Client
     {
-        $this->applicationType = $applicationType;
+        $this->applicationType = $applicationType->value;
 
         return $this;
     }
@@ -573,7 +573,7 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
      * @return Client
      *     `$this` object.
      */
-    public function setClientName(string $clientName): Client
+    public function setClientName(mixed $clientName): Client
     {
         ValidationUtility::ensureNullOrString('$clientName', $clientName);
 
@@ -641,7 +641,7 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
      * @param string $logoUri
      *     The URI of the logo image of this client application.
      */
-    public function setLogoUri(string $logoUri): Client
+    public function setLogoUri(mixed $logoUri): Client
     {
         ValidationUtility::ensureNullOrString('$logoUri', $logoUri);
 
@@ -712,7 +712,7 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
      * @return Client
      *     `$this` object.
      */
-    public function setClientUri(string $clientUri): Client
+    public function setClientUri(mixed $clientUri): Client
     {
         ValidationUtility::ensureNullOrString('$clientUri', $clientUri);
 
@@ -785,7 +785,7 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
      * @return Client
      *     `$this` object.
      */
-    public function setPolicyUri(string $policyUri): Client
+    public function setPolicyUri(mixed $policyUri): Client
     {
         ValidationUtility::ensureNullOrString('$policyUri', $policyUri);
 
@@ -856,7 +856,7 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
      * @return Client
      *     `$this` object.
      */
-    public function setTosUri(string $tosUri): Client
+    public function setTosUri(mixed $tosUri): Client
     {
         ValidationUtility::ensureNullOrString('$tosUri', $tosUri);
 
@@ -931,7 +931,7 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
      * @return Client
      *     `$this` object.
      */
-    public function setJwksUri(string $jwksUri): Client
+    public function setJwksUri(mixed $jwksUri): Client
     {
         ValidationUtility::ensureNullOrString('$jwksUri', $jwksUri);
 
@@ -970,7 +970,7 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
      * @return Client
      *     `$this` object.
      */
-    public function setJwks(string $jwks): Client
+    public function setJwks(mixed $jwks): Client
     {
         ValidationUtility::ensureNullOrString('$jwks', $jwks);
 
@@ -1013,7 +1013,7 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
      *
      * @since 1.8
      */
-    public function setDerivedSectorIdentifier(string $identifier): Client
+    public function setDerivedSectorIdentifier(mixed $identifier): Client
     {
         ValidationUtility::ensureNullOrString('$identifier', $identifier);
 
@@ -1058,7 +1058,7 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
      * @return Client
      *     `$this` object.
      */
-    public function setSectorIdentifierUri(string $uri): Client
+    public function setSectorIdentifierUri(mixed $uri): Client
     {
         ValidationUtility::ensureNullOrString('$uri', $uri);
 
@@ -1083,7 +1083,7 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
      */
     public function getSubjectType(): ?SubjectType
     {
-        return $this->subjectType;
+        return SubjectType::valueOf($this->subjectType);
     }
 
 
@@ -1105,7 +1105,7 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
      */
     public function setSubjectType(SubjectType $subjectType = null): Client
     {
-        $this->subjectType = $subjectType;
+        $this->subjectType = $subjectType->value;
 
         return $this;
     }
@@ -1124,7 +1124,7 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
      */
     public function getIdTokenSignAlg(): ?JWSAlg
     {
-        return $this->idTokenSignAlg;
+        return JWSAlg::valueOf($this->idTokenSignAlg);
     }
 
 
@@ -1144,7 +1144,7 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
      */
     public function setIdTokenSignAlg(JWSAlg $idTokenSignAlg = null): Client
     {
-        $this->idTokenSignAlg = $idTokenSignAlg;
+        $this->idTokenSignAlg = $idTokenSignAlg->value;
 
         return $this;
     }
@@ -1163,7 +1163,7 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
      */
     public function getIdTokenEncryptionAlg(): ?JWEAlg
     {
-        return $this->idTokenEncryptionAlg;
+        return JWEAlg::valueOf($this->idTokenEncryptionAlg);
     }
 
 
@@ -1183,7 +1183,7 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
      */
     public function setIdTokenEncryptionAlg(JWEAlg $idTokenEncryptionAlg = null): Client
     {
-        $this->idTokenEncryptionAlg = $idTokenEncryptionAlg;
+        $this->idTokenEncryptionAlg = $idTokenEncryptionAlg->value;
 
         return $this;
     }
@@ -1202,7 +1202,7 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
      */
     public function getIdTokenEncryptionEnc(): ?JWEEnc
     {
-        return $this->idTokenEncryptionEnc;
+        return JWEEnc::valueOf($this->idTokenEncryptionEnc);
     }
 
 
@@ -1222,7 +1222,7 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
      */
     public function setIdTokenEncryptionEnc(JWEEnc $idTokenEncryptionEnc = null): Client
     {
-        $this->idTokenEncryptionEnc = $idTokenEncryptionEnc;
+        $this->idTokenEncryptionEnc = $idTokenEncryptionEnc->value;
 
         return $this;
     }
@@ -1240,7 +1240,7 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
      */
     public function getUserInfoSignAlg(): ?JWSAlg
     {
-        return $this->userInfoSignAlg;
+        return JWSAlg::valueOf($this->userInfoSignAlg);
     }
 
 
@@ -1259,7 +1259,7 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
      */
     public function setUserInfoSignAlg(JWSAlg $userInfoSignAlg = null): Client
     {
-        $this->userInfoSignAlg = $userInfoSignAlg;
+        $this->userInfoSignAlg = $userInfoSignAlg->value;
 
         return $this;
     }
@@ -1277,7 +1277,7 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
      */
     public function getUserInfoEncryptionAlg(): ?JWEAlg
     {
-        return $this->userInfoEncryptionAlg;
+        return JWEAlg::valueOf($this->userInfoEncryptionAlg);
     }
 
 
@@ -1296,7 +1296,7 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
      */
     public function setUserInfoEncryptionAlg(JWEAlg $userInfoEncryptionAlg = null): Client
     {
-        $this->userInfoEncryptionAlg = $userInfoEncryptionAlg;
+        $this->userInfoEncryptionAlg = $userInfoEncryptionAlg->value;
 
         return $this;
     }
@@ -1314,7 +1314,7 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
      */
     public function getUserInfoEncryptionEnc(): ?JWEEnc
     {
-        return $this->userInfoEncryptionEnc;
+        return JWEEnc::valueOf($this->userInfoEncryptionEnc);
     }
 
 
@@ -1333,7 +1333,7 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
      */
     public function setUserInfoEncryptionEnc(JWEEnc $userInfoEncryptionEnc = null): Client
     {
-        $this->userInfoEncryptionEnc = $userInfoEncryptionEnc;
+        $this->userInfoEncryptionEnc = $userInfoEncryptionEnc->value;
 
         return $this;
     }
@@ -1351,7 +1351,7 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
      */
     public function getRequestSignAlg(): ?JWSAlg
     {
-        return $this->requestSignAlg;
+        return JWSAlg::valueOf($this->requestSignAlg);
     }
 
 
@@ -1370,7 +1370,7 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
      */
     public function setRequestSignAlg(JWSAlg $requestSignAlg = null): Client
     {
-        $this->requestSignAlg = $requestSignAlg;
+        $this->requestSignAlg = $requestSignAlg->value;
 
         return $this;
     }
@@ -1388,7 +1388,7 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
      */
     public function getRequestEncryptionAlg(): ?JWEAlg
     {
-        return $this->requestEncryptionAlg;
+        return JWEAlg::valueOf($this->requestEncryptionAlg);
     }
 
 
@@ -1407,7 +1407,7 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
      */
     public function setRequestEncryptionAlg(JWEAlg $requestEncryptionAlg = null): Client
     {
-        $this->requestEncryptionAlg = $requestEncryptionAlg;
+        $this->requestEncryptionAlg = $requestEncryptionAlg->value;
 
         return $this;
     }
@@ -1425,7 +1425,7 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
      */
     public function getRequestEncryptionEnc(): ?JWEEnc
     {
-        return $this->requestEncryptionEnc;
+        return JWEEnc::valueOf($this->requestEncryptionEnc);
     }
 
 
@@ -1444,7 +1444,7 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
      */
     public function setRequestEncryptionEnc(JWEEnc $requestEncryptionEnc = null): Client
     {
-        $this->requestEncryptionEnc = $requestEncryptionEnc;
+        $this->requestEncryptionEnc = $requestEncryptionEnc->value;
 
         return $this;
     }
@@ -1462,7 +1462,7 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
      */
     public function getTokenAuthMethod(): ?ClientAuthMethod
     {
-        return $this->tokenAuthMethod;
+        return ClientAuthMethod::valueOf($this->tokenAuthMethod);
     }
 
 
@@ -1481,7 +1481,7 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
      */
     public function setTokenAuthMethod(ClientAuthMethod $tokenAuthMethod = null): Client
     {
-        $this->tokenAuthMethod = $tokenAuthMethod;
+        $this->tokenAuthMethod = $tokenAuthMethod->value;
 
         return $this;
     }
@@ -1501,7 +1501,7 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
      */
     public function getTokenAuthSignAlg(): ?JWSAlg
     {
-        return $this->tokenAuthSignAlg;
+        return JWSAlg::valueOf($this->tokenAuthSignAlg);
     }
 
 
@@ -1522,7 +1522,7 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
      */
     public function setTokenAuthSignAlg(JWSAlg $tokenAuthSignAlg = null): Client
     {
-        $this->tokenAuthSignAlg = $tokenAuthSignAlg;
+        $this->tokenAuthSignAlg = $tokenAuthSignAlg->value;
 
         return $this;
     }
@@ -1557,7 +1557,7 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
      * @return Client
      *     `$this` object.
      */
-    public function setDefaultMaxAge(int|string $defaultMaxAge): Client
+    public function setDefaultMaxAge(mixed $defaultMaxAge): Client
     {
         ValidationUtility::ensureNullOrStringOrInteger('$defaultMaxAge', $defaultMaxAge);
 
@@ -1600,7 +1600,7 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
      * @return Client
      *     `$this` object.
      */
-    public function setAuthTimeRequired(bool $required): Client
+    public function setAuthTimeRequired(mixed $required): Client
     {
         ValidationUtility::ensureBoolean('$required', $required);
 
@@ -1678,7 +1678,7 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
      * @return Client
      *     `$this` object.
      */
-    public function setLoginUri(string $loginUri): Client
+    public function setLoginUri(mixed $loginUri): Client
     {
         ValidationUtility::ensureNullOrString('$loginUri', $loginUri);
 
@@ -1748,7 +1748,7 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
      * @return Client
      *     `$this` object.
      */
-    public function setDescription(string $description): Client
+    public function setDescription(mixed $description): Client
     {
         ValidationUtility::ensureNullOrString('$description', $description);
 
@@ -1813,7 +1813,7 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
      * @return Client
      *     `$this` object.
      */
-    public function setCreatedAt(int|string $createdAt): Client
+    public function setCreatedAt(mixed $createdAt): Client
     {
         ValidationUtility::ensureNullOrStringOrInteger('$createdAt', $createdAt);
 
@@ -1846,7 +1846,7 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
      * @return Client
      *     `$this` object.
      */
-    public function setModifiedAt(int|string $modifiedAt): Client
+    public function setModifiedAt(mixed $modifiedAt): Client
     {
         ValidationUtility::ensureNullOrStringOrInteger('$modifiedAt', $modifiedAt);
 
@@ -1916,7 +1916,7 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
      * @return Client
      *     `$this` object.
      */
-    public function setTlsClientAuthSubjectDn(string $dn): Client
+    public function setTlsClientAuthSubjectDn(mixed $dn): Client
     {
         ValidationUtility::ensureNullOrString('$dn', $dn);
 
@@ -1965,7 +1965,7 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
      *
      * @since 1.8
      */
-    public function setTlsClientAuthSanDns(string $dns): Client
+    public function setTlsClientAuthSanDns(mixed $dns): Client
     {
         ValidationUtility::ensureNullOrString('$dns', $dns);
 
@@ -2014,7 +2014,7 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
      *
      * @since 1.8
      */
-    public function setTlsClientAuthSanUri(string $uri): Client
+    public function setTlsClientAuthSanUri(mixed $uri): Client
     {
         ValidationUtility::ensureNullOrString('$uri', $uri);
 
@@ -2063,7 +2063,7 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
      *
      * @since 1.8
      */
-    public function setTlsClientAuthSanIp(string $ip): Client
+    public function setTlsClientAuthSanIp(mixed $ip): Client
     {
         ValidationUtility::ensureNullOrString('$ip', $ip);
 
@@ -2112,7 +2112,7 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
      *
      * @since 1.8
      */
-    public function setTlsClientAuthSanEmail(string $email): Client
+    public function setTlsClientAuthSanEmail(mixed $email): Client
     {
         ValidationUtility::ensureNullOrString('$email', $email);
 
@@ -2163,7 +2163,7 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
      *
      * @since 1.4
      */
-    public function setTlsClientCertificateBoundAccessTokens(bool $use): Client
+    public function setTlsClientCertificateBoundAccessTokens(mixed $use): Client
     {
         ValidationUtility::ensureBoolean('$use', $use);
 
@@ -2198,7 +2198,7 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
      *
      * @since 1.5
      */
-    public function setSelfSignedCertificateKeyId(string $keyId): Client
+    public function setSelfSignedCertificateKeyId(mixed $keyId): Client
     {
         ValidationUtility::ensureNullOrString('$keyId', $keyId);
 
@@ -2247,7 +2247,7 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
      *
      * @since 1.7
      */
-    public function setSoftwareId(string $softwareId): Client
+    public function setSoftwareId(mixed $softwareId): Client
     {
         ValidationUtility::ensureNullOrString('$softwareId', $softwareId);
 
@@ -2294,7 +2294,7 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
      *
      * @since 1.7
      */
-    public function setSoftwareVersion(string $version): Client
+    public function setSoftwareVersion(mixed $version): Client
     {
         ValidationUtility::ensureNullOrString('$version', $version);
 
@@ -2318,7 +2318,7 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
      */
     public function getAuthorizationSignAlg(): ?JWSAlg
     {
-        return $this->authorizationSignAlg;
+        return JWSAlg::valueOf($this->authorizationSignAlg);
     }
 
 
@@ -2339,7 +2339,7 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
      */
     public function setAuthorizationSignAlg(JWSAlg $alg = null): Client
     {
-        $this->authorizationSignAlg = $alg;
+        $this->authorizationSignAlg = $alg->value;
 
         return $this;
     }
@@ -2359,7 +2359,7 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
      */
     public function getAuthorizationEncryptionAlg(): ?JWEAlg
     {
-        return $this->authorizationEncryptionAlg;
+        return JWEAlg::valueOf($this->authorizationEncryptionAlg);
     }
 
 
@@ -2380,7 +2380,7 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
      */
     public function setAuthorizationEncryptionAlg(JWEAlg $alg = null): Client
     {
-        $this->authorizationEncryptionAlg = $alg;
+        $this->authorizationEncryptionAlg = $alg->value;
 
         return $this;
     }
@@ -2400,7 +2400,7 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
      */
     public function getAuthorizationEncryptionEnc(): ?JWEEnc
     {
-        return $this->authorizationEncryptionEnc;
+        return JWEEnc::valueOf($this->authorizationEncryptionEnc);
     }
 
 
@@ -2421,7 +2421,7 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
      */
     public function setAuthorizationEncryptionEnc(JWEEnc $enc = null): Client
     {
-        $this->authorizationEncryptionEnc = $enc;
+        $this->authorizationEncryptionEnc = $enc->value;
 
         return $this;
     }
@@ -2440,7 +2440,7 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
      */
     public function getBcDeliveryMode(): ?DeliveryMode
     {
-        return $this->bcDeliveryMode;
+        return DeliveryMode::valueOf($this->bcDeliveryMode);
     }
 
 
@@ -2460,7 +2460,7 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
      */
     public function setBcDeliveryMode(DeliveryMode $mode = null): Client
     {
-        $this->bcDeliveryMode = $mode;
+        $this->bcDeliveryMode = $mode->value;
 
         return $this;
     }
@@ -2497,7 +2497,7 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
      *
      * @since 1.8
      */
-    public function setBcNotificationEndpoint(string $endpoint): Client
+    public function setBcNotificationEndpoint(mixed $endpoint): Client
     {
         ValidationUtility::ensureNullOrString('$endpoint', $endpoint);
 
@@ -2522,7 +2522,7 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
      */
     public function getBcRequestSignAlg(): ?JWSAlg
     {
-        return $this->bcRequestSignAlg;
+        return JWSAlg::valueOf($this->bcRequestSignAlg);
     }
 
 
@@ -2547,7 +2547,7 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
      */
     public function setBcRequestSignAlg(JWSAlg $alg = null): Client
     {
-        $this->bcRequestSignAlg = $alg;
+        $this->bcRequestSignAlg = $alg->value;
 
         return $this;
     }
@@ -2588,7 +2588,7 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
      *
      * @since 1.8
      */
-    public function setBcUserCodeRequired(bool $required): Client
+    public function setBcUserCodeRequired(mixed $required): Client
     {
         ValidationUtility::ensureBoolean('$required', $required);
 
@@ -2629,7 +2629,7 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
      *
      * @since 1.8
      */
-    public function setDynamicallyRegistered(bool $registered): Client
+    public function setDynamicallyRegistered(mixed $registered): Client
     {
         ValidationUtility::ensureBoolean('$registered', $registered);
 
@@ -2668,7 +2668,7 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
      *
      * @since 1.8
      */
-    public function setRegistrationAccessTokenHash(string $hash): Client
+    public function setRegistrationAccessTokenHash(mixed $hash): Client
     {
         ValidationUtility::ensureNullOrString('$hash', $hash);
 
@@ -2709,7 +2709,7 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
      *
      * @since 1.8
      */
-    public function setAuthorizationDataTypes(array $types = null): Client
+    public function setAuthorizationDataTypes(?array $types = null): Client
     {
         ValidationUtility::ensureNullOrArrayOfString('$types', $types);
 
@@ -2748,7 +2748,7 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
      *
      * @since 1.8
      */
-    public function setParRequired(bool $required): Client
+    public function setParRequired(mixed $required): Client
     {
         ValidationUtility::ensureBoolean('$required', $required);
 
@@ -2795,7 +2795,7 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
      *
      * @since 1.9
      */
-    public function setRequestObjectRequired(bool $required): Client
+    public function setRequestObjectRequired(mixed $required): Client
     {
         ValidationUtility::ensureBoolean('$required', $required);
 

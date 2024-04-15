@@ -59,7 +59,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
 
 
     private ?string $serviceName                                = null;
-    private $apiKey                                             = null;  // string or (64-bit) integer
+    private string|int|null $apiKey                             = null;  // string or (64-bit) integer
     private ?string $apiSecret                                  = null;
     private ?string $issuer                                     = null;
     private ?string $authorizationEndpoint                      = null;
@@ -121,12 +121,12 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
     private ?string $endSessionEndpoint                         = null;
     private ?string $description                                = null;
     private ?string $accessTokenType                            = null;
-    private ?JWSAlg $accessTokenSignAlg                         = null;  // \Authlete\Types\JWSAlg
-    private $accessTokenDuration                                = null;  // string or (64-bit) integer
-    private $refreshTokenDuration                               = null;  // string or (64-bit) integer
-    private $idTokenDuration                                    = null;  // string or (64-bit) integer
-    private $authorizationResponseDuration                      = null;  // string or (64-bit) integer
-    private $pushedAuthReqDuration                              = null;  // string or (64-bit) integer
+    private ?string $accessTokenSignAlg                         = null;  // \Authlete\Types\JWSAlg
+    private string|int|null $accessTokenDuration                = null;
+    private string|int|null $refreshTokenDuration               = null;
+    private string|int|null $idTokenDuration                    = null;
+    private string|int|null $authorizationResponseDuration      = null;
+    private string|int|null $pushedAuthReqDuration              = null;
     private ?string $accessTokenSignatureKeyId                  = null;
     private ?string $authorizationSignatureKeyId                = null;
     private ?string $idTokenSignatureKeyId                      = null;
@@ -143,7 +143,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
     private ?string $deviceVerificationUriComplete              = null;
     private $deviceFlowCodeDuration                             = null;  // string or (64-bit) integer
     private int $deviceFlowPollingInterval                      = 0;
-    private ?UserCodeCharset $userCodeCharset                   = null;
+    private ?string $userCodeCharset                   = null;  // UserCodeCharset
     private int $userCodeLength                                 = 0;
     private ?string $pushedAuthReqEndpoint                      = null;
     private ?array $mtlsEndpointAliases                         = null;  // array of \Authlete\Dto\NamedUri
@@ -166,7 +166,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
     /**
      * Get the service name.
      *
-     * @return string
+     * @return string|null The service name.
      *     The service name.
      */
     public function getServiceName(): ?string
@@ -184,7 +184,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      * @return Service
      *     `$this` object.
      */
-    public function setServiceName(string $serviceName): Service
+    public function setServiceName(mixed $serviceName): Service
     {
         ValidationUtility::ensureNullOrString('$serviceName', $serviceName);
 
@@ -228,7 +228,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
     /**
      * Get the API secret of this service.
      *
-     * @return string
+     * @return string|null
      *     The API secret.
      */
     public function getApiSecret(): ?string
@@ -246,7 +246,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      * @return Service
      *     `$this` object.
      */
-    public function setApiSecret(string $secret): Service
+    public function setApiSecret(mixed $secret): Service
     {
         ValidationUtility::ensureNullOrString('$secret', $secret);
 
@@ -263,7 +263,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      * [3. OpenID Provider Metadata](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata)
      * of [OpenID Connect Discovery 1.0](https://openid.net/specs/openid-connect-discovery-1_0.html).
      *
-     * @return string
+     * @return string|null
      *     The issuer identifier.
      */
     public function getIssuer(): ?string
@@ -279,13 +279,13 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      * [3. OpenID Provider Metadata](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata)
      * of [OpenID Connect Discovery 1.0](https://openid.net/specs/openid-connect-discovery-1_0.html).
      *
-     * @param string $issuer
+     * @param string|null $issuer
      *     The issuer identifier.
      *
      * @return Service
      *     `$this` object.
      */
-    public function setIssuer(string $issuer): Service
+    public function setIssuer(mixed $issuer): Service
     {
         ValidationUtility::ensureNullOrString('$issuer', $issuer);
 
@@ -302,7 +302,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      * [3. OpenID Provider Metadata](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata)
      * of [OpenID Connect Discovery 1.0](https://openid.net/specs/openid-connect-discovery-1_0.html).
      *
-     * @return string
+     * @return string|null
      *     The URI of the authorization endpoint.
      *
      * @see https://tools.ietf.org/html/rfc6749#section-3.1 RFC 6749, 3.1. Authorization Endpoint
@@ -320,7 +320,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      * [3. OpenID Provider Metadata](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata)
      * of [OpenID Connect Discovery 1.0](https://openid.net/specs/openid-connect-discovery-1_0.html).
      *
-     * @param string $endpoint
+     * @param string|null $endpoint
      *     The URI of the authorization endpoint.
      *
      * @return Service
@@ -328,7 +328,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      *
      * @see https://tools.ietf.org/html/rfc6749#section-3.1 RFC 6749, 3.1. Authorization Endpoint
      */
-    public function setAuthorizationEndpoint(string $endpoint): Service
+    public function setAuthorizationEndpoint(mixed $endpoint): Service
     {
         ValidationUtility::ensureNullOrString('$endpoint', $endpoint);
 
@@ -345,7 +345,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      * [3. OpenID Provider Metadata](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata)
      * of [OpenID Connect Discovery 1.0](https://openid.net/specs/openid-connect-discovery-1_0.html).
      *
-     * @return string
+     * @return string|null
      *     The URI of the token endpoint.
      *
      * @see https://tools.ietf.org/html/rfc6749#section-3.2 RFC 6749, 3.2. Token Endpoint
@@ -363,7 +363,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      * [3. OpenID Provider Metadata](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata)
      * of [OpenID Connect Discovery 1.0](https://openid.net/specs/openid-connect-discovery-1_0.html).
      *
-     * @param string $endpoint
+     * @param string|null $endpoint
      *     The URI of the token endpoint.
      *
      * @return Service
@@ -371,7 +371,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      *
      * @see https://tools.ietf.org/html/rfc6749#section-3.2 RFC 6749, 3.2. Token Endpoint
      */
-    public function setTokenEndpoint(string $endpoint): Service
+    public function setTokenEndpoint(mixed$endpoint): Service
     {
         ValidationUtility::ensureNullOrString('$endpoint', $endpoint);
 
@@ -388,7 +388,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      * [3. OpenID Provider Metadata](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata)
      * of [OpenID Connect Discovery 1.0](https://openid.net/specs/openid-connect-discovery-1_0.html).
      *
-     * @return string
+     * @return string|null
      *     The URI of the revocation endpoint.
      *
      * @see https://tools.ietf.org/html/rfc7009 RFC 7009 (OAuth 2.0 Token Revocation)
@@ -406,7 +406,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      * [3. OpenID Provider Metadata](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata)
      * of [OpenID Connect Discovery 1.0](https://openid.net/specs/openid-connect-discovery-1_0.html).
      *
-     * @param string $endpoint
+     * @param string|null $endpoint
      *     The URI of the revocation endpoint.
      *
      * @return Service
@@ -414,7 +414,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      *
      * @see https://tools.ietf.org/html/rfc7009 RFC 7009 (OAuth 2.0 Token Revocation)
      */
-    public function setRevocationEndpoint(string $endpoint): Service
+    public function setRevocationEndpoint(mixed $endpoint): Service
     {
         ValidationUtility::ensureNullOrString('$endpoint', $endpoint);
 
@@ -431,7 +431,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      * This corresponds to the `revocation_endpoint_auth_methods_supported`
      * metadata defined in "OAuth 2.0 Authorization Server Metadata".
      *
-     * @return ClientAuthMethod[]
+     * @return ClientAuthMethod[]|null
      *     Supported client authentication methods at the revocation endpoint.
      */
     public function getSupportedRevocationAuthMethods(): ?array
@@ -453,7 +453,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      * @return Service
      *     `$this` object.
      */
-    public function setSupportedRevocationAuthMethods(array $methods = null): Service
+    public function setSupportedRevocationAuthMethods(?array $methods = null): Service
     {
         ValidationUtility::ensureNullOrArrayOfType(
             '$methods', '\Authlete\Types\ClientAuthMethod', $methods);
@@ -471,7 +471,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      * [3. OpenID Provider Metadata](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata)
      * of [OpenID Connect Discovery 1.0](https://openid.net/specs/openid-connect-discovery-1_0.html).
      *
-     * @return string
+     * @return string|null
      *     The URI of the UserInfo endpoint.
      *
      * @see https://openid.net/specs/openid-connect-core-1_0.html#UserInfo OpenID Connect Core 1.0, 5.3. UserInfo Endpoint
@@ -489,7 +489,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      * [3. OpenID Provider Metadata](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata)
      * of [OpenID Connect Discovery 1.0](https://openid.net/specs/openid-connect-discovery-1_0.html).
      *
-     * @param string $endpoint
+     * @param string|null $endpoint
      *     The URI of the UserInfo endpoint.
      *
      * @return Service
@@ -497,7 +497,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      *
      * @see https://openid.net/specs/openid-connect-core-1_0.html#UserInfo OpenID Connect Core 1.0, 5.3. UserInfo Endpoint
      */
-    public function setUserInfoEndpoint(string $endpoint): Service
+    public function setUserInfoEndpoint(mixed $endpoint): Service
     {
         ValidationUtility::ensureNullOrString('$endpoint', $endpoint);
 
@@ -514,7 +514,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      * [3. OpenID Provider Metadata](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata)
      * of [OpenID Connect Discovery 1.0](https://openid.net/specs/openid-connect-discovery-1_0.html).
      *
-     * @return string
+     * @return string|null
      *     The URI of the JWK Set document.
      */
     public function getJwksUri(): ?string
@@ -530,13 +530,13 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      * [3. OpenID Provider Metadata](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata)
      * of [OpenID Connect Discovery 1.0](https://openid.net/specs/openid-connect-discovery-1_0.html).
      *
-     * @param string $uri
+     * @param string|null $uri
      *     The URI of the JWK Set document.
      *
      * @return Service
      *     `$this` object
      */
-    public function setJwksUri(string $uri): Service
+    public function setJwksUri(mixed $uri): Service
     {
         ValidationUtility::ensureNullOrString('$uri', $uri);
 
@@ -549,7 +549,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
     /**
      * Get the JWK Set document of this service.
      *
-     * @return string
+     * @return string|null
      *     The JWK Set document.
      */
     public function getJwks(): ?string
@@ -561,13 +561,13 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
     /**
      * Set the JWK Set document of this service.
      *
-     * @param string $jwks
+     * @param string|null $jwks
      *     The JWK Set document.
      *
      * @return Service
      *     `$this` object.
      */
-    public function setJwks(string $jwks): Service
+    public function setJwks(mixed $jwks): Service
     {
         ValidationUtility::ensureNullOrString('$jwks', $jwks);
 
@@ -584,7 +584,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      * [3. OpenID Provider Metadata](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata)
      * of [OpenID Connect Discovery 1.0](https://openid.net/specs/openid-connect-discovery-1_0.html).
      *
-     * @return string
+     * @return string|null
      *     The URI of the registration endpoint.
      *
      * @see https://openid.net/specs/openid-connect-registration-1_0.html#ClientRegistration OpenID Connect Dynamic Client Registration 1.0, 3. Client Registration Endpoint
@@ -602,7 +602,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      * [3. OpenID Provider Metadata](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata)
      * of [OpenID Connect Discovery 1.0](https://openid.net/specs/openid-connect-discovery-1_0.html).
      *
-     * @param string $endpoint
+     * @param string|null $endpoint
      *     The URI of the registration endpoint.
      *
      * @return Service
@@ -610,7 +610,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      *
      * @see https://openid.net/specs/openid-connect-registration-1_0.html#ClientRegistration OpenID Connect Dynamic Client Registration 1.0, 3. Client Registration Endpoint
      */
-    public function setRegistrationEndpoint(string $endpoint): Service
+    public function setRegistrationEndpoint(mixed $endpoint): Service
     {
         ValidationUtility::ensureNullOrString('$endpoint', $endpoint);
 
@@ -629,7 +629,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      * is not set, the value of `registrationEndpoint` will be used as the
      * URI base instead.
      *
-     * @return string
+     * @return string|null
      *     The URI of the registration management endpoint.
      *
      * @since 1.8
@@ -649,7 +649,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      * is not set, the value of `registrationEndpoint` will be used as the
      * URI base instead.
      *
-     * @param string $endpoint
+     * @param string|null $endpoint
      *     The URI of the registration management endpoint.
      *
      * @return Service
@@ -657,7 +657,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      *
      * @since 1.8
      */
-    public function setRegistrationManagementEndpoint(string $endpoint): Service
+    public function setRegistrationManagementEndpoint(?string $endpoint): Service
     {
         ValidationUtility::ensureNullOrString('$endpoint', $endpoint);
 
@@ -674,7 +674,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      * [3. OpenID Provider Metadata](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata)
      * of [OpenID Connect Discovery 1.0](https://openid.net/specs/openid-connect-discovery-1_0.html).
      *
-     * @return Scope[]
+     * @return Scope[]|null
      *     Supported scopes.
      */
     public function getSupportedScopes(): ?array
@@ -696,7 +696,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      * @return Service
      *     `$this` object.
      */
-    public function setSupportedScopes(array $scopes = null): Service
+    public function setSupportedScopes(?array $scopes = null): Service
     {
         ValidationUtility::ensureNullOrArrayOfType(
             '$scopes', __NAMESPACE__ . '\Scope', $scopes);
@@ -714,7 +714,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      * [3. OpenID Provider Metadata](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata)
      * of [OpenID Connect Discovery 1.0](https://openid.net/specs/openid-connect-discovery-1_0.html).
      *
-     * @return ResponseType[]
+     * @return ResponseType[]|null
      *     Supported response types.
      *
      * @see https://openid.net/specs/oauth-v2-multiple-response-types-1_0.html OAuth 2.0 Multiple Response Type Encoding Practices
@@ -740,7 +740,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      *
      * @see https://openid.net/specs/oauth-v2-multiple-response-types-1_0.html OAuth 2.0 Multiple Response Type Encoding Practices
      */
-    public function setSupportedResponseTypes(array $responseTypes = null): Service
+    public function setSupportedResponseTypes(?array $responseTypes = null): Service
     {
         ValidationUtility::ensureNullOrArrayOfType(
             '$responseTypes', '\Authlete\Types\ResponseType', $responseTypes);
@@ -758,7 +758,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      * [3. OpenID Provider Metadata](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata)
      * of [OpenID Connect Discovery 1.0](https://openid.net/specs/openid-connect-discovery-1_0.html).
      *
-     * @return GrantType[]
+     * @return GrantType[]|null
      *     Supported grant types.
      */
     public function getSupportedGrantTypes(): ?array
@@ -780,7 +780,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      * @return Service
      *     `$this` object.
      */
-    public function setSupportedGrantTypes(array $grantTypes = null): Service
+    public function setSupportedGrantTypes(?array $grantTypes = null): Service
     {
         ValidationUtility::ensureNullOrArrayOfType(
             '$grantTypes', '\Authlete\Types\GrantType', $grantTypes);
@@ -799,10 +799,10 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      * [3. OpenID Provider Metadata](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata)
      * of [OpenID Connect Discovery 1.0](https://openid.net/specs/openid-connect-discovery-1_0.html).
      *
-     * @return string[]
+     * @return string[]|null
      *     Supported ACR values.
      */
-    public function getSupportedAcrs()
+    public function getSupportedAcrs(): ?array
     {
         return $this->supportedAcrs;
     }
@@ -822,7 +822,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      * @return Service
      *     `$this` object.
      */
-    public function setSupportedAcrs(array $acrs = null): Service
+    public function setSupportedAcrs(?array $acrs = null): Service
     {
         ValidationUtility::ensureNullOrArrayOfString('$acrs', $acrs);
 
@@ -841,8 +841,8 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      * [3. OpenID Provider Metadata](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata)
      * of [OpenID Connect Discovery 1.0](https://openid.net/specs/openid-connect-discovery-1_0.html).
      *
-     * @return ClientAuthMethod[]
-     *     Supported client authentication methods at the token endpoint.
+     * @return string[]|null
+     *     Supported ClientAuthMethod values at the token endpoint.
      */
     public function getSupportedTokenAuthMethods(): ?array
     {
@@ -865,7 +865,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      * @return Service
      *     `$this` object.
      */
-    public function setSupportedTokenAuthMethods(array $methods = null): Service
+    public function setSupportedTokenAuthMethods(?array $methods = null): Service
     {
         ValidationUtility::ensureNullOrArrayOfType(
             '$methods', '\Authlete\Types\ClientAuthMethod', $methods);
@@ -884,7 +884,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      * [3. OpenID Provider Metadata](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata)
      * of [OpenID Connect Discovery 1.0](https://openid.net/specs/openid-connect-discovery-1_0.html).
      *
-     * @return Display[]
+     * @return Display[]|null
      *     Supported client authentication methods at the token endpoint.
      */
     public function getSupportedDisplays(): ?array
@@ -907,7 +907,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      * @return Service
      *     `$this` object.
      */
-    public function setSupportedDisplays(array $displays = null): Service
+    public function setSupportedDisplays(?array $displays = null): Service
     {
         ValidationUtility::ensureNullOrArrayOfType(
             '$displays', '\Authlete\Types\Display', $displays);
@@ -925,7 +925,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      * [3. OpenID Provider Metadata](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata)
      * of [OpenID Connect Discovery 1.0](https://openid.net/specs/openid-connect-discovery-1_0.html).
      *
-     * @return ClaimType[]
+     * @return ClaimType[]|null
      *     Supported claim types.
      */
     public function getSupportedClaimTypes(): ?array
@@ -947,7 +947,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      * @return Service
      *     `$this` object.
      */
-    public function setSupportedClaimTypes(array $claimTypes = null): Service
+    public function setSupportedClaimTypes(?array $claimTypes = null): Service
     {
         ValidationUtility::ensureNullOrArrayOfType(
             '$claimTypes', '\Authlete\Types\ClaimType', $claimTypes);
@@ -965,7 +965,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      * [3. OpenID Provider Metadata](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata)
      * of [OpenID Connect Discovery 1.0](https://openid.net/specs/openid-connect-discovery-1_0.html).
      *
-     * @return string[]
+     * @return string[]|null
      *     Supported claims.
      */
     public function getSupportedClaims(): ?array
@@ -987,7 +987,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      * @return Service
      *     `$this` object.
      */
-    public function setSupportedClaims(array $claims = null): Service
+    public function setSupportedClaims(?array $claims = null): Service
     {
         ValidationUtility::ensureNullOrArrayOfString('$claims', $claims);
 
@@ -1005,7 +1005,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      * [3. OpenID Provider Metadata](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata)
      * of [OpenID Connect Discovery 1.0](https://openid.net/specs/openid-connect-discovery-1_0.html).
      *
-     * @return string
+     * @return string|null
      *     The URI of the documentation for developers.
      */
     public function getServiceDocumentation(): ?string
@@ -1028,7 +1028,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      * @return Service
      *     `$this` object.
      */
-    public function setServiceDocumentation($serviceDocumentation): Service
+    public function setServiceDocumentation(mixed $serviceDocumentation): Service
     {
         ValidationUtility::ensureNullOrString('$serviceDocumentation', $serviceDocumentation);
 
@@ -1045,7 +1045,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      * [3. OpenID Provider Metadata](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata)
      * of [OpenID Connect Discovery 1.0](https://openid.net/specs/openid-connect-discovery-1_0.html).
      *
-     * @return string[]
+     * @return string[]|null
      *     Supported language and scripts for claim values.
      */
     public function getSupportedClaimLocales(): ?array
@@ -1085,7 +1085,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      * [3. OpenID Provider Metadata](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata)
      * of [OpenID Connect Discovery 1.0](https://openid.net/specs/openid-connect-discovery-1_0.html).
      *
-     * @return string[]
+     * @return string[]|null
      *     Supported language and scripts for the user interface.
      */
     public function getSupportedUiLocales(): ?array
@@ -1108,7 +1108,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      * @return Service
      *     `$this` object.
      */
-    public function setSupportedUiLocales(array $locales = null): Service
+    public function setSupportedUiLocales(?array $locales = null): Service
     {
         ValidationUtility::ensureNullOrArrayOfString('$locales', $locales);
 
@@ -1127,7 +1127,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      * [3. OpenID Provider Metadata](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata)
      * of [OpenID Connect Discovery 1.0](https://openid.net/specs/openid-connect-discovery-1_0.html).
      *
-     * @return string
+     * @return string|null
      *     The URI of the policy page.
      */
     public function getPolicyUri(): ?string
@@ -1151,7 +1151,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      * @return Service
      *     `$this` object.
      */
-    public function setPolicyUri(string $uri): Service
+    public function setPolicyUri(mixed $uri): Service
     {
         ValidationUtility::ensureNullOrString('$uri', $uri);
 
@@ -1169,7 +1169,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      * [3. OpenID Provider Metadata](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata)
      * of [OpenID Connect Discovery 1.0](https://openid.net/specs/openid-connect-discovery-1_0.html).
      *
-     * @return string
+     * @return string|null
      *     The URI of the Terms Of Service page.
      */
     public function getTosUri(): ?string
@@ -1192,7 +1192,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      * @return Service
      *     `$this` object.
      */
-    public function setTosUri($uri)
+    public function setTosUri(mixed $uri): Service
     {
         ValidationUtility::ensureNullOrString('$uri', $uri);
 
@@ -1205,7 +1205,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
     /**
      * Get the URI of the authentication callback endpoint.
      *
-     * @return string
+     * @return string|null
      *     The URI of the authentication callback endpoint.
      */
     public function getAuthenticationCallbackEndpoint(): ?string
@@ -1223,7 +1223,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      * @return Service
      *     `$this` object.
      */
-    public function setAuthenticationCallbackEndpoint(string $endpoint): Service
+    public function setAuthenticationCallbackEndpoint(mixed $endpoint): Service
     {
         ValidationUtility::ensureNullOrString('$endpoint', $endpoint);
 
@@ -1236,7 +1236,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
     /**
      * Get the API key to access the authentication callback endpoint.
      *
-     * @return string
+     * @return string|null
      *     The API key to access the authentication callback endpoint.
      */
     public function getAuthenticationCallbackApiKey(): ?string
@@ -1254,7 +1254,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      * @return Service
      *     `$this` object.
      */
-    public function setAuthenticationCallbackApiKey(string $apiKey): Service
+    public function setAuthenticationCallbackApiKey(mixed $apiKey): Service
     {
         ValidationUtility::ensureNullOrString('$apiKey', $apiKey);
 
@@ -1267,7 +1267,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
     /**
      * Get the API secret to access the authentication callback endpoint.
      *
-     * @return string
+     * @return string|null
      *     The API secret to access the authentication callback endpoint.
      */
     public function getAuthenticationCallbackApiSecret(): ?string
@@ -1285,7 +1285,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      * @return Service
      *     `$this` object.
      */
-    public function setAuthenticationCallbackApiSecret(string $apiSecret): Service
+    public function setAuthenticationCallbackApiSecret(mixed $apiSecret): Service
     {
         ValidationUtility::ensureNullOrString('$apiSecret', $apiSecret);
 
@@ -1299,7 +1299,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      * Get the list of supported SNSes for social login at the direct
      * authorization endpoint.
      *
-     * @return Sns[]
+     * @return Sns[]|null
      *     Supported SNSes for social login at the direct authorization
      *     endpoint.
      */
@@ -1334,7 +1334,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
     /**
      * Get the list of SNS credentials used for social login.
      *
-     * @return SnsCredentials[]
+     * @return SnsCredentials[]|null
      *     The list of SNS credentials.
      */
     public function getSnsCredentials(): ?array
@@ -1370,7 +1370,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      *     The time at which this service was created. The value is
      *     represented as milliseconds since the Unix epoch (1970-Jan-1).
      */
-    public function getCreatedAt()
+    public function getCreatedAt(): int|string|null
     {
         return $this->createdAt;
     }
@@ -1386,7 +1386,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      * @return Service
      *     `$this` object.
      */
-    public function setCreatedAt($createdAt): Service
+    public function setCreatedAt(mixed $createdAt): Service
     {
         ValidationUtility::ensureNullOrStringOrInteger('$createdAt', $createdAt);
 
@@ -1403,7 +1403,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      *     The time at which this service was last modified. The value is
      *     represented as milliseconds since the Unix epoch (1970-Jan-1).
      */
-    public function getModifiedAt()
+    public function getModifiedAt(): int|string|null
     {
         return $this->modifiedAt;
     }
@@ -1419,7 +1419,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      * @return Service
      *     `$this` object.
      */
-    public function setModifiedAt($modifiedAt): Service
+    public function setModifiedAt(mixed $modifiedAt): Service
     {
         ValidationUtility::ensureNullOrStringOrInteger('$modifiedAt', $modifiedAt);
 
@@ -1450,7 +1450,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      * @return Service
      *     `$this` object.
      */
-    public function setDeveloperAuthenticationCallbackEndpoint(string $endpoint): Service
+    public function setDeveloperAuthenticationCallbackEndpoint(mixed $endpoint): Service
     {
         ValidationUtility::ensureNullOrString('$endpoint', $endpoint);
 
@@ -1464,7 +1464,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      * Get the API key to access the developer authentication callback
      * endpoint.
      *
-     * @return string
+     * @return string|null
      *     The API key to access the developer authentication callback
      *     endpoint.
      */
@@ -1499,7 +1499,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      * Get the API secret to access the developer authentication callback
      * endpoint.
      *
-     * @return string
+     * @return string|null
      *     The API secret to access the developer authentication callback
      *     endpoint.
      */
@@ -1520,7 +1520,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      * @return Service
      *     `$this` object.
      */
-    public function setDeveloperAuthenticationCallbackApiSecret($apiSecret): Service
+    public function setDeveloperAuthenticationCallbackApiSecret(mixed $apiSecret): Service
     {
         ValidationUtility::ensureNullOrString('$apiSecret', $apiSecret);
 
@@ -1536,7 +1536,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      *
      * NOTE: This feature is not implemented yet.
      *
-     * @return Sns[]
+     * @return array|null
      *     Supported SNSes for social login at the developer console.
      */
     public function getSupportedDeveloperSnses(): ?array
@@ -1574,7 +1574,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      *
      * NOTE: This feature is not implemented yet.
      *
-     * @return SnsCredentials[]
+     * @return SnsCredentials[]|null
      *     The list of SNS credentials used for social login at the developer
      *     console.
      */
@@ -1633,7 +1633,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      * @return Service
      *     `$this` object.
      */
-    public function setClientsPerDeveloper($count): Service
+    public function setClientsPerDeveloper(mixed $count): Service
     {
         ValidationUtility::ensureInteger('$count', $count);
 
@@ -1694,7 +1694,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      * @return Service
      *     `$this` object.
      */
-    public function setDirectAuthorizationEndpointEnabled($enabled): Service
+    public function setDirectAuthorizationEndpointEnabled(mixed $enabled): Service
     {
         ValidationUtility::ensureBoolean('$enabled', $enabled);
 
@@ -1749,7 +1749,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      * @return Service
      *     `$this` object.
      */
-    public function setDirectTokenEndpointEnabled($enabled): Service
+    public function setDirectTokenEndpointEnabled(mixed $enabled): Service
     {
         ValidationUtility::ensureBoolean('$enabled', $enabled);
 
@@ -1957,7 +1957,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      * @return Service
      *     `$this` object.
      */
-    public function setDirectIntrospectionEndpointEnabled(bool $enabled): Service
+    public function setDirectIntrospectionEndpointEnabled(mixed $enabled): Service
     {
         ValidationUtility::ensureBoolean('$enabled', $enabled);
 
@@ -2015,7 +2015,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      * @return Service
      *     `$this` object.
      */
-    public function setSingleAccessTokenPerSubject(bool $enabled): Service
+    public function setSingleAccessTokenPerSubject(mixed $enabled): Service
     {
         ValidationUtility::ensureBoolean('$enabled', $enabled);
 
@@ -2107,7 +2107,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      *
      * @since 1.8
      */
-    public function setPkceS256Required(bool $required): Service
+    public function setPkceS256Required(mixed $required): Service
     {
         ValidationUtility::ensureBoolean('$required', $required);
 
@@ -2185,7 +2185,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      *
      * @since 1.8
      */
-    public function setRefreshTokenDurationKept(bool $kept): Service
+    public function setRefreshTokenDurationKept(mixed $kept): Service
     {
         ValidationUtility::ensureBoolean('$kept', $kept);
 
@@ -2230,7 +2230,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      *
      * @since 1.7
      */
-    public function setErrorDescriptionOmitted(bool $omitted): Service
+    public function setErrorDescriptionOmitted(mixed $omitted): Service
     {
         ValidationUtility::ensureBoolean('$omitted', $omitted);
 
@@ -2274,7 +2274,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      *
      * @since 1.7
      */
-    public function setErrorUriOmitted(bool $omitted): Service
+    public function setErrorUriOmitted(mixed $omitted): Service
     {
         ValidationUtility::ensureBoolean('$omitted', $omitted);
 
@@ -2317,7 +2317,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      *
      * @since 1.7
      */
-    public function setClientIdAliasEnabled(bool $enabled): Service
+    public function setClientIdAliasEnabled(mixed $enabled): Service
     {
         ValidationUtility::ensureBoolean('$enabled', $enabled);
 
@@ -2330,7 +2330,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
     /**
      * Get the service profiles supported by this service.
      *
-     * @return ServiceProfile[]
+     * @return array|null
      *     Supported service profiles.
      */
     public function getSupportedServiceProfiles(): ?array
@@ -2398,7 +2398,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      *
      * @since 1.4
      */
-    public function setTlsClientCertificateBoundAccessTokens(bool $enabled): Service
+    public function setTlsClientCertificateBoundAccessTokens(mixed $enabled): Service
     {
         ValidationUtility::ensureBoolean('$enabled', $enabled);
 
@@ -2433,7 +2433,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      *
      * @see https://tools.ietf.org/html/rfc7662 RFC 7662 OAuth 2.0 Token Introspection
      */
-    public function setIntrospectionEndpoint(string $endpoint): Service
+    public function setIntrospectionEndpoint(mixed $endpoint): Service
     {
         ValidationUtility::ensureNullOrString('$endpoint', $endpoint);
 
@@ -2450,7 +2450,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      * This corresponds to the `introspection_endpoint_auth_methods_supported`
      * metadata defined in "OAuth 2.0 Authorization Server Metadata".
      *
-     * @return ClientAuthMethod[]
+     * @return ClientAuthMethod[]|null
      *     Supported client authentication methods at the introspection
      *     endpoint.
      */
@@ -2474,7 +2474,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      * @return Service
      *     `$this` object.
      */
-    public function setSupportedIntrospectionAuthMethods(array $methods = null): Service
+    public function setSupportedIntrospectionAuthMethods(?array $methods = null): Service
     {
         ValidationUtility::ensureNullOrArrayOfType(
             '$methods', '\Authlete\Types\ClientAuthMethod', $methods);
@@ -2512,7 +2512,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      *
      * @since 1.3
      */
-    public function setMutualTlsValidatePkiCertChain(bool $enabled): Service
+    public function setMutualTlsValidatePkiCertChain(mixed $enabled): Service
     {
         ValidationUtility::ensureBoolean('$enabled', $enabled);
 
@@ -2528,7 +2528,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      * If `isMutualTlsValidatePkiCertChain()` returns `true`, pre-registered
      * trusted root certificates are used to validate client certificates.
      *
-     * @return string[]
+     * @return string[]|null
      *     Trusted root certificates.
      *
      * @since 1.3
@@ -2553,7 +2553,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      *
      * @since 1.3
      */
-    public function setTrustedRootCertificates(array $certificates = null): Service
+    public function setTrustedRootCertificates(?array $certificates = null): Service
     {
         ValidationUtility::ensureNullOrArrayOfString('$certificates', $certificates);
 
@@ -2590,7 +2590,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      *
      * @since 1.8
      */
-    public function setDynamicRegistrationSupported($supported): Service
+    public function setDynamicRegistrationSupported(mixed $supported): Service
     {
         ValidationUtility::ensureBoolean('$supported', $supported);
 
@@ -2605,7 +2605,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      * by clients to signal to the IdP that the user's session should be
      * terminated.
      *
-     * @return string
+     * @return string|null
      *     The end session endpoint.
      *
      * @since 1.8
@@ -2629,7 +2629,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      *
      * @since 1.8
      */
-    public function setEndSessionEndpoint(string $endpoint): Service
+    public function setEndSessionEndpoint(mixed $endpoint): Service
     {
         ValidationUtility::ensureNullOrString('$endpoint', $endpoint);
 
@@ -2642,7 +2642,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
     /**
      * Get the description about this service.
      *
-     * @return string
+     * @return string|null
      *     The description about this service.
      */
     public function getDescription(): ?string
@@ -2660,7 +2660,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      * @return Service
      *     `$this` object.
      */
-    public function setDescription(string $description): Service
+    public function setDescription(mixed $description): Service
     {
         ValidationUtility::ensureNullOrString('$description', $description);
 
@@ -2675,7 +2675,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      *
      * It is the value of the `token_type` parameter in access token responses.
      *
-     * @return string
+     * @return string|null
      *     The token type of access tokens.
      *
      * @see https://tools.ietf.org/html/rfc6749#section-5.1 RFC 6749, 5.1. Successful Response
@@ -2700,7 +2700,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      *
      * @see https://tools.ietf.org/html/rfc6749#section-5.1 RFC 6749, 5.1. Successful Response
      */
-    public function setAccessTokenType(string $type): Service
+    public function setAccessTokenType(mixed $type): Service
     {
         ValidationUtility::ensureNullOrString('$type', $type);
 
@@ -2719,14 +2719,14 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      * value returned from this method represents the signature algorithm of
      * the JWTs.
      *
-     * @return JWSAlg
+     * @return JWSAlg|null
      *     The signature algorithm of JWT-based access tokens.
      *
      * @since 1.8
      */
     public function getAccessTokenSignAlg(): ?JWSAlg
     {
-        return $this->accessTokenSignAlg;
+        return JWSAlg::valueOf($this->accessTokenSignAlg);
     }
 
 
@@ -2738,7 +2738,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      * issued by this service are JWTs and the value set by this method is used
      * as the signature algorithm of the JWTs.
      *
-     * @param JWSAlg $alg
+     * @param JWSAlg|null $alg
      *     The signature algorithm of JWT-based access tokens. Note that
      *     symmetric algorithms (`HS256`, `HS384` and `HS512`) are not
      *     supported.
@@ -2750,7 +2750,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      */
     public function setAccessTokenSignAlg(JWSAlg $alg = null): Service
     {
-        $this->accessTokenSignAlg = $alg;
+        $this->accessTokenSignAlg = $alg->value;
 
         return $this;
     }
@@ -2761,12 +2761,12 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      *
      * It is the value of the `expires_in` parameter in access token responses.
      *
-     * @return integer|string
+     * @return integer|string|null
      *     The duration of access tokens.
      *
      * @see https://tools.ietf.org/html/rfc6749#section-5.1 RFC 6749, 5.1. Successful Response
      */
-    public function getAccessTokenDuration()
+    public function getAccessTokenDuration(): int|string|null
     {
         return $this->accessTokenDuration;
     }
@@ -2785,7 +2785,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      *
      * @see https://tools.ietf.org/html/rfc6749#section-5.1 RFC 6749, 5.1. Successful Response
      */
-    public function setAccessTokenDuration($duration): Service
+    public function setAccessTokenDuration(mixed $duration): Service
     {
         ValidationUtility::ensureNullOrStringOrInteger('$duration', $duration);
 
@@ -2801,7 +2801,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      * @return integer|string|null
      *     The duration of refresh tokens.
      */
-    public function getRefreshTokenDuration()
+    public function getRefreshTokenDuration(): int|string|null
     {
         return $this->refreshTokenDuration;
     }
@@ -2816,7 +2816,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      * @return Service
      *     `$this` object.
      */
-    public function setRefreshTokenDuration($duration): Service
+    public function setRefreshTokenDuration(mixed $duration): Service
     {
         ValidationUtility::ensureNullOrStringOrInteger('$duration', $duration);
 
@@ -2832,7 +2832,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      * @return integer|string|null
      *     The duration of ID tokens.
      */
-    public function getIdTokenDuration()
+    public function getIdTokenDuration(): int|string|null
     {
         return $this->idTokenDuration;
     }
@@ -2847,7 +2847,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      * @return Service
      *     `$this` object.
      */
-    public function setIdTokenDuration($duration): Service
+    public function setIdTokenDuration(mixed $duration): Service
     {
         ValidationUtility::ensureNullOrStringOrInteger('$duration', $duration);
 
@@ -2872,7 +2872,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      *
      * @since 1.7
      */
-    public function getAuthorizationResponseDuration()
+    public function getAuthorizationResponseDuration(): int|string|null
     {
         return $this->authorizationResponseDuration;
     }
@@ -2896,7 +2896,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      *
      * @since 1.7
      */
-    public function setAuthorizationResponseDuration($duration): Service
+    public function setAuthorizationResponseDuration(mixed $duration): Service
     {
         ValidationUtility::ensureNullOrStringOrInteger('$duration', $duration);
 
@@ -2927,7 +2927,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      *
      * @since 1.8
      */
-    public function getPushedAuthReqDuration()
+    public function getPushedAuthReqDuration(): int|string|null
     {
         return $this->pushedAuthReqDuration;
     }
@@ -2956,7 +2956,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      *
      * @since 1.8
      */
-    public function setPushedAuthReqDuration($duration): Service
+    public function setPushedAuthReqDuration(mixed $duration): Service
     {
         ValidationUtility::ensureNullOrStringOrInteger('$duration', $duration);
 
@@ -3006,7 +3006,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      *
      * @since 1.8
      */
-    public function setAccessTokenSignatureKeyId(string $keyId): Service
+    public function setAccessTokenSignatureKeyId(mixed $keyId): Service
     {
         ValidationUtility::ensureNullOrString('$keyId', $keyId);
 
@@ -3061,7 +3061,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      *
      * @since 1.7
      */
-    public function setAuthorizationSignatureKeyId(string $keyId): Service
+    public function setAuthorizationSignatureKeyId(mixed $keyId): Service
     {
         ValidationUtility::ensureNullOrString('$keyId', $keyId);
 
@@ -3092,7 +3092,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      * [10.1.1. Rotation of Asymmetric Signing Keys](https://openid.net/specs/openid-connect-core-1_0.html#RotateSigKeys)),
      * this mechanism is needed.
      *
-     * @return string
+     * @return string|null
      *     A key ID of a JWK. This may be `null`.
      *
      * @since 1.7
@@ -3117,7 +3117,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      *
      * @since 1.7
      */
-    public function setIdTokenSignatureKeyId(string $keyId): Service
+    public function setIdTokenSignatureKeyId(mixed $keyId): Service
     {
         ValidationUtility::ensureNullOrString('$keyId', $keyId);
 
@@ -3149,7 +3149,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      * [10.1.1. Rotation of Asymmetric Signing Keys](https://openid.net/specs/openid-connect-core-1_0.html#RotateSigKeys)),
      * this mechanism is needed.
      *
-     * @return string
+     * @return string|null
      *     A key ID of a JWK. This may be `null`.
      *
      * @since 1.7
@@ -3174,7 +3174,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      *
      * @since 1.7
      */
-    public function setUserInfoSignatureKeyId(string $keyId): Service
+    public function setUserInfoSignatureKeyId(mixed $keyId): Service
     {
         ValidationUtility::ensureNullOrString('$keyId', $keyId);
 
@@ -3189,7 +3189,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      * corresponds to the `backchannel_token_delivery_modes_supported`
      * metadata defined in CIBA.
      *
-     * @return DeliveryMode[]
+     * @return DeliveryMode[]|null
      *     Supported backchannel token delivery modes.
      *
      * @see https://openid.net/specs/openid-client-initiated-backchannel-authentication-core-1_0.html Client Initiated Backchannel Authentication
@@ -3217,7 +3217,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      *
      * @since 1.8
      */
-    public function setSupportedBackchannelTokenDeliveryModes(array $modes = null): Service
+    public function setSupportedBackchannelTokenDeliveryModes(?array $modes = null): Service
     {
         ValidationUtility::ensureNullOrArrayOfType(
             '$modes', '\Authlete\Types\DeliveryMode', $modes);
@@ -3257,7 +3257,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      *
      * @since 1.8
      */
-    public function setBackchannelAuthenticationEndpoint($endpoint): Service
+    public function setBackchannelAuthenticationEndpoint(mixed $endpoint): Service
     {
         ValidationUtility::ensureNullOrString('$endpoint', $endpoint);
 
@@ -3302,7 +3302,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      *
      * @since 1.8
      */
-    public function setBackchannelUserCodeParameterSupported(bool $supported): Service
+    public function setBackchannelUserCodeParameterSupported(mixed $supported): Service
     {
         ValidationUtility::ensureBoolean('$supported', $supported);
 
@@ -3318,14 +3318,14 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      * value of the `expires_in` property in responses from the backchannel
      * authentication endpoint.
      *
-     * @return integer|string
+     * @return int|string|null
      *     The duration of backchannel authentication request IDs in seconds.
      *
      * @see https://openid.net/specs/openid-client-initiated-backchannel-authentication-core-1_0.html Client Initiated Backchannel Authentication
      *
      * @since 1.8
      */
-    public function getBackchannelAuthReqIdDuration()
+    public function getBackchannelAuthReqIdDuration(): int|string|null
     {
         return $this->backchannelAuthReqIdDuration;
     }
@@ -3347,7 +3347,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      *
      * @since 1.8
      */
-    public function setBackchannelAuthReqIdDuration($duration): Service
+    public function setBackchannelAuthReqIdDuration(mixed $duration): Service
     {
         ValidationUtility::ensureNullOrStringOrInteger('$duration', $duration);
 
@@ -3392,7 +3392,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      *
      * @since 1.8
      */
-    public function setBackchannelPollingInterval($interval): Service
+    public function setBackchannelPollingInterval(mixed $interval): Service
     {
         ValidationUtility::ensureInteger('$interval', $interval);
 
@@ -3446,7 +3446,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      *
      * @since 1.8
      */
-    public function setBackchannelBindingMessageRequiredInFapi(bool $required): Service
+    public function setBackchannelBindingMessageRequiredInFapi(mixed $required): Service
     {
         ValidationUtility::ensureBoolean('$required', $required);
 
@@ -3500,7 +3500,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
     /**
      * Get the URI of the device authorization endpoint.
      *
-     * @return string
+     * @return string|null
      *     The URI of the device authorization endpoint.
      *
      * @see https://tools.ietf.org/html/rfc8628 RFC 8628 OAuth 2.0 Device Authorization Grant
@@ -3526,7 +3526,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      *
      * @since 1.8
      */
-    public function setDeviceAuthorizationEndpoint(string $endpoint): Service
+    public function setDeviceAuthorizationEndpoint(mixed $endpoint): Service
     {
         ValidationUtility::ensureNullOrString('$endpoint', $endpoint);
 
@@ -3541,7 +3541,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      * value of the `verification_uri` parameter in responses from the device
      * authorization endpoint.
      *
-     * @return string
+     * @return string|null
      *     The verification URI.
      *
      * @see https://tools.ietf.org/html/rfc8628 RFC 8628 OAuth 2.0 Device Authorization Grant
@@ -3569,7 +3569,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      *
      * @since 1.8
      */
-    public function setDeviceVerificationUri(string $uri): Service
+    public function setDeviceVerificationUri(mixed $uri): Service
     {
         ValidationUtility::ensureNullOrString('$uri', $uri);
 
@@ -3585,7 +3585,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      * `verification_uri_complete` parameter in responses from the device
      * authorization endpoint.
      *
-     * @return string
+     * @return string|null
      *     The verification URI with a placeholder for a user code.
      *
      * @see https://tools.ietf.org/html/rfc8628 RFC 8628 OAuth 2.0 Device Authorization Grant
@@ -3625,7 +3625,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      *
      * @since 1.8
      */
-    public function setDeviceVerificationUriComplete(string $uri): Service
+    public function setDeviceVerificationUriComplete(mixed $uri): Service
     {
         ValidationUtility::ensureNullOrString('$uri', $uri);
 
@@ -3641,7 +3641,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      * used as the value of the `expires_in` property in responses from the
      * device authorization endpoint.
      *
-     * @return integer|string
+     * @return integer|string|null
      *     The duration of device verification codes and end-user verification
      *     codes in seconds.
      *
@@ -3649,7 +3649,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      *
      * @since 1.8
      */
-    public function getDeviceFlowCodeDuration()
+    public function getDeviceFlowCodeDuration(): int|string|null
     {
         return $this->deviceFlowCodeDuration;
     }
@@ -3672,7 +3672,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      *
      * @since 1.8
      */
-    public function setDeviceFlowCodeDuration($duration): Service
+    public function setDeviceFlowCodeDuration(mixed $duration): Service
     {
         ValidationUtility::ensureNullOrStringOrInteger('$duration', $duration);
 
@@ -3715,7 +3715,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      *
      * @since 1.8
      */
-    public function setDeviceFlowPollingInterval(int $interval): Service
+    public function setDeviceFlowPollingInterval(mixed $interval): Service
     {
         ValidationUtility::ensureInteger('$interval', $interval);
 
@@ -3729,7 +3729,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      * Get the character set for end-user verification codes (`user_code`)
      * for the device flow.
      *
-     * @return UserCodeCharset
+     * @return UserCodeCharset|null
      *     The character set for end-user verification codes.
      *
      * @see https://tools.ietf.org/html/rfc8628 RFC 8628 OAuth 2.0 Device Authorization Grant
@@ -3738,7 +3738,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      */
     public function getUserCodeCharset(): ?UserCodeCharset
     {
-        return $this->userCodeCharset;
+        return UserCodeCharset::valueOf($this->userCodeCharset);
     }
 
 
@@ -3746,7 +3746,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      * Set the character set for end-user verification codes (`user_code`)
      * for the device flow.
      *
-     * @param UserCodeCharset $charset
+     * @param UserCodeCharset|null $charset
      *     The character set for end-user verification codes.
      *
      * @return Service
@@ -3758,7 +3758,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      */
     public function setUserCodeCharset(UserCodeCharset $charset = null): Service
     {
-        $this->userCodeCharset = $charset;
+        $this->userCodeCharset = $charset->value;
 
         return $this;
     }
@@ -3796,7 +3796,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      *
      * @since 1.8
      */
-    public function setUserCodeLength(int $length): Service
+    public function setUserCodeLength(mixed $length): Service
     {
         ValidationUtility::ensureInteger('$length', $length);
 
@@ -3811,7 +3811,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      * corresponds to the `pushed_authorization_request_endpoint` metadata
      * defined in "OAuth 2.0 Pushed Authorization Requests".
      *
-     * @return string
+     * @return string|null
      *     The URI of the pushed authorization request endpoint.
      *
      * @since 1.8
@@ -3835,7 +3835,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      *
      * @since 1.8
      */
-    public function setPushedAuthReqEndpoint(string $endpoint): Service
+    public function setPushedAuthReqEndpoint(mixed $endpoint): Service
     {
         ValidationUtility::ensureNullOrString('$endpoint', $endpoint);
 
@@ -3851,7 +3851,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      * This property corresponds to the `mtls_endpoint_aliases` metadata
      * defined in [RFC 8705](https://www.rfc-editor.org/rfc/rfc8705.html).
      *
-     * @return NamedUri[]
+     * @return NamedUri[]|null
      *     MTLS endpoint aliases.
      *
      * @see https://www.rfc-editor.org/rfc/rfc8705.html RFC 8705 OAuth 2.0 Mutual-TLS Client Authentication and Certificate-Bound Access Tokens
@@ -3880,7 +3880,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      *
      * @since 1.8
      */
-    public function setMtlsEndpointAliases(array $aliases = null): Service
+    public function setMtlsEndpointAliases(?array $aliases = null): Service
     {
         ValidationUtility::ensureNullOrArrayOfType(
             '$aliases', __NAMESPACE__ . '\NamedUri', $aliases);
@@ -3898,7 +3898,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      * This property corresponds to the `authorization_data_types_supported`
      * metadata defined in "OAuth 2.0 Rich Authorization Requests".
      *
-     * @return string[]
+     * @return string[]|null
      *     Supported data types.
      *
      * @since 1.8
@@ -3924,7 +3924,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      *
      * @since 1.8
      */
-    public function setSupportedAuthorizationDataTypes(array $types = null): Service
+    public function setSupportedAuthorizationDataTypes(?array $types = null): Service
     {
         ValidationUtility::ensureNullOrArrayOfString('$types', $types);
 
@@ -3940,7 +3940,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      * This property corresponds to the `trust_frameworks_supported`
      * metadata defined in "OpenID Connect for Identity Assurance 1.0".
      *
-     * @return string[]
+     * @return string[]|null
      *     Supported trust frameworks.
      *
      * @see https://openid.net/specs/openid-connect-4-identity-assurance-1_0.html OpenID Connect for Identity Assurance 1.0
@@ -3969,7 +3969,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      *
      * @since 1.8
      */
-    public function setSupportedTrustFrameworks(array $frameworks = null): Service
+    public function setSupportedTrustFrameworks(?array $frameworks = null): Service
     {
         ValidationUtility::ensureNullOrArrayOfString('$frameworks', $frameworks);
 
@@ -3985,7 +3985,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      * This property corresponds to the `evidence_supported`
      * metadata defined in "OpenID Connect for Identity Assurance 1.0".
      *
-     * @return string[]
+     * @return string[]|null
      *     Supported evidence.
      *
      * @see https://openid.net/specs/openid-connect-4-identity-assurance-1_0.html OpenID Connect for Identity Assurance 1.0
@@ -4014,7 +4014,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      *
      * @since 1.8
      */
-    public function setSupportedEvidence(array $evidence = null): Service
+    public function setSupportedEvidence(?array $evidence = null): Service
     {
         ValidationUtility::ensureNullOrArrayOfString('$evidence', $evidence);
 
@@ -4030,7 +4030,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      * This property corresponds to the `id_documents_supported`
      * metadata defined in "OpenID Connect for Identity Assurance 1.0".
      *
-     * @return string[]
+     * @return string[]|null
      *     Supported identity documents.
      *
      * @see https://openid.net/specs/openid-connect-4-identity-assurance-1_0.html OpenID Connect for Identity Assurance 1.0
@@ -4059,7 +4059,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      *
      * @since 1.8
      */
-    public function setSupportedIdentityDocuments(array $documents = null): Service
+    public function setSupportedIdentityDocuments(?array $documents = null): Service
     {
         ValidationUtility::ensureNullOrArrayOfString('$documents', $documents);
 
@@ -4075,7 +4075,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      * This property corresponds to the `id_documents_verification_methods_supported`
      * metadata defined in "OpenID Connect for Identity Assurance 1.0".
      *
-     * @return string[]
+     * @return string[]|null
      *     Supported verification methods.
      *
      * @see https://openid.net/specs/openid-connect-4-identity-assurance-1_0.html OpenID Connect for Identity Assurance 1.0
@@ -4104,7 +4104,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      *
      * @since 1.8
      */
-    public function setSupportedVerificationMethods(array $methods = null): Service
+    public function setSupportedVerificationMethods(?array $methods = null): Service
     {
         ValidationUtility::ensureNullOrArrayOfString('$methods', $methods);
 
@@ -4120,7 +4120,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      * This property corresponds to the `claims_in_verified_claims_supported`
      * metadata defined in "OpenID Connect for Identity Assurance 1.0".
      *
-     * @return string[]
+     * @return string[]|null
      *     Supported verified claims.
      *
      * @see https://openid.net/specs/openid-connect-4-identity-assurance-1_0.html OpenID Connect for Identity Assurance 1.0
@@ -4149,7 +4149,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      *
      * @since 1.8
      */
-    public function setSupportedVerifiedClaims(array $claims = null): Service
+    public function setSupportedVerifiedClaims(?array $claims = null): Service
     {
         ValidationUtility::ensureNullOrArrayOfString('$claims', $claims);
 
@@ -4196,7 +4196,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      *
      * @since 1.8
      */
-    public function setMissingClientIdAllowed(bool $allowed): Service
+    public function setMissingClientIdAllowed(mixed $allowed): Service
     {
         ValidationUtility::ensureBoolean('$allowed', $allowed);
 
@@ -4239,7 +4239,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      *
      * @since 1.8
      */
-    public function setParRequired(bool $required): Service
+    public function setParRequired(mixed $required): Service
     {
         ValidationUtility::ensureBoolean('$required', $required);
 
@@ -4288,7 +4288,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      *
      * @since 1.9
      */
-    public function setRequestObjectRequired(bool $required): Service
+    public function setRequestObjectRequired(mixed $required): Service
     {
         ValidationUtility::ensureBoolean('$required', $required);
 
@@ -4355,7 +4355,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      *
      * @since 1.9
      */
-    public function setTraditionalRequestObjectProcessingApplied(bool $applied): Service
+    public function setTraditionalRequestObjectProcessingApplied(mixed $applied): Service
     {
         ValidationUtility::ensureBoolean('$applied', $applied);
 
@@ -4410,7 +4410,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      *
      * @since 1.9
      */
-    public function setClaimShortcutRestrictive(bool $restrictive): Service
+    public function setClaimShortcutRestrictive(mixed $restrictive): Service
     {
         ValidationUtility::ensureBoolean('$restrictive', $restrictive);
 
@@ -4460,7 +4460,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      *
      * @since 1.9
      */
-    public function setScopeRequired(bool $required): Service
+    public function setScopeRequired(mixed $required): Service
     {
         ValidationUtility::ensureBoolean('$required', $required);
 
@@ -4526,7 +4526,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      *
      * @since 1.10
      */
-    public function setNbfOptional($optional)
+    public function setNbfOptional(mixed $optional): Service
     {
         ValidationUtility::ensureBoolean('$optional', $optional);
 
@@ -4583,7 +4583,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      *
      * @since 1.10
      */
-    public function setIssSuppressed(bool $suppressed): Service
+    public function setIssSuppressed(mixed $suppressed): Service
     {
         ValidationUtility::ensureBoolean('$suppressed', $suppressed);
 
@@ -4601,7 +4601,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      * @param array $array
      *     {@inheritdoc}
      */
-    public function copyToArray(array &$array)
+    public function copyToArray(array &$array): void
     {
         $array['serviceName']                                 = $this->serviceName;
         $array['apiKey']                                      = $this->apiKey;
@@ -4717,7 +4717,7 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
      * @param array $array
      *     {@inheritdoc}
      */
-    public function copyFromArray(array &$array)
+    public function copyFromArray(array &$array): void
     {
         // serviceName
         $this->setServiceName(

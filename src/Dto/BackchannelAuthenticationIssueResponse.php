@@ -104,7 +104,7 @@ use Authlete\Util\ValidationUtility;
  */
 class BackchannelAuthenticationIssueResponse extends ApiResponse
 {
-    private ?BackchannelAuthenticationIssueAction $action = null;  // \Authlete\Dto\BackchannelAuthenticationIssueAction
+    private ?string $action                               = null;  // \Authlete\Dto\BackchannelAuthenticationIssueAction
     private ?string $responseContent                      = null;
     private ?string $authReqId                            = null;
     private string|int|null $expiresIn                    = null;
@@ -119,7 +119,7 @@ class BackchannelAuthenticationIssueResponse extends ApiResponse
      */
     public function getAction(): ?BackchannelAuthenticationIssueAction
     {
-        return $this->action;
+        return BackchannelAuthenticationIssueAction::valueOf($this->action);
     }
 
 
@@ -134,7 +134,7 @@ class BackchannelAuthenticationIssueResponse extends ApiResponse
      */
     public function setAction(BackchannelAuthenticationIssueAction $action = null): BackchannelAuthenticationIssueResponse
     {
-        $this->action = $action;
+        $this->action = $action->value;
 
         return $this;
     }

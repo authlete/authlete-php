@@ -47,7 +47,7 @@ class AuthorizationFailRequest implements ArrayCopyable, Arrayable, Jsonable
 
 
     private ?string $ticket                  = null;
-    private ?AuthorizationFailReason $reason = null;
+    private ?string $reason                  = null; //AuthorizationFailReason
     private ?string $description             = null;
 
 
@@ -97,7 +97,7 @@ class AuthorizationFailRequest implements ArrayCopyable, Arrayable, Jsonable
      */
     public function getReason(): ?AuthorizationFailReason
     {
-        return $this->reason;
+        return AuthorizationFailReason::valueOf($this->reason);
     }
 
 
@@ -113,7 +113,7 @@ class AuthorizationFailRequest implements ArrayCopyable, Arrayable, Jsonable
      */
     public function setReason(AuthorizationFailReason $reason = null): AuthorizationFailRequest
     {
-        $this->reason = $reason;
+        $this->reason = $reason->value;
 
         return $this;
     }

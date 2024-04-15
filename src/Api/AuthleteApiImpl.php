@@ -98,55 +98,55 @@ class AuthleteApiImpl implements AuthleteApi
 {
     // The string used as the value of 'User-Agent'. This string should
     // be updated on every release of a new version of this library.
-    private static $USER_AGENT = 'authlete-php/1.12.0';
+    private static string $USER_AGENT = 'authlete-php/1.12.0';
 
-    private static $AUTH_AUTHORIZATION_API_PATH            = '/api/auth/authorization';
-    private static $AUTH_AUTHORIZATION_FAIL_API_PATH       = '/api/auth/authorization/fail';
-    private static $AUTH_AUTHORIZATION_ISSUE_API_PATH      = '/api/auth/authorization/issue';
-    private static $AUTH_TOKEN_API_PATH                    = '/api/auth/token';
-    private static $AUTH_TOKEN_CREATE_API_PATH             = '/api/auth/token/create';
-    private static $AUTH_TOKEN_DELETE_API_PATH             = '/api/auth/token/delete/';            // + {token}
-    private static $AUTH_TOKEN_FAIL_API_PATH               = '/api/auth/token/fail';
-    private static $AUTH_TOKEN_ISSUE_API_PATH              = '/api/auth/token/issue';
-    private static $AUTH_TOKEN_UPDATE_API_PATH             = '/api/auth/token/update';
-    private static $AUTH_REVOCATION_API_PATH               = '/api/auth/revocation';
-    private static $AUTH_USERINFO_API_PATH                 = '/api/auth/userinfo';
-    private static $AUTH_USERINFO_ISSUE_API_PATH           = '/api/auth/userinfo/issue';
-    private static $AUTH_INTROSPECTION_API_PATH            = '/api/auth/introspection';
-    private static $AUTH_INTROSPECTION_STANDARD_API_PATH   = '/api/auth/introspection/standard';
-    private static $SERVICE_CONFIGURATION_API_PATH         = '/api/service/configuration';
-    private static $SERVICE_CREATE_API_PATH                = '/api/service/create';
-    private static $SERVICE_DELETE_API_PATH                = '/api/service/delete/';               // + {apiKey}
-    private static $SERVICE_GET_API_PATH                   = '/api/service/get/';                  // + {apiKey}
-    private static $SERVICE_GET_LIST_API_PATH              = '/api/service/get/list';
-    private static $SERVICE_JWKS_GET_API_PATH              = '/api/service/jwks/get';
-    private static $SERVICE_UPDATE_API_PATH                = '/api/service/update/';               // + {apiKey}
-    private static $CLIENT_CREATE_API_PATH                 = '/api/client/create';
-    private static $CLIENT_DELETE_API_PATH                 = '/api/client/delete/';                // + {clientId}
-    private static $CLIENT_GET_API_PATH                    = '/api/client/get/';                   // + {clientId}
-    private static $CLIENT_GET_LIST_API_PATH               = '/api/client/get/list';
-    private static $CLIENT_SECRET_REFRESH_API_PATH         = '/api/client/secret/refresh/';        // + {clientId}
-    private static $CLIENT_SECRET_UPDATE_API_PATH          = '/api/client/secret/update/';         // + {clientId}
-    private static $CLIENT_UPDATE_API_PATH                 = '/api/client/update/';                // + {clientId}
-    private static $GRANTED_SCOPES_GET_API_PATH            = '/api/client/granted_scopes/get/';    // + {clientId}
-    private static $GRANTED_SCOPES_DELETE_API_PATH         = '/api/client/granted_scopes/delete/'; // + {clientId}
-    private static $CLIENT_AUTHORIZATION_DELETE_API_PATH   = '/api/client/authorization/delete/';  // + {clientId}
-    private static $CLIENT_AUTHORIZATION_GET_LIST_API_PATH = '/api/client/authorization/get/list';
-    private static $CLIENT_AUTHORIZATION_UPDATE_API_PATH   = '/api/client/authorization/update/';  // + {clientId}
-    private static $BC_AUTHENTICATION_API_PATH             = '/api/backchannel/authentication';
-    private static $BC_AUTHENTICATION_COMPLETE_API_PATH    = '/api/backchannel/authentication/complete';
-    private static $BC_AUTHENTICATION_FAIL_API_PATH        = '/api/backchannel/authentication/fail';
-    private static $BC_AUTHENTICATION_ISSUE_API_PATH       = '/api/backchannel/authentication/issue';
-    private static $DEVICE_AUTHORIZATION_API_PATH          = '/api/device/authorization';
-    private static $DEVICE_COMPLETE_API_PATH               = '/api/device/complete';
-    private static $DEVICE_VERIFICATION_API_PATH           = '/api/device/verification';
-    private static $PUSHED_AUTH_REQ_API_PATH               = '/api/pushed_auth_req';
+    private static string $AUTH_AUTHORIZATION_API_PATH            = '/api/auth/authorization';
+    private static string $AUTH_AUTHORIZATION_FAIL_API_PATH       = '/api/auth/authorization/fail';
+    private static string $AUTH_AUTHORIZATION_ISSUE_API_PATH      = '/api/auth/authorization/issue';
+    private static string $AUTH_TOKEN_API_PATH                    = '/api/auth/token';
+    private static string $AUTH_TOKEN_CREATE_API_PATH             = '/api/auth/token/create';
+    private static string $AUTH_TOKEN_DELETE_API_PATH             = '/api/auth/token/delete/';            // + {token}
+    private static string $AUTH_TOKEN_FAIL_API_PATH               = '/api/auth/token/fail';
+    private static string $AUTH_TOKEN_ISSUE_API_PATH              = '/api/auth/token/issue';
+    private static string $AUTH_TOKEN_UPDATE_API_PATH             = '/api/auth/token/update';
+    private static string $AUTH_REVOCATION_API_PATH               = '/api/auth/revocation';
+    private static string $AUTH_USERINFO_API_PATH                 = '/api/auth/userinfo';
+    private static string $AUTH_USERINFO_ISSUE_API_PATH           = '/api/auth/userinfo/issue';
+    private static string $AUTH_INTROSPECTION_API_PATH            = '/api/auth/introspection';
+    private static string $AUTH_INTROSPECTION_STANDARD_API_PATH   = '/api/auth/introspection/standard';
+    private static string $SERVICE_CONFIGURATION_API_PATH         = '/api/service/configuration';
+    private static string $SERVICE_CREATE_API_PATH                = '/api/service/create';
+    private static string $SERVICE_DELETE_API_PATH                = '/api/service/delete/';               // + {apiKey}
+    private static string $SERVICE_GET_API_PATH                   = '/api/service/get/';                  // + {apiKey}
+    private static string $SERVICE_GET_LIST_API_PATH              = '/api/service/get/list';
+    private static string $SERVICE_JWKS_GET_API_PATH              = '/api/service/jwks/get';
+    private static string $SERVICE_UPDATE_API_PATH                = '/api/service/update/';               // + {apiKey}
+    private static string $CLIENT_CREATE_API_PATH                 = '/api/client/create';
+    private static string $CLIENT_DELETE_API_PATH                 = '/api/client/delete/';                // + {clientId}
+    private static string $CLIENT_GET_API_PATH                    = '/api/client/get/';                   // + {clientId}
+    private static string $CLIENT_GET_LIST_API_PATH               = '/api/client/get/list';
+    private static string $CLIENT_SECRET_REFRESH_API_PATH         = '/api/client/secret/refresh/';        // + {clientId}
+    private static string $CLIENT_SECRET_UPDATE_API_PATH          = '/api/client/secret/update/';         // + {clientId}
+    private static string $CLIENT_UPDATE_API_PATH                 = '/api/client/update/';                // + {clientId}
+    private static string $GRANTED_SCOPES_GET_API_PATH            = '/api/client/granted_scopes/get/';    // + {clientId}
+    private static string $GRANTED_SCOPES_DELETE_API_PATH         = '/api/client/granted_scopes/delete/'; // + {clientId}
+    private static string $CLIENT_AUTHORIZATION_DELETE_API_PATH   = '/api/client/authorization/delete/';  // + {clientId}
+    private static string $CLIENT_AUTHORIZATION_GET_LIST_API_PATH = '/api/client/authorization/get/list';
+    private static string $CLIENT_AUTHORIZATION_UPDATE_API_PATH   = '/api/client/authorization/update/';  // + {clientId}
+    private static string $BC_AUTHENTICATION_API_PATH             = '/api/backchannel/authentication';
+    private static string $BC_AUTHENTICATION_COMPLETE_API_PATH    = '/api/backchannel/authentication/complete';
+    private static string $BC_AUTHENTICATION_FAIL_API_PATH        = '/api/backchannel/authentication/fail';
+    private static string $BC_AUTHENTICATION_ISSUE_API_PATH       = '/api/backchannel/authentication/issue';
+    private static string $DEVICE_AUTHORIZATION_API_PATH          = '/api/device/authorization';
+    private static string $DEVICE_COMPLETE_API_PATH               = '/api/device/complete';
+    private static string $DEVICE_VERIFICATION_API_PATH           = '/api/device/verification';
+    private static string $PUSHED_AUTH_REQ_API_PATH               = '/api/pushed_auth_req';
 
 
-    private $serviceOwnerCredentials = null;  // \Authlete\Web\BasicCredentials
-    private $serviceCredentials      = null;  // \Authlete\Web\BasicCredentials
-    private $baseUrl                 = null;  // string
-    private $settings                = null;  // \Authlete\Api\SettingsImpl
+    private ?BasicCredentials $serviceOwnerCredentials;
+    private ?BasicCredentials $serviceCredentials;
+    private ?string $baseUrl;
+    private ?SettingsImpl $settings;
 
 
     /**
@@ -164,7 +164,7 @@ class AuthleteApiImpl implements AuthleteApi
     }
 
 
-    private static function createServiceOwnerCredentials(AuthleteConfiguration $configuration)
+    private static function createServiceOwnerCredentials(AuthleteConfiguration $configuration): BasicCredentials
     {
         // API key and API secret of a service owner.
         $apiKey    = $configuration->getServiceOwnerApiKey();
@@ -174,7 +174,7 @@ class AuthleteApiImpl implements AuthleteApi
     }
 
 
-    private static function createServiceCredentials(AuthleteConfiguration $configuration)
+    private static function createServiceCredentials(AuthleteConfiguration $configuration): BasicCredentials
     {
         // API key and API secret of a service.
         $apiKey    = $configuration->getServiceApiKey();
@@ -184,7 +184,7 @@ class AuthleteApiImpl implements AuthleteApi
     }
 
 
-    private static function createBaseUrl(AuthleteConfiguration $configuration)
+    private static function createBaseUrl(AuthleteConfiguration $configuration): string
     {
         $url = $configuration->getBaseUrl();
 

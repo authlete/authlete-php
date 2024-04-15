@@ -44,7 +44,7 @@ enum UserInfoIssueAction: string implements Valuable
      * implementation should return `500 Internal Server Error` to the client
      * application.
      */
-    case INTERNAL_SERVER_ERROR = 'internal_server_error';
+    case INTERNAL_SERVER_ERROR = 'INTERNAL_SERVER_ERROR';
 
 
     /**
@@ -54,7 +54,7 @@ enum UserInfoIssueAction: string implements Valuable
      * implementation should return `400 Bad Request` to the client
      * application.
      */
-    case BAD_REQUEST = 'bad_request';
+    case BAD_REQUEST = 'BAD_REQUEST';
 
 
     /**
@@ -64,7 +64,7 @@ enum UserInfoIssueAction: string implements Valuable
      * implementation should return `401 Unauthorized` to the client
      * application.
      */
-    case UNAUTHORIZED = 'unauthorized';
+    case UNAUTHORIZED = 'UNAUTHORIZED';
 
 
     /**
@@ -74,7 +74,7 @@ enum UserInfoIssueAction: string implements Valuable
      * The [userinfo endpoint](https://openid.net/specs/openid-connect-core-1_0.html#UserInfo)
      * implementation should return `403 Forbidden` to the client application.
      */
-    case FORBIDDEN = 'forbidden';
+    case FORBIDDEN = 'FORBIDDEN';
 
 
     /**
@@ -85,7 +85,7 @@ enum UserInfoIssueAction: string implements Valuable
      * implementation should return `200 OK` to the client application with
      * the content type `application/json;charset=UTF-8`.
      */
-    case JSON = 'json';
+    case JSON = 'JSON';
 
 
     /**
@@ -96,6 +96,6 @@ enum UserInfoIssueAction: string implements Valuable
      * implementation should return `200 OK` to the client application with
      * the content type `application/jwt`.
      */
-    case JWT = 'jwt';
+    case JWT = 'JWT';
 }
 

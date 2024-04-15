@@ -36,7 +36,7 @@ use Authlete\Util\ValidationUtility;
  */
 class BackchannelAuthenticationFailResponse extends ApiResponse
 {
-    private ?BackchannelAuthenticationFailAction $action = null;  // \Authlete\Dto\BackchannelAuthenticationFailAction
+    private ?string $action          = null;  // \Authlete\Dto\BackchannelAuthenticationFailAction
     private ?string $responseContent = null;  // string
 
 
@@ -50,7 +50,7 @@ class BackchannelAuthenticationFailResponse extends ApiResponse
      */
     public function getAction(): ?BackchannelAuthenticationFailAction
     {
-        return $this->action;
+        return BackchannelAuthenticationFailAction::valueOf($this->action);
     }
 
 
@@ -67,7 +67,7 @@ class BackchannelAuthenticationFailResponse extends ApiResponse
      */
     public function setAction(BackchannelAuthenticationFailAction $action = null): BackchannelAuthenticationFailResponse
     {
-        $this->action = $action;
+        $this->action = $action->value;
 
         return $this;
     }

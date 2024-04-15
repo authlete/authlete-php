@@ -44,7 +44,7 @@ enum DeliveryMode: string implements Valuable
      * Poll mode, a backchannel token delivery mode where a client polls
      * the token endpoint until it gets tokens.
      */
-    case POLL = 'poll';
+    case POLL = 'POLL';
 
 
     /**
@@ -52,13 +52,13 @@ enum DeliveryMode: string implements Valuable
      * notified via its client notification endpoint and then gets tokens
      * from the token endpoint.
      */
-    case PING = 'ping';
+    case PING = 'PING';
 
 
     /**
      * Push mode, a backchannel token delivery mode where a client receives
      * tokens at its client notification endpoint.
      */
-    case PUSH = 'push';
+    case PUSH = 'PUSH';
 }
 

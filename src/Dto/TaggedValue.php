@@ -90,7 +90,7 @@ class TaggedValue implements ArrayCopyable, Arrayable, Jsonable
      * @return TaggedValue
      *     `$this` object.
      */
-    public function setTag(string $tag): TaggedValue
+    public function setTag(mixed $tag): TaggedValue
     {
         ValidationUtility::ensureNullOrString('$tag', $tag);
 
@@ -121,7 +121,7 @@ class TaggedValue implements ArrayCopyable, Arrayable, Jsonable
      * @return TaggedValue
      *     `$this` object.
      */
-    public function setValue(string $value): TaggedValue
+    public function setValue(mixed $value): TaggedValue
     {
         ValidationUtility::ensureNullOrString('$value', $value);
 

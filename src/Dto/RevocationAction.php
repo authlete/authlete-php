@@ -43,7 +43,7 @@ enum RevocationAction: string implements Valuable
      * The authorization server implementation should return either
      * `400 Bad Request` or `401 Unauthorized` to the client application.
      */
-    case INVALID_CLIENT = 'invalid_client';
+    case INVALID_CLIENT = 'INVALID_CLIENT';
 
 
     /**
@@ -53,7 +53,7 @@ enum RevocationAction: string implements Valuable
      * The authorization server implementation should return
      * `500 Internal Server Error` to the client application.
      */
-    case INTERNAL_SERVER_ERROR = 'internal_server_error';
+    case INTERNAL_SERVER_ERROR = 'INTERNAL_SERVER_ERROR';
 
 
     /**
@@ -62,7 +62,7 @@ enum RevocationAction: string implements Valuable
      * The authorization server implementation should return
      * `400 Bad Request` to the client application.
      */
-    case BAD_REQUEST = 'bad_request';
+    case BAD_REQUEST = 'BAD_REQUEST';
 
 
     /**
@@ -71,6 +71,6 @@ enum RevocationAction: string implements Valuable
      * The authorization server implementation should return `200 OK` to
      * the client application.
      */
-    case OK = 'ok';
+    case OK = 'OK';
 }
 

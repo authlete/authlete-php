@@ -43,13 +43,13 @@ enum BackchannelAuthenticationCompleteResult: string implements Valuable
      * The end-user was authenticated and has granted authorization to the
      * client application.
      */
-    case AUTHORIZED = 'authorized';
+    case AUTHORIZED = 'AUTHORIZED';
 
 
     /**
      * The end-user denied the backchannel authentication request.
      */
-    case ACCESS_DENIED = 'access_denied';
+    case ACCESS_DENIED = 'ACCESS_DENIED';
 
 
     /**
@@ -63,6 +63,6 @@ enum BackchannelAuthenticationCompleteResult: string implements Valuable
      *
      * This result can be used as a generic error.
      */
-    case TRANSACTION_FAILED = 'transaction_failed';
+    case TRANSACTION_FAILED = 'TRANSACTION_FAILED';
 }
 

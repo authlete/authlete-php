@@ -60,13 +60,13 @@ trait JsonTrait
      * If `$json` is `null` or the type of `$json` is not `string`,
      * `null` is returned.
      *
-     * @param string $json
+     * @param string|null $json
      *     A JSON string.
      *
      * @return static
      *     An instance of this class.
      */
-    public static function fromJson(string $json): static
+    public static function fromJson(?string $json): static
     {
         return LanguageUtility::convertJsonToArrayCopyable($json, get_called_class());
     }

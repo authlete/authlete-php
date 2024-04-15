@@ -33,7 +33,10 @@ namespace Authlete\Types;
  */
 trait EnumTrait
 {
-    public static function valueOf(string $value): ?static {
+    public static function valueOf(?string $value): ?static {
+        if (is_null($value)){
+            return null;
+        }
         $class = get_called_class();
         foreach (static::cases() as $case) {
             if ($case->value === $value) {

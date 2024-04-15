@@ -44,7 +44,7 @@ enum Display: string implements Valuable
      * consent UI consistent with a full User Agent page view. If the
      * `display` parameter is not specified, this is the display mode.
      */
-    case PAGE = 'page';
+    case PAGE = 'PAGE';
 
 
     /**
@@ -54,7 +54,7 @@ enum Display: string implements Valuable
      * login-focused dialog and should not obscure the entire window
      * that it is popping up over.
      */
-    case POPUP = 'popup';
+    case POPUP = 'POPUP';
 
 
     /**
@@ -62,13 +62,13 @@ enum Display: string implements Valuable
      * consent UI consistent with a device that leverages a touch
      * interface.
      */
-    case TOUCH = 'touch';
+    case TOUCH = 'TOUCH';
 
 
     /**
      * The Authorization Server SHOULD display the authentication and
      * consent UI consistent with a "feature phone" type display.
      */
-    case WAP = 'wap';
+    case WAP = 'WAP';
 }
 

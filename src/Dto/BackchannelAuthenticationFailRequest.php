@@ -50,7 +50,7 @@ class BackchannelAuthenticationFailRequest implements ArrayCopyable, Arrayable, 
     use JsonTrait;
 
 
-    private ?BackchannelAuthenticationFailReason $reason = null;
+    private ?string $reason                              = null; //BackchannelAuthenticationFailReason
     private ?string $ticket                              = null;
     private ?string $errorDescription                    = null;
     private ?string $errorUri                            = null;
@@ -103,7 +103,7 @@ class BackchannelAuthenticationFailRequest implements ArrayCopyable, Arrayable, 
      */
     public function getReason(): ?BackchannelAuthenticationFailReason
     {
-        return $this->reason;
+        return BackchannelAuthenticationFailReason::valueOf($this->reason);
     }
 
 
@@ -122,7 +122,7 @@ class BackchannelAuthenticationFailRequest implements ArrayCopyable, Arrayable, 
      */
     public function setReason(BackchannelAuthenticationFailReason $reason = null): BackchannelAuthenticationFailRequest
     {
-        $this->reason = $reason;
+        $this->reason = $reason->value;
 
         return $this;
     }

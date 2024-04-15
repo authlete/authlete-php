@@ -79,7 +79,7 @@ class AuthorizationRequest implements ArrayCopyable, Arrayable, Jsonable
      * @return AuthorizationRequest
      *     `$this` object
      */
-    public function setParameters(string $parameters): AuthorizationRequest
+    public function setParameters(mixed $parameters): AuthorizationRequest
     {
         ValidationUtility::ensureNullOrString('$parameters', $parameters);
 

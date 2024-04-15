@@ -25,8 +25,6 @@
 namespace Authlete\Types;
 
 
-use Authlete\Util\LanguageUtility;
-
 
 /**
  * Values for the "prompt" request parameter defined in
@@ -50,7 +48,7 @@ enum Prompt: string implements Valuable
      * This can be used as a method to check for existing authentication
      * and/or consent.
      */
-    case NONE = 'none';
+    case NONE = 'NONE';
 
 
     /**
@@ -58,7 +56,7 @@ enum Prompt: string implements Valuable
      * reauthentication. If it cannot reauthenticate the End-User, it
      * MUST return an error, typically `login_required`.
      */
-    case LOGIN = 'login';
+    case LOGIN = 'LOGIN';
 
 
     /**
@@ -66,7 +64,7 @@ enum Prompt: string implements Valuable
      * before returning information to the Client. If it cannot obtain
      * consent, it MUST return an error, typically `consent_required`.
      */
-    case CONSENT = 'consent';
+    case CONSENT = 'CONSENT';
 
 
     /**
@@ -78,5 +76,5 @@ enum Prompt: string implements Valuable
      * End-User, it MUST return an error, typically
      * `account_selection_required`.
      */
-    case SELECT_ACCOUNT = 'select_account';
+    case SELECT_ACCOUNT = 'SELECT_ACCOUNT';
 }

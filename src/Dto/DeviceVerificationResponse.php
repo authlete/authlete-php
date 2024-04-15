@@ -72,7 +72,7 @@ use Authlete\Util\ValidationUtility;
  */
 class DeviceVerificationResponse extends ApiResponse
 {
-    private ?DeviceVerificationAction $action = null;
+    private ?string $action                   = null;  // DeviceVerificationAction
     private string|int|null $clientId         = null;
     private ?string $clientIdAlias            = null;
     private bool $clientIdAliasUsed           = false;
@@ -92,7 +92,7 @@ class DeviceVerificationResponse extends ApiResponse
      */
     public function getAction(): ?DeviceVerificationAction
     {
-        return $this->action;
+        return DeviceVerificationAction::valueOf($this->action);
     }
 
 
@@ -107,7 +107,7 @@ class DeviceVerificationResponse extends ApiResponse
      */
     public function setAction(DeviceVerificationAction $action = null): DeviceVerificationResponse
     {
-        $this->action = $action;
+        $this->action = $action->value;
 
         return $this;
     }

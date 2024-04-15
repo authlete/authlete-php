@@ -44,7 +44,7 @@ enum ClientAuthMethod: string implements Valuable
      * implicit flow or because the client type of the client is
      * "public".
      */
-    case NONE = 'none';
+    case NONE = 'NONE';
 
 
     /**
@@ -53,7 +53,7 @@ enum ClientAuthMethod: string implements Valuable
      *
      * @see https://tools.ietf.org/html/rfc6749#section-3.2.1 RFC 6749, 3.2.1. Client Authentication
      */
-    case CLIENT_SECRET_BASIC = 'client_secret_basic';
+    case CLIENT_SECRET_BASIC = 'CLIENT_SECRET_BASIC';
 
 
     /**
@@ -63,7 +63,7 @@ enum ClientAuthMethod: string implements Valuable
      *
      * @see https://tools.ietf.org/html/rfc6749#section-3.2.1 RFC 6749, 3.2.1. Client Authentication
      */
-    case CLIENT_SECRET_POST = 'client_secret_post';
+    case CLIENT_SECRET_POST = 'CLIENT_SECRET_POST';
 
 
     /**
@@ -72,7 +72,7 @@ enum ClientAuthMethod: string implements Valuable
      *
      * @see https://tools.ietf.org/html/rfc7523 RFC 7523
      */
-    case CLIENT_SECRET_JWT = 'client_secret_jwt';
+    case CLIENT_SECRET_JWT = 'CLIENT_SECRET_JWT';
 
 
     /**
@@ -81,20 +81,20 @@ enum ClientAuthMethod: string implements Valuable
      *
      * @see https://tools.ietf.org/html/rfc7523 RFC 7523
      */
-    case PRIVATE_KEY_JWT = 'private_key_jwt';
+    case PRIVATE_KEY_JWT = 'PRIVATE_KEY_JWT';
 
 
     /**
      * Client authentication using X.509 certificates as defined in
      * "Mutual TLS Profiles for OAuth Clients".
      */
-    case TLS_CLIENT_AUTH = 'tls_client_auth';
+    case TLS_CLIENT_AUTH = 'TLS_CLIENT_AUTH';
 
 
     /**
      * Client authentication using self-signed certificates as defined
      * in "Mutual TLS Profiles for OAuth Clients".
      */
-    case SELF_SIGNED_TLS_CLIENT_AUTH = 'self_signed_tls_client_auth';
+    case SELF_SIGNED_TLS_CLIENT_AUTH = 'SELF_SIGNED_TLS_CLIENT_AUTH';
 }
 

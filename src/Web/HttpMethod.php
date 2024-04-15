@@ -26,6 +26,7 @@ namespace Authlete\Web;
 
 
 use Authlete\Types\EnumTrait;
+use Authlete\Types\Valuable;
 use Authlete\Util\LanguageUtility;
 
 
@@ -35,8 +36,9 @@ use Authlete\Util\LanguageUtility;
  *
  * @see https://tools.ietf.org/html/rfc7231#section-4.3 RFC 7231 (HTTP/1.1), 4.3. Method Definitions
  */
-enum HttpMethod
+enum HttpMethod: string implements Valuable
 {
+    use EnumTrait;
 
 
     /**
@@ -45,7 +47,7 @@ enum HttpMethod
      * @var HttpMethod
      * @see https://tools.ietf.org/html/rfc7231#section-4.3.1 RFC 7231, 4.3.1. GET
      */
-    case GET;
+    case GET = "GET";
 
 
     /**
@@ -54,7 +56,7 @@ enum HttpMethod
      * @var HttpMethod
      * @see https://tools.ietf.org/html/rfc7231#section-4.3.2 RFC 7231, 4.3.2. HEAD
      */
-    case HEAD;
+    case HEAD = "HEAD";
 
 
     /**
@@ -63,7 +65,7 @@ enum HttpMethod
      * @var HttpMethod
      * @see https://tools.ietf.org/html/rfc7231#section-4.3.3 RFC 7231, 4.3.3. POST
      */
-    case POST;
+    case POST = "POST";
 
 
     /**
@@ -72,7 +74,7 @@ enum HttpMethod
      * @var HttpMethod
      * @see https://tools.ietf.org/html/rfc7231#section-4.3.4 RFC 7231, 4.3.4. PUT
      */
-    case PUT;
+    case PUT = "PUT";
 
 
     /**
@@ -81,7 +83,7 @@ enum HttpMethod
      * @var HttpMethod
      * @see https://tools.ietf.org/html/rfc7231#section-4.3.5 RFC 7231, 4.3.5. DELETE
      */
-    case DELETE;
+    case DELETE = "DELETE";
 
 
     /**
@@ -90,7 +92,7 @@ enum HttpMethod
      * @var HttpMethod
      * @see https://tools.ietf.org/html/rfc7231#section-4.3.6 RFC 7231, 4.3.6. CONNECT
      */
-    case CONNECT;
+    case CONNECT = "CONNECT";
 
 
     /**
@@ -99,7 +101,7 @@ enum HttpMethod
      * @var HttpMethod
      * @see https://tools.ietf.org/html/rfc7231#section-4.3.7 RFC 7231, 4.3.7. OPTIONS
      */
-    case OPTIONS;
+    case OPTIONS = "OPTIONS";
 
 
     /**
@@ -108,5 +110,5 @@ enum HttpMethod
      * @var HttpMethod
      * @see https://tools.ietf.org/html/rfc7231#section-4.3.8 RFC 7231, 4.3.8. TRACE
      */
-    case TRACE;
+    case TRACE = "TRACE";
 }

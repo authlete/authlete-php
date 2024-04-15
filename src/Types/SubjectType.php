@@ -44,7 +44,7 @@ enum SubjectType: string implements Valuable
      * It is the default if the provider has no "subject_types_supported"
      * element in its discovery document.
      */
-    case PUBLIC = 'public';
+    case PUBLIC = 'PUBLIC';
 
 
     /**
@@ -52,5 +52,5 @@ enum SubjectType: string implements Valuable
      * so as not to enable Clients to correlate the End-User's activities
      * without permission.
      */
-    case PAIRWISE = 'pairwise';
+    case PAIRWISE = 'PAIRWISE';
 }

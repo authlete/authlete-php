@@ -44,7 +44,7 @@ enum JWEEnc: string implements Valuable
      *
      * @see https://tools.ietf.org/html/rfc7518#section-5.2.3 RFC 7518, 5.2.3. AES_128_CBC_HMAC_SHA_256
      */
-    case A128CBC_HS256 = 'a128cbc_hs256';
+    case A128CBC_HS256 = 'A128CBC_HS256';
 
 
     /**
@@ -52,7 +52,7 @@ enum JWEEnc: string implements Valuable
      *
      * @see https://tools.ietf.org/html/rfc7518#section-5.2.4 RFC 7518, 5.2.4. AES_192_CBC_HMAC_SHA_384
      */
-    case A192CBC_HS384 = 'a192cbc_hs384';
+    case A192CBC_HS384 = 'A192CBC_HS384';
 
 
     /**
@@ -60,23 +60,23 @@ enum JWEEnc: string implements Valuable
      *
      * @see https://tools.ietf.org/html/rfc7518#section-5.2.5 RFC 7518, 5.2.5. AES_256_CBC_HMAC_SHA_512
      */
-    case A256CBC_HS512 = 'a256cbc_hs512';
+    case A256CBC_HS512 = 'A256CBC_HS512';
 
 
     /**
      * AES GCM using 128 bit key.
      */
-    case A128GCM = 'a128gcm';
+    case A128GCM = 'A128GCM';
 
 
     /**
      * AES GCM using 192 bit key.
      */
-    case A192GCM = 'a192gcm';
+    case A192GCM = 'A192GCM';
 
 
     /**
      * AES GCM using 256 bit key.
      */
-    case A256GCM = 'a256gcm';
+    case A256GCM = 'A256GCM';
 }

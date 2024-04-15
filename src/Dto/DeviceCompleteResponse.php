@@ -78,7 +78,7 @@ use Authlete\Util\LanguageUtility;
  */
 class DeviceCompleteResponse extends ApiResponse
 {
-    private ?DeviceCompleteAction $action = null;
+    private ?string $action = null;  // DeviceCompleteActions
 
 
     /**
@@ -89,7 +89,7 @@ class DeviceCompleteResponse extends ApiResponse
      */
     public function getAction(): ?DeviceCompleteAction
     {
-        return $this->action;
+        return DeviceCompleteAction::valueOf($this->action);
     }
 
 
@@ -104,7 +104,7 @@ class DeviceCompleteResponse extends ApiResponse
      */
     public function setAction(DeviceCompleteAction $action = null): DeviceCompleteResponse
     {
-        $this->action = $action;
+        $this->action = $action->value;
 
         return $this;
     }

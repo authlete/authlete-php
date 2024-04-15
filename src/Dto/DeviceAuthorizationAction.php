@@ -46,7 +46,7 @@ enum DeviceAuthorizationAction: string implements Valuable
      * implementation should return a successful response with `200 OK` and
      * `application/json` to the client application.
      */
-    case OK = 'ok';
+    case OK = 'OK';
 
 
     /**
@@ -54,7 +54,7 @@ enum DeviceAuthorizationAction: string implements Valuable
      * implementation should return an error response with `400 Bad Request`
      * and `application/json` to the client application.
      */
-    case BAD_REQUEST = 'bad_request';
+    case BAD_REQUEST = 'BAD_REQUEST';
 
 
     /**
@@ -62,7 +62,7 @@ enum DeviceAuthorizationAction: string implements Valuable
      * The authorization server implementation should return an error response
      * with `401 Unauthorized` and `application/json` to the client application.
      */
-    case UNAUTHORIZED = 'unauthorized';
+    case UNAUTHORIZED = 'UNAUTHORIZED';
 
 
     /**
@@ -71,6 +71,6 @@ enum DeviceAuthorizationAction: string implements Valuable
      * implementation should return response with `500 Internal Server Error`
      * and `application/json` to the client application.
      */
-    case INTERNAL_SERVER_ERROR = 'internal_server_error';
+    case INTERNAL_SERVER_ERROR = 'INTERNAL_SERVER_ERROR';
 }
 

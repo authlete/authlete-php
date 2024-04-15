@@ -613,11 +613,11 @@ use Authlete\Util\ValidationUtility;
  */
 class AuthorizationResponse extends ApiResponse
 {
-    private ?AuthorizationAction $action   = null;
+    private ?string $action                = null; //AuthorizationAction
     private ?Service $service              = null;
     private ?Client $client                = null;
     private bool $clientIdAliasUsed        = false;
-    private ?Display $display              = null;
+    private ?string $display               = null;  // Display
     private string|int|null $maxAge        = null;
     private ?array $scopes                 = null;  // array of \Authlete\Dto\Scope
     private ?array $uiLocales              = null;  // array of string
@@ -647,7 +647,7 @@ class AuthorizationResponse extends ApiResponse
      */
     public function getAction(): ?AuthorizationAction
     {
-        return $this->action;
+        return AuthorizationAction::valueOf($this->action);
     }
 
 
@@ -664,7 +664,7 @@ class AuthorizationResponse extends ApiResponse
      */
     public function setAction(AuthorizationAction $action = null): AuthorizationResponse
     {
-        $this->action = $action;
+        $this->action = $action->value;
 
         return $this;
     }
@@ -759,7 +759,7 @@ class AuthorizationResponse extends ApiResponse
      *
      * @since 1.5
      */
-    public function setClientIdAliasUsed(bool $used): AuthorizationResponse
+    public function setClientIdAliasUsed(mixed $used): AuthorizationResponse
     {
         ValidationUtility::ensureBoolean('$used', $used);
 
@@ -781,7 +781,7 @@ class AuthorizationResponse extends ApiResponse
      */
     public function getDisplay(): ?Display
     {
-        return $this->display;
+        return Display::valueOf($this->display);
     }
 
 
@@ -797,7 +797,7 @@ class AuthorizationResponse extends ApiResponse
      */
     public function setDisplay(Display $display = null): AuthorizationResponse
     {
-        $this->display = $display;
+        $this->display = $display->value;
 
         return $this;
     }
@@ -841,7 +841,7 @@ class AuthorizationResponse extends ApiResponse
      * @return AuthorizationResponse
      *     `$this` object.
      */
-    public function setMaxAge(int|string $maxAge): AuthorizationResponse
+    public function setMaxAge(mixed $maxAge): AuthorizationResponse
     {
         ValidationUtility::ensureNullOrStringOrInteger('$maxAge', $maxAge);
 
@@ -1038,7 +1038,7 @@ class AuthorizationResponse extends ApiResponse
      * @return AuthorizationResponse
      *     `$this` object.
      */
-    public function setAcrEssential(bool $essential): AuthorizationResponse
+    public function setAcrEssential(mixed $essential): AuthorizationResponse
     {
         ValidationUtility::ensureBoolean('$essential', $essential);
 
@@ -1129,7 +1129,7 @@ class AuthorizationResponse extends ApiResponse
      * @return AuthorizationResponse
      *     `$this` object.
      */
-    public function setSubject(string $subject): AuthorizationResponse
+    public function setSubject(mixed $subject): AuthorizationResponse
     {
         ValidationUtility::ensureNullOrString('$subject', $subject);
 
@@ -1164,7 +1164,7 @@ class AuthorizationResponse extends ApiResponse
      * @return AuthorizationResponse
      *     `$this` object.
      */
-    public function setLoginHint(string $hint): AuthorizationResponse
+    public function setLoginHint(mixed $hint): AuthorizationResponse
     {
         ValidationUtility::ensureNullOrString('$hint', $hint);
 
@@ -1194,7 +1194,7 @@ class AuthorizationResponse extends ApiResponse
     /**
      * Set the list of prompts contained in the authorization request.
      *
-     * @param Prompt[] $prompts
+     * @param string[] $prompts
      *     The list of prompts requested by the client application.
      *
      * @return AuthorizationResponse
@@ -1203,7 +1203,7 @@ class AuthorizationResponse extends ApiResponse
     public function setPrompts(array $prompts = null): AuthorizationResponse
     {
         ValidationUtility::ensureNullOrArrayOfType(
-            '$prompts', '\Authlete\Types\Prompt', $prompts);
+            '$prompts','Authlete\Types\Prompt', $prompts);
 
         $this->prompts = $prompts;
 
@@ -1239,7 +1239,7 @@ class AuthorizationResponse extends ApiResponse
      *
      * @since 1.7
      */
-    public function setRequestObjectPayload(string $payload): AuthorizationResponse
+    public function setRequestObjectPayload(mixed $payload): AuthorizationResponse
     {
         ValidationUtility::ensureNullOrString('$payload', $payload);
 
@@ -1326,7 +1326,7 @@ class AuthorizationResponse extends ApiResponse
      *
      * @since 1.7
      */
-    public function setIdTokenClaims(string $claims): AuthorizationResponse
+    public function setIdTokenClaims(mixed $claims): AuthorizationResponse
     {
         ValidationUtility::ensureNullOrString('$claims', $claims);
 
@@ -1417,7 +1417,7 @@ class AuthorizationResponse extends ApiResponse
      *
      * @since 1.7
      */
-    public function setUserInfoClaims(string $claims): AuthorizationResponse
+    public function setUserInfoClaims(mixed $claims): AuthorizationResponse
     {
         ValidationUtility::ensureNullOrString('$claims', $claims);
 
@@ -1481,7 +1481,7 @@ class AuthorizationResponse extends ApiResponse
      *
      * @since 1.8
      */
-    public function setPurpose(string $purpose): AuthorizationResponse
+    public function setPurpose(mixed $purpose): AuthorizationResponse
     {
         ValidationUtility::ensureNullOrString('$purpose', $purpose);
 
@@ -1517,7 +1517,7 @@ class AuthorizationResponse extends ApiResponse
      * @return AuthorizationResponse
      *     `$this` object.
      */
-    public function setResponseContent(string $responseContent): AuthorizationResponse
+    public function setResponseContent(mixed $responseContent): AuthorizationResponse
     {
         ValidationUtility::ensureNullOrString('$responseContent', $responseContent);
 
@@ -1553,7 +1553,7 @@ class AuthorizationResponse extends ApiResponse
      * @return AuthorizationResponse
      *     `$this` object.
      */
-    public function setTicket(string $ticket): AuthorizationResponse
+    public function setTicket(mixed $ticket): AuthorizationResponse
     {
         ValidationUtility::ensureNullOrString('$ticket', $ticket);
 

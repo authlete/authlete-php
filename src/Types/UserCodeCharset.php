@@ -43,12 +43,12 @@ enum UserCodeCharset: string implements Valuable
     /**
      * "BCDFGHJKLMNPQRSTVWXZ", 20 upper-case non-vowel characters.
      */
-    case BASE20 = 'base20';
+    case BASE20 = 'BASE20';
 
 
     /**
      * "0123456789", 10 digit characters from '0' to '9'.
      */
-    case NUMERIC = 'numeric';
+    case NUMERIC = 'NUMERIC';
 }
 

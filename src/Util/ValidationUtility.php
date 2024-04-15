@@ -25,6 +25,8 @@
 namespace Authlete\Util;
 
 
+use InvalidArgumentException;
+
 /**
  * Validation utility.
  */
@@ -279,7 +281,7 @@ class ValidationUtility
      * @param array|null $array The value of the parameter, which should be null or an array. Passed by reference.
      * @param string $type The expected type of the elements in the given array. This should be a class name or interface.
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      *     `$array` is neither `null` nor a reference of an array.
      *     Or the array has one or more elements whose type is not
      *     the specified type.
@@ -291,10 +293,15 @@ class ValidationUtility
             return;
         }
 
-        foreach ($array as $element)
-        {
-            if (!($element instanceof $type))
-            {
+        foreach ($array as $element) {
+            if (is_string($element)) {
+                // Attempt to create an instance of the enum using the string value.
+                $enumInstance = LanguageUtility::enumValueOf($type, $element);
+
+                if (is_null($enumInstance)) {
+                    throw new \InvalidArgumentException("Parameter '{$name}' must be null or an array of instances of {$type}.");
+                }
+            } elseif (!($element instanceof $type)) {
                 throw new \InvalidArgumentException("Parameter '{$name}' must be null or an array of instances of {$type}.");
             }
         }

@@ -41,13 +41,13 @@ enum ApplicationType: string implements Valuable
     /**
      * Web client application.
      */
-    case WEB = 'web';
+    case WEB = 'WEB';
 
 
     /**
      * Native client application.
      */
-    case NATIVE = 'native';
+    case NATIVE = 'NATIVE';
 
 }
 

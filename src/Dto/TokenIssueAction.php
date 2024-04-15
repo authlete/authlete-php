@@ -45,7 +45,7 @@ enum TokenIssueAction: string implements Valuable
      * The token endpoint should return `500 Internal Server Error` to the
      * client application.
      */
-    case INTERNAL_SERVER_ERROR = 'internal_server_error';
+    case INTERNAL_SERVER_ERROR = 'INTERNAL_SERVER_ERROR';
 
 
     /**
@@ -55,6 +55,6 @@ enum TokenIssueAction: string implements Valuable
      * The token endpoint should return `200 OK` to the client application
      * with the access token.
      */
-    case OK = 'ok';
+    case OK = 'OK';
 }
 

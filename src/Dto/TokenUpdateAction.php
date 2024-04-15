@@ -42,7 +42,7 @@ enum TokenUpdateAction: string implements Valuable
     /**
      * An error occurred on Authlete side.
      */
-    case INTERNAL_SERVER_ERROR = 'internal_server_error';
+    case INTERNAL_SERVER_ERROR = 'INTERNAL_SERVER_ERROR';
 
 
     /**
@@ -51,7 +51,7 @@ enum TokenUpdateAction: string implements Valuable
      * For example, this happens when the `accessToken` request parameter was
      * missing.
      */
-    case BAD_REQUEST = 'bad_request';
+    case BAD_REQUEST = 'BAD_REQUEST';
 
 
     /**
@@ -61,17 +61,17 @@ enum TokenUpdateAction: string implements Valuable
      * `accessToken` request parameter does not belong to the service
      * identified by the API key used for the API call.
      */
-    case FORBIDDEN = 'forbidden';
+    case FORBIDDEN = 'FORBIDDEN';
 
 
     /**
      * The specified access token does not exist.
      */
-    case NOT_FOUND = 'not_found';
+    case NOT_FOUND = 'NOT_FOUND';
 
 
     /**
      * The access token was updated successfully.
      */
-    case OK = 'ok';
+    case OK = 'OK';
 }

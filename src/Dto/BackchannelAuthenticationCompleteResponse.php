@@ -119,13 +119,13 @@ use Authlete\Util\ValidationUtility;
  */
 class BackchannelAuthenticationCompleteResponse extends ApiResponse
 {
-    private ?BackchannelAuthenticationCompleteAction $action = null;
+    private ?string $action                                  = null;
     private ?string $responseContent                         = null;
     private string|int|null $clientId                        = null;
     private ?string $clientIdAlias                           = null;
     private bool $clientIdAliasUsed                          = false;
     private ?string $clientName                              = null;
-    private ?DeliveryMode $deliveryMode                      = null;
+    private ?string $deliveryMode                            = null; //DeliveryMode
     private ?string $clientNotificationEndpoint              = null;
     private ?string $clientNotificationToken                 = null;
     private ?string $authReqId                               = null;
@@ -147,7 +147,7 @@ class BackchannelAuthenticationCompleteResponse extends ApiResponse
      */
     public function getAction(): ?BackchannelAuthenticationCompleteAction
     {
-        return $this->action;
+        return BackchannelAuthenticationCompleteAction::valueOf($this->action);
     }
 
 
@@ -162,7 +162,7 @@ class BackchannelAuthenticationCompleteResponse extends ApiResponse
      */
     public function setAction(BackchannelAuthenticationCompleteAction $action = null): BackchannelAuthenticationCompleteResponse
     {
-        $this->action = $action;
+        $this->action = $action->value;
 
         return $this;
     }
@@ -347,7 +347,7 @@ class BackchannelAuthenticationCompleteResponse extends ApiResponse
      */
     public function getDeliveryMode(): ?DeliveryMode
     {
-        return $this->deliveryMode;
+        return DeliveryMode::valueOf($this->deliveryMode);
     }
 
 
@@ -362,7 +362,7 @@ class BackchannelAuthenticationCompleteResponse extends ApiResponse
      */
     public function setDeliveryMode(DeliveryMode $mode = null): BackchannelAuthenticationCompleteResponse
     {
-        $this->deliveryMode = $mode;
+        $this->deliveryMode = $mode->value;
 
         return $this;
     }

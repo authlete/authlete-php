@@ -40,18 +40,18 @@ enum UserIdentificationHintType: string implements Valuable
     /**
      * An ID token previously issued to the client.
      */
-    case ID_TOKEN_HINT = 'id_token_hint';
+    case ID_TOKEN_HINT = 'ID_TOKEN_HINT';
 
 
     /**
      * An arbitrary string whose interpretation varies depending on contexts.
      */
-    case LOGIN_HINT = 'login_hint';
+    case LOGIN_HINT = 'LOGIN_HINT';
 
 
     /**
      * A token whose format is deployment or profile specific.
      */
-    case LOGIN_HINT_TOKEN = 'login_hint_token';
+    case LOGIN_HINT_TOKEN = 'LOGIN_HINT_TOKEN';
 }
 

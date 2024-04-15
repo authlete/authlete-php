@@ -93,7 +93,7 @@ class RevocationRequest implements ArrayCopyable, Arrayable, Jsonable
      * @return RevocationRequest
      *     `$this` object.
      */
-    public function setParameters(string $parameters): RevocationRequest
+    public function setParameters(mixed $parameters): RevocationRequest
     {
         ValidationUtility::ensureNullOrString('$parameters', $parameters);
 
@@ -133,7 +133,7 @@ class RevocationRequest implements ArrayCopyable, Arrayable, Jsonable
      * @return RevocationRequest
      *     `$this` object.
      */
-    public function setClientId(string $clientId): RevocationRequest
+    public function setClientId(mixed $clientId): RevocationRequest
     {
         ValidationUtility::ensureNullOrString('$clientId', $clientId);
 
@@ -173,7 +173,7 @@ class RevocationRequest implements ArrayCopyable, Arrayable, Jsonable
      * @return RevocationRequest
      *     `$this` object.
      */
-    public function setClientSecret(string $secret): RevocationRequest
+    public function setClientSecret(mixed $secret): RevocationRequest
     {
         ValidationUtility::ensureNullOrString('$secret', $secret);
 

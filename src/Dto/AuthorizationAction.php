@@ -33,7 +33,7 @@ use Authlete\Types\Valuable;
  * The value of "action" in responses from Authlete's
  * /api/auth/authorization API.
  */
-enum AuthorizationAction implements Valuable
+enum AuthorizationAction: string implements Valuable
 {
     use EnumTrait;
 
@@ -44,7 +44,7 @@ enum AuthorizationAction implements Valuable
      * implementation should return "500 Internal Server Error" to the
      * client application.
      */
-    case INTERNAL_SERVER_ERROR;
+    case INTERNAL_SERVER_ERROR = "INTERNAL_SERVER_ERROR";
 
 
     /**
@@ -52,7 +52,7 @@ enum AuthorizationAction implements Valuable
      * implementation should notify the client application of the error
      * by "400 Bad Request".
      */
-    case BAD_REQUEST;
+    case BAD_REQUEST = "BAD_REQUEST";
 
 
     /**
@@ -60,7 +60,7 @@ enum AuthorizationAction implements Valuable
      * implementation should notify the client application of the error
      * by "302 Found".
      */
-    case LOCATION;
+    case LOCATION = "LOCATION";
 
 
     /**
@@ -70,7 +70,7 @@ enum AuthorizationAction implements Valuable
      *
      * @see https://openid.net/specs/oauth-v2-form-post-response-mode-1_0.html OAuth 2.0 Form Post Response Mode
      */
-    case FORM;
+    case FORM = "FORM";
 
 
     /**
@@ -78,7 +78,7 @@ enum AuthorizationAction implements Valuable
      * implementation should issue an authorization code, an ID token
      * and/or an access token without interaction with the end-user.
      */
-    case NO_INTERACTION;
+    case NO_INTERACTION = "NO_INTERACTION";
 
 
     /**
@@ -86,6 +86,6 @@ enum AuthorizationAction implements Valuable
      * implementation should display UI to ask for authorization from
      * the end-user.
      */
-    case INTERACTION;
+    case INTERACTION = "INTERACTION";
 }
 

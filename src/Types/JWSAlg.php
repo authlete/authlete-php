@@ -41,77 +41,77 @@ enum JWSAlg: string implements Valuable
     /**
      * No digital signature or MAC performed.
      */
-    case NONE = 'none';
+    case NONE = 'NONE';
 
 
     /**
      * HMAC using SHA-256.
      */
-    case HS256 = 'hs256';
+    case HS256 = 'HS256';
 
 
     /**
      * HMAC using SHA-384.
      */
-    case HS384 = 'hs384';
+    case HS384 = 'HS384';
 
 
     /**
      * HMAC using SHA-512.
      */
-    case HS512 = 'hs512';
+    case HS512 = 'HS512';
 
 
     /**
      * RSASSA-PKCS-v1_5 using SHA-256.
      */
-    case RS256 = 'rs256';
+    case RS256 = 'RS256';
 
 
     /**
      * RSASSA-PKCS-v1_5 using SHA-384.
      */
-    case RS384 = 'rs384';
+    case RS384 = 'RS384';
 
 
     /**
      * RSASSA-PKCS-v1_5 using SHA-512.
      */
-    case RS512 = 'rs512';
+    case RS512 = 'RS512';
 
 
     /**
      * ECDSA using P-256 and SHA-256.
      */
-    case ES256 = 'es256';
+    case ES256 = 'ES256';
 
 
     /**
      * ECDSA using P-384 and SHA-384.
      */
-    case ES384 = 'es384';
+    case ES384 = 'ES384';
 
 
     /**
      * ECDSA using P-521 and SHA-512.
      */
-    case ES512 = 'es512';
+    case ES512 = 'ES512';
 
 
     /**
      * RSASSA-PSS using SHA-256 and MGF1 with SHA-256.
      */
-    case PS256 = 'ps256';
+    case PS256 = 'PS256';
 
 
     /**
      * RSASSA-PSS using SHA-384 and MGF1 with SHA-384.
      */
-    case PS384 = 'ps384';
+    case PS384 = 'PS384';
 
 
     /**
      * RSASSA-PSS using SHA-512 and MGF1 with SHA-512.
      */
-    case PS512 = 'ps512';
+    case PS512 = 'PS512';
 }

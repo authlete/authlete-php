@@ -46,7 +46,7 @@ enum IntrospectionAction: string implements Valuable
      * The resource server should return `500 Internal Server Error` to the
      * client application.
      */
-    case INTERNAL_SERVER_ERROR = 'internal_server_error';
+    case INTERNAL_SERVER_ERROR = 'INTERNAL_SERVER_ERROR';
 
 
     /**
@@ -55,7 +55,7 @@ enum IntrospectionAction: string implements Valuable
      * The resource server should return `400 Bad Request` to the client
      * application.
      */
-    case BAD_REQUEST = 'bad_request';
+    case BAD_REQUEST = 'BAD_REQUEST';
 
 
     /**
@@ -64,7 +64,7 @@ enum IntrospectionAction: string implements Valuable
      * The resource server should return `401 Unauthorized` to the client
      * application.
      */
-    case UNAUTHORIZED = 'unauthorized';
+    case UNAUTHORIZED = 'UNAUTHORIZED';
 
 
     /**
@@ -73,7 +73,7 @@ enum IntrospectionAction: string implements Valuable
      * The resource server should return `403 Forbidden` to the client
      * application.
      */
-    case FORBIDDEN = 'forbidden';
+    case FORBIDDEN = 'FORBIDDEN';
 
 
     /**
@@ -82,6 +82,6 @@ enum IntrospectionAction: string implements Valuable
      * The resource server should return the protected resource to the
      * client application.
      */
-    case OK = 'ok';
+    case OK = 'OK';
 }
 

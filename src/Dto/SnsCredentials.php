@@ -44,7 +44,7 @@ class SnsCredentials implements ArrayCopyable, Arrayable, Jsonable
     use JsonTrait;
 
 
-    private ?Sns $sns          = null;
+    private ?string $sns       = null;  // Sns
     private ?string $apiKey    = null;
     private ?string $apiSecret = null;
 
@@ -52,12 +52,12 @@ class SnsCredentials implements ArrayCopyable, Arrayable, Jsonable
     /**
      * Get the identifier of the SNS.
      *
-     * @return Sns
+     * @return Sns|null
      *     The identifier of the SNS.
      */
     public function getSns(): ?Sns
     {
-        return $this->sns;
+        return Sns::valueOf($this->sns);
     }
 
 
@@ -72,7 +72,7 @@ class SnsCredentials implements ArrayCopyable, Arrayable, Jsonable
      */
     public function setSns(Sns $sns = null): SnsCredentials
     {
-        $this->sns = $sns;
+        $this->sns = $sns->value;
 
         return $this;
     }
@@ -81,7 +81,7 @@ class SnsCredentials implements ArrayCopyable, Arrayable, Jsonable
     /**
      * Get the API key assigned by the SNS.
      *
-     * @return string
+     * @return string|null
      *     The API key assigned by the SNS.
      */
     public function getApikey(): ?string
@@ -112,7 +112,7 @@ class SnsCredentials implements ArrayCopyable, Arrayable, Jsonable
     /**
      * Get the API secret assigned by the SNS.
      *
-     * @return string
+     * @return string|null
      *     The API secret assigned by the SNS.
      */
     public function getApiSecret(): ?string
@@ -148,7 +148,7 @@ class SnsCredentials implements ArrayCopyable, Arrayable, Jsonable
      * @param array $array
      *     {@inheritdoc}
      */
-    public function copyToArray(array &$array)
+    public function copyToArray(array &$array): void
     {
         $array['sns']       = LanguageUtility::toString($this->sns);
         $array['apiKey']    = $this->apiKey;

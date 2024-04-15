@@ -27,6 +27,7 @@ namespace Authlete\Dto;
 
 use Authlete\Util\LanguageUtility;
 use Authlete\Util\ValidationUtility;
+use PhpParser\Node\Scalar\String_;
 
 
 /**
@@ -125,7 +126,7 @@ use Authlete\Util\ValidationUtility;
  */
 class AuthorizationFailResponse extends ApiResponse
 {
-    private ?AuthorizationFailAction $action = null;
+    private ?string $action = null;
     private ?string $responseContent         = null;
 
 
@@ -139,7 +140,7 @@ class AuthorizationFailResponse extends ApiResponse
      */
     public function getAction(): ?AuthorizationFailAction
     {
-        return $this->action;
+        return AuthorizationFailAction::valueOf($this->action);
     }
 
 
@@ -156,7 +157,7 @@ class AuthorizationFailResponse extends ApiResponse
      */
     public function setAction(AuthorizationFailAction $action = null): AuthorizationFailResponse
     {
-        $this->action = $action;
+        $this->action = $action->value;
 
         return $this;
     }
@@ -183,14 +184,14 @@ class AuthorizationFailResponse extends ApiResponse
      * Set the response content which can be used to generate a response to
      * the client application.
      *
-     * @param string $responseContent
+     * @param string|null $responseContent
      *     The response content which can be used to generate a response to
      *     the client application.
      *
      * @return AuthorizationFailResponse
      *     `$this` object.
      */
-    public function setResponseContent(string $responseContent): AuthorizationFailResponse
+    public function setResponseContent(mixed $responseContent): AuthorizationFailResponse
     {
         ValidationUtility::ensureNullOrString('$responseContent', $responseContent);
 

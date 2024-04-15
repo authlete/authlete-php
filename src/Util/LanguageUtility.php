@@ -26,8 +26,10 @@ namespace Authlete\Util;
 
 
 use Authlete\Types\ArrayCopyable;
+use Authlete\Types\Valuable;
 use Exception;
 use InvalidArgumentException;
+use ReflectionClass;
 
 
 /**
@@ -271,7 +273,7 @@ class LanguageUtility
      * @return array|null
      *     A reference of a new array that holds converted elements.
      */
-    public static function &convertArray(callable $converter, array &$array = null, mixed $arg = null): ?array
+    public static function convertArray(callable $converter, array &$array = null, mixed $arg = null): ?array
     {
         if (is_null($array))
         {
@@ -280,12 +282,14 @@ class LanguageUtility
             //   "Only variable references should be returned by reference"
             //
             // Therefore, an intermidiate object is used here.
-            $output = null;
-            return $output;
+            return null;
         }
 
         $output = array();
-
+        var_dump($array); // This will print the content and type of $array
+        if (!is_array($array)) {
+            throw new InvalidArgumentException("Expected array, received " . gettype($array));
+        }
         array_walk(
             $array,
             function ($value, $key) use ($converter, $arg, &$output)
@@ -296,7 +300,7 @@ class LanguageUtility
                 }
                 else
                 {
-                    $output[] = $converter($value, $arg);
+                    $output[] = $converter($arg, $value);
                 }
             }
         );
@@ -359,13 +363,13 @@ class LanguageUtility
     /**
      * Convert an array to an object.
      *
-     * @param array $array
-     *     A reference to an array.
-     *
      * @param string $className
      *     A name of a class that implements the `ArrayCopyable` interface.
      *     An instance of the class will be created and its `copyFromArray()`
      *     method will be called.
+     *
+     * @param array|null $array $array
+     *     A reference to an array.
      *
      * @return mixed
      *     An instance of the class which is specified by the class name.
@@ -392,7 +396,7 @@ class LanguageUtility
     /**
      * Convert a JSON string to an object.
      *
-     * @param string $json
+     * @param string|null $json
      *     A JSON string.
      *
      * @param string $className
@@ -403,7 +407,7 @@ class LanguageUtility
      * @return mixed
      *     An instance of the class which is specified by the class name.
      */
-    public static function convertJsonToArrayCopyable(string $json, string $className): mixed
+    public static function convertJsonToArrayCopyable(?string $json, string $className): mixed
     {
         $array = json_decode($json, true, 512, JSON_BIGINT_AS_STRING);
 
@@ -488,7 +492,7 @@ class LanguageUtility
      * @return mixed
      *     The given object itself or 0.
      */
-    public static function orZero($value)
+    public static function orZero(mixed $value): mixed
     {
         if (is_null($value))
         {
@@ -508,7 +512,7 @@ class LanguageUtility
      * @return mixed
      *     The given object itself or an empty string.
      */
-    public static function orEmpty($value)
+    public static function orEmpty(mixed $value): mixed
     {
         if (is_null($value))
         {
@@ -516,5 +520,24 @@ class LanguageUtility
         }
 
         return $value;
+    }
+
+    public static function enumValueOf(string $enumClass, string $value)
+    {
+        if (!class_exists($enumClass)) {
+            throw new InvalidArgumentException("Enum class '{$enumClass}' not found.");
+        }
+
+        // Ensure the enum class implements Valuable interface
+        if (!in_array(Valuable::class, class_implements($enumClass))) {
+            throw new InvalidArgumentException("Enum class '{$enumClass}' must implement Valuable interface.");
+        }
+
+        // Use the valueOf method if available
+        if (method_exists($enumClass, 'valueOf')) {
+            return call_user_func([$enumClass, 'valueOf'], $value);
+        }
+
+        throw new InvalidArgumentException("valueOf method not found in enum class '{$enumClass}'.");
     }
 }

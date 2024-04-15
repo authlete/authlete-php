@@ -49,7 +49,7 @@ enum BackchannelAuthenticationFailReason: string implements Valuable
      *
      * Using this reason will result in `"error":"expired_login_hint_token"`.
      */
-    case EXPIRED_LOGIN_HINT_TOKEN = 'expired_login_hint_token';
+    case EXPIRED_LOGIN_HINT_TOKEN = 'EXPIRED_LOGIN_HINT_TOKEN';
 
 
     /**
@@ -60,7 +60,7 @@ enum BackchannelAuthenticationFailReason: string implements Valuable
      *
      * Using this reason will result in `"error":"unknown_user_id"`.
      */
-    case UNKNOWN_USER_ID = 'unknown_user_id';
+    case UNKNOWN_USER_ID = 'UNKNOWN_USER_ID';
 
 
     /**
@@ -77,7 +77,7 @@ enum BackchannelAuthenticationFailReason: string implements Valuable
      *
      * Using this reason will result in `"error":"unauthorized_client"`.
      */
-    case UNAUTHORIZED_CLIENT = 'unauthorized_client';
+    case UNAUTHORIZED_CLIENT = 'UNAUTHORIZED_CLIENT';
 
 
     /**
@@ -102,7 +102,7 @@ enum BackchannelAuthenticationFailReason: string implements Valuable
      *
      * Using this reason will result in `"error":"missing_user_code"`.
      */
-    case MISSING_USER_CODE = 'missing_user_code';
+    case MISSING_USER_CODE = 'MISSING_USER_CODE';
 
 
     /**
@@ -111,7 +111,7 @@ enum BackchannelAuthenticationFailReason: string implements Valuable
      *
      * Using this reason will result in `"error":"invalid_user_code"`.
      */
-    case INVALID_USER_CODE = 'invalid_user_code';
+    case INVALID_USER_CODE = 'INVALID_USER_CODE';
 
 
     /**
@@ -120,7 +120,7 @@ enum BackchannelAuthenticationFailReason: string implements Valuable
      *
      * Using this reason will result in `"error":"invalid_binding_message"`.
      */
-    case INVALID_BINDING_MESSAGE = 'invalid_binding_message';
+    case INVALID_BINDING_MESSAGE = 'INVALID_BINDING_MESSAGE';
 
 
     /**
@@ -130,7 +130,7 @@ enum BackchannelAuthenticationFailReason: string implements Valuable
      *
      * @see https://www.rfc-editor.org/rfc/rfc8707.html RFC 8707 Resource Indicators for OAuth 2.0
      */
-    case INVALID_TARGET = 'invalid_target';
+    case INVALID_TARGET = 'INVALID_TARGET';
 
 
     /**
@@ -143,7 +143,7 @@ enum BackchannelAuthenticationFailReason: string implements Valuable
      *
      * Using this reason will result in `"error":"access_denied"`.
      */
-    case ACCESS_DENIED = 'access_denied';
+    case ACCESS_DENIED = 'ACCESS_DENIED';
 
 
     /**
@@ -152,5 +152,5 @@ enum BackchannelAuthenticationFailReason: string implements Valuable
      *
      * Using this reason will result in `"error":"server_error"`.
      */
-    case SERVER_ERROR = 'server_error';
+    case SERVER_ERROR = 'SERVER_ERROR';
 }

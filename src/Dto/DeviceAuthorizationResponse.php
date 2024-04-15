@@ -141,7 +141,7 @@ use Authlete\Util\ValidationUtility;
  */
 class DeviceAuthorizationResponse extends ApiResponse
 {
-    private ?DeviceAuthorizationAction $action = null;
+    private ?string $action = null;
     private ?string $responseContent           = null;
     private string|int|null $clientId          = null;
     private ?string $clientIdAlias             = null;
@@ -168,7 +168,7 @@ class DeviceAuthorizationResponse extends ApiResponse
      */
     public function getAction(): ?DeviceAuthorizationAction
     {
-        return $this->action;
+        return DeviceAuthorizationAction::valueOf($this->action);
     }
 
 
@@ -183,7 +183,7 @@ class DeviceAuthorizationResponse extends ApiResponse
      */
     public function setAction(DeviceAuthorizationAction $action = null): DeviceAuthorizationResponse
     {
-        $this->action = $action;
+        $this->action = $action->value;
 
         return $this;
     }

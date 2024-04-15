@@ -46,14 +46,14 @@ enum DeviceCompleteAction: string implements Valuable
      * should return a successful response to the web browser the end-user is
      * using.
      */
-    case SUCCESS = 'success';
+    case SUCCESS = 'SUCCESS';
 
 
     /**
      * The API call is invalid. Probably, the authorization server
      * implementation has some bugs.
      */
-    case INVALID_REQUEST = 'invalid_request';
+    case INVALID_REQUEST = 'INVALID_REQUEST';
 
 
     /**
@@ -61,7 +61,7 @@ enum DeviceCompleteAction: string implements Valuable
      * should tell the end-user that the user code has expired and urge her
      * to re-initiate a device flow.
      */
-    case USER_CODE_EXPIRED = 'user_code_expired';
+    case USER_CODE_EXPIRED = 'USER_CODE_EXPIRED';
 
 
     /**
@@ -69,7 +69,7 @@ enum DeviceCompleteAction: string implements Valuable
      * should tell the end-user that the user code has been invalidated and
      * urge her to re-initiate a device flow.
      */
-    case USER_CODE_NOT_EXIST = 'user_code_not_exist';
+    case USER_CODE_NOT_EXIST = 'USER_CODE_NOT_EXIST';
 
 
     /**
@@ -77,6 +77,6 @@ enum DeviceCompleteAction: string implements Valuable
      * implementation should tell the end-user that something wrong happened
      * and urge her to re-initiate a device flow.
      */
-    case SERVER_ERROR = 'server_error';
+    case SERVER_ERROR = 'SERVER_ERROR';
 }
 

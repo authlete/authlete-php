@@ -192,7 +192,7 @@ use Authlete\Util\ValidationUtility;
  */
 class PushedAuthReqResponse extends ApiResponse
 {
-    private ?PushedAuthReqAction $action  = null;
+    private ?string $action               = null;  // PushedAuthReqAction
     private ?string $responseContent      = null;
     private ?string $requestUri           = null;
 
@@ -205,7 +205,7 @@ class PushedAuthReqResponse extends ApiResponse
      */
     public function getAction(): ?PushedAuthReqAction
     {
-        return $this->action;
+        return PushedAuthReqAction::valueOf($this->action);
     }
 
 
@@ -220,7 +220,7 @@ class PushedAuthReqResponse extends ApiResponse
      */
     public function setAction(PushedAuthReqAction $action = null): PushedAuthReqResponse
     {
-        $this->action = $action;
+        $this->action = $action->value;
 
         return $this;
     }

@@ -42,7 +42,7 @@ enum ServiceProfile: string implements Valuable
      * @see https://openid.net/wg/fapi/ Financial-grade API Working Group Website
      * @see https://bitbucket.org/openid/fapi/ Financial-grade API Working Group Repository
      */
-    case FAPI = 'fapi';
+    case FAPI = 'FAPI';
 
 
     /**
@@ -52,5 +52,5 @@ enum ServiceProfile: string implements Valuable
      *
      * @since 1.7
      */
-    case OPEN_BANKING = 'open_banking';
+    case OPEN_BANKING = 'OPEN_BANKING';
 }

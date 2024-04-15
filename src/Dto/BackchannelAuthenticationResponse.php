@@ -381,18 +381,18 @@ use Authlete\Util\ValidationUtility;
  */
 class BackchannelAuthenticationResponse extends ApiResponse
 {
-    private ?BackchannelAuthenticationAction $action = null;
+    private ?string $action                          = null;  //BackchannelAuthenticationAction
     private ?string $responseContent                 = null;
     private string|int|null $clientId                = null;
     private ?string $clientIdAlias                   = null;
     private bool $clientIdAliasUsed                  = false;
     private ?string $clientName                      = null;
-    private ?DeliveryMode $deliveryMode              = null;  
+    private ?string $deliveryMode                    = null;  //DeliveryMode
     private ?array $scopes                           = null;  // array of \Authlete\Dto\Scope
     private ?array $claimNames                       = null;
     private ?string $clientNotificationToken         = null;   
     private ?array $acrs                             = null;  // array of string
-    private ?UserIdentificationHintType $hintType    = null;
+    private ?string $hintType                        = null;  //UserIdentificationHintType
     private ?string $hint                            = null;  
     private ?string $sub                             = null;
     private ?string $bindingMessage                  = null;
@@ -414,7 +414,7 @@ class BackchannelAuthenticationResponse extends ApiResponse
      */
     public function getAction(): ?BackchannelAuthenticationAction
     {
-        return $this->action;
+        return BackchannelAuthenticationAction::valueOf($this->action);
     }
 
 
@@ -430,7 +430,7 @@ class BackchannelAuthenticationResponse extends ApiResponse
      */
     public function setAction(BackchannelAuthenticationAction $action = null): BackchannelAuthenticationResponse
     {
-        $this->action = $action;
+        $this->action = $action->value;
 
         return $this;
     }
@@ -613,7 +613,7 @@ class BackchannelAuthenticationResponse extends ApiResponse
      */
     public function getDeliveryMode(): ?DeliveryMode
     {
-        return $this->deliveryMode;
+        return DeliveryMode::valueOf($this->deliveryMode);
     }
 
 
@@ -628,7 +628,7 @@ class BackchannelAuthenticationResponse extends ApiResponse
      */
     public function setDeliveryMode(DeliveryMode $mode = null): BackchannelAuthenticationResponse
     {
-        $this->deliveryMode = $mode;
+        $this->deliveryMode = $mode->value;
 
         return $this;
     }
@@ -815,7 +815,7 @@ class BackchannelAuthenticationResponse extends ApiResponse
      */
     public function getHintType(): ?UserIdentificationHintType
     {
-        return $this->hintType;
+        return UserIdentificationHintType::valueOf($this->hintType);
     }
 
 
@@ -831,7 +831,7 @@ class BackchannelAuthenticationResponse extends ApiResponse
      */
     public function setHintType(UserIdentificationHintType $hintType = null): BackchannelAuthenticationResponse
     {
-        $this->hintType = $hintType;
+        $this->hintType = $hintType->value;
 
         return $this;
     }

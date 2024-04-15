@@ -46,7 +46,7 @@ enum BackchannelAuthenticationCompleteAction: string implements Valuable
      * client's notification endpoint. This action code may be returned
      * when the backchannel token delivery mode is `ping` or `push`.
      */
-    case NOTIFICATION = 'notification';
+    case NOTIFICATION = 'NOTIFICATION';
 
 
     /**
@@ -56,7 +56,7 @@ enum BackchannelAuthenticationCompleteAction: string implements Valuable
      * This action code may be returned when the backchannel token delivery
      * mode is `poll`.
      */
-    case NO_ACTION = 'no_action';
+    case NO_ACTION = 'NO_ACTION';
 
 
     /**
@@ -69,5 +69,5 @@ enum BackchannelAuthenticationCompleteAction: string implements Valuable
      * the value of `action` instead of `SERVER_ERROR`. In the case,
      * `responseContent` contains `"error":"server_error"`.
      */
-    case SERVER_ERROR = 'server_error';
+    case SERVER_ERROR = 'SERVER_ERROR';
 }

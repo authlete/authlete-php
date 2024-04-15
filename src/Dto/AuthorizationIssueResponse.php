@@ -126,7 +126,7 @@ use Authlete\Util\ValidationUtility;
  */
 class AuthorizationIssueResponse extends ApiResponse
 {
-    private ?AuthorizationIssueAction $action     = null;
+    private ?string $action     = null; //AuthorizationIssueAction
     private ?string $responseContent              = null;
     private ?string $accessToken                  = null;
     private string|int|null $accessTokenExpiresAt = null;
@@ -146,7 +146,7 @@ class AuthorizationIssueResponse extends ApiResponse
      */
     public function getAction(): ?AuthorizationIssueAction
     {
-        return $this->action;
+        return AuthorizationIssueAction::valueOf($this->action);
     }
 
 
@@ -163,7 +163,7 @@ class AuthorizationIssueResponse extends ApiResponse
      */
     public function setAction(AuthorizationIssueAction $action = null): AuthorizationIssueResponse
     {
-        $this->action = $action;
+        $this->action = $action->value;
 
         return $this;
     }
@@ -190,14 +190,14 @@ class AuthorizationIssueResponse extends ApiResponse
      * Set the response content which can be used to generate a response to
      * the client application.
      *
-     * @param string $responseContent
+     * @param string|null $responseContent
      *     The response content which can be used to generate a response to
      *     the client application.
      *
      * @return AuthorizationIssueResponse
      *     `$this` object.
      */
-    public function setResponseContent(string $responseContent): AuthorizationIssueResponse
+    public function setResponseContent(mixed $responseContent): AuthorizationIssueResponse
     {
         ValidationUtility::ensureNullOrString('$responseContent', $responseContent);
 
@@ -231,7 +231,7 @@ class AuthorizationIssueResponse extends ApiResponse
     /**
      * Set the access token.
      *
-     * @param string $accessToken
+     * @param string|null $accessToken
      *     The access token.
      *
      * @return AuthorizationIssueResponse
@@ -239,7 +239,7 @@ class AuthorizationIssueResponse extends ApiResponse
      *
      * @since 1.8
      */
-    public function setAccessToken(string $accessToken): AuthorizationIssueResponse
+    public function setAccessToken(?string $accessToken): AuthorizationIssueResponse
     {
         ValidationUtility::ensureNullOrString('$accessToken', $accessToken);
 
@@ -277,7 +277,7 @@ class AuthorizationIssueResponse extends ApiResponse
      *
      * @since 1.8
      */
-    public function setAccessTokenExpiresAt(int|string $expiresAt): AuthorizationIssueResponse
+    public function setAccessTokenExpiresAt(int|string|null $expiresAt): AuthorizationIssueResponse
     {
         ValidationUtility::ensureNullOrStringOrInteger('$expiresAt', $expiresAt);
 
@@ -304,7 +304,7 @@ class AuthorizationIssueResponse extends ApiResponse
     /**
      * Set the duration of the access token in seconds.
      *
-     * @param integer|string $duration
+     * @param int|string|null $duration
      *     The duration of the access token in seconds.
      *
      * @return AuthorizationIssueResponse
@@ -312,7 +312,7 @@ class AuthorizationIssueResponse extends ApiResponse
      *
      * @since 1.8
      */
-    public function setAccessTokenDuration(int|string $duration): AuthorizationIssueResponse
+    public function setAccessTokenDuration(int|string|null $duration): AuthorizationIssueResponse
     {
         ValidationUtility::ensureNullOrStringOrInteger('$duration', $duration);
 
@@ -342,7 +342,7 @@ class AuthorizationIssueResponse extends ApiResponse
     /**
      * Set the newly issued ID token.
      *
-     * @param string $idToken
+     * @param string|null $idToken
      *     The newly issued ID token.
      *
      * @return AuthorizationIssueResponse
@@ -350,7 +350,7 @@ class AuthorizationIssueResponse extends ApiResponse
      *
      * @since 1.8
      */
-    public function setIdToken(string $idToken): AuthorizationIssueResponse
+    public function setIdToken(?string $idToken): AuthorizationIssueResponse
     {
         ValidationUtility::ensureNullOrString('$idToken', $idToken);
 
@@ -388,7 +388,7 @@ class AuthorizationIssueResponse extends ApiResponse
      *
      * @since 1.8
      */
-    public function setAuthorizationCode(string $code): AuthorizationIssueResponse
+    public function setAuthorizationCode(?string $code): AuthorizationIssueResponse
     {
         ValidationUtility::ensureNullOrString('$code', $code);
 
@@ -420,7 +420,7 @@ class AuthorizationIssueResponse extends ApiResponse
     /**
      * Set the newly issued access token in JWT format.
      *
-     * @param string $jwtAccessToken
+     * @param string|null $jwtAccessToken
      *     The newly issued access token in JWT format.
      *
      * @return AuthorizationIssueResponse
@@ -428,7 +428,7 @@ class AuthorizationIssueResponse extends ApiResponse
      *
      * @since 1.8
      */
-    public function setJwtAccessToken(string $jwtAccessToken): AuthorizationIssueResponse
+    public function setJwtAccessToken(?string $jwtAccessToken): AuthorizationIssueResponse
     {
         ValidationUtility::ensureNullOrString('$jwtAccessToken', $jwtAccessToken);
 

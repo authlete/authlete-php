@@ -77,7 +77,7 @@ class Scope implements ArrayCopyable, Arrayable, Jsonable
      * @return Scope
      *     `$this` object.
      */
-    public function setName(string $name): Scope
+    public function setName(mixed $name): Scope
     {
         ValidationUtility::ensureNullOrString('$name', $name);
 
@@ -113,7 +113,7 @@ class Scope implements ArrayCopyable, Arrayable, Jsonable
      * @return Scope
      *     `$this` object.
      */
-    public function setDefault(bool $default): Scope
+    public function setDefault(mixed $default): Scope
     {
         ValidationUtility::ensureBoolean('$default', $default);
 
@@ -144,7 +144,7 @@ class Scope implements ArrayCopyable, Arrayable, Jsonable
      * @return Scope
      *     `$this` object.
      */
-    public function setDescription(string $description): Scope
+    public function setDescription(mixed $description): Scope
     {
         ValidationUtility::ensureNullOrString('$description', $description);
 
@@ -175,7 +175,7 @@ class Scope implements ArrayCopyable, Arrayable, Jsonable
      * @return Scope
      *     `$this` object.
      */
-    public function setDescriptions(array $descriptions = null): Scope
+    public function setDescriptions(?array $descriptions = null): Scope
     {
         ValidationUtility::ensureNullOrArrayOfType(
             '$descriptions', __NAMESPACE__ . '\TaggedValue', $descriptions);
@@ -207,7 +207,7 @@ class Scope implements ArrayCopyable, Arrayable, Jsonable
      * @return Scope
      *     `$this` object.
      */
-    public function setAttributes(array $attributes = null): Scope
+    public function setAttributes(?array $attributes = null): Scope
     {
         ValidationUtility::ensureNullOrArrayOfType(
             '$attributes', __NAMESPACE__ . '\Pair', $attributes);
@@ -225,7 +225,7 @@ class Scope implements ArrayCopyable, Arrayable, Jsonable
      * @param array $array
      *     {@inheritdoc}
      */
-    public function copyToArray(array &$array): void
+    public function copyToArray(?array &$array): void
     {
         $array['name']         = $this->name;
         $array['defaultEntry'] = $this->defaultEntry;
@@ -243,7 +243,7 @@ class Scope implements ArrayCopyable, Arrayable, Jsonable
      * @param array $array
      *     {@inheritdoc}
      */
-    public function copyFromArray(array &$array): void
+    public function copyFromArray(?array &$array): void
     {
         // name
         $this->setName(

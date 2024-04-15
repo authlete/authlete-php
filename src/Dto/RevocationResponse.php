@@ -152,7 +152,7 @@ use Authlete\Util\ValidationUtility;
  */
 class RevocationResponse extends ApiResponse
 {
-    private ?RevocationAction $action         = null;
+    private ?string $action                   = null;  // RevocationAction
     protected ?string $responseContent        = null;
 
 
@@ -164,7 +164,7 @@ class RevocationResponse extends ApiResponse
      */
     public function getAction(): ?RevocationAction
     {
-        return $this->action;
+        return RevocationAction::valueOf($this->action);
     }
 
 
@@ -179,7 +179,7 @@ class RevocationResponse extends ApiResponse
      */
     public function setAction(RevocationAction $action = null): RevocationResponse
     {
-        $this->action = $action;
+        $this->action = $action->value;
 
         return $this;
     }
@@ -208,7 +208,7 @@ class RevocationResponse extends ApiResponse
      * @return RevocationResponse
      *     `$this` object.
      */
-    public function setResponseContent(string $responseContent): RevocationResponse
+    public function setResponseContent(mixed $responseContent): RevocationResponse
     {
         ValidationUtility::ensureNullOrString('$responseContent', $responseContent);
 

@@ -44,7 +44,7 @@ enum UserInfoAction: string implements Valuable
      * application.
      *
      */
-    case INTERNAL_SERVER_ERROR = 'internal_server_error';
+    case INTERNAL_SERVER_ERROR = 'INTERNAL_SERVER_ERROR';
 
 
     /**
@@ -55,7 +55,7 @@ enum UserInfoAction: string implements Valuable
      * application.
      *
      */
-    case BAD_REQUEST = 'bad_request';
+    case BAD_REQUEST = 'BAD_REQUEST';
 
 
     /**
@@ -66,7 +66,7 @@ enum UserInfoAction: string implements Valuable
      * application.
      *
      */
-    case UNAUTHORIZED = 'unauthorized';
+    case UNAUTHORIZED = 'UNAUTHORIZED';
 
 
     /**
@@ -77,7 +77,7 @@ enum UserInfoAction: string implements Valuable
      * implementation should return `403 Forbidden` to the client application.
      *
      */
-    case FORBIDDEN = 'forbidden';
+    case FORBIDDEN = 'FORBIDDEN';
 
 
     /**
@@ -89,5 +89,5 @@ enum UserInfoAction: string implements Valuable
      * order to make Authlete generate a userinfo response.
      *
      */
-    case OK = 'ok';
+    case OK = 'OK';
 }

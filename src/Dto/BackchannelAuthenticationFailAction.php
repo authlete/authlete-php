@@ -44,7 +44,7 @@ enum BackchannelAuthenticationFailAction: string implements Valuable
      * The implementation of the backchannel authentication endpoint should
      * return a `400 Bad Request` response to the client application.
      */
-    case BAD_REQUEST = 'bad_request';
+    case BAD_REQUEST = 'BAD_REQUEST';
 
 
     /**
@@ -55,7 +55,7 @@ enum BackchannelAuthenticationFailAction: string implements Valuable
      * only when the `reason` request parameter of the API call was
      * `ACCESS_DENIED`.
      */
-    case FORBIDDEN = 'forbidden';
+    case FORBIDDEN = 'FORBIDDEN';
 
 
     /**
@@ -69,6 +69,6 @@ enum BackchannelAuthenticationFailAction: string implements Valuable
      * `SERVER_ERROR`, (2) an error occurred on Authlete side, or (3) the
      * request parameters of the API call were wrong.
      */
-    case INTERNAL_SERVER_ERROR = 'internal_server_error';
+    case INTERNAL_SERVER_ERROR = 'INTERNAL_SERVER_ERROR';
 }
 
