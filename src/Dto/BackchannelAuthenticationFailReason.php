@@ -26,7 +26,7 @@ namespace Authlete\Dto;
 
 
 use Authlete\Types\EnumTrait;
-use Authlete\Util\LanguageUtility;
+use Authlete\Types\Valuable;
 
 
 /**
@@ -35,7 +35,7 @@ use Authlete\Util\LanguageUtility;
  *
  * @since 1.8
  */
-class BackchannelAuthenticationFailReason
+enum BackchannelAuthenticationFailReason: string implements Valuable
 {
     use EnumTrait;
 
@@ -48,11 +48,8 @@ class BackchannelAuthenticationFailReason
      * `login_hint_token` and how to detect expiration.
      *
      * Using this reason will result in `"error":"expired_login_hint_token"`.
-     *
-     * @static
-     * @var BackchannelAuthenticationFailReason
      */
-    public static $EXPIRED_LOGIN_HINT_TOKEN;
+    case EXPIRED_LOGIN_HINT_TOKEN = 'EXPIRED_LOGIN_HINT_TOKEN';
 
 
     /**
@@ -62,11 +59,8 @@ class BackchannelAuthenticationFailReason
      * the backchannel authentication request.
      *
      * Using this reason will result in `"error":"unknown_user_id"`.
-     *
-     * @static
-     * @var BackchannelAuthenticationFailReason
      */
-    public static $UNKNOWN_USER_ID;
+    case UNKNOWN_USER_ID = 'UNKNOWN_USER_ID';
 
 
     /**
@@ -82,11 +76,8 @@ class BackchannelAuthenticationFailReason
      * from particular clients.
      *
      * Using this reason will result in `"error":"unauthorized_client"`.
-     *
-     * @static
-     * @var BackchannelAuthenticationFailReason
      */
-    public static $UNAUTHORIZED_CLIENT;
+    case UNAUTHORIZED_CLIENT = 'UNAUTHORIZED_CLIENT';
 
 
     /**
@@ -110,11 +101,8 @@ class BackchannelAuthenticationFailReason
      * made the backchannel authentication request is `false`.
      *
      * Using this reason will result in `"error":"missing_user_code"`.
-     *
-     * @static
-     * @var BackchannelAuthenticationFailReason
      */
-    public static $MISSING_USER_CODE;
+    case MISSING_USER_CODE = 'MISSING_USER_CODE';
 
 
     /**
@@ -122,11 +110,8 @@ class BackchannelAuthenticationFailReason
      * invalid.
      *
      * Using this reason will result in `"error":"invalid_user_code"`.
-     *
-     * @static
-     * @var BackchannelAuthenticationFailReason
      */
-    public static $INVALID_USER_CODE;
+    case INVALID_USER_CODE = 'INVALID_USER_CODE';
 
 
     /**
@@ -134,11 +119,8 @@ class BackchannelAuthenticationFailReason
      * of the given backchannel authentication request.
      *
      * Using this reason will result in `"error":"invalid_binding_message"`.
-     *
-     * @static
-     * @var BackchannelAuthenticationFailReason
      */
-    public static $INVALID_BINDING_MESSAGE;
+    case INVALID_BINDING_MESSAGE = 'INVALID_BINDING_MESSAGE';
 
 
     /**
@@ -146,12 +128,9 @@ class BackchannelAuthenticationFailReason
      *
      * Using this reason will result in `"error":"invalid_target"`.
      *
-     * @static
-     * @var BackchannelAuthenticationFailReason
-     *
      * @see https://www.rfc-editor.org/rfc/rfc8707.html RFC 8707 Resource Indicators for OAuth 2.0
      */
-    public static $INVALID_TARGET;
+    case INVALID_TARGET = 'INVALID_TARGET';
 
 
     /**
@@ -163,11 +142,8 @@ class BackchannelAuthenticationFailReason
      * asking the end-user whether she authorizes or rejects the request.
      *
      * Using this reason will result in `"error":"access_denied"`.
-     *
-     * @static
-     * @var BackchannelAuthenticationFailReason
      */
-    public static $ACCESS_DENIED;
+    case ACCESS_DENIED = 'ACCESS_DENIED';
 
 
     /**
@@ -175,14 +151,6 @@ class BackchannelAuthenticationFailReason
      * successfully due to a server-side error.
      *
      * Using this reason will result in `"error":"server_error"`.
-     *
-     * @static
-     * @var BackchannelAuthenticationFailReason
      */
-    public static $SERVER_ERROR;
+    case SERVER_ERROR = 'SERVER_ERROR';
 }
-
-
-// Call BackchannelAuthenticationFailReason::initialize().
-LanguageUtility::initializeClass(__NAMESPACE__ . '\BackchannelAuthenticationFailReason');
-?>

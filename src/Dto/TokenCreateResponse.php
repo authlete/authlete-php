@@ -25,6 +25,7 @@
 namespace Authlete\Dto;
 
 
+use Authlete\Types\GrantType;
 use Authlete\Util\LanguageUtility;
 use Authlete\Util\ValidationUtility;
 
@@ -62,27 +63,27 @@ use Authlete\Util\ValidationUtility;
  */
 class TokenCreateResponse extends ApiResponse
 {
-    private $action       = null;  // \Authlete\Dto\TokenCreateAction
-    private $grantType    = null;  // \Authlete\Types\GrantType
-    private $clientId     = null;  // string or (64-bit) integer
-    private $subject      = null;  // string
-    private $scopes       = null;  // array of string
-    private $accessToken  = null;  // string
-    private $tokenType    = null;  // string
-    private $expiresIn    = null;  // string or (64-bit) integer
-    private $expiresAt    = null;  // string or (64-bit) integer
-    private $refreshToken = null;  // string
-    private $properties   = null;  // array of \Authlete\Dto\Property
+    private ?TokenCreateAction $action  = null;
+    private ?GrantType $grantType       = null;
+    private string|int|null $clientId   = null;
+    private ?string $subject            = null;
+    private ?array $scopes              = null;  // array of string
+    private ?string $accessToken        = null;
+    private ?string $tokenType          = null;
+    private string|int|null $expiresIn  = null;
+    private string|int|null $expiresAt  = null;
+    private ?string $refreshToken       = null;
+    private ?array $properties          = null;  // array of \Authlete\Dto\Property
 
 
     /**
      * Get the code which indicates how the response from Authlete's
      * /api/auth/token/create API should be interpreted.
      *
-     * @return TokenCreateAction
+     * @return TokenCreateAction|null
      *     The code which indicates how the response should be interpreted.
      */
-    public function getAction()
+    public function getAction(): ?TokenCreateAction
     {
         return $this->action;
     }
@@ -92,13 +93,13 @@ class TokenCreateResponse extends ApiResponse
      * Set the code which indicates how the response from Authlete's
      * /api/auth/token/create API should be interpreted.
      *
-     * @param TokenCreateAction $action
+     * @param TokenCreateAction|null $action
      *     The code which indicates how the response should be interpreted.
      *
      * @return TokenCreateResponse
      *     `$this` object.
      */
-    public function setAction(TokenCreateAction $action = null)
+    public function setAction(TokenCreateAction $action = null): TokenCreateResponse
     {
         $this->action = $action;
 
@@ -109,10 +110,10 @@ class TokenCreateResponse extends ApiResponse
     /**
      * Get the grant type emulated for the newly issued access token.
      *
-     * @return GrantType
+     * @return GrantType|null
      *     The grant type.
      */
-    public function getGrantType()
+    public function getGrantType(): ?GrantType
     {
         return $this->grantType;
     }
@@ -121,13 +122,13 @@ class TokenCreateResponse extends ApiResponse
     /**
      * Set the grant type emulated for the newly issued access token.
      *
-     * @param GrantType $grantType
+     * @param GrantType|null $grantType
      *     The grant type.
      *
      * @return TokenCreateResponse
      *     `$this` object.
      */
-    public function setGrantType(GrantType $grantType = null)
+    public function setGrantType(GrantType $grantType = null): TokenCreateResponse
     {
         $this->grantType = $grantType;
 
@@ -138,10 +139,10 @@ class TokenCreateResponse extends ApiResponse
     /**
      * Get the client ID associated with the newly issued access token.
      *
-     * @return integer|string
+     * @return integer|string|null
      *     The client ID.
      */
-    public function getClientId()
+    public function getClientId(): int|string|null
     {
         return $this->clientId;
     }
@@ -156,7 +157,7 @@ class TokenCreateResponse extends ApiResponse
      * @return TokenCreateResponse
      *     `$this` object.
      */
-    public function setClientId($clientId)
+    public function setClientId(int|string $clientId): TokenCreateResponse
     {
         ValidationUtility::ensureNullOrStringOrInteger('$clientId', $clientId);
 
@@ -170,11 +171,11 @@ class TokenCreateResponse extends ApiResponse
      * Get the subject (= unique identifier) of the end-user associated with
      * the newly issued access token.
      *
-     * @return string
+     * @return string|null
      *     The subject of the end-user. This response parameter is `null`
      *     when the grant type is `GrantType::$CLIENT_CREDENTIALS`.
      */
-    public function getSubject()
+    public function getSubject(): ?string
     {
         return $this->subject;
     }
@@ -190,7 +191,7 @@ class TokenCreateResponse extends ApiResponse
      * @return TokenCreateResponse
      *     `$this` object.
      */
-    public function setSubject($subject)
+    public function setSubject(string $subject): TokenCreateResponse
     {
         ValidationUtility::ensureNullOrString('$subject', $subject);
 
@@ -203,10 +204,10 @@ class TokenCreateResponse extends ApiResponse
     /**
      * Get the scopes associated with the newly issued access token.
      *
-     * @return string[]
+     * @return array|null
      *     The scopes.
      */
-    public function getScopes()
+    public function getScopes(): ?array
     {
         return $this->scopes;
     }
@@ -221,7 +222,7 @@ class TokenCreateResponse extends ApiResponse
      * @return TokenCreateResponse
      *     `$this` object.
      */
-    public function setScopes(array $scopes = null)
+    public function setScopes(array $scopes = null): TokenCreateResponse
     {
         ValidationUtility::ensureNullOrArrayOfString('$scopes', $scopes);
 
@@ -234,10 +235,10 @@ class TokenCreateResponse extends ApiResponse
     /**
      * Get the value of the newly issued access token.
      *
-     * @return string
+     * @return string|null
      *     The access token.
      */
-    public function getAccessToken()
+    public function getAccessToken(): ?string
     {
         return $this->accessToken;
     }
@@ -252,7 +253,7 @@ class TokenCreateResponse extends ApiResponse
      * @return TokenCreateResponse
      *     `$this` object.
      */
-    public function setAccessToken($accessToken)
+    public function setAccessToken(string $accessToken): TokenCreateResponse
     {
         ValidationUtility::ensureNullOrString('$accessToken', $accessToken);
 
@@ -265,10 +266,10 @@ class TokenCreateResponse extends ApiResponse
     /**
      * Get the token type of the newly issued access token.
      *
-     * @return string
+     * @return string|null
      *     The token type.
      */
-    public function getTokenType()
+    public function getTokenType(): ?string
     {
         return $this->tokenType;
     }
@@ -283,7 +284,7 @@ class TokenCreateResponse extends ApiResponse
      * @return TokenCreateResponse
      *     `$this` object.
      */
-    public function setTokenType($tokenType)
+    public function setTokenType(string $tokenType): TokenCreateResponse
     {
         ValidationUtility::ensureNullOrString('$tokenType', $tokenType);
 
@@ -296,10 +297,10 @@ class TokenCreateResponse extends ApiResponse
     /**
      * Get the duration of the newly issued access token in seconds.
      *
-     * @return integer|string
+     * @return integer|string|null
      *     The duration of the access token in seconds.
      */
-    public function getExpiresIn()
+    public function getExpiresIn(): int|string|null
     {
         return $this->expiresIn;
     }
@@ -314,7 +315,7 @@ class TokenCreateResponse extends ApiResponse
      * @return TokenCreateResponse
      *     `$this` object.
      */
-    public function setExpiresIn($expiresIn)
+    public function setExpiresIn(int|string $expiresIn): TokenCreateResponse
     {
         ValidationUtility::ensureNullOrStringOrInteger('$expiresIn', $expiresIn);
 
@@ -327,11 +328,11 @@ class TokenCreateResponse extends ApiResponse
     /**
      * Get the date at which the newly issued access token will expire.
      *
-     * @return integer|string
+     * @return integer|string|null
      *     The date at which the access token will expire. The value is
      *     expressed in milliseconds since the Unix epoch (1970-Jan-1).
      */
-    public function getExpiresAt()
+    public function getExpiresAt(): int|string|null
     {
         return $this->expiresAt;
     }
@@ -346,7 +347,7 @@ class TokenCreateResponse extends ApiResponse
      * @return TokenCreateResponse
      *     `$this` object.
      */
-    public function setExpiresAt($expiresAt)
+    public function setExpiresAt(int|string $expiresAt): TokenCreateResponse
     {
         ValidationUtility::ensureNullOrStringOrInteger('$expiresAt', $expiresAt);
 
@@ -363,10 +364,10 @@ class TokenCreateResponse extends ApiResponse
      * `GrantType::$CLIENT_CREDENTIALS` or when the refresh token flow is
      * disabled by the service configuration.
      *
-     * @return string
+     * @return string|null
      *     The value of the newly issued refresh token.
      */
-    public function getRefreshToken()
+    public function getRefreshToken(): ?string
     {
         return $this->refreshToken;
     }
@@ -381,7 +382,7 @@ class TokenCreateResponse extends ApiResponse
      * @return TokenCreateResponse
      *     `$this` object.
      */
-    public function setRefreshToken($refreshToken)
+    public function setRefreshToken(string $refreshToken): TokenCreateResponse
     {
         ValidationUtility::ensureNullOrString('$refreshToken', $refreshToken);
 
@@ -394,10 +395,10 @@ class TokenCreateResponse extends ApiResponse
     /**
      * Get properties that are associated with the newly issued access token.
      *
-     * @return Property[]
+     * @return array|null
      *     Properties associated with the access token.
      */
-    public function getProperties()
+    public function getProperties(): ?array
     {
         return $this->properties;
     }
@@ -412,10 +413,10 @@ class TokenCreateResponse extends ApiResponse
      * @return TokenCreateResponse
      *     `$this` object.
      */
-    public function setProperties(array $properties = null)
+    public function setProperties(array $properties = null): TokenCreateResponse
     {
         ValidationUtility::ensureNullOrArrayOfType(
-            '$properties', $properties, __NAMESPACE__ . '\Property');
+            '$properties', __NAMESPACE__ . '\Property', $properties);
 
         $this->properties = $properties;
 
@@ -431,7 +432,7 @@ class TokenCreateResponse extends ApiResponse
      * @param array $array
      *     {@inheritdoc}
      */
-    public function copyToArray(array &$array)
+    public function copyToArray(array &$array): void
     {
         parent::copyToArray($array);
 
@@ -457,7 +458,7 @@ class TokenCreateResponse extends ApiResponse
      * @param array $array
      *     {@inheritdoc}
      */
-    public function copyFromArray(array &$array)
+    public function copyFromArray(array &$array): void
     {
         parent::copyFromArray($array);
 
@@ -505,8 +506,8 @@ class TokenCreateResponse extends ApiResponse
 
         // properties
         $_properties = LanguageUtility::getFromArray('properties', $array);
-        $_properties = LanguageUtility::convertArrayToArrayOfArrayCopyable($_properties, __NAMESPACE__ . '\Property');
+        $_properties = LanguageUtility::convertArrayToArrayOfArrayCopyable(__NAMESPACE__ . '\Property', $_properties);
         $this->setProperties($_properties);
     }
 }
-?>
+

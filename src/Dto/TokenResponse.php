@@ -191,28 +191,28 @@ use Authlete\Util\ValidationUtility;
  */
 class TokenResponse extends ApiResponse
 {
-    private $action                = null;  // \Authlete\Dto\TokenAction
-    private $responseContent       = null;  // string
-    private $username              = null;  // string
-    private $password              = null;  // string
-    private $ticket                = null;  // string
-    private $accessToken           = null;  // string
-    private $accessTokenExpiresAt  = null;  // string or (64-bit) integer
-    private $accessTokenDuration   = null;  // string or (64-bit) integer
-    private $refreshToken          = null;  // string
-    private $refreshTokenExpiresAt = null;  // string or (64-bit) integer
-    private $refreshTokenDuration  = null;  // string or (64-bit) integer
-    private $idToken               = null;  // string
-    private $grantType             = null;  // \Authlete\Types\GrantType
-    private $clientId              = null;  // string or (64-bit) integer
-    private $clientIdAlias         = null;  // string
-    private $clientIdAliasUsed     = false; // boolean
-    private $subject               = null;  // string
-    private $scopes                = null;  // array of string
-    private $properties            = null;  // array of \Authlete\Dto\Property
-    private $jwtAccessToken        = null;  // string
-    private $resources             = null;  // array of string
-    private $accessTokenResources  = null;  // array of string
+    private ?TokenAction $action           = null;  // \Authlete\Dto\TokenAction
+    private ?string $responseContent       = null;
+    private ?string $username              = null;
+    private ?string $password              = null;
+    private ?string $ticket                = null;
+    private ?string $accessToken           = null;
+    private $accessTokenExpiresAt          = null;  // string or (64-bit) integer
+    private $accessTokenDuration           = null;  // string or (64-bit) integer
+    private ?string $refreshToken          = null;
+    private $refreshTokenExpiresAt         = null;  // string or (64-bit) integer
+    private $refreshTokenDuration          = null;  // string or (64-bit) integer
+    private ?string $idToken               = null;
+    private ?GrantType $grantType          = null;  // \Authlete\Types\GrantType
+    private $clientId                      = null;  // string or (64-bit) integer
+    private ?string $clientIdAlias         = null;
+    private bool $clientIdAliasUsed        = false;
+    private ?string $subject               = null;
+    private ?array $scopes                 = null;  // array of string
+    private ?array $properties             = null;  // array of \Authlete\Dto\Property
+    private ?string $jwtAccessToken        = null;
+    private ?array $resources              = null;  // array of string
+    private ?array $accessTokenResources   = null;  // array of string
 
 
     /**
@@ -221,7 +221,7 @@ class TokenResponse extends ApiResponse
      * @return TokenAction
      *     The next action that the token endpoint should take.
      */
-    public function getAction()
+    public function getAction(): ?TokenAction
     {
         return $this->action;
     }
@@ -230,13 +230,13 @@ class TokenResponse extends ApiResponse
     /**
      * Set the next action that the token endpoint should take.
      *
-     * @param TokenAction $action
+     * @param TokenAction|null $action
      *     The next action that the token endpoint should take.
      *
      * @return TokenResponse
      *     `$this` object.
      */
-    public function setAction(TokenAction $action = null)
+    public function setAction(TokenAction $action = null): TokenResponse
     {
         $this->action = $action;
 
@@ -251,7 +251,7 @@ class TokenResponse extends ApiResponse
      * @return string
      *     The response content.
      */
-    public function getResponseContent()
+    public function getResponseContent(): ?string
     {
         return $this->responseContent;
     }
@@ -267,7 +267,7 @@ class TokenResponse extends ApiResponse
      * @return TokenResponse
      *     `$this` object.
      */
-    public function setResponseContent($responseContent)
+    public function setResponseContent(string $responseContent): TokenResponse
     {
         ValidationUtility::ensureNullOrString('$responseContent', $responseContent);
 
@@ -284,7 +284,7 @@ class TokenResponse extends ApiResponse
      * @return string
      *     The value of the `username` request parameter.
      */
-    public function getUsername()
+    public function getUsername(): ?string
     {
         return $this->username;
     }
@@ -300,7 +300,7 @@ class TokenResponse extends ApiResponse
      * @return TokenResponse
      *     `$this` object.
      */
-    public function setUsername($username)
+    public function setUsername(string $username): TokenResponse
     {
         ValidationUtility::ensureNullOrString('$username', $username);
 
@@ -317,7 +317,7 @@ class TokenResponse extends ApiResponse
      * @return string
      *     The value of the `password` request parameter.
      */
-    public function getPassword()
+    public function getPassword(): ?string
     {
         return $this->password;
     }
@@ -333,7 +333,7 @@ class TokenResponse extends ApiResponse
      * @return TokenResponse
      *     `$this` object.
      */
-    public function setPassword($password)
+    public function setPassword(string $password): TokenResponse
     {
         ValidationUtility::ensureNullOrString('$password', $password);
 
@@ -352,7 +352,7 @@ class TokenResponse extends ApiResponse
      * @return string
      *     The ticket issued from Authlete's `/api/auth/token` API.
      */
-    public function getTicket()
+    public function getTicket(): ?string
     {
         return $this->ticket;
     }
@@ -367,7 +367,7 @@ class TokenResponse extends ApiResponse
      * @return TokenResponse
      *     `$this` object.
      */
-    public function setTicket($ticket)
+    public function setTicket(string $ticket): TokenResponse
     {
         ValidationUtility::ensureNullOrString('$ticket', $ticket);
 
@@ -386,7 +386,7 @@ class TokenResponse extends ApiResponse
      * @return string
      *     The access token.
      */
-    public function getAccessToken()
+    public function getAccessToken(): ?string
     {
         return $this->accessToken;
     }
@@ -401,7 +401,7 @@ class TokenResponse extends ApiResponse
      * @return TokenResponse
      *     `$this` object.
      */
-    public function setAccessToken($accessToken)
+    public function setAccessToken(string $accessToken): TokenResponse
     {
         ValidationUtility::ensureNullOrString('$accessToken', $accessToken);
 
@@ -415,7 +415,7 @@ class TokenResponse extends ApiResponse
      * Get the date in milliseconds since the Unix epoch (1970-Jan-1) at which
      * the access token will expire.
      *
-     * @return integer|string
+     * @return integer|string|null
      *     The date at which the access token will expire.
      */
     public function getAccessTokenExpiresAt()
@@ -434,7 +434,7 @@ class TokenResponse extends ApiResponse
      * @return TokenResponse
      *     `$this` object.
      */
-    public function setAccessTokenExpiresAt($expiresAt)
+    public function setAccessTokenExpiresAt($expiresAt): TokenResponse
     {
         ValidationUtility::ensureNullOrStringOrInteger('$expiresAt', $expiresAt);
 
@@ -447,7 +447,7 @@ class TokenResponse extends ApiResponse
     /**
      * Get the duration of the access token in seconds.
      *
-     * @return integer|string
+     * @return integer|string|null
      *     The duration of the access token in seconds.
      */
     public function getAccessTokenDuration()
@@ -465,7 +465,7 @@ class TokenResponse extends ApiResponse
      * @return TokenResponse
      *     `$this` object.
      */
-    public function setAccessTokenDuration($duration)
+    public function setAccessTokenDuration($duration): TokenResponse
     {
         ValidationUtility::ensureNullOrStringOrInteger('$duration', $duration);
 
@@ -485,7 +485,7 @@ class TokenResponse extends ApiResponse
      * @return string
      *     The newly issued access token.
      */
-    public function getRefreshToken()
+    public function getRefreshToken(): ?string
     {
         return $this->refreshToken;
     }
@@ -500,7 +500,7 @@ class TokenResponse extends ApiResponse
      * @return TokenResponse
      *     `$this` object.
      */
-    public function setRefreshToken($refreshToken)
+    public function setRefreshToken(string $refreshToken): TokenResponse
     {
         ValidationUtility::ensureNullOrString('$refreshToken', $refreshToken);
 
@@ -514,7 +514,7 @@ class TokenResponse extends ApiResponse
      * Get the date in milliseconds since the Unix epoch (1970-Jan-1) at which
      * the refresh token will expire.
      *
-     * @return integer|string
+     * @return integer|string|null
      *     The date at which the refresh token will expire.
      */
     public function getRefreshTokenExpiresAt()
@@ -533,7 +533,7 @@ class TokenResponse extends ApiResponse
      * @return TokenResponse
      *     `$this` object.
      */
-    public function setRefreshTokenExpiresAt($expiresAt)
+    public function setRefreshTokenExpiresAt($expiresAt): TokenResponse
     {
         ValidationUtility::ensureNullOrStringOrInteger('$expiresAt', $expiresAt);
 
@@ -546,7 +546,7 @@ class TokenResponse extends ApiResponse
     /**
      * Get the duration of the refresh token in seconds.
      *
-     * @return integer|string
+     * @return integer|string|null
      *     The duration of the refresh token in seconds.
      */
     public function getRefreshTokenDuration()
@@ -564,7 +564,7 @@ class TokenResponse extends ApiResponse
      * @return TokenResponse
      *     `$this` object.
      */
-    public function setRefreshTokenDuration($duration)
+    public function setRefreshTokenDuration($duration): TokenResponse
     {
         ValidationUtility::ensureNullOrStringOrInteger('$duration', $duration);
 
@@ -585,7 +585,7 @@ class TokenResponse extends ApiResponse
      * @return string
      *     The newly issued ID token.
      */
-    public function getIdToken()
+    public function getIdToken(): ?string
     {
         return $this->idToken;
     }
@@ -600,7 +600,7 @@ class TokenResponse extends ApiResponse
      * @return TokenResponse
      *     `$this` object.
      */
-    public function setIdToken($idToken)
+    public function setIdToken(string $idToken): TokenResponse
     {
         ValidationUtility::ensureNullOrString('$idToken', $idToken);
 
@@ -616,7 +616,7 @@ class TokenResponse extends ApiResponse
      * @return GrantType
      *     The grant type of the token request.
      */
-    public function getGrantType()
+    public function getGrantType(): ?GrantType
     {
         return $this->grantType;
     }
@@ -625,13 +625,13 @@ class TokenResponse extends ApiResponse
     /**
      * Set the grant type of the token request.
      *
-     * @param GrantType $grantType
+     * @param GrantType|null $grantType
      *     The grant type of the token request.
      *
      * @return TokenResponse
      *     `$this` object.
      */
-    public function setGrantType(GrantType $grantType = null)
+    public function setGrantType(GrantType $grantType = null): TokenResponse
     {
         $this->grantType = $grantType;
 
@@ -642,7 +642,7 @@ class TokenResponse extends ApiResponse
     /**
      * Get the ID of the client application associated with the access token.
      *
-     * @return integer|string
+     * @return integer|string|null
      *     The client ID.
      */
     public function getClientId()
@@ -660,7 +660,7 @@ class TokenResponse extends ApiResponse
      * @return TokenResponse
      *     `$this` object.
      */
-    public function setClientId($clientId)
+    public function setClientId($clientId): TokenResponse
     {
         ValidationUtility::ensureNullOrStringOrInteger('$clientId', $clientId);
 
@@ -679,7 +679,7 @@ class TokenResponse extends ApiResponse
      * @return string
      *     The client ID alias.
      */
-    public function getClientIdAlias()
+    public function getClientIdAlias(): ?string
     {
         return $this->clientIdAlias;
     }
@@ -694,7 +694,7 @@ class TokenResponse extends ApiResponse
      * @return TokenResponse
      *     `$this` object.
      */
-    public function setClientIdAlias($alias)
+    public function setClientIdAlias(string $alias): TokenResponse
     {
         ValidationUtility::ensureNullOrString('$alias', $alias);
 
@@ -711,7 +711,7 @@ class TokenResponse extends ApiResponse
      * @return boolean
      *     `true` if the client ID alias was used by the token request.
      */
-    public function isClientIdAliasUsed()
+    public function isClientIdAliasUsed(): bool
     {
         return $this->clientIdAliasUsed;
     }
@@ -728,7 +728,7 @@ class TokenResponse extends ApiResponse
      * @return TokenResponse
      *     `$this` object.
      */
-    public function setClientIdAliasUsed($used)
+    public function setClientIdAliasUsed(bool $used): TokenResponse
     {
         ValidationUtility::ensureBoolean('$used', $used);
 
@@ -751,7 +751,7 @@ class TokenResponse extends ApiResponse
      * @return string
      *     The subject of the end-user (= resource owner) of the access token.
      */
-    public function getSubject()
+    public function getSubject(): ?string
     {
         return $this->subject;
     }
@@ -767,7 +767,7 @@ class TokenResponse extends ApiResponse
      * @return TokenResponse
      *     `$this` object.
      */
-    public function setSubject($subject)
+    public function setSubject(string $subject): TokenResponse
     {
         ValidationUtility::ensureNullOrString('$subject', $subject);
 
@@ -783,7 +783,7 @@ class TokenResponse extends ApiResponse
      * @return string[]
      *     The scopes covered by the access token.
      */
-    public function getScopes()
+    public function getScopes(): ?array
     {
         return $this->scopes;
     }
@@ -798,7 +798,7 @@ class TokenResponse extends ApiResponse
      * @return TokenResponse
      *     `$this` object.
      */
-    public function setScopes(array $scopes = null)
+    public function setScopes(array $scopes = null): TokenResponse
     {
         ValidationUtility::ensureNullOrArrayOfString('$scopes', $scopes);
 
@@ -814,7 +814,7 @@ class TokenResponse extends ApiResponse
      * @return Property[]
      *     The properties associated with the access token.
      */
-    public function getProperties()
+    public function getProperties(): ?array
     {
         return $this->properties;
     }
@@ -829,10 +829,10 @@ class TokenResponse extends ApiResponse
      * @return TokenResponse
      *     `$this` object.
      */
-    public function setProperties(array $properties = null)
+    public function setProperties(array $properties = null): TokenResponse
     {
         ValidationUtility::ensureNullOrArrayOfType(
-            '$properties', $properties, __NAMESPACE__ . '\Property');
+            '$properties', __NAMESPACE__ . '\Property', $properties);
 
         $this->properties = $properties;
 
@@ -853,7 +853,7 @@ class TokenResponse extends ApiResponse
      *
      * @since 1.8
      */
-    public function getJwtAccessToken()
+    public function getJwtAccessToken(): ?string
     {
         return $this->jwtAccessToken;
     }
@@ -870,7 +870,7 @@ class TokenResponse extends ApiResponse
      *
      * @since 1.8
      */
-    public function setJwtAccessToken($jwtAccessToken)
+    public function setJwtAccessToken(string $jwtAccessToken): TokenResponse
     {
         ValidationUtility::ensureNullOrString('$jwtAccessToken', $jwtAccessToken);
 
@@ -891,7 +891,7 @@ class TokenResponse extends ApiResponse
      *
      * @since 1.8
      */
-    public function getResources()
+    public function getResources(): ?array
     {
         return $this->resources;
     }
@@ -911,7 +911,7 @@ class TokenResponse extends ApiResponse
      *
      * @since 1.8
      */
-    public function setResources(array $resources = null)
+    public function setResources(array $resources = null): TokenResponse
     {
         ValidationUtility::ensureNullOrArrayOfString('$resources', $resources);
 
@@ -947,7 +947,7 @@ class TokenResponse extends ApiResponse
      *
      * @since 1.8
      */
-    public function getAccessTokenResources()
+    public function getAccessTokenResources(): ?array
     {
         return $this->accessTokenResources;
     }
@@ -969,7 +969,7 @@ class TokenResponse extends ApiResponse
      *
      * @since 1.8
      */
-    public function setAccessTokenResources(array $resources = null)
+    public function setAccessTokenResources(array $resources = null): TokenResponse
     {
         ValidationUtility::ensureNullOrArrayOfString('$resources', $resources);
 
@@ -987,7 +987,7 @@ class TokenResponse extends ApiResponse
      * @param array $array
      *     {@inheritdoc}
      */
-    public function copyToArray(array &$array)
+    public function copyToArray(array &$array): void
     {
         parent::copyToArray($array);
 
@@ -1104,7 +1104,7 @@ class TokenResponse extends ApiResponse
 
         // properties
         $_properties = LanguageUtility::getFromArray('properties', $array);
-        $_properties = LanguageUtility::convertArrayToArrayOfArrayCopyable($_properties, __NAMESPACE__ . '\Property');
+        $_properties = LanguageUtility::convertArrayToArrayOfArrayCopyable(__NAMESPACE__ . '\Property', $_properties);
         $this->setProperties($_properties);
 
         // jwtAccessToken
@@ -1120,4 +1120,4 @@ class TokenResponse extends ApiResponse
         $this->setAccessTokenResources($_access_token_resources);
     }
 }
-?>
+

@@ -104,37 +104,37 @@ use Authlete\Util\ValidationUtility;
  */
 class BackchannelAuthenticationIssueResponse extends ApiResponse
 {
-    private $action          = null;  // \Authlete\Dto\BackchannelAuthenticationIssueAction
-    private $responseContent = null;  // string
-    private $authReqId       = null;  // string
-    private $expiresIn       = null;  // string or (64-bit) integer
-    private $interval        = 0;     // integer
+    private ?string $action                               = null;  // \Authlete\Dto\BackchannelAuthenticationIssueAction
+    private ?string $responseContent                      = null;
+    private ?string $authReqId                            = null;
+    private string|int|null $expiresIn                    = null;
+    private int $interval                                 = 0;
 
 
     /**
      * Get the next action that the authorization server should take.
      *
-     * @return BackchannelAuthenticationIssueAction
+     * @return BackchannelAuthenticationIssueAction|null
      *     The next action that the authorization server should take.
      */
-    public function getAction()
+    public function getAction(): ?BackchannelAuthenticationIssueAction
     {
-        return $this->action;
+        return BackchannelAuthenticationIssueAction::valueOf($this->action);
     }
 
 
     /**
      * ßet the next action that the authorization server should take.
      *
-     * @param BackchannelAuthenticationIssueAction $action
+     * @param BackchannelAuthenticationIssueAction|null $action
      *     The next action that the authorization server should take.
      *
      * @return BackchannelAuthenticationIssueResponse
      *     `$this` object.
      */
-    public function setAction(BackchannelAuthenticationIssueAction $action = null)
+    public function setAction(BackchannelAuthenticationIssueAction $action = null): BackchannelAuthenticationIssueResponse
     {
-        $this->action = $action;
+        $this->action = $action->value;
 
         return $this;
     }
@@ -144,10 +144,10 @@ class BackchannelAuthenticationIssueResponse extends ApiResponse
      * Get the content that can be used to generate a response to the client
      * application. Its format is JSON.
      *
-     * @return string
+     * @return string|null
      *     The response content.
      */
-    public function getResponseContent()
+    public function getResponseContent(): ?string
     {
         return $this->responseContent;
     }
@@ -163,7 +163,7 @@ class BackchannelAuthenticationIssueResponse extends ApiResponse
      * @return BackchannelAuthenticationIssueResponse
      *     `$this` object.
      */
-    public function setResponseContent($responseContent)
+    public function setResponseContent(string $responseContent): BackchannelAuthenticationIssueResponse
     {
         ValidationUtility::ensureNullOrString('$responseContent', $responseContent);
 
@@ -177,10 +177,10 @@ class BackchannelAuthenticationIssueResponse extends ApiResponse
      * Get the issued authentication request ID. This corresponds to the
      * `auth_req_id` property in the response to the client.
      *
-     * @return string
+     * @return string|null
      *         The issued authentication request ID (`auth_req_id`).
      */
-    public function getAuthReqId()
+    public function getAuthReqId(): ?string
     {
         return $this->authReqId;
     }
@@ -196,7 +196,7 @@ class BackchannelAuthenticationIssueResponse extends ApiResponse
      * @return BackchannelAuthenticationIssueResponse
      *     `$this` object.
      */
-    public function setAuthReqId($authReqId)
+    public function setAuthReqId(string $authReqId): BackchannelAuthenticationIssueResponse
     {
         ValidationUtility::ensureNullOrString('$authReqId', $authReqId);
 
@@ -211,11 +211,11 @@ class BackchannelAuthenticationIssueResponse extends ApiResponse
      * This corresponds to the `expires_in` property in the response to the
      * client.
      *
-     * @return integer|string
+     * @return int|string|null
      *     The duration of the issued authentication request ID in seconds
      *     (`expires_in`).
      */
-    public function getExpiresIn()
+    public function getExpiresIn(): int|string|null
     {
         return $this->expiresIn;
     }
@@ -233,7 +233,7 @@ class BackchannelAuthenticationIssueResponse extends ApiResponse
      * @return BackchannelAuthenticationIssueResponse
      *     `$this` object.
      */
-    public function setExpiresIn($expiresIn)
+    public function setExpiresIn(int|string $expiresIn): BackchannelAuthenticationIssueResponse
     {
         ValidationUtility::ensureNullOrStringOrInteger('$expiresIn', $expiresIn);
 
@@ -254,7 +254,7 @@ class BackchannelAuthenticationIssueResponse extends ApiResponse
      * @return integer
      *     The minimum amount of time in seconds between polling requests.
      */
-    public function getInterval()
+    public function getInterval(): int
     {
         return $this->interval;
     }
@@ -271,7 +271,7 @@ class BackchannelAuthenticationIssueResponse extends ApiResponse
      * @return BackchannelAuthenticationIssueResponse
      *     `$this` object.
      */
-    public function setInterval($interval)
+    public function setInterval(int $interval): BackchannelAuthenticationIssueResponse
     {
         ValidationUtility::ensureInteger('$interval', $interval);
 
@@ -289,7 +289,7 @@ class BackchannelAuthenticationIssueResponse extends ApiResponse
      * @param array $array
      *     {@inheritdoc}
      */
-    public function copyToArray(array &$array)
+    public function copyToArray(array &$array): void
     {
         parent::copyToArray($array);
 
@@ -309,7 +309,7 @@ class BackchannelAuthenticationIssueResponse extends ApiResponse
      * @param array $array
      *     {@inheritdoc}
      */
-    public function copyFromArray(array &$array)
+    public function copyFromArray(array &$array): void
     {
         parent::copyFromArray($array);
 
@@ -335,4 +335,4 @@ class BackchannelAuthenticationIssueResponse extends ApiResponse
             LanguageUtility::getFromArray('interval', $array));
     }
 }
-?>
+

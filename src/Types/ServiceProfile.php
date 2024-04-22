@@ -31,7 +31,7 @@ use Authlete\Util\LanguageUtility;
 /**
  * Service profile
  */
-class ServiceProfile
+enum ServiceProfile: string implements Valuable
 {
     use EnumTrait;
 
@@ -39,29 +39,18 @@ class ServiceProfile
     /**
      * Financial-grade API.
      *
-     * @static
-     * @var ServiceProfile
-     *
      * @see https://openid.net/wg/fapi/ Financial-grade API Working Group Website
      * @see https://bitbucket.org/openid/fapi/ Financial-grade API Working Group Repository
      */
-    public static $FAPI;
+    case FAPI = 'FAPI';
 
 
     /**
      * Open Banking.
      *
-     * @static
-     * @var ServiceProfile
-     *
      * @see https://www.openbanking.org.uk/ Open Banking
      *
      * @since 1.7
      */
-    public static $OPEN_BANKING;
+    case OPEN_BANKING = 'OPEN_BANKING';
 }
-
-
-// Call ServiceProfile::initialize().
-LanguageUtility::initializeClass(__NAMESPACE__ . '\ServiceProfile');
-?>

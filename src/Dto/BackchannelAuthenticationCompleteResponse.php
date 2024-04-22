@@ -119,50 +119,50 @@ use Authlete\Util\ValidationUtility;
  */
 class BackchannelAuthenticationCompleteResponse extends ApiResponse
 {
-    private $action                     = null;  // \Authlete\Dto\BackchannelAuthenticationCompleteAction
-    private $responseContent            = null;  // string
-    private $clientId                   = null;  // string or (64-bit) integer
-    private $clientIdAlias              = null;  // string
-    private $clientIdAliasUsed          = false; // boolean
-    private $clientName                 = null;  // string
-    private $deliveryMode               = null;  // \Authlete\Types\DeliveryMode
-    private $clientNotificationEndpoint = null;  // string
-    private $clientNotificationToken    = null;  // string
-    private $authReqId                  = null;  // string
-    private $accessToken                = null;  // string
-    private $refreshToken               = null;  // string
-    private $idToken                    = null;  // string
-    private $accessTokenDuration        = null;  // string or (64-bit) integer
-    private $refreshTokenDuration       = null;  // string or (64-bit) integer
-    private $idTokenDuration            = null;  // string or (64-bit) integer
-    private $jwtAccessToken             = null;  // string
-    private $resources                  = null;  // array of string
+    private ?string $action                                  = null;
+    private ?string $responseContent                         = null;
+    private string|int|null $clientId                        = null;
+    private ?string $clientIdAlias                           = null;
+    private bool $clientIdAliasUsed                          = false;
+    private ?string $clientName                              = null;
+    private ?string $deliveryMode                            = null; //DeliveryMode
+    private ?string $clientNotificationEndpoint              = null;
+    private ?string $clientNotificationToken                 = null;
+    private ?string $authReqId                               = null;
+    private ?string $accessToken                             = null;
+    private ?string $refreshToken                            = null;
+    private ?string $idToken                                 = null;
+    private string|int|null $accessTokenDuration             = null;
+    private string|int|null $refreshTokenDuration            = null;
+    private string|int|null $idTokenDuration                 = null;
+    private ?string $jwtAccessToken                          = null;
+    private ?array $resources                                = null;  // array of string
 
 
     /**
      * Get the next action that the authorization server should take.
      *
-     * @return BackchannelAuthenticationCompleteAction
+     * @return BackchannelAuthenticationCompleteAction|null
      *     The next action that the authorization server should take.
      */
-    public function getAction()
+    public function getAction(): ?BackchannelAuthenticationCompleteAction
     {
-        return $this->action;
+        return BackchannelAuthenticationCompleteAction::valueOf($this->action);
     }
 
 
     /**
      * Set the next action that the authorization server should take.
      *
-     * @param BackchannelAuthenticationCompleteAction $action
+     * @param BackchannelAuthenticationCompleteAction|null $action
      *     The next action that the authorization server should take.
      *
      * @return BackchannelAuthenticationCompleteResponse
      *     `$this` object.
      */
-    public function setAction(BackchannelAuthenticationCompleteAction $action = null)
+    public function setAction(BackchannelAuthenticationCompleteAction $action = null): BackchannelAuthenticationCompleteResponse
     {
-        $this->action = $action;
+        $this->action = $action->value;
 
         return $this;
     }
@@ -179,10 +179,10 @@ class BackchannelAuthenticationCompleteResponse extends ApiResponse
      * token delivery mode is "push", the JSON contains an access token, an ID
      * token, and optionally a refresh token (and some other properties).
      *
-     * @return string
+     * @return string|null
      *     The content of the notification.
      */
-    public function getResponseContent()
+    public function getResponseContent(): ?string
     {
         return $this->responseContent;
     }
@@ -197,7 +197,7 @@ class BackchannelAuthenticationCompleteResponse extends ApiResponse
      * @return BackchannelAuthenticationCompleteResponse
      *     `$this` object.
      */
-    public function setResponseContent($responseContent)
+    public function setResponseContent(string $responseContent): BackchannelAuthenticationCompleteResponse
     {
         ValidationUtility::ensureNullOrString('$responseContent', $responseContent);
 
@@ -211,10 +211,10 @@ class BackchannelAuthenticationCompleteResponse extends ApiResponse
      * Get the client ID of the client application that has made the
      * backchannel authentication request.
      *
-     * @return integer|string
+     * @return int|string|null
      *     The client ID.
      */
-    public function getClientId()
+    public function getClientId(): int|string|null
     {
         return $this->clientId;
     }
@@ -230,7 +230,7 @@ class BackchannelAuthenticationCompleteResponse extends ApiResponse
      * @return BackchannelAuthenticationCompleteResponse
      *     `$this` object.
      */
-    public function setClientId($clientId)
+    public function setClientId(int|string $clientId): BackchannelAuthenticationCompleteResponse
     {
         ValidationUtility::ensureNullOrStringOrInteger('$clientId', $clientId);
 
@@ -244,10 +244,10 @@ class BackchannelAuthenticationCompleteResponse extends ApiResponse
      * Get the client ID alias of the client application that has made the
      * backchannel authentication request.
      *
-     * @return string
+     * @return string|null
      *     The client ID alias.
      */
-    public function getClientIdAlias()
+    public function getClientIdAlias(): ?string
     {
         return $this->clientIdAlias;
     }
@@ -263,7 +263,7 @@ class BackchannelAuthenticationCompleteResponse extends ApiResponse
      * @return BackchannelAuthenticationCompleteResponse
      *     `$this` object.
      */
-    public function setClientIdAlias($alias)
+    public function setClientIdAlias(string $alias): BackchannelAuthenticationCompleteResponse
     {
         ValidationUtility::ensureNullOrString('$alias', $alias);
 
@@ -280,7 +280,7 @@ class BackchannelAuthenticationCompleteResponse extends ApiResponse
      * @return boolean
      *     `true` if the client ID alias was used in the request.
      */
-    public function isClientIdAliasUsed()
+    public function isClientIdAliasUsed(): bool
     {
         return $this->clientIdAliasUsed;
     }
@@ -296,7 +296,7 @@ class BackchannelAuthenticationCompleteResponse extends ApiResponse
      * @return BackchannelAuthenticationCompleteResponse
      *     `$this` object.
      */
-    public function setClientIdAliasUsed($used)
+    public function setClientIdAliasUsed(bool $used): BackchannelAuthenticationCompleteResponse
     {
         ValidationUtility::ensureBoolean('$used', $used);
 
@@ -310,10 +310,10 @@ class BackchannelAuthenticationCompleteResponse extends ApiResponse
      * Get the name of the client application which has made the backchannel
      * authentication request.
      *
-     * @return string
+     * @return string|null
      *     The name of the client application.
      */
-    public function getClientName()
+    public function getClientName(): ?string
     {
         return $this->clientName;
     }
@@ -329,7 +329,7 @@ class BackchannelAuthenticationCompleteResponse extends ApiResponse
      * @return BackchannelAuthenticationCompleteResponse
      *     `$this` object.
      */
-    public function setClientName($name)
+    public function setClientName(string $name): BackchannelAuthenticationCompleteResponse
     {
         ValidationUtility::ensureNullOrString('$name', $name);
 
@@ -342,27 +342,27 @@ class BackchannelAuthenticationCompleteResponse extends ApiResponse
     /**
      * Get the backchannel token delivery mode.
      *
-     * @return DeliveryMode
+     * @return DeliveryMode|null
      *     The backchannel token delivery mode.
      */
-    public function getDeliveryMode()
+    public function getDeliveryMode(): ?DeliveryMode
     {
-        return $this->deliveryMode;
+        return DeliveryMode::valueOf($this->deliveryMode);
     }
 
 
     /**
      * Set the backchannel token delivery mode.
      *
-     * @param DeliveryMode $mode
+     * @param DeliveryMode|null $mode
      *     The backchannel token delivery mode.
      *
      * @return BackchannelAuthenticationCompleteResponse
      *     `$this` object.
      */
-    public function setDeliveryMode(DeliveryMode $mode = null)
+    public function setDeliveryMode(DeliveryMode $mode = null): BackchannelAuthenticationCompleteResponse
     {
-        $this->deliveryMode = $mode;
+        $this->deliveryMode = $mode->value;
 
         return $this;
     }
@@ -372,10 +372,10 @@ class BackchannelAuthenticationCompleteResponse extends ApiResponse
      * Get the client notification endpoint to which a notification needs to be
      * sent.
      *
-     * @return string
+     * @return string|null
      *     The client notification endpoint.
      */
-    public function getClientNotificationEndpoint()
+    public function getClientNotificationEndpoint(): ?string
     {
         return $this->clientNotificationEndpoint;
     }
@@ -391,7 +391,7 @@ class BackchannelAuthenticationCompleteResponse extends ApiResponse
      * @return BackchannelAuthenticationCompleteResponse
      *     `$this` object.
      */
-    public function setClientNotificationEndpoint($endpoint)
+    public function setClientNotificationEndpoint(string $endpoint): BackchannelAuthenticationCompleteResponse
     {
         ValidationUtility::ensureNullOrString('$endpoint', $endpoint);
 
@@ -405,10 +405,10 @@ class BackchannelAuthenticationCompleteResponse extends ApiResponse
      * Get the client notification token which needs to be embedded as a
      * `Bearer` token in the `Authorization` header in the notification.
      *
-     * @return string
+     * @return string|null
      *     The client notification token.
      */
-    public function getClientNotificationToken()
+    public function getClientNotificationToken(): ?string
     {
         return $this->clientNotificationToken;
     }
@@ -424,7 +424,7 @@ class BackchannelAuthenticationCompleteResponse extends ApiResponse
      * @return BackchannelAuthenticationCompleteResponse
      *     `$this` object.
      */
-    public function setClientNotificationToken($token)
+    public function setClientNotificationToken(string $token): BackchannelAuthenticationCompleteResponse
     {
         ValidationUtility::ensureNullOrString('$token', $token);
 
@@ -437,10 +437,10 @@ class BackchannelAuthenticationCompleteResponse extends ApiResponse
     /**
      * Get the value of the `auth_req_id` which is associated with the ticket.
      *
-     * @return string
+     * @return string|null
      *     The value of `auth_req_id`.
      */
-    public function getAuthReqId()
+    public function getAuthReqId(): ?string
     {
         return $this->authReqId;
     }
@@ -455,7 +455,7 @@ class BackchannelAuthenticationCompleteResponse extends ApiResponse
      * @return BackchannelAuthenticationCompleteResponse
      *     `$this` object.
      */
-    public function setAuthReqId($authReqId)
+    public function setAuthReqId(string $authReqId): BackchannelAuthenticationCompleteResponse
     {
         ValidationUtility::ensureNullOrString('$authReqId', $authReqId);
 
@@ -470,10 +470,10 @@ class BackchannelAuthenticationCompleteResponse extends ApiResponse
      * when the backchannel token delivery mode is "push" and an access token
      * has been issued successfully.
      *
-     * @return string
+     * @return string|null
      *     The issued access token.
      */
-    public function getAccessToken()
+    public function getAccessToken(): ?string
     {
         return $this->accessToken;
     }
@@ -488,7 +488,7 @@ class BackchannelAuthenticationCompleteResponse extends ApiResponse
      * @return BackchannelAuthenticationCompleteResponse
      *     `$this` object.
      */
-    public function setAccessToken($accessToken)
+    public function setAccessToken(string $accessToken): BackchannelAuthenticationCompleteResponse
     {
         ValidationUtility::ensureNullOrString('$accessToken', $accessToken);
 
@@ -506,10 +506,10 @@ class BackchannelAuthenticationCompleteResponse extends ApiResponse
      * Note that refresh tokens are not issued if the service does not support
      * the refresh token flow.
      *
-     * @return string
+     * @return string|null
      *     The issued refresh token.
      */
-    public function getRefreshToken()
+    public function getRefreshToken(): ?string
     {
         return $this->refreshToken;
     }
@@ -524,7 +524,7 @@ class BackchannelAuthenticationCompleteResponse extends ApiResponse
      * @return BackchannelAuthenticationCompleteResponse
      *     `$this` object.
      */
-    public function setRefreshToken($refreshToken)
+    public function setRefreshToken(string $refreshToken): BackchannelAuthenticationCompleteResponse
     {
         ValidationUtility::ensureNullOrString('$refreshToken', $refreshToken);
 
@@ -539,10 +539,10 @@ class BackchannelAuthenticationCompleteResponse extends ApiResponse
      * when the backchannel token delivery mode is "push" and an ID token
      * has been issued successfully.
      *
-     * @return string
+     * @return string|null
      *     The issued ID token.
      */
-    public function getIdToken()
+    public function getIdToken(): ?string
     {
         return $this->idToken;
     }
@@ -557,7 +557,7 @@ class BackchannelAuthenticationCompleteResponse extends ApiResponse
      * @return BackchannelAuthenticationCompleteResponse
      *     `$this` object.
      */
-    public function setIdToken($idToken)
+    public function setIdToken(string $idToken): BackchannelAuthenticationCompleteResponse
     {
         ValidationUtility::ensureNullOrString('$idToken', $idToken);
 
@@ -571,10 +571,10 @@ class BackchannelAuthenticationCompleteResponse extends ApiResponse
      * Get the duration of the access token in seconds. If an access token has
      * not been issued, this method returns 0.
      *
-     * @return integer|string
+     * @return int|string|null
      *     The duration of the access token in seconds.
      */
-    public function getAccessTokenDuration()
+    public function getAccessTokenDuration(): int|string|null
     {
         return $this->accessTokenDuration;
     }
@@ -589,7 +589,7 @@ class BackchannelAuthenticationCompleteResponse extends ApiResponse
      * @return BackchannelAuthenticationCompleteResponse
      *     `$this` object.
      */
-    public function setAccessTokenDuration($duration)
+    public function setAccessTokenDuration(int|string $duration): BackchannelAuthenticationCompleteResponse
     {
         ValidationUtility::ensureNullOrStringOrInteger('$duration', $duration);
 
@@ -603,10 +603,10 @@ class BackchannelAuthenticationCompleteResponse extends ApiResponse
      * Get the duration of the refresh token in seconds. If a refresh token has
      * not been issued, this method returns 0.
      *
-     * @return integer|string
+     * @return int|string|null
      *     The duration of the refresh token in seconds.
      */
-    public function getRefreshTokenDuration()
+    public function getRefreshTokenDuration(): int|string|null
     {
         return $this->refreshTokenDuration;
     }
@@ -621,7 +621,7 @@ class BackchannelAuthenticationCompleteResponse extends ApiResponse
      * @return BackchannelAuthenticationCompleteResponse
      *     `$this` object.
      */
-    public function setRefreshTokenDuration($duration)
+    public function setRefreshTokenDuration(int|string $duration): BackchannelAuthenticationCompleteResponse
     {
         ValidationUtility::ensureNullOrStringOrInteger('$duration', $duration);
 
@@ -635,10 +635,10 @@ class BackchannelAuthenticationCompleteResponse extends ApiResponse
      * Get the duration of the ID token in seconds. If an ID token has not
      * been issued, this method returns 0.
      *
-     * @return integer|string
+     * @return int|string|null
      *     The duration of the ID token in seconds.
      */
-    public function getIdTokenDuration()
+    public function getIdTokenDuration(): int|string|null
     {
         return $this->idTokenDuration;
     }
@@ -653,7 +653,7 @@ class BackchannelAuthenticationCompleteResponse extends ApiResponse
      * @return BackchannelAuthenticationCompleteResponse
      *     `$this` object.
      */
-    public function setIdTokenDuration($duration)
+    public function setIdTokenDuration(int|string $duration): BackchannelAuthenticationCompleteResponse
     {
         ValidationUtility::ensureNullOrStringOrInteger('$duration', $duration);
 
@@ -671,10 +671,10 @@ class BackchannelAuthenticationCompleteResponse extends ApiResponse
      * value), a JWT-based access token is issued along with the original
      * random-string one.
      *
-     * @return string
+     * @return string|null
      *     The newly issued access token in JWT format.
      */
-    public function getJwtAccessToken()
+    public function getJwtAccessToken(): ?string
     {
         return $this->jwtAccessToken;
     }
@@ -689,7 +689,7 @@ class BackchannelAuthenticationCompleteResponse extends ApiResponse
      * @return BackchannelAuthenticationCompleteResponse
      *     `$this` object.
      */
-    public function setJwtAccessToken($jwtAccessToken)
+    public function setJwtAccessToken(string $jwtAccessToken): BackchannelAuthenticationCompleteResponse
     {
         ValidationUtility::ensureNullOrString('$jwtAccessToken', $jwtAccessToken);
 
@@ -705,12 +705,12 @@ class BackchannelAuthenticationCompleteResponse extends ApiResponse
      * backchannel authentication request. If both are given, the values in the
      * request object take precedence.
      *
-     * @return string[]
+     * @return array|null
      *     The target resources.
      *
      * @see https://www.rfc-editor.org/rfc/rfc8707.html RFC 8707 Resource Indicators for OAuth 2.0
      */
-    public function getResources()
+    public function getResources(): ?array
     {
         return $this->resources;
     }
@@ -730,7 +730,7 @@ class BackchannelAuthenticationCompleteResponse extends ApiResponse
      *
      * @see https://www.rfc-editor.org/rfc/rfc8707.html RFC 8707 Resource Indicators for OAuth 2.0
      */
-    public function setResources(array $resources = null)
+    public function setResources(array $resources = null): BackchannelAuthenticationCompleteResponse
     {
         ValidationUtility::ensureNullOrArrayOfString('$resources', $resources);
 
@@ -748,7 +748,7 @@ class BackchannelAuthenticationCompleteResponse extends ApiResponse
      * @param array $array
      *     {@inheritdoc}
      */
-    public function copyToArray(array &$array)
+    public function copyToArray(array &$array): void
     {
         parent::copyToArray($array);
 
@@ -781,7 +781,7 @@ class BackchannelAuthenticationCompleteResponse extends ApiResponse
      * @param array $array
      *     {@inheritdoc}
      */
-    public function copyFromArray(array &$array)
+    public function copyFromArray(array &$array): void
     {
         parent::copyFromArray($array);
 
@@ -860,4 +860,4 @@ class BackchannelAuthenticationCompleteResponse extends ApiResponse
         $this->setResources($_resources);
     }
 }
-?>
+

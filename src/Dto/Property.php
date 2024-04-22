@@ -46,25 +46,25 @@ class Property implements ArrayCopyable, Arrayable, Jsonable
     use JsonTrait;
 
 
-    private $key    = null;  // string
-    private $value  = null;  // string
-    private $hidden = false; // boolean
+    private ?string $key;
+    private ?string $value;
+    private bool $hidden;
 
 
     /**
      * Constructor.
      *
-     * @param string $key
+     * @param string|null $key
      *     The name of this property.
      *
-     * @param string $value
+     * @param string|null $value
      *     The value of this property.
      *
      * @param boolean $hidden
      *     `true` to mark this property as hidden. Read the description of
      *     `setHidden($hidden)` for details.
      */
-    public function __construct($key = null, $value = null, $hidden = false)
+    public function __construct(string $key = null, string $value = null, bool $hidden = false)
     {
         ValidationUtility::ensureNullOrString('$key',    $key);
         ValidationUtility::ensureNullOrString('$value',  $value);
@@ -79,10 +79,10 @@ class Property implements ArrayCopyable, Arrayable, Jsonable
     /**
      * Get the name of this property.
      *
-     * @return string
+     * @return string|null
      *     The name of this property.
      */
-    public function getKey()
+    public function getKey(): ?string
     {
         return $this->key;
     }
@@ -97,7 +97,7 @@ class Property implements ArrayCopyable, Arrayable, Jsonable
      * @return Property
      *     `$this` object.
      */
-    public function setKey($key)
+    public function setKey(mixed $key): Property
     {
         ValidationUtility::ensureNullOrString('$key', $key);
 
@@ -110,10 +110,10 @@ class Property implements ArrayCopyable, Arrayable, Jsonable
     /**
      * Get the value of this property.
      *
-     * @return string
+     * @return string|null
      *     The value of this property.
      */
-    public function getValue()
+    public function getValue(): ?string
     {
         return $this->value;
     }
@@ -128,7 +128,7 @@ class Property implements ArrayCopyable, Arrayable, Jsonable
      * @return Property
      *     `$this` object.
      */
-    public function setValue($value)
+    public function setValue(mixed $value): Property
     {
         ValidationUtility::ensureNullOrString('$value', $value);
 
@@ -145,7 +145,7 @@ class Property implements ArrayCopyable, Arrayable, Jsonable
      * @return boolean
      *     `true` if this property is hidden from the client application.
      */
-    public function isHidden()
+    public function isHidden(): bool
     {
         return $this->hidden;
     }
@@ -246,7 +246,7 @@ class Property implements ArrayCopyable, Arrayable, Jsonable
      * @return Property
      *     `$this` property.
      */
-    public function setHidden($hidden)
+    public function setHidden(mixed $hidden): Property
     {
         ValidationUtility::ensureBoolean('$hidden', $hidden);
 
@@ -264,7 +264,7 @@ class Property implements ArrayCopyable, Arrayable, Jsonable
      * @param array $array
      *     {@inheritdoc}
      */
-    public function copyToArray(array &$array)
+    public function copyToArray(array &$array): void
     {
         $array['key']    = $this->key;
         $array['value']  = $this->value;
@@ -280,7 +280,7 @@ class Property implements ArrayCopyable, Arrayable, Jsonable
      * @param array $array
      *     {@inheritdoc}
      */
-    public function copyFromArray(array &$array)
+    public function copyFromArray(array &$array): void
     {
         // key
         $this->setKey(
@@ -295,4 +295,3 @@ class Property implements ArrayCopyable, Arrayable, Jsonable
             LanguageUtility::getFromArrayAsBoolean('hidden', $array));
     }
 }
-?>

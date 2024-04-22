@@ -31,10 +31,9 @@ use Authlete\Util\LanguageUtility;
 /**
  * Grant types.
  */
-class GrantType
+enum GrantType: string implements Valuable
 {
     use EnumTrait;
-
 
     /**
      * Authorization Code flow.
@@ -42,12 +41,9 @@ class GrantType
      * A grant type to request an access token and/or and ID token,
      * and optionally a refresh token, using an authorization code.
      *
-     * @static
-     * @var GrantType
-     *
      * @see https://tools.ietf.org/html/rfc6749#section-4.1 RFC 6749, 4.1. Authorization Code Grant
      */
-    public static $AUTHORIZATION_CODE;
+    case AUTHORIZATION_CODE = 'AUTHORIZATION_CODE';
 
 
     /**
@@ -58,13 +54,10 @@ class GrantType
      * Dynamic Client Registration 1.0 uses `implicit` as a value
      * of `grant_types` of client metadata.
      *
-     * @static
-     * @var GrantType
-     *
      * @see https://tools.ietf.org/html/rfc6749#section-4.2 RFC 6749, 4.2. Implicit Grant
      * @see https://openid.net/specs/openid-connect-registration-1_0.html OpenID Connect Dynamic Client Registration 1.0
      */
-    public static $IMPLICIT;
+    case IMPLICIT = 'IMPLICIT';
 
 
     /**
@@ -73,12 +66,9 @@ class GrantType
      * A grant type to request an access token using a resource owner's
      * "username" and "password".
      *
-     * @static
-     * @var GrantType
-     *
      * @see https://tools.ietf.org/html/rfc6749#section-4.3 RFC 6749, 4.3. Resource Owner Password Credentials Grant
      */
-    public static $PASSWORD;
+    case PASSWORD = 'PASSWORD';
 
 
     /**
@@ -86,12 +76,9 @@ class GrantType
      *
      * A grant type to request an access token using a client's credentials.
      *
-     * @static
-     * @var GrantType
-     *
      * @see https://tools.ietf.org/html/rfc6749#section-4.4 RFC 6749, 4.4. Client Credentials Grant
      */
-    public static $CLIENT_CREDENTIALS;
+    case CLIENT_CREDENTIALS = 'CLIENT_CREDENTIALS';
 
 
     /**
@@ -100,12 +87,9 @@ class GrantType
      * A grant type to request an access token, and optionally an ID token
      * and/or a refresh token, using a refresh token.
      *
-     * @static
-     * @var GrantType
-     *
      * @see https://tools.ietf.org/html/rfc6749#section-6 RFC 6749, 6. Refreshing an Access Token
      */
-    public static $REFRESH_TOKEN;
+    case REFRESH_TOKEN = 'REFRESH_TOKEN';
 
 
     /**
@@ -114,14 +98,11 @@ class GrantType
      * A grant type to request an ID token, an access token, and optionally
      * a refresh token.
      *
-     * @static
-     * @var GrantType
-     *
      * @see https://openid.net/specs/openid-client-initiated-backchannel-authentication-core-1_0.html OpenID Connect Client Initiated Backchannel Authentication Flow - Core 1.0
      *
      * @since 1.8
      */
-    public static $CIBA;
+    case CIBA = 'CIBA';
 
 
     /**
@@ -129,17 +110,10 @@ class GrantType
      *
      * A grant type to request an access token and optionally a refresh token.
      *
-     * @static
-     * @var GrantType
-     *
      * @see https://tools.ietf.org/html/rfc8628 OAuth 2.0 Device Authorization Grant
      *
      * @since 1.8
      */
-    public static $DEVICE_CODE;
+    case DEVICE_CODE = 'DEVICE_CODE';
 }
 
-
-// Call GrantType::initialize().
-LanguageUtility::initializeClass(__NAMESPACE__ . '\GrantType');
-?>

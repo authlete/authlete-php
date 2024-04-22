@@ -34,7 +34,7 @@ use Authlete\Util\LanguageUtility;
  *
  * @see https://tools.ietf.org/html/rfc7518#section-5.1 RFC 7518, 5.1. "enc" (Encryption Algorithm) Header Parameter Values for JWE
  */
-class JWEEnc
+enum JWEEnc: string implements Valuable
 {
     use EnumTrait;
 
@@ -42,64 +42,41 @@ class JWEEnc
     /**
      * Algorithm defined in "5.2.3. AES_128_CBC_HMAC_SHA_256" of RFC 7518.
      *
-     * @static
-     * @var JWEEnc
-     *
      * @see https://tools.ietf.org/html/rfc7518#section-5.2.3 RFC 7518, 5.2.3. AES_128_CBC_HMAC_SHA_256
      */
-    public static $A128CBC_HS256;
+    case A128CBC_HS256 = 'A128CBC_HS256';
 
 
     /**
      * Algorithm defined in "5.2.4. AES_192_CBC_HMAC_SHA_384" of RFC 7518.
      *
-     * @static
-     * @var JWEEnc
-     *
      * @see https://tools.ietf.org/html/rfc7518#section-5.2.4 RFC 7518, 5.2.4. AES_192_CBC_HMAC_SHA_384
      */
-    public static $A192CBC_HS384;
+    case A192CBC_HS384 = 'A192CBC_HS384';
 
 
     /**
      * Algorithm defined in "5.2.5. AES_256_CBC_HMAC_SHA_512" of RFC 7518.
      *
-     * @static
-     * @var JWEEnc
-     *
      * @see https://tools.ietf.org/html/rfc7518#section-5.2.5 RFC 7518, 5.2.5. AES_256_CBC_HMAC_SHA_512
      */
-    public static $A256CBC_HS512;
+    case A256CBC_HS512 = 'A256CBC_HS512';
 
 
     /**
      * AES GCM using 128 bit key.
-     *
-     * @static
-     * @var JWEEnc
      */
-    public static $A128GCM;
+    case A128GCM = 'A128GCM';
 
 
     /**
      * AES GCM using 192 bit key.
-     *
-     * @static
-     * @var JWEEnc
      */
-    public static $A192GCM;
+    case A192GCM = 'A192GCM';
 
 
     /**
      * AES GCM using 256 bit key.
-     *
-     * @static
-     * @var JWEEnc
      */
-    public static $A256GCM;
+    case A256GCM = 'A256GCM';
 }
-
-
-// Call JWEEnc::initialize().
-LanguageUtility::initializeClass(__NAMESPACE__ . '\JWEEnc');
-?>

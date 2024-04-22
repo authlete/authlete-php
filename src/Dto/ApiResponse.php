@@ -43,17 +43,17 @@ class ApiResponse implements ArrayCopyable, Arrayable, Jsonable
     use JsonTrait;
 
 
-    private $resultCode    = null;  // string
-    private $resultMessage = null;  // string
+    private ?string $resultCode    = null;
+    private ?string $resultMessage = null;
 
 
     /**
      * Get the code of the result of an Authlete API call.
      *
-     * @return string
+     * @return string|null The result code.
      *     The result code.
      */
-    public function getResultCode()
+    public function getResultCode(): ?string
     {
         return $this->resultCode;
     }
@@ -62,13 +62,13 @@ class ApiResponse implements ArrayCopyable, Arrayable, Jsonable
     /**
      * Set the code of the result of an Authlete API call.
      *
-     * @param string $resultCode
+     * @param string|null $resultCode
      *     The result code.
      *
      * @return ApiResponse
      *     `$this` object.
      */
-    public function setResultCode($resultCode)
+    public function setResultCode(mixed $resultCode): ApiResponse
     {
         ValidationUtility::ensureNullOrString('$resultCode', $resultCode);
 
@@ -81,10 +81,10 @@ class ApiResponse implements ArrayCopyable, Arrayable, Jsonable
     /**
      * Get the message of the result of an Authlete API call.
      *
-     * @return string
+     * @return string|null
      *     The result message.
      */
-    public function getResultMessage()
+    public function getResultMessage(): ?string
     {
         return $this->resultMessage;
     }
@@ -99,7 +99,7 @@ class ApiResponse implements ArrayCopyable, Arrayable, Jsonable
      * @return ApiResponse
      *     `$this` object.
      */
-    public function setResultMessage($resultMessage)
+    public function setResultMessage(mixed $resultMessage): ApiResponse
     {
         ValidationUtility::ensureNullOrString('$resultMessage', $resultMessage);
 
@@ -117,7 +117,7 @@ class ApiResponse implements ArrayCopyable, Arrayable, Jsonable
      * @param array $array
      *     {@inheritdoc}
      */
-    public function copyToArray(array &$array)
+    public function copyToArray(array &$array):void
     {
         $array['resultCode']    = $this->resultCode;
         $array['resultMessage'] = $this->resultMessage;
@@ -143,4 +143,3 @@ class ApiResponse implements ArrayCopyable, Arrayable, Jsonable
             LanguageUtility::getFromArray('resultMessage', $array));
     }
 }
-?>

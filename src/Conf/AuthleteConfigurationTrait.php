@@ -32,20 +32,20 @@ namespace Authlete\Conf;
  */
 trait AuthleteConfigurationTrait
 {
-    private $baseUrl               = null;  // string
-    private $serviceOwnerApiKey    = null;  // string
-    private $serviceOwnerApiSecret = null;  // string
-    private $serviceApiKey         = null;  // string
-    private $serviceApiSecret      = null;  // string
+    private ?string $baseUrl               = null;
+    private ?string $serviceOwnerApiKey    = null;
+    private ?string $serviceOwnerApiSecret = null;
+    private ?string $serviceApiKey         = null;
+    private ?string $serviceApiSecret      = null;
 
 
     /**
      * The base URL of an Authlete server.
      *
-     * @return string
+     * @return string|null
      *     The base URL of an Authlete server.
      */
-    public function getBaseUrl()
+    public function getBaseUrl(): ?string
     {
         return $this->baseUrl;
     }
@@ -54,10 +54,10 @@ trait AuthleteConfigurationTrait
     /**
      * Get the API key of a service owner.
      *
-     * @return string
+     * @return string|null
      *     The API key of a service owner.
      */
-    public function getServiceOwnerApiKey()
+    public function getServiceOwnerApiKey(): ?string
     {
         return $this->serviceOwnerApiKey;
     }
@@ -66,10 +66,10 @@ trait AuthleteConfigurationTrait
     /**
      * Get the API secret of a service owner.
      *
-     * @return string
+     * @return string|null
      *     The API secret of a service owner.
      */
-    public function getServiceOwnerApiSecret()
+    public function getServiceOwnerApiSecret(): ?string
     {
         return $this->serviceOwnerApiSecret;
     }
@@ -78,10 +78,10 @@ trait AuthleteConfigurationTrait
     /**
      * Get the API key of a service.
      *
-     * @return string
+     * @return string|null
      *     The API key of a service.
      */
-    public function getServiceApiKey()
+    public function getServiceApiKey(): ?string
     {
         return $this->serviceApiKey;
     }
@@ -90,12 +90,12 @@ trait AuthleteConfigurationTrait
     /**
      * Get the API secret of a service.
      *
-     * @return string
+     * @return string|null
      *     The API secret of a service.
      */
-    public function getServiceApiSecret()
+    public function getServiceApiSecret(): ?string
     {
         return $this->serviceApiSecret;
     }
 }
-?>
+

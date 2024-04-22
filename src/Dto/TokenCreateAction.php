@@ -26,6 +26,7 @@ namespace Authlete\Dto;
 
 
 use Authlete\Types\EnumTrait;
+use Authlete\Types\Valuable;
 use Authlete\Util\LanguageUtility;
 
 
@@ -33,18 +34,14 @@ use Authlete\Util\LanguageUtility;
  * The value of "action" in responses from Authlete's /api/auth/token/create
  * API.
  */
-class TokenCreateAction
+enum TokenCreateAction: string implements Valuable
 {
     use EnumTrait;
 
-
     /**
      * An error occurred on Authlete side.
-     *
-     * @static
-     * @var TokenCreateAction
      */
-    public static $INTERNAL_SERVER_ERROR;
+    case INTERNAL_SERVER_ERROR = 'INTERNAL_SERVER_ERROR';
 
 
     /**
@@ -52,11 +49,8 @@ class TokenCreateAction
      *
      * For example, this happens when the `grantType` request parameter is
      * missing.
-     *
-     * @static
-     * @var TokenCreateAction
      */
-    public static $BAD_REQUEST;
+    case BAD_REQUEST = 'BAD_REQUEST';
 
 
     /**
@@ -65,23 +59,13 @@ class TokenCreateAction
      * For example, this happens when the client application identified by
      * the `clientId` request parameter does not belong to the service
      * identified by the API key used for the API call.
-     *
-     * @static
-     * @var TokenCreateAction
      */
-    public static $FORBIDDEN;
+    case FORBIDDEN = 'FORBIDDEN';
 
 
     /**
      * An access token and optionally a refresh token were issued successfully.
-     *
-     * @static
-     * @var TokenCreateAction
      */
-    public static $OK;
+    case OK = 'OK';
 }
 
-
-// Call TokenCreateAction::initialize().
-LanguageUtility::initializeClass(__NAMESPACE__ . '\TokenCreateAction');
-?>

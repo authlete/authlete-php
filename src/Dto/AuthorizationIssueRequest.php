@@ -43,24 +43,24 @@ class AuthorizationIssueRequest implements ArrayCopyable, Arrayable, Jsonable
     use JsonTrait;
 
 
-    private $ticket          = null;  // string
-    private $subject         = null;  // string
-    private $sub             = null;  // string
-    private $authTime        = null;  // string or (64-bit) integer
-    private $acr             = null;  // string
-    private $claims          = null;  // string
-    private $properties      = null;  // array of \Authlete\Dto\Property
-    private $scopes          = null;  // array of string
-    private $idtHeaderParams = null;  // string
+    private ?string $ticket          = null;
+    private ?string $subject         = null;
+    private ?string $sub             = null;
+    private string|int|null $authTime= null;
+    private ?string $acr             = null;
+    private ?string $claims          = null;
+    private ?array $properties       = null;  // array of \Authlete\Dto\Property
+    private ?array $scopes           = null;  // array of string
+    private ?string $idtHeaderParams = null;
 
 
     /**
      * Get the ticket issued by Authlete's /api/auth/authorization API.
      *
-     * @return string
+     * @return string|null
      *     The ticket issued by Authlete's /api/auth/authorization API.
      */
-    public function getTicket()
+    public function getTicket(): ?string
     {
         return $this->ticket;
     }
@@ -76,7 +76,7 @@ class AuthorizationIssueRequest implements ArrayCopyable, Arrayable, Jsonable
      * @return AuthorizationIssueRequest
      *     `$this` object.
      */
-    public function setTicket($ticket)
+    public function setTicket(mixed $ticket): AuthorizationIssueRequest
     {
         ValidationUtility::ensureNullOrString('$ticket', $ticket);
 
@@ -90,10 +90,10 @@ class AuthorizationIssueRequest implements ArrayCopyable, Arrayable, Jsonable
      * Get the subject (= unique identifier) of the end-user who has granted
      * authorization to the client application.
      *
-     * @return string
+     * @return string|null
      *     The unique identifier of an end-user.
      */
-    public function getSubject()
+    public function getSubject(): ?string
     {
         return $this->subject;
     }
@@ -125,7 +125,7 @@ class AuthorizationIssueRequest implements ArrayCopyable, Arrayable, Jsonable
      * @return AuthorizationIssueRequest
      *     `$this` object.
      */
-    public function setSubject($subject)
+    public function setSubject(mixed $subject): AuthorizationIssueRequest
     {
         ValidationUtility::ensureNullOrString('$subject', $subject);
 
@@ -139,10 +139,10 @@ class AuthorizationIssueRequest implements ArrayCopyable, Arrayable, Jsonable
      * Get the value of the "sub" claim used in the ID token which is to
      * be issued.
      *
-     * @return string
+     * @return string|null
      *     The value of the `sub` claim used in the ID token.
      */
-    public function getSub()
+    public function getSub(): ?string
     {
         return $this->sub;
     }
@@ -163,7 +163,7 @@ class AuthorizationIssueRequest implements ArrayCopyable, Arrayable, Jsonable
      * @return AuthorizationIssueRequest
      *     `$this` object.
      */
-    public function setSub($sub)
+    public function setSub(mixed $sub): AuthorizationIssueRequest
     {
         ValidationUtility::ensureNullOrString('$sub', $sub);
 
@@ -179,10 +179,10 @@ class AuthorizationIssueRequest implements ArrayCopyable, Arrayable, Jsonable
      * The value represents the elapsed time since the Unix epoch
      * (1970-Jan-1) in seconds.
      *
-     * @return integer|string
+     * @return int|string|null
      *     The time when the authentication of the end-user occurred.
      */
-    public function getAuthTime()
+    public function getAuthTime(): int|string|null
     {
         return $this->authTime;
     }
@@ -202,7 +202,7 @@ class AuthorizationIssueRequest implements ArrayCopyable, Arrayable, Jsonable
      * @return AuthorizationIssueRequest
      *     `$this` object.
      */
-    public function setAuthTime($authTime)
+    public function setAuthTime(mixed $authTime): AuthorizationIssueRequest
     {
         ValidationUtility::ensureNullOrStringOrInteger('$authTime', $authTime);
 
@@ -216,10 +216,10 @@ class AuthorizationIssueRequest implements ArrayCopyable, Arrayable, Jsonable
      * Get the Authentication Context Class Reference performed for the
      * end-user authentication.
      *
-     * @return string
+     * @return string|null
      *     The Authentication Context Class Reference.
      */
-    public function getAcr()
+    public function getAcr(): ?string
     {
         return $this->acr;
     }
@@ -235,7 +235,7 @@ class AuthorizationIssueRequest implements ArrayCopyable, Arrayable, Jsonable
      * @return AuthorizationIssueRequest
      *     `$this` object.
      */
-    public function setAcr($acr)
+    public function setAcr(mixed $acr): AuthorizationIssueRequest
     {
         ValidationUtility::ensureNullOrString('$acr', $acr);
 
@@ -249,10 +249,10 @@ class AuthorizationIssueRequest implements ArrayCopyable, Arrayable, Jsonable
      * Get the claims of the end-user (= pieces of information about the
      * end-user) in JSON format.
      *
-     * @return string
+     * @return string|null
      *     The claims of the end-user in JSON format.
      */
-    public function getClaims()
+    public function getClaims(): ?string
     {
         return $this->claims;
     }
@@ -289,7 +289,7 @@ class AuthorizationIssueRequest implements ArrayCopyable, Arrayable, Jsonable
      * @return AuthorizationIssueRequest
      *     `$this` object.
      */
-    public function setClaims($claims)
+    public function setClaims(mixed $claims): AuthorizationIssueRequest
     {
         ValidationUtility::ensureNullOrString('$claims', $claims);
 
@@ -303,10 +303,10 @@ class AuthorizationIssueRequest implements ArrayCopyable, Arrayable, Jsonable
      * Get the properties which are associated with an access token and/or
      * an authorization code which will be issued.
      *
-     * @return Property[]
+     * @return array|null
      *     Extra properties.
      */
-    public function getProperties()
+    public function getProperties(): ?array
     {
         return $this->properties;
     }
@@ -377,16 +377,16 @@ class AuthorizationIssueRequest implements ArrayCopyable, Arrayable, Jsonable
      * You can know properties associated with an access token by calling
      * Authlete's `/api/auth/introspection` API.
      *
-     * @param array $properties
+     * @param array|null $properties
      *     An array of \Authlete\Dto\Property.
      *
      * @return AuthorizationIssueRequest
      *     `$this` object.
      */
-    public function setProperties(array $properties = null)
+    public function setProperties(?array $properties = null): AuthorizationIssueRequest
     {
         ValidationUtility::ensureNullOrArrayOfType(
-            '$properties', $properties, __NAMESPACE__ . '\Property');
+            '$properties', __NAMESPACE__ . '\Property', $properties);
 
         $this->properties = $properties;
 
@@ -398,10 +398,10 @@ class AuthorizationIssueRequest implements ArrayCopyable, Arrayable, Jsonable
      * Get scopes that should be associated with an authorization code
      * and/or an access token.
      *
-     * @return string[]
+     * @return array|null
      *     A string array that represents scope names.
      */
-    public function getScopes()
+    public function getScopes(): ?array
     {
         return $this->scopes;
     }
@@ -442,13 +442,13 @@ class AuthorizationIssueRequest implements ArrayCopyable, Arrayable, Jsonable
      * does not perform the same validation even if the `offline_access`
      * scope is newly added via this method.
      *
-     * @param array $scopes
+     * @param array|null $scopes
      *     A string array that represents scope names.
      *
      * @return AuthorizationIssueRequest
      *     `$this` object.
      */
-    public function setScopes(array $scopes = null)
+    public function setScopes(array $scopes = null): AuthorizationIssueRequest
     {
         ValidationUtility::ensureNullOrArrayOfString('$scopes', $scopes);
 
@@ -462,12 +462,12 @@ class AuthorizationIssueRequest implements ArrayCopyable, Arrayable, Jsonable
      * Get JSON that represents additional JWS header parameters for ID tokens
      * that may be issued based on the authorization request.
      *
-     * @return string
+     * @return string|null
      *     JSON that represents additional JWS header parameters for ID tokens.
      *
      * @since 1.8
      */
-    public function getIdtHeaderParams()
+    public function getIdtHeaderParams(): ?string
     {
         return $this->idtHeaderParams;
     }
@@ -477,7 +477,7 @@ class AuthorizationIssueRequest implements ArrayCopyable, Arrayable, Jsonable
      * Set JSON that represents additional JWS header parameters for ID tokens
      * that may be issued based on the authorization request.
      *
-     * @param string $params
+     * @param string|null $params
      *     JSON that represents additional JWS header parameters for ID tokens.
      *
      * @return AuthorizationIssueRequest
@@ -485,7 +485,7 @@ class AuthorizationIssueRequest implements ArrayCopyable, Arrayable, Jsonable
      *
      * @since 1.8
      */
-    public function setIdtHeaderParams($params)
+    public function setIdtHeaderParams(?string $params): AuthorizationIssueRequest
     {
         ValidationUtility::ensureNullOrString('$idtHeaderParams', $params);
 
@@ -503,7 +503,7 @@ class AuthorizationIssueRequest implements ArrayCopyable, Arrayable, Jsonable
      * @param array $array
      *     {@inheritdoc}
      */
-    public function copyToArray(array &$array)
+    public function copyToArray(array &$array): void
     {
         $array['ticket']          = $this->ticket;
         $array['subject']         = $this->subject;
@@ -525,7 +525,7 @@ class AuthorizationIssueRequest implements ArrayCopyable, Arrayable, Jsonable
      * @param array $array
      *     {@inheritdoc}
      */
-    public function copyFromArray(array &$array)
+    public function copyFromArray(array &$array): void
     {
         // ticket
         $this->setTicket(
@@ -553,7 +553,7 @@ class AuthorizationIssueRequest implements ArrayCopyable, Arrayable, Jsonable
 
         // properties
         $_properties = LanguageUtility::getFromArray('properties', $array);
-        $_properties = LanguageUtility::convertArrayToArrayOfArrayCopyable($_properties, __NAMESPACE__ . '\Property');
+        $_properties = LanguageUtility::convertArrayToArrayOfArrayCopyable(__NAMESPACE__ . '\Property', $_properties);
         $this->setProperties($_properties);
 
         // scopes
@@ -565,4 +565,4 @@ class AuthorizationIssueRequest implements ArrayCopyable, Arrayable, Jsonable
             LanguageUtility::getFromArray('idtHeaderParams', $array));
     }
 }
-?>
+

@@ -62,16 +62,16 @@ class DeviceVerificationRequest implements ArrayCopyable, Arrayable, Jsonable
     use JsonTrait;
 
 
-    private $userCode = null;  // string
+    private ?string $userCode = null;  // string
 
 
     /**
      * Get the user code.
      *
-     * @return string
+     * @return string|null
      *     The user code.
      */
-    public function getUserCode()
+    public function getUserCode(): ?string
     {
         return $this->userCode;
     }
@@ -86,7 +86,7 @@ class DeviceVerificationRequest implements ArrayCopyable, Arrayable, Jsonable
      * @return DeviceVerificationRequest
      *     `$this` object
      */
-    public function setUserCode($code)
+    public function setUserCode(string $code): DeviceVerificationRequest
     {
         ValidationUtility::ensureNullOrString('$code', $code);
 
@@ -104,7 +104,7 @@ class DeviceVerificationRequest implements ArrayCopyable, Arrayable, Jsonable
      * @param array $array
      *     {@inheritdoc}
      */
-    public function copyToArray(array &$array)
+    public function copyToArray(array &$array): void
     {
         $array['userCode'] = $this->userCode;
     }
@@ -118,11 +118,11 @@ class DeviceVerificationRequest implements ArrayCopyable, Arrayable, Jsonable
      * @param array $array
      *     {@inheritdoc}
      */
-    public function copyFromArray(array &$array)
+    public function copyFromArray(array &$array): void
     {
         // userCode
         $this->setUserCode(
             LanguageUtility::getFromArray('userCode', $array));
     }
 }
-?>
+

@@ -26,6 +26,7 @@ namespace Authlete\Dto;
 
 
 use Authlete\Types\EnumTrait;
+use Authlete\Types\Valuable;
 use Authlete\Util\LanguageUtility;
 
 
@@ -33,18 +34,15 @@ use Authlete\Util\LanguageUtility;
  * The value of "action" in responses from Authlete's /api/auth/token/update
  * API.
  */
-class TokenUpdateAction
+enum TokenUpdateAction: string implements Valuable
 {
     use EnumTrait;
 
 
     /**
      * An error occurred on Authlete side.
-     *
-     * @static
-     * @var TokenUpdateAction
      */
-    public static $INTERNAL_SERVER_ERROR;
+    case INTERNAL_SERVER_ERROR = 'INTERNAL_SERVER_ERROR';
 
 
     /**
@@ -52,11 +50,8 @@ class TokenUpdateAction
      *
      * For example, this happens when the `accessToken` request parameter was
      * missing.
-     *
-     * @static
-     * @var TokenUpdateAction
      */
-    public static $BAD_REQUEST;
+    case BAD_REQUEST = 'BAD_REQUEST';
 
 
     /**
@@ -65,32 +60,18 @@ class TokenUpdateAction
      * For example, this happens when the access token identified by the
      * `accessToken` request parameter does not belong to the service
      * identified by the API key used for the API call.
-     *
-     * @static
-     * @var TokenUpdateAction
      */
-    public static $FORBIDDEN;
+    case FORBIDDEN = 'FORBIDDEN';
 
 
     /**
      * The specified access token does not exist.
-     *
-     * @static
-     * @var TokenUpdateAction
      */
-    public static $NOT_FOUND;
+    case NOT_FOUND = 'NOT_FOUND';
 
 
     /**
      * The access token was updated successfully.
-     *
-     * @static
-     * @var TokenUpdateAction
      */
-    public static $OK;
+    case OK = 'OK';
 }
-
-
-// Call TokenUpdateAction::initialize().
-LanguageUtility::initializeClass(__NAMESPACE__ . '\TokenUpdateAction');
-?>

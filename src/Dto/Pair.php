@@ -43,20 +43,20 @@ class Pair implements ArrayCopyable, Arrayable, Jsonable
     use JsonTrait;
 
 
-    private $key    = null;  // string
-    private $value  = null;  // string
+    private ?string $key;
+    private ?string $value;
 
 
     /**
      * Constructor.
      *
-     * @param string $key
+     * @param string|null $key
      *     The key.
      *
-     * @param string $value
+     * @param string|null $value
      *     The value.
      */
-    public function __construct($key = null, $value = null)
+    public function __construct(string $key = null, string $value = null)
     {
         ValidationUtility::ensureNullOrString('$key',   $key);
         ValidationUtility::ensureNullOrString('$value', $value);
@@ -69,10 +69,10 @@ class Pair implements ArrayCopyable, Arrayable, Jsonable
     /**
      * Get the key.
      *
-     * @return string
+     * @return string|null The key.
      *     The key.
      */
-    public function getKey()
+    public function getKey(): ?string
     {
         return $this->key;
     }
@@ -87,7 +87,7 @@ class Pair implements ArrayCopyable, Arrayable, Jsonable
      * @return Pair
      *     `$this` object.
      */
-    public function setKey($key)
+    public function setKey(string $key): Pair
     {
         ValidationUtility::ensureNullOrString('$key', $key);
 
@@ -100,10 +100,10 @@ class Pair implements ArrayCopyable, Arrayable, Jsonable
     /**
      * Get the value.
      *
-     * @return string
+     * @return string|null
      *     The value.
      */
-    public function getValue()
+    public function getValue(): ?string
     {
         return $this->value;
     }
@@ -118,7 +118,7 @@ class Pair implements ArrayCopyable, Arrayable, Jsonable
      * @return Pair
      *     `$this` object.
      */
-    public function setValue($value)
+    public function setValue(string $value): Pair
     {
         ValidationUtility::ensureNullOrString('$value', $value);
 
@@ -136,7 +136,7 @@ class Pair implements ArrayCopyable, Arrayable, Jsonable
      * @param array $array
      *     {@inheritdoc}
      */
-    public function copyToArray(array &$array)
+    public function copyToArray(array &$array): void
     {
         $array['key']   = $this->key;
         $array['value'] = $this->value;
@@ -151,7 +151,7 @@ class Pair implements ArrayCopyable, Arrayable, Jsonable
      * @param array $array
      *     {@inheritdoc}
      */
-    public function copyFromArray(array &$array)
+    public function copyFromArray(array &$array): void
     {
         // key
         $this->setKey(
@@ -162,4 +162,4 @@ class Pair implements ArrayCopyable, Arrayable, Jsonable
             LanguageUtility::getFromArray('value', $array));
     }
 }
-?>
+

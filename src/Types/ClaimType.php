@@ -33,42 +33,29 @@ use Authlete\Util\LanguageUtility;
  *
  * @see https://openid.net/specs/openid-connect-core-1_0.html#ClaimTypes OpenID Connect Core 1.0, 5.6. Claim Types
  */
-class ClaimType
+enum ClaimType: string implements Valuable
 {
     use EnumTrait;
 
 
     /**
      * Claims that are directly asserted by the OpenID provider.
-     *
-     * @static
-     * @var ClaimType
      */
-    public static $NORMAL;
+    case NORMAL = 'NORMAL';
 
 
     /**
      * Claims that are asserted by a Claims Provider other than
      * the OpenID Provider but are returned by the OpenID Provider.
-     *
-     * @static
-     * @var ClaimType
      */
-    public static $AGGREGATED;
+    case AGGREGATED = 'AGGREGATED';
 
 
     /**
      * Claims that are asserted by a Claims Provider other than
      * the OpenID Provider but are returned as references by the
      * OpenID Provider.
-     *
-     * @static
-     * @var ClaimType
      */
-    public static $DISTRIBUTED;
+    case DISTRIBUTED = 'DISTRIBUTED';
 }
 
-
-// Call ClaimType::initialize().
-LanguageUtility::initializeClass(__NAMESPACE__ . '\ClaimType');
-?>

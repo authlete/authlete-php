@@ -49,11 +49,11 @@ class PushedAuthReqRequest implements ArrayCopyable, Arrayable, Jsonable
     use JsonTrait;
 
 
-    private $parameters            = null;  // string
-    private $clientId              = null;  // string
-    private $clientSecret          = null;  // string
-    private $clientCertificate     = null;  // string
-    private $clientCertificatePath = null;  // array of string
+    private ?string $parameters            = null;
+    private ?string $clientId              = null;
+    private ?string $clientSecret          = null;
+    private ?string $clientCertificate     = null;
+    private ?array $clientCertificatePath  = null;
 
 
     /**
@@ -63,7 +63,7 @@ class PushedAuthReqRequest implements ArrayCopyable, Arrayable, Jsonable
      * @return string
      *     Request parameters in `application/x-www-form-urlencoded` format.
      */
-    public function getParameters()
+    public function getParameters(): ?string
     {
         return $this->parameters;
     }
@@ -79,7 +79,7 @@ class PushedAuthReqRequest implements ArrayCopyable, Arrayable, Jsonable
      * @return PushedAuthReqRequest
      *     `$this` object.
      */
-    public function setParameters($parameters)
+    public function setParameters(string $parameters): PushedAuthReqRequest
     {
         ValidationUtility::ensureNullOrString('$parameters', $parameters);
 
@@ -96,7 +96,7 @@ class PushedAuthReqRequest implements ArrayCopyable, Arrayable, Jsonable
      * @return string
      *     The client ID extracted from the `Authorization` header.
      */
-    public function getClientId()
+    public function getClientId(): ?string
     {
         return $this->clientId;
     }
@@ -112,7 +112,7 @@ class PushedAuthReqRequest implements ArrayCopyable, Arrayable, Jsonable
      * @return PushedAuthReqRequest
      *     `$this` object.
      */
-    public function setClientId($clientId)
+    public function setClientId(string $clientId): PushedAuthReqRequest
     {
         ValidationUtility::ensureNullOrString('$clientId', $clientId);
 
@@ -129,7 +129,7 @@ class PushedAuthReqRequest implements ArrayCopyable, Arrayable, Jsonable
      * @return string
      *     The client secret extracted from the `Authorization` header.
      */
-    public function getClientSecret()
+    public function getClientSecret(): ?string
     {
         return $this->clientSecret;
     }
@@ -145,7 +145,7 @@ class PushedAuthReqRequest implements ArrayCopyable, Arrayable, Jsonable
      * @return PushedAuthReqRequest
      *     `$this` object.
      */
-    public function setClientSecret($clientSecret)
+    public function setClientSecret(string $clientSecret): PushedAuthReqRequest
     {
         ValidationUtility::ensureNullOrString('$clientSecret', $clientSecret);
 
@@ -162,7 +162,7 @@ class PushedAuthReqRequest implements ArrayCopyable, Arrayable, Jsonable
      * @return string
      *     The client certificate.
      */
-    public function getClientCertificate()
+    public function getClientCertificate(): ?string
     {
         return $this->clientCertificate;
     }
@@ -178,7 +178,7 @@ class PushedAuthReqRequest implements ArrayCopyable, Arrayable, Jsonable
      * @return PushedAuthReqRequest
      *     `$this` object.
      */
-    public function setClientCertificate($certificate)
+    public function setClientCertificate(string $certificate): PushedAuthReqRequest
     {
         ValidationUtility::ensureNullOrString('$certificate', $certificate);
 
@@ -195,7 +195,7 @@ class PushedAuthReqRequest implements ArrayCopyable, Arrayable, Jsonable
      * @return string[]
      *     Certificates in PEM format.
      */
-    public function getClientCertificatePath()
+    public function getClientCertificatePath(): ?array
     {
         return $this->clientCertificatePath;
     }
@@ -211,7 +211,7 @@ class PushedAuthReqRequest implements ArrayCopyable, Arrayable, Jsonable
      * @return PushedAuthReqRequest
      *     `$this` object.
      */
-    public function setClientCertificatePath(array $path = null)
+    public function setClientCertificatePath(array $path = null): PushedAuthReqRequest
     {
         ValidationUtility::ensureNullOrArrayOfString('$path', $path);
 
@@ -270,4 +270,4 @@ class PushedAuthReqRequest implements ArrayCopyable, Arrayable, Jsonable
         $this->setClientCertificatePath($_client_certificate_path);
     }
 }
-?>
+

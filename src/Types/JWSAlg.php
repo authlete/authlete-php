@@ -33,129 +33,85 @@ use Authlete\Util\LanguageUtility;
  *
  * @see https://tools.ietf.org/html/rfc7518#section-3.1 RFC 7518, 3.1. "alg" (Algorithm) Header Parameter Values for JWS
  */
-class JWSAlg
+enum JWSAlg: string implements Valuable
 {
     use EnumTrait;
 
 
     /**
      * No digital signature or MAC performed.
-     *
-     * @static
-     * @var JWSAlg
      */
-    public static $NONE;
+    case NONE = 'NONE';
 
 
     /**
      * HMAC using SHA-256.
-     *
-     * @static
-     * @var JWSAlg
      */
-    public static $HS256;
+    case HS256 = 'HS256';
 
 
     /**
      * HMAC using SHA-384.
-     *
-     * @static
-     * @var JWSAlg
      */
-    public static $HS384;
+    case HS384 = 'HS384';
 
 
     /**
      * HMAC using SHA-512.
-     *
-     * @static
-     * @var JWSAlg
      */
-    public static $HS512;
+    case HS512 = 'HS512';
 
 
     /**
      * RSASSA-PKCS-v1_5 using SHA-256.
-     *
-     * @static
-     * @var JWSAlg
      */
-    public static $RS256;
+    case RS256 = 'RS256';
 
 
     /**
      * RSASSA-PKCS-v1_5 using SHA-384.
-     *
-     * @static
-     * @var JWSAlg
      */
-    public static $RS384;
+    case RS384 = 'RS384';
 
 
     /**
      * RSASSA-PKCS-v1_5 using SHA-512.
-     *
-     * @static
-     * @var JWSAlg
      */
-    public static $RS512;
+    case RS512 = 'RS512';
 
 
     /**
      * ECDSA using P-256 and SHA-256.
-     *
-     * @static
-     * @var JWSAlg
      */
-    public static $ES256;
+    case ES256 = 'ES256';
 
 
     /**
      * ECDSA using P-384 and SHA-384.
-     *
-     * @static
-     * @var JWSAlg
      */
-    public static $ES384;
+    case ES384 = 'ES384';
 
 
     /**
      * ECDSA using P-521 and SHA-512.
-     *
-     * @static
-     * @var JWSAlg
      */
-    public static $ES512;
+    case ES512 = 'ES512';
 
 
     /**
      * RSASSA-PSS using SHA-256 and MGF1 with SHA-256.
-     *
-     * @static
-     * @var JWSAlg
      */
-    public static $PS256;
+    case PS256 = 'PS256';
 
 
     /**
      * RSASSA-PSS using SHA-384 and MGF1 with SHA-384.
-     *
-     * @static
-     * @var JWSAlg
      */
-    public static $PS384;
+    case PS384 = 'PS384';
 
 
     /**
      * RSASSA-PSS using SHA-512 and MGF1 with SHA-512.
-     *
-     * @static
-     * @var JWSAlg
      */
-    public static $PS512;
+    case PS512 = 'PS512';
 }
-
-
-// Call JWSAlg::initialize().
-LanguageUtility::initializeClass(__NAMESPACE__ . '\JWSAlg');
-?>

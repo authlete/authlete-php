@@ -87,18 +87,18 @@ class BackchannelAuthenticationCompleteRequest implements ArrayCopyable, Arrayab
     use JsonTrait;
 
 
-    private $ticket           = null;  // string
-    private $result           = null;  // \Authlete\Dto\BackchannelAuthenticationCompleteResult
-    private $subject          = null;  // string
-    private $sub              = null;  // string
-    private $authTime         = null;  // string or (64-bit) integer
-    private $acr              = null;  // string
-    private $claims           = null;  // string
-    private $properties       = null;  // array of \Authlete\Dto\Property
-    private $scopes           = null;  // array of string
-    private $idtHeaderParams  = null;  // string
-    private $errorDescription = null;  // string
-    private $errorUri         = null;  // string
+    private ?string $ticket           = null;  // string
+    private ?string $result           = null;  // \Authlete\Dto\BackchannelAuthenticationCompleteResult
+    private ?string $subject          = null;  // string
+    private ?string $sub              = null;  // string
+    private string|int|null $authTime = null;  // string or (64-bit) integer
+    private ?string $acr              = null;  // string
+    private ?string $claims           = null;  // string
+    private ?array $properties        = null;  // array of \Authlete\Dto\Property
+    private ?array $scopes            = null;  // array of string
+    private ?string $idtHeaderParams  = null;  // string
+    private ?string $errorDescription = null;  // string
+    private ?string $errorUri         = null;  // string
 
 
     /**
@@ -106,11 +106,11 @@ class BackchannelAuthenticationCompleteRequest implements ArrayCopyable, Arrayab
      * `/api/backchannel/authentication/complete` API.
      * This request parameter is mandatory.
      *
-     * @return string
+     * @return string|null
      *     The ticket previously issued from Authlete's
      *     `/api/backchannel/authentication` API.
      */
-    public function getTicket()
+    public function getTicket(): ?string
     {
         return $this->ticket;
     }
@@ -128,7 +128,7 @@ class BackchannelAuthenticationCompleteRequest implements ArrayCopyable, Arrayab
      * @return BackchannelAuthenticationCompleteRequest
      *     `$this` object.
      */
-    public function setTicket($ticket)
+    public function setTicket(string $ticket): BackchannelAuthenticationCompleteRequest
     {
         ValidationUtility::ensureNullOrString('$ticket', $ticket);
 
@@ -142,12 +142,12 @@ class BackchannelAuthenticationCompleteRequest implements ArrayCopyable, Arrayab
      * Get the result of end-user authentication and authorization.
      * This request parameter is mandatory.
      *
-     * @return BackchannelAuthenticationCompleteResult
+     * @return BackchannelAuthenticationCompleteResult|null
      *     The result of end-user authentication and authorization.
      */
-    public function getResult()
+    public function getResult(): ?BackchannelAuthenticationCompleteResult
     {
-        return $this->result;
+        return BackchannelAuthenticationCompleteResult::valueOf($this->result);
     }
 
 
@@ -155,15 +155,15 @@ class BackchannelAuthenticationCompleteRequest implements ArrayCopyable, Arrayab
      * Set the result of end-user authentication and authorization.
      * This request parameter is mandatory.
      *
-     * @param BackchannelAuthenticationCompleteResult $result
+     * @param BackchannelAuthenticationCompleteResult|null $result
      *     The result of end-user authentication and authorization.
      *
      * @return BackchannelAuthenticationCompleteRequest
      *     `$this` object.
      */
-    public function setResult(BackchannelAuthenticationCompleteResult $result = null)
+    public function setResult(BackchannelAuthenticationCompleteResult $result = null): BackchannelAuthenticationCompleteRequest
     {
-        $this->result = $result;
+        $this->result = $result->value;
 
         return $this;
     }
@@ -184,10 +184,10 @@ class BackchannelAuthenticationCompleteRequest implements ArrayCopyable, Arrayab
      * the value of the subject associated with the access token is still the
      * value of this `subject` property.
      *
-     * @return string
+     * @return string|null
      *     The subject of the end-user.
      */
-    public function getSubject()
+    public function getSubject(): ?string
     {
         return $this->subject;
     }
@@ -214,7 +214,7 @@ class BackchannelAuthenticationCompleteRequest implements ArrayCopyable, Arrayab
      * @return BackchannelAuthenticationCompleteRequest
      *     `$this` object.
      */
-    public function setSubject($subject)
+    public function setSubject(string $subject): BackchannelAuthenticationCompleteRequest
     {
         ValidationUtility::ensureNullOrString('$subject', $subject);
 
@@ -236,10 +236,10 @@ class BackchannelAuthenticationCompleteRequest implements ArrayCopyable, Arrayab
      * whether this `sub` property is a non-empty value or not. In other words,
      * this `sub` property affects only the `sub` claim in the ID token.
      *
-     * @return string
+     * @return string|null
      *     The value of the `sub` claim.
      */
-    public function getSub()
+    public function getSub(): ?string
     {
         return $this->sub;
     }
@@ -263,7 +263,7 @@ class BackchannelAuthenticationCompleteRequest implements ArrayCopyable, Arrayab
      * @return BackchannelAuthenticationCompleteRequest
      *     `$this` object.
      */
-    public function setSub($sub)
+    public function setSub(string $sub): BackchannelAuthenticationCompleteRequest
     {
         ValidationUtility::ensureNullOrString('$sub', $sub);
 
@@ -279,10 +279,10 @@ class BackchannelAuthenticationCompleteRequest implements ArrayCopyable, Arrayab
      * The value represents the elapsed time since the Unix epoch
      * (1970-Jan-1) in seconds.
      *
-     * @return integer|string
+     * @return int|string|null The time when the authentication of the end-user occurred.
      *     The time when the authentication of the end-user occurred.
      */
-    public function getAuthTime()
+    public function getAuthTime(): int|string|null
     {
         return $this->authTime;
     }
@@ -300,7 +300,7 @@ class BackchannelAuthenticationCompleteRequest implements ArrayCopyable, Arrayab
      * @return BackchannelAuthenticationCompleteRequest
      *     `$this` object.
      */
-    public function setAuthTime($authTime)
+    public function setAuthTime(int|string $authTime): BackchannelAuthenticationCompleteRequest
     {
         ValidationUtility::ensureNullOrStringOrInteger('$authTime', $authTime);
 
@@ -315,10 +315,10 @@ class BackchannelAuthenticationCompleteRequest implements ArrayCopyable, Arrayab
      * authentication satisfied. When this property holds a non-null value,
      * the value will be used as the value of the `acr` claim in the ID token.
      *
-     * @return string
+     * @return string|null The authentication context class reference.
      *     The authentication context class reference.
      */
-    public function getAcr()
+    public function getAcr(): ?string
     {
         return $this->acr;
     }
@@ -335,7 +335,7 @@ class BackchannelAuthenticationCompleteRequest implements ArrayCopyable, Arrayab
      * @return BackchannelAuthenticationCompleteRequest
      *     `$this` object.
      */
-    public function setAcr($acr)
+    public function setAcr(string $acr): BackchannelAuthenticationCompleteRequest
     {
         ValidationUtility::ensureNullOrString('$acr', $acr);
 
@@ -348,11 +348,11 @@ class BackchannelAuthenticationCompleteRequest implements ArrayCopyable, Arrayab
     /**
      * Get additional claims which will be embedded in the ID token.
      *
-     * @return string
+     * @return string|null Additional claims in JSON format which will be embedded in the ID
      *     Additional claims in JSON format which will be embedded in the ID
      *     token.
      */
-    public function getClaims()
+    public function getClaims(): ?string
     {
         return $this->claims;
     }
@@ -390,7 +390,7 @@ class BackchannelAuthenticationCompleteRequest implements ArrayCopyable, Arrayab
      * @return BackchannelAuthenticationCompleteRequest
      *     `$this` object.
      */
-    public function setClaims($claims)
+    public function setClaims(string $claims): BackchannelAuthenticationCompleteRequest
     {
         ValidationUtility::ensureNullOrString('$claims', $claims);
 
@@ -404,10 +404,10 @@ class BackchannelAuthenticationCompleteRequest implements ArrayCopyable, Arrayab
      * Get the extra properties associated with the access token that will
      * be issued.
      *
-     * @return Property[]
+     * @return array|null
      *     Extra properties.
      */
-    public function getProperties()
+    public function getProperties(): ?array
     {
         return $this->properties;
     }
@@ -440,16 +440,16 @@ class BackchannelAuthenticationCompleteRequest implements ArrayCopyable, Arrayab
      * database. The length of the resultant string must not exceed 65,535 in
      * bytes. This is the upper limit, but we think it is big enough.
      *
-     * @param array $properties
+     * @param array|null $properties
      *     Extra properties.
      *
      * @return BackchannelAuthenticationCompleteRequest
      *     `$this` object.
      */
-    public function setProperties(array $properties = null)
+    public function setProperties(array $properties = null): BackchannelAuthenticationCompleteRequest
     {
         ValidationUtility::ensureNullOrArrayOfType(
-            '$properties', $properties, __NAMESPACE__ . '\Property');
+            '$properties', __NAMESPACE__ . '\Property', $properties);
 
         $this->properties = $properties;
 
@@ -462,12 +462,12 @@ class BackchannelAuthenticationCompleteRequest implements ArrayCopyable, Arrayab
      * non-null value, the set of scopes will be used instead of the scopes
      * specified in the original backchannel authentication request.
      *
-     * @return string[]
+     * @return array|null
      *     Scopes to replace the scopes specified in the original backchannel
      *     authentication request with. If this property holds null,
      *     replacement is not performed.
      */
-    public function getScopes()
+    public function getScopes(): ?array
     {
         return $this->scopes;
     }
@@ -483,7 +483,7 @@ class BackchannelAuthenticationCompleteRequest implements ArrayCopyable, Arrayab
      * Note that because the CIBA specification requires `openid` as a
      * mandatory scope, `openid` should be always included.
      *
-     * @param array $scopes
+     * @param array|null $scopes
      *     Scopes to replace the scopes specified in the original backchannel
      *     authentication request with. If this property holds null,
      *     replacement is not performed.
@@ -491,7 +491,7 @@ class BackchannelAuthenticationCompleteRequest implements ArrayCopyable, Arrayab
      * @return BackchannelAuthenticationCompleteRequest
      *     `$this` object.
      */
-    public function setScopes(array $scopes = null)
+    public function setScopes(array $scopes = null): BackchannelAuthenticationCompleteRequest
     {
         ValidationUtility::ensureNullOrArrayOfString('$scopes', $scopes);
 
@@ -505,13 +505,13 @@ class BackchannelAuthenticationCompleteRequest implements ArrayCopyable, Arrayab
      * Get JSON that represents additional JWS header parameters
      * for the ID token that may be issued from the token endpoint.
      *
-     * @return string
+     * @return string|null
      *     JSON that represents additional JWS header parameters
      *     for the ID token.
      *
      * @since 1.9
      */
-    public function getIdtHeaderParams()
+    public function getIdtHeaderParams(): ?string
     {
         return $this->idtHeaderParams;
     }
@@ -530,7 +530,7 @@ class BackchannelAuthenticationCompleteRequest implements ArrayCopyable, Arrayab
      *
      * @since 1.9
      */
-    public function setIdtHeaderParams($params)
+    public function setIdtHeaderParams(string $params): BackchannelAuthenticationCompleteRequest
     {
         ValidationUtility::ensureNullOrString('$params', $params);
 
@@ -544,10 +544,10 @@ class BackchannelAuthenticationCompleteRequest implements ArrayCopyable, Arrayab
      * Get the description of the error. This corresponds to the
      * `error_description` property in the response to the client.
      *
-     * @return string
+     * @return string|null
      *     The description of the error.
      */
-    public function getErrorDescription()
+    public function getErrorDescription(): ?string
     {
         return $this->errorDescription;
     }
@@ -570,7 +570,7 @@ class BackchannelAuthenticationCompleteRequest implements ArrayCopyable, Arrayab
      * @return BackchannelAuthenticationCompleteRequest
      *     `$this` object.
      */
-    public function setErrorDescription($description)
+    public function setErrorDescription(string $description): BackchannelAuthenticationCompleteRequest
     {
         ValidationUtility::ensureNullOrString('$description', $description);
 
@@ -584,10 +584,10 @@ class BackchannelAuthenticationCompleteRequest implements ArrayCopyable, Arrayab
      * Get the URI of a document which describes the error in detail. This
      * corresponds to the `error_uri` property in the response to the client.
      *
-     * @return string
+     * @return string|null
      *     The URI of a document which describes the error in detail.
      */
-    public function getErrorUri()
+    public function getErrorUri(): ?string
     {
         return $this->errorUri;
     }
@@ -607,7 +607,7 @@ class BackchannelAuthenticationCompleteRequest implements ArrayCopyable, Arrayab
      * @return BackchannelAuthenticationCompleteRequest
      *     `$this` object.
      */
-    public function setErrorUri($uri)
+    public function setErrorUri(string $uri): BackchannelAuthenticationCompleteRequest
     {
         ValidationUtility::ensureNullOrString('$uri', $uri);
 
@@ -625,7 +625,7 @@ class BackchannelAuthenticationCompleteRequest implements ArrayCopyable, Arrayab
      * @param array $array
      *     {@inheritdoc}
      */
-    public function copyToArray(array &$array)
+    public function copyToArray(array &$array): void
     {
         $array['ticket']           = $this->ticket;
         $array['result']           = LanguageUtility::toString($this->result);
@@ -650,7 +650,7 @@ class BackchannelAuthenticationCompleteRequest implements ArrayCopyable, Arrayab
      * @param array $array
      *     {@inheritdoc}
      */
-    public function copyFromArray(array &$array)
+    public function copyFromArray(array &$array): void
     {
         // ticket
         $this->setTicket(
@@ -683,7 +683,7 @@ class BackchannelAuthenticationCompleteRequest implements ArrayCopyable, Arrayab
 
         // properties
         $_properties = LanguageUtility::getFromArray('properties', $array);
-        $_properties = LanguageUtility::convertArrayToArrayOfArrayCopyable($_properties, __NAMESPACE__ . '\Property');
+        $_properties = LanguageUtility::convertArrayToArrayOfArrayCopyable(__NAMESPACE__ . '\Property', $_properties);
         $this->setProperties($_properties);
 
         // scopes
@@ -703,4 +703,4 @@ class BackchannelAuthenticationCompleteRequest implements ArrayCopyable, Arrayab
             LanguageUtility::getFromArray('errorUri', $array));
     }
 }
-?>
+

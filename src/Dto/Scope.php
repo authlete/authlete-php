@@ -45,20 +45,20 @@ class Scope implements ArrayCopyable, Arrayable, Jsonable
     use JsonTrait;
 
 
-    private $name         = null;  // string
-    private $defaultEntry = false; // string
-    private $description  = null;  // string
-    private $descriptions = null;  // array of \Authlete\Dto\TaggedValue
-    private $attributes   = null;  // array of \Authlete\Dto\Pair
+    private ?string $name         = null;
+    private bool $defaultEntry    = false;
+    private ?string $description  = null;
+    private ?array $descriptions  = null;
+    private ?array $attributes    = null;
 
 
     /**
      * Get the scope name.
      *
-     * @return string
+     * @return string|null
      *     The scope name.
      */
-    public function getName()
+    public function getName(): ?string
     {
         return $this->name;
     }
@@ -77,7 +77,7 @@ class Scope implements ArrayCopyable, Arrayable, Jsonable
      * @return Scope
      *     `$this` object.
      */
-    public function setName($name)
+    public function setName(mixed $name): Scope
     {
         ValidationUtility::ensureNullOrString('$name', $name);
 
@@ -91,10 +91,10 @@ class Scope implements ArrayCopyable, Arrayable, Jsonable
      * Get the flag which indicates whether this scope is included in the
      * default scope set.
      *
-     * @return string
+     * @return bool
      *     `true` if this scope is included in the default scope set.
      */
-    public function isDefault()
+    public function isDefault(): bool
     {
         return $this->defaultEntry;
     }
@@ -107,13 +107,13 @@ class Scope implements ArrayCopyable, Arrayable, Jsonable
      * When an authorization request does not include the `scope` request
      * parameter, scopes in the default scope set are used.
      *
-     * @param string $default
+     * @param bool $default
      *     `true` to include this scope in the default scope set.
      *
      * @return Scope
      *     `$this` object.
      */
-    public function setDefault($default)
+    public function setDefault(mixed $default): Scope
     {
         ValidationUtility::ensureBoolean('$default', $default);
 
@@ -126,10 +126,10 @@ class Scope implements ArrayCopyable, Arrayable, Jsonable
     /**
      * Get the description of this scope.
      *
-     * @return string
+     * @return string|null
      *     The description of this scope.
      */
-    public function getDescription()
+    public function getDescription(): ?string
     {
         return $this->description;
     }
@@ -144,7 +144,7 @@ class Scope implements ArrayCopyable, Arrayable, Jsonable
      * @return Scope
      *     `$this` object.
      */
-    public function setDescription($description)
+    public function setDescription(mixed $description): Scope
     {
         ValidationUtility::ensureNullOrString('$description', $description);
 
@@ -157,10 +157,10 @@ class Scope implements ArrayCopyable, Arrayable, Jsonable
     /**
      * Get the localized descriptions of this scope.
      *
-     * @return TaggedValue[]
+     * @return array|null
      *     The localized descriptions of this scope.
      */
-    public function getDescriptions()
+    public function getDescriptions(): ?array
     {
         return $this->descriptions;
     }
@@ -175,10 +175,10 @@ class Scope implements ArrayCopyable, Arrayable, Jsonable
      * @return Scope
      *     `$this` object.
      */
-    public function setDescriptions(array $descriptions = null)
+    public function setDescriptions(?array $descriptions = null): Scope
     {
         ValidationUtility::ensureNullOrArrayOfType(
-            '$descriptions', $descriptions, __NAMESPACE__ . '\TaggedValue');
+            '$descriptions', __NAMESPACE__ . '\TaggedValue', $descriptions);
 
         $this->descriptions = $descriptions;
 
@@ -189,10 +189,10 @@ class Scope implements ArrayCopyable, Arrayable, Jsonable
     /**
      * Get the attributes of this scope.
      *
-     * @return Pair[]
+     * @return array|null
      *     The attributes of this scope.
      */
-    public function getAttributes()
+    public function getAttributes(): ?array
     {
         return $this->attributes;
     }
@@ -207,10 +207,10 @@ class Scope implements ArrayCopyable, Arrayable, Jsonable
      * @return Scope
      *     `$this` object.
      */
-    public function setAttributes(array $attributes = null)
+    public function setAttributes(?array $attributes = null): Scope
     {
         ValidationUtility::ensureNullOrArrayOfType(
-            '$attributes', $attributes, __NAMESPACE__ . '\Pair');
+            '$attributes', __NAMESPACE__ . '\Pair', $attributes);
 
         $this->attributes = $attributes;
 
@@ -225,7 +225,7 @@ class Scope implements ArrayCopyable, Arrayable, Jsonable
      * @param array $array
      *     {@inheritdoc}
      */
-    public function copyToArray(array &$array)
+    public function copyToArray(?array &$array): void
     {
         $array['name']         = $this->name;
         $array['defaultEntry'] = $this->defaultEntry;
@@ -243,7 +243,7 @@ class Scope implements ArrayCopyable, Arrayable, Jsonable
      * @param array $array
      *     {@inheritdoc}
      */
-    public function copyFromArray(array &$array)
+    public function copyFromArray(?array &$array): void
     {
         // name
         $this->setName(
@@ -259,13 +259,13 @@ class Scope implements ArrayCopyable, Arrayable, Jsonable
 
         // descriptions
         $_descriptions = LanguageUtility::getFromArray('descriptions', $array);
-        $_descriptions = LanguageUtility::convertArrayToArrayOfArrayCopyable($_descriptions, __NAMESPACE__ . '\TaggedValue');
+        $_descriptions = LanguageUtility::convertArrayToArrayOfArrayCopyable(__NAMESPACE__ . '\TaggedValue', $_descriptions);
         $this->setDescriptions($_descriptions);
 
         // attributes
         $_attributes = LanguageUtility::getFromArray('attributes', $array);
-        $_attributes = LanguageUtility::convertArrayToArrayOfArrayCopyable($_attributes, __NAMESPACE__ . '\Pair');
+        $_attributes = LanguageUtility::convertArrayToArrayOfArrayCopyable(__NAMESPACE__ . '\Pair', $_attributes);
         $this->setAttributes($_attributes);
     }
 }
-?>
+

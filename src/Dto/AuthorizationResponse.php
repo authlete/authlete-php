@@ -27,7 +27,6 @@ namespace Authlete\Dto;
 
 use Authlete\Types\Display;
 use Authlete\Types\Prompt;
-use Authlete\Util\JsonTrait;
 use Authlete\Util\LanguageUtility;
 use Authlete\Util\ValidationUtility;
 
@@ -614,41 +613,41 @@ use Authlete\Util\ValidationUtility;
  */
 class AuthorizationResponse extends ApiResponse
 {
-    private $action               = null;  // \Authlete\Dto\AuthorizationAction
-    private $service              = null;  // \Authlete\Dto\Service
-    private $client               = null;  // \Authlete\Dto\Client
-    private $clientIdAliasUsed    = false; // boolean
-    private $display              = null;  // \Authlete\Types\Display
-    private $maxAge               = null;  // string or (64-bit) integer
-    private $scopes               = null;  // array of \Authlete\Dto\Scope
-    private $uiLocales            = null;  // array of string
-    private $claimsLocales        = null;  // array of string
-    private $claims               = null;  // array of string
-    private $acrEssential         = false; // boolean
-    private $acrs                 = null;  // array of string
-    private $subject              = null;  // string
-    private $loginHint            = null;  // string
-    private $prompts              = null;  // array of \Authlete\Types\Prompt
-    private $requestObjectPayload = null;  // string
-    private $idTokenClaims        = null;  // string
-    private $userInfoClaims       = null;  // string
-    private $resources            = null;  // array of string
-    private $purpose              = null;  // string
-    private $responseContent      = null;  // string
-    private $ticket               = null;  // string
+    private ?string $action                = null; //AuthorizationAction
+    private ?Service $service              = null;
+    private ?Client $client                = null;
+    private bool $clientIdAliasUsed        = false;
+    private ?string $display               = null;  // Display
+    private string|int|null $maxAge        = null;
+    private ?array $scopes                 = null;  // array of \Authlete\Dto\Scope
+    private ?array $uiLocales              = null;  // array of string
+    private ?array $claimsLocales          = null;  // array of string
+    private ?array $claims                 = null;  // array of string
+    private bool $acrEssential             = false;
+    private ?array $acrs                   = null;  // array of string
+    private ?string $subject               = null;
+    private ?string $loginHint             = null;
+    private ?array $prompts                = null;  // array of \Authlete\Types\Prompt
+    private ?string $requestObjectPayload  = null;
+    private ?string $idTokenClaims         = null;
+    private ?string $userInfoClaims        = null;
+    private ?array $resources              = null;  // array of string
+    private ?string $purpose               = null;
+    private ?string $responseContent       = null;
+    private ?string $ticket                = null;
 
 
     /**
      * Get the next action that the authorization server implementation should
      * take.
      *
-     * @return AuthorizationAction
+     * @return AuthorizationAction|null The next action that the authorization server implementation should
      *     The next action that the authorization server implementation should
      *     take.
      */
-    public function getAction()
+    public function getAction(): ?AuthorizationAction
     {
-        return $this->action;
+        return AuthorizationAction::valueOf($this->action);
     }
 
 
@@ -656,16 +655,16 @@ class AuthorizationResponse extends ApiResponse
      * Set the next action that the authorization server implementation should
      * take.
      *
-     * @param AuthorizationAction $action
+     * @param AuthorizationAction|null $action
      *     The next action that the authorization server implementation should
      *     take.
      *
      * @return AuthorizationResponse
      *     `$this` object.
      */
-    public function setAction(AuthorizationAction $action = null)
+    public function setAction(AuthorizationAction $action = null): AuthorizationResponse
     {
-        $this->action = $action;
+        $this->action = $action->value;
 
         return $this;
     }
@@ -674,10 +673,10 @@ class AuthorizationResponse extends ApiResponse
     /**
      * Get the information about the service.
      *
-     * @return Service
+     * @return Service|null
      *     The information about the service.
      */
-    public function getService()
+    public function getService(): ?Service
     {
         return $this->service;
     }
@@ -686,13 +685,13 @@ class AuthorizationResponse extends ApiResponse
     /**
      * Set the information about the service.
      *
-     * @param Service $service
+     * @param Service|null $service
      *     The information about the service.
      *
      * @return AuthorizationResponse
      *     `$this` object.
      */
-    public function setService(Service $service = null)
+    public function setService(Service $service = null): AuthorizationResponse
     {
         $this->service = $service;
 
@@ -704,10 +703,10 @@ class AuthorizationResponse extends ApiResponse
      * Get the information about the client application that has made the
      * authorization request.
      *
-     * @return Client
+     * @return Client|null
      *     The information about the client application.
      */
-    public function getClient()
+    public function getClient(): ?Client
     {
         return $this->client;
     }
@@ -717,13 +716,13 @@ class AuthorizationResponse extends ApiResponse
      * Set the information about the client application that has made the
      * authorization request.
      *
-     * @param Client $client
+     * @param Client|null $client
      *     The information about the client application.
      *
      * @return AuthorizationResponse
      *     `$this` object.
      */
-    public function setClient(Client $client = null)
+    public function setClient(Client $client = null): AuthorizationResponse
     {
         $this->client = $client;
 
@@ -741,7 +740,7 @@ class AuthorizationResponse extends ApiResponse
      *
      * @since 1.5
      */
-    public function isClientIdAliasUsed()
+    public function isClientIdAliasUsed(): bool
     {
         return $this->clientIdAliasUsed;
     }
@@ -760,7 +759,7 @@ class AuthorizationResponse extends ApiResponse
      *
      * @since 1.5
      */
-    public function setClientIdAliasUsed($used)
+    public function setClientIdAliasUsed(mixed $used): AuthorizationResponse
     {
         ValidationUtility::ensureBoolean('$used', $used);
 
@@ -777,12 +776,12 @@ class AuthorizationResponse extends ApiResponse
      * When the authorization request does not contain the `display` request
      * parameter, this method returns `Display::$PAGE` as the default value.
      *
-     * @return Display
+     * @return Display|null
      *     The display mode.
      */
-    public function getDisplay()
+    public function getDisplay(): ?Display
     {
-        return $this->display;
+        return Display::valueOf($this->display);
     }
 
 
@@ -790,15 +789,15 @@ class AuthorizationResponse extends ApiResponse
      * Set the display mode which the client application requested by the
      * `display` request parameter.
      *
-     * @param Display $display
+     * @param Display|null $display
      *     The display mode.
      *
      * @return AuthorizationResponse
      *     `$this` object.
      */
-    public function setDisplay(Display $display = null)
+    public function setDisplay(Display $display = null): AuthorizationResponse
     {
-        $this->display = $display;
+        $this->display = $display->value;
 
         return $this;
     }
@@ -822,10 +821,10 @@ class AuthorizationResponse extends ApiResponse
      * [2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata)
      * of [OpenID Connect Dynamic Client Registration 1.0](https://openid.net/specs/openid-connect-registration-1_0.html).
      *
-     * @return integer|string
+     * @return int|string|null
      *     The maximum authentication age.
      */
-    public function getMaxAge()
+    public function getMaxAge(): int|string|null
     {
         return $this->maxAge;
     }
@@ -842,7 +841,7 @@ class AuthorizationResponse extends ApiResponse
      * @return AuthorizationResponse
      *     `$this` object.
      */
-    public function setMaxAge($maxAge)
+    public function setMaxAge(mixed $maxAge): AuthorizationResponse
     {
         ValidationUtility::ensureNullOrStringOrInteger('$maxAge', $maxAge);
 
@@ -869,10 +868,10 @@ class AuthorizationResponse extends ApiResponse
      * `/api/authorization/issue` API. See the description of
      * `AuthorizationIssueRequest::setScopes()` for details.
      *
-     * @return Scope[]
+     * @return array|null The scopes requested by the client application.
      *     The scopes requested by the client application.
      */
-    public function getScopes()
+    public function getScopes(): ?array
     {
         return $this->scopes;
     }
@@ -888,10 +887,10 @@ class AuthorizationResponse extends ApiResponse
      * @return AuthorizationResponse
      *     `$this` object.
      */
-    public function setScopes(array $scopes = null)
+    public function setScopes(array $scopes = null): AuthorizationResponse
     {
         ValidationUtility::ensureNullOrArrayOfType(
-            '$scopes', $scopes, __NAMESPACE__ . '\Scope');
+            '$scopes', __NAMESPACE__ . '\Scope', $scopes);
 
         $this->scopes = $scopes;
 
@@ -907,10 +906,10 @@ class AuthorizationResponse extends ApiResponse
      * [3.1.2.1. Authentication Request](https://openid.net/specs/openid-connect-core-1_0.html#AuthRequest)
      * of [OpenID Connect Core 1.0](https://openid.net/specs/openid-connect-core-1_0.html).
      *
-     * @return string[]
+     * @return array|null
      *     The list of preferred languages and scripts for the user interface.
      */
-    public function getUiLocales()
+    public function getUiLocales(): ?array
     {
         return $this->uiLocales;
     }
@@ -925,7 +924,7 @@ class AuthorizationResponse extends ApiResponse
      * @return AuthorizationResponse
      *     `$this` object.
      */
-    public function setUiLocales(array $uiLocales = null)
+    public function setUiLocales(array $uiLocales = null): AuthorizationResponse
     {
         ValidationUtility::ensureNullOrArrayOfString('$uiLocales', $uiLocales);
 
@@ -944,10 +943,10 @@ class AuthorizationResponse extends ApiResponse
      * [3.1.2.1. Authentication Request](https://openid.net/specs/openid-connect-core-1_0.html#AuthRequest)
      * of [OpenID Connect Core 1.0](https://openid.net/specs/openid-connect-core-1_0.html).
      *
-     * @return string[]
+     * @return array|null
      *     The list of preferred languages and scripts for claim values.
      */
-    public function getClaimsLocales()
+    public function getClaimsLocales(): ?array
     {
         return $this->claimsLocales;
     }
@@ -963,7 +962,7 @@ class AuthorizationResponse extends ApiResponse
      * @return AuthorizationResponse
      *     `$this` object.
      */
-    public function setClaimsLocales(array $claimsLocales = null)
+    public function setClaimsLocales(array $claimsLocales = null): AuthorizationResponse
     {
         ValidationUtility::ensureNullOrArrayOfString('$claimsLocales', $claimsLocales);
 
@@ -980,10 +979,10 @@ class AuthorizationResponse extends ApiResponse
      * The value of this property comes from the `scope` and/or `claims`
      * request parameters of the original authorization request.
      *
-     * @return string[]
+     * @return array|null
      *     The list of claims requested by the client application.
      */
-    public function getClaims()
+    public function getClaims(): ?array
     {
         return $this->claims;
     }
@@ -999,7 +998,7 @@ class AuthorizationResponse extends ApiResponse
      * @return AuthorizationResponse
      *     `$this` object.
      */
-    public function setClaims(array $claims = null)
+    public function setClaims(array $claims = null): AuthorizationResponse
     {
         ValidationUtility::ensureNullOrArrayOfString('$claims', $claims);
 
@@ -1023,7 +1022,7 @@ class AuthorizationResponse extends ApiResponse
      * @return boolean
      *     `true` if one of the requested ACRs must be satisfied.
      */
-    public function isAcrEssential()
+    public function isAcrEssential(): bool
     {
         return $this->acrEssential;
     }
@@ -1039,7 +1038,7 @@ class AuthorizationResponse extends ApiResponse
      * @return AuthorizationResponse
      *     `$this` object.
      */
-    public function setAcrEssential($essential)
+    public function setAcrEssential(mixed $essential): AuthorizationResponse
     {
         ValidationUtility::ensureBoolean('$essential', $essential);
 
@@ -1071,10 +1070,10 @@ class AuthorizationResponse extends ApiResponse
      * [2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata)
      * of [OpenID Connect Dynamic Client Registration 1.0](https://openid.net/specs/openid-connect-registration-1_0.html).
      *
-     * @return string[]
+     * @return array|null
      *     The ACRs requested by the client application.
      */
-    public function getAcrs()
+    public function getAcrs(): ?array
     {
         return $this->acrs;
     }
@@ -1087,10 +1086,10 @@ class AuthorizationResponse extends ApiResponse
      * @param string[] $acrs
      *     The ACRs requested by the client application.
      *
-     * @return
+     * @return AuthorizationResponse
      *     `$this` object.
      */
-    public function setAcrs(array $acrs = null)
+    public function setAcrs(array $acrs = null): AuthorizationResponse
     {
         ValidationUtility::ensureNullOrArrayOfString('$acrs', $acrs);
 
@@ -1111,10 +1110,10 @@ class AuthorizationResponse extends ApiResponse
      * [5.5. Requesting Claims using the "claims" Request Parameter](https://openid.net/specs/openid-connect-core-1_0.html#ClaimsParameter)
      * of [OpenID Connect Core 1.0](https://openid.net/specs/openid-connect-core-1_0.html).
      *
-     * @return string
+     * @return string|null
      *     The subject of the end-user that the client application requested.
      */
-    public function getSubject()
+    public function getSubject(): ?string
     {
         return $this->subject;
     }
@@ -1130,7 +1129,7 @@ class AuthorizationResponse extends ApiResponse
      * @return AuthorizationResponse
      *     `$this` object.
      */
-    public function setSubject($subject)
+    public function setSubject(mixed $subject): AuthorizationResponse
     {
         ValidationUtility::ensureNullOrString('$subject', $subject);
 
@@ -1147,10 +1146,10 @@ class AuthorizationResponse extends ApiResponse
      * [3.1.2.1. Authentication Request](https://openid.net/specs/openid-connect-core-1_0.html#AuthRequest)
      * of [OpenID Connect Core 1.0](https://openid.net/specs/openid-connect-core-1_0.html).
      *
-     * @return string
+     * @return string|null
      *     The value of the `login_hint` request parameter.
      */
-    public function getLoginHint()
+    public function getLoginHint(): ?string
     {
         return $this->loginHint;
     }
@@ -1165,7 +1164,7 @@ class AuthorizationResponse extends ApiResponse
      * @return AuthorizationResponse
      *     `$this` object.
      */
-    public function setLoginHint($hint)
+    public function setLoginHint(mixed $hint): AuthorizationResponse
     {
         ValidationUtility::ensureNullOrString('$hint', $hint);
 
@@ -1183,10 +1182,10 @@ class AuthorizationResponse extends ApiResponse
      * [3.1.2.1. Authentication Request](https://openid.net/specs/openid-connect-core-1_0.html#AuthRequest)
      * of [OpenID Connect Core 1.0](https://openid.net/specs/openid-connect-core-1_0.html).
      *
-     * @return Prompt[]
+     * @return array|null
      *     The list of prompts requested by the client application.
      */
-    public function getPrompts()
+    public function getPrompts(): ?array
     {
         return $this->prompts;
     }
@@ -1195,16 +1194,16 @@ class AuthorizationResponse extends ApiResponse
     /**
      * Set the list of prompts contained in the authorization request.
      *
-     * @param Prompt[] $prompts
+     * @param string[] $prompts
      *     The list of prompts requested by the client application.
      *
      * @return AuthorizationResponse
      *     `$this` object.
      */
-    public function setPrompts(array $prompts = null)
+    public function setPrompts(array $prompts = null): AuthorizationResponse
     {
         ValidationUtility::ensureNullOrArrayOfType(
-            '$prompts', $prompts, '\Authlete\Types\Prompt');
+            '$prompts','Authlete\Types\Prompt', $prompts);
 
         $this->prompts = $prompts;
 
@@ -1218,12 +1217,12 @@ class AuthorizationResponse extends ApiResponse
      * This method returns `null` if the authorization request does not
      * include a request object.
      *
-     * @return string
+     * @return string|null
      *     The payload part of the request object in JSON format.
      *
      * @since 1.7
      */
-    public function getRequestObjectPayload()
+    public function getRequestObjectPayload(): ?string
     {
         return $this->requestObjectPayload;
     }
@@ -1240,7 +1239,7 @@ class AuthorizationResponse extends ApiResponse
      *
      * @since 1.7
      */
-    public function setRequestObjectPayload($payload)
+    public function setRequestObjectPayload(mixed $payload): AuthorizationResponse
     {
         ValidationUtility::ensureNullOrString('$payload', $payload);
 
@@ -1302,13 +1301,13 @@ class AuthorizationResponse extends ApiResponse
      * property and if the `claims` request parameter is also given, this
      * method returns the value in the former.
      *
-     * @return string
+     * @return string|null
      *     The value of the `id_token` property in the `claims` in JSON
      *     format.
      *
      * @since 1.7
      */
-    public function getIdTokenClaims()
+    public function getIdTokenClaims(): ?string
     {
         return $this->idTokenClaims;
     }
@@ -1327,7 +1326,7 @@ class AuthorizationResponse extends ApiResponse
      *
      * @since 1.7
      */
-    public function setIdTokenClaims($claims)
+    public function setIdTokenClaims(mixed $claims): AuthorizationResponse
     {
         ValidationUtility::ensureNullOrString('$claims', $claims);
 
@@ -1393,13 +1392,13 @@ class AuthorizationResponse extends ApiResponse
      * property and if the `claims` request parameter is also given, this
      * method returns the value in the former.
      *
-     * @return string
+     * @return string|null The value of the `userinfo` property in the `claims` in JSON
      *     The value of the `userinfo` property in the `claims` in JSON
      *     format.
      *
      * @since 1.7
      */
-    public function getUserInfoClaims()
+    public function getUserInfoClaims(): ?string
     {
         return $this->userInfoClaims;
     }
@@ -1418,7 +1417,7 @@ class AuthorizationResponse extends ApiResponse
      *
      * @since 1.7
      */
-    public function setUserInfoClaims($claims)
+    public function setUserInfoClaims(mixed $claims): AuthorizationResponse
     {
         ValidationUtility::ensureNullOrString('$claims', $claims);
 
@@ -1433,14 +1432,14 @@ class AuthorizationResponse extends ApiResponse
      * the `resource` property in the request object. If both are given, the
      * values in the request object take precedence.
      *
-     * @return string[]
+     * @return array|null
      *     Resources to be associated with tokens being issued.
      *
      * @see https://tools.ietf.org/html/rfc8707 RFC 8707 Resource Indicators for OAuth 2.0
      *
      * @since 1.8
      */
-    public function getResources()
+    public function getResources(): ?array
     {
         return $this->resources;
     }
@@ -1459,29 +1458,13 @@ class AuthorizationResponse extends ApiResponse
      *
      * @since 1.8
      */
-    public function setResources(array $resources = null)
+    public function setResources(array $resources = null): AuthorizationResponse
     {
         ValidationUtility::ensureNullOrArrayOfString('$resources', $resources);
 
         $this->resources = $resources;
 
         return $this;
-    }
-
-
-    /**
-     * Get the value of the `purpose` request parameter.
-     *
-     * @return string
-     *     The value of the `purpose` request parameter.
-     *
-     * @see https://openid.net/specs/openid-connect-4-identity-assurance-1_0.html OpenID Connect for Identity Assurance 1.0
-     *
-     * @since 1.8
-     */
-    public function getPurpose()
-    {
-        return $this->purpose;
     }
 
 
@@ -1498,7 +1481,7 @@ class AuthorizationResponse extends ApiResponse
      *
      * @since 1.8
      */
-    public function setPurpose($purpose)
+    public function setPurpose(mixed $purpose): AuthorizationResponse
     {
         ValidationUtility::ensureNullOrString('$purpose', $purpose);
 
@@ -1515,10 +1498,10 @@ class AuthorizationResponse extends ApiResponse
      * The format of the value varies depending on the value returned from
      * `getAction()` method.
      *
-     * @return string
+     * @return string|null
      *     The response content.
      */
-    public function getResponseContent()
+    public function getResponseContent(): ?string
     {
         return $this->responseContent;
     }
@@ -1534,7 +1517,7 @@ class AuthorizationResponse extends ApiResponse
      * @return AuthorizationResponse
      *     `$this` object.
      */
-    public function setResponseContent($responseContent)
+    public function setResponseContent(mixed $responseContent): AuthorizationResponse
     {
         ValidationUtility::ensureNullOrString('$responseContent', $responseContent);
 
@@ -1551,10 +1534,10 @@ class AuthorizationResponse extends ApiResponse
      * This ticket is necessary to call the `/api/auth/authorization/issue`
      * API or the `/api/auth/authorization/fail` API.
      *
-     * @return string
+     * @return string|null
      *     The ticket issued from `/api/auth/authorization` API.
      */
-    public function getTicket()
+    public function getTicket(): ?string
     {
         return $this->ticket;
     }
@@ -1570,7 +1553,7 @@ class AuthorizationResponse extends ApiResponse
      * @return AuthorizationResponse
      *     `$this` object.
      */
-    public function setTicket($ticket)
+    public function setTicket(mixed $ticket): AuthorizationResponse
     {
         ValidationUtility::ensureNullOrString('$ticket', $ticket);
 
@@ -1588,7 +1571,7 @@ class AuthorizationResponse extends ApiResponse
      * @param array $array
      *     {@inheritdoc}
      */
-    public function copyToArray(array &$array)
+    public function copyToArray(array &$array): void
     {
         parent::copyToArray($array);
 
@@ -1625,7 +1608,7 @@ class AuthorizationResponse extends ApiResponse
      * @param array $array
      *     {@inheritdoc}
      */
-    public function copyFromArray(array &$array)
+    public function copyFromArray(array &$array): void
     {
         parent::copyFromArray($array);
 
@@ -1638,13 +1621,13 @@ class AuthorizationResponse extends ApiResponse
         $_service = LanguageUtility::getFromArray('service', $array);
         $this->setService(
             LanguageUtility::convertArrayToArrayCopyable(
-                $_service, __NAMESPACE__ . '\Service'));
+                __NAMESPACE__ . '\Service', $_service));
 
         // client
         $_client = LanguageUtility::getFromArray('client', $array);
         $this->setClient(
             LanguageUtility::convertArrayToArrayCopyable(
-                $_client, __NAMESPACE__ . '\Client'));
+                __NAMESPACE__ . '\Client', $_client));
 
         // clientIdAliasUsed
         $this->setClientIdAliasUsed(
@@ -1661,7 +1644,7 @@ class AuthorizationResponse extends ApiResponse
 
         // scopes
         $_scopes = LanguageUtility::getFromArray('scopes', $array);
-        $_scopes = LanguageUtility::convertArrayToArrayOfArrayCopyable($_scopes, __NAMESPACE__ . '\Scope');
+        $_scopes = LanguageUtility::convertArrayToArrayOfArrayCopyable(__NAMESPACE__ . '\Scope', $_scopes);
         $this->setScopes($_scopes);
 
         // uiLocales
@@ -1694,7 +1677,7 @@ class AuthorizationResponse extends ApiResponse
 
         // prompts
         $_prompts = LanguageUtility::getFromArray('prompts', $array);
-        $_prompts = LanguageUtility::convertArray($_prompts, '\Authlete\Types\Prompt::valueOf');
+        $_prompts = LanguageUtility::convertArray('\Authlete\Types\Prompt::valueOf', $_prompts);
         $this->setPrompts($_prompts);
 
         // requestObjectPayload
@@ -1726,4 +1709,4 @@ class AuthorizationResponse extends ApiResponse
             LanguageUtility::getFromArray('ticket', $array));
     }
 }
-?>
+

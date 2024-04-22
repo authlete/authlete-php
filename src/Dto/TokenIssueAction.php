@@ -26,6 +26,7 @@ namespace Authlete\Dto;
 
 
 use Authlete\Types\EnumTrait;
+use Authlete\Types\Valuable;
 use Authlete\Util\LanguageUtility;
 
 
@@ -33,7 +34,7 @@ use Authlete\Util\LanguageUtility;
  * The value of "action" in responses from Authlete's /api/auth/token/issue
  * API.
  */
-class TokenIssueAction
+enum TokenIssueAction: string implements Valuable
 {
     use EnumTrait;
 
@@ -43,11 +44,8 @@ class TokenIssueAction
      *
      * The token endpoint should return `500 Internal Server Error` to the
      * client application.
-     *
-     * @static
-     * @var TokenIssueAction
      */
-    public static $INTERNAL_SERVER_ERROR;
+    case INTERNAL_SERVER_ERROR = 'INTERNAL_SERVER_ERROR';
 
 
     /**
@@ -56,14 +54,7 @@ class TokenIssueAction
      *
      * The token endpoint should return `200 OK` to the client application
      * with the access token.
-     *
-     * @static
-     * @var TokenIssueAction
      */
-    public static $OK;
+    case OK = 'OK';
 }
 
-
-// Call TokenIssueAction::initialize().
-LanguageUtility::initializeClass(__NAMESPACE__ . '\TokenIssueAction');
-?>

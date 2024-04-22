@@ -53,25 +53,25 @@ class TokenRequest implements ArrayCopyable, Arrayable, Jsonable
     use JsonTrait;
 
 
-    private $parameters            = null;  // string
-    private $clientId              = null;  // string
-    private $clientSecret          = null;  // string
-    private $clientCertificate     = null;  // string
-    private $clientCertificatePath = null;  // array of string
-    private $properties            = null;  // array of \Authlete\Dto\Property
-    private $dpop                  = null;  // string
-    private $htm                   = null;  // string
-    private $htu                   = null;  // string
+    private ?string $parameters            = null;
+    private ?string $clientId              = null;
+    private ?string $clientSecret          = null;
+    private ?string $clientCertificate     = null;
+    private ?array $clientCertificatePath  = null;  // array of string
+    private ?array $properties             = null;  // array of \Authlete\Dto\Property
+    private ?string $dpop                  = null;
+    private ?string $htm                   = null;
+    private ?string $htu                   = null;
 
 
     /**
      * Get the token request parameters which the token endpoint implementation
      * of your authorization server received from the client application.
      *
-     * @return string
+     * @return string|null
      *     The request parameters of the token request.
      */
-    public function getParameters()
+    public function getParameters(): ?string
     {
         return $this->parameters;
     }
@@ -91,7 +91,7 @@ class TokenRequest implements ArrayCopyable, Arrayable, Jsonable
      * @return TokenRequest
      *     `$this` object.
      */
-    public function setParameters($parameters)
+    public function setParameters(string $parameters): TokenRequest
     {
         ValidationUtility::ensureNullOrString('$parameters', $parameters);
 
@@ -105,10 +105,10 @@ class TokenRequest implements ArrayCopyable, Arrayable, Jsonable
      * Get the client ID extracted from the Authorization header of the token
      * request from the client application.
      *
-     * @return string
+     * @return string|null
      *     The client ID extracted from the `Authorization` header.
      */
-    public function getClientId()
+    public function getClientId(): ?string
     {
         return $this->clientId;
     }
@@ -131,7 +131,7 @@ class TokenRequest implements ArrayCopyable, Arrayable, Jsonable
      * @return TokenRequest
      *     `$this` object.
      */
-    public function setClientId($clientId)
+    public function setClientId(string $clientId): TokenRequest
     {
         ValidationUtility::ensureNullOrString('$clientId', $clientId);
 
@@ -145,10 +145,10 @@ class TokenRequest implements ArrayCopyable, Arrayable, Jsonable
      * Get the client secret extracted from the Authorization header of the
      * token request from the client application.
      *
-     * @return string
+     * @return string|null
      *     The client secret extracted from the `Authorization` header.
      */
-    public function getClientSecret()
+    public function getClientSecret(): ?string
     {
         return $this->clientSecret;
     }
@@ -171,7 +171,7 @@ class TokenRequest implements ArrayCopyable, Arrayable, Jsonable
      * @return TokenRequest
      *     `$this` object.
      */
-    public function setClientSecret($clientSecret)
+    public function setClientSecret(string $clientSecret): TokenRequest
     {
         ValidationUtility::ensureNullOrString('$clientSecret', $clientSecret);
 
@@ -185,10 +185,10 @@ class TokenRequest implements ArrayCopyable, Arrayable, Jsonable
      * Get the client certificate from the MTLS of the token request from
      * the client application.
      *
-     * @return string
+     * @return string|null
      *     The client certificate.
      */
-    public function getClientCertificate()
+    public function getClientCertificate(): ?string
     {
         return $this->clientCertificate;
     }
@@ -204,7 +204,7 @@ class TokenRequest implements ArrayCopyable, Arrayable, Jsonable
      * @return TokenRequest
      *     `$this` object.
      */
-    public function setClientCertificate($certificate)
+    public function setClientCertificate(string $certificate): TokenRequest
     {
         ValidationUtility::ensureNullOrString('$certificate', $certificate);
 
@@ -218,12 +218,12 @@ class TokenRequest implements ArrayCopyable, Arrayable, Jsonable
      * Get the certificate path presented by the client during client
      * authentication.
      *
-     * @return string[]
+     * @return String[]|null
      *     Certificates in PEM format.
      *
      * @since 1.3
      */
-    public function getClientCertificatePath()
+    public function getClientCertificatePath(): ?array
     {
         return $this->clientCertificatePath;
     }
@@ -241,7 +241,7 @@ class TokenRequest implements ArrayCopyable, Arrayable, Jsonable
      *
      * @since 1.3
      */
-    public function setClientCertificatePath(array $path = null)
+    public function setClientCertificatePath(array $path = null): TokenRequest
     {
         ValidationUtility::ensureNullOrArrayOfString('$path', $path);
 
@@ -255,10 +255,10 @@ class TokenRequest implements ArrayCopyable, Arrayable, Jsonable
      * Get the properties to be associated with an access token which may be
      * issued as a result of the token request.
      *
-     * @return Property[]
+     * @return Property[]|null Properties associated with the access token.
      *     Properties associated with the access token.
      */
-    public function getProperties()
+    public function getProperties(): ?array
     {
         return $this->properties;
     }
@@ -344,10 +344,10 @@ class TokenRequest implements ArrayCopyable, Arrayable, Jsonable
      * @return TokenRequest
      *     `$this` object.
      */
-    public function setProperties(array $properties = null)
+    public function setProperties(array $properties = null): TokenRequest
     {
         ValidationUtility::ensureNullOrArrayOfType(
-            '$properties', $properties, __NAMESPACE__ . '\Property');
+            '$properties', __NAMESPACE__ . '\Property', $properties);
 
         $this->properties = $properties;
 
@@ -363,12 +363,12 @@ class TokenRequest implements ArrayCopyable, Arrayable, Jsonable
      * See "OAuth 2.0 Demonstration of Proof-of-Possession at the Application
      * Layer (DPoP)" for details.
      *
-     * @return string
+     * @return string|null
      *     The value of the `DPoP` header.
      *
      * @since 1.8
      */
-    public function getDpop()
+    public function getDpop(): ?string
     {
         return $this->dpop;
     }
@@ -390,7 +390,7 @@ class TokenRequest implements ArrayCopyable, Arrayable, Jsonable
      *
      * @since 1.8
      */
-    public function setDpop($dpop)
+    public function setDpop(string $dpop): TokenRequest
     {
         ValidationUtility::ensureNullOrString('$dpop', $dpop);
 
@@ -410,12 +410,12 @@ class TokenRequest implements ArrayCopyable, Arrayable, Jsonable
      * See "OAuth 2.0 Demonstration of Proof-of-Possession at the Application
      * Layer (DPoP)" for details.
      *
-     * @return string
+     * @return string|null
      *     The HTTP method. For example, `POST`.
      *
      * @since 1.8
      */
-    public function getHtm()
+    public function getHtm(): ?string
     {
         return $this->htm;
     }
@@ -439,7 +439,7 @@ class TokenRequest implements ArrayCopyable, Arrayable, Jsonable
      *
      * @since 1.8
      */
-    public function setHtm($htm)
+    public function setHtm(string $htm): TokenRequest
     {
         ValidationUtility::ensureNullOrString('$htm', $htm);
 
@@ -459,12 +459,12 @@ class TokenRequest implements ArrayCopyable, Arrayable, Jsonable
      * See "OAuth 2.0 Demonstration of Proof-of-Possession at the Application
      * Layer (DPoP)" for details.
      *
-     * @return string
+     * @return string|null
      *     The URL of the token endpoint.
      *
      * @since 1.8
      */
-    public function getHtu()
+    public function getHtu(): ?string
     {
         return $this->htu;
     }
@@ -488,7 +488,7 @@ class TokenRequest implements ArrayCopyable, Arrayable, Jsonable
      *
      * @since 1.8
      */
-    public function setHtu($htu)
+    public function setHtu(string $htu): TokenRequest
     {
         ValidationUtility::ensureNullOrString('$htu', $htu);
 
@@ -506,7 +506,7 @@ class TokenRequest implements ArrayCopyable, Arrayable, Jsonable
      * @param array $array
      *     {@inheritdoc}
      */
-    public function copyToArray(array &$array)
+    public function copyToArray(array &$array): void
     {
         $array['parameters']            = $this->parameters;
         $array['clientId']              = $this->clientId;
@@ -528,7 +528,7 @@ class TokenRequest implements ArrayCopyable, Arrayable, Jsonable
      * @param array $array
      *     {@inheritdoc}
      */
-    public function copyFromArray(array &$array)
+    public function copyFromArray(array &$array): void
     {
         // parameters
         $this->setParameters(
@@ -552,7 +552,7 @@ class TokenRequest implements ArrayCopyable, Arrayable, Jsonable
 
         // properties
         $_properties = LanguageUtility::getFromArray('properties', $array);
-        $_properties = LanguageUtility::convertArrayToArrayOfArrayCopyable($_properties, __NAMESPACE__ . '\Property');
+        $_properties = LanguageUtility::convertArrayToArrayOfArrayCopyable( __NAMESPACE__ . '\Property', $_properties);
         $this->setProperties($_properties);
 
         // dpop
@@ -568,4 +568,3 @@ class TokenRequest implements ArrayCopyable, Arrayable, Jsonable
             LanguageUtility::getFromArray('htu', $array));
     }
 }
-?>

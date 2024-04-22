@@ -84,27 +84,27 @@ class DeviceCompleteRequest implements ArrayCopyable, Arrayable, Jsonable
     use JsonTrait;
 
 
-    private $userCode         = null;  // string
-    private $result           = null;  // \Authlete\Dto\DeviceCompleteResult
-    private $subject          = null;  // string
-    private $sub              = null;  // string
-    private $authTime         = null;  // string or (64-bit) integer
-    private $acr              = null;  // string
-    private $claims           = null;  // string
-    private $properties       = null;  // array of \Authlete\Dto\Property
-    private $scopes           = null;  // array of string
-    private $idtHeaderParams  = null;  // string
-    private $errorDescription = null;  // string
-    private $errorUri         = null;  // string
+    private ?string $result               = null;  // DeviceCompleteResult
+    private ?string $userCode             = null;
+    private ?string $subject              = null;
+    private ?string $sub                  = null;
+    private string|int|null $authTime     = null;
+    private ?string $acr                  = null;
+    private ?string $claims               = null;
+    private ?array $properties            = null;  // array of \Authlete\Dto\Property
+    private ?array $scopes                = null;  // array of string
+    private ?string $idtHeaderParams      = null;
+    private ?string $errorDescription     = null;
+    private ?string $errorUri             = null;
 
 
     /**
      * Get the user code input by the end-user.
      *
-     * @return string
+     * @return string|null
      *     The user code.
      */
-    public function getUserCode()
+    public function getUserCode(): ?string
     {
         return $this->userCode;
     }
@@ -120,7 +120,7 @@ class DeviceCompleteRequest implements ArrayCopyable, Arrayable, Jsonable
      * @return DeviceCompleteRequest
      *     `$this` object.
      */
-    public function setUserCode($code)
+    public function setUserCode(string $code): DeviceCompleteRequest
     {
         ValidationUtility::ensureNullOrString('$code', $code);
 
@@ -133,12 +133,12 @@ class DeviceCompleteRequest implements ArrayCopyable, Arrayable, Jsonable
     /**
      * Get the result of end-user authentication and authorization.
      *
-     * @return DeviceCompleteResult
+     * @return DeviceCompleteResult|null
      *     The result of end-user authentication and authorization.
      */
-    public function getResult()
+    public function getResult(): ?DeviceCompleteResult
     {
-        return $this->result;
+        return DeviceCompleteResult::valueOf($this->result);
     }
 
 
@@ -146,15 +146,15 @@ class DeviceCompleteRequest implements ArrayCopyable, Arrayable, Jsonable
      * Set the result of end-user authentication and authorization.
      * This request parameter is mandatory.
      *
-     * @param DeviceCompleteResult $result
+     * @param DeviceCompleteResult|null $result
      *     The result of end-user authentication and authorization.
      *
      * @return DeviceCompleteRequest
      *     `$this` object.
      */
-    public function setResult(DeviceCompleteResult $result = null)
+    public function setResult(DeviceCompleteResult $result = null): DeviceCompleteRequest
     {
-        $this->result = $result;
+        $this->result = $result->value;
 
         return $this;
     }
@@ -175,10 +175,10 @@ class DeviceCompleteRequest implements ArrayCopyable, Arrayable, Jsonable
      * the value of the subject associated with the access token is still the
      * value of this `subject` property.
      *
-     * @return string
+     * @return string|null
      *     The subject of the end-user.
      */
-    public function getSubject()
+    public function getSubject(): ?string
     {
         return $this->subject;
     }
@@ -205,7 +205,7 @@ class DeviceCompleteRequest implements ArrayCopyable, Arrayable, Jsonable
      * @return DeviceCompleteRequest
      *     `$this` object.
      */
-    public function setSubject($subject)
+    public function setSubject(string $subject): DeviceCompleteRequest
     {
         ValidationUtility::ensureNullOrString('$subject', $subject);
 
@@ -227,10 +227,10 @@ class DeviceCompleteRequest implements ArrayCopyable, Arrayable, Jsonable
      * whether this `sub` property is a non-empty value or not. In other words,
      * this `sub` property affects only the `sub` claim in the ID token.
      *
-     * @return string
+     * @return string|null
      *     The value of the `sub` claim.
      */
-    public function getSub()
+    public function getSub(): ?string
     {
         return $this->sub;
     }
@@ -254,7 +254,7 @@ class DeviceCompleteRequest implements ArrayCopyable, Arrayable, Jsonable
      * @return DeviceCompleteRequest
      *     `$this` object.
      */
-    public function setSub($sub)
+    public function setSub(string $sub): DeviceCompleteRequest
     {
         ValidationUtility::ensureNullOrString('$sub', $sub);
 
@@ -270,10 +270,10 @@ class DeviceCompleteRequest implements ArrayCopyable, Arrayable, Jsonable
      * The value represents the elapsed time since the Unix epoch
      * (1970-Jan-1) in seconds.
      *
-     * @return integer|string
+     * @return int|string|null
      *     The time when the authentication of the end-user occurred.
      */
-    public function getAuthTime()
+    public function getAuthTime(): int|string|null
     {
         return $this->authTime;
     }
@@ -291,7 +291,7 @@ class DeviceCompleteRequest implements ArrayCopyable, Arrayable, Jsonable
      * @return DeviceCompleteRequest
      *     `$this` object.
      */
-    public function setAuthTime($authTime)
+    public function setAuthTime(int|string $authTime): DeviceCompleteRequest
     {
         ValidationUtility::ensureNullOrStringOrInteger('$authTime', $authTime);
 
@@ -306,10 +306,10 @@ class DeviceCompleteRequest implements ArrayCopyable, Arrayable, Jsonable
      * authentication satisfied. When this property holds a non-null value,
      * the value will be used as the value of the `acr` claim in the ID token.
      *
-     * @return string
+     * @return string|null
      *     The authentication context class reference.
      */
-    public function getAcr()
+    public function getAcr(): ?string
     {
         return $this->acr;
     }
@@ -326,7 +326,7 @@ class DeviceCompleteRequest implements ArrayCopyable, Arrayable, Jsonable
      * @return DeviceCompleteRequest
      *     `$this` object.
      */
-    public function setAcr($acr)
+    public function setAcr(string $acr): DeviceCompleteRequest
     {
         ValidationUtility::ensureNullOrString('$acr', $acr);
 
@@ -339,11 +339,11 @@ class DeviceCompleteRequest implements ArrayCopyable, Arrayable, Jsonable
     /**
      * Get additional claims which will be embedded in the ID token.
      *
-     * @return string
+     * @return string|null
      *     Additional claims in JSON format which will be embedded in the ID
      *     token.
      */
-    public function getClaims()
+    public function getClaims(): ?string
     {
         return $this->claims;
     }
@@ -381,7 +381,7 @@ class DeviceCompleteRequest implements ArrayCopyable, Arrayable, Jsonable
      * @return DeviceCompleteRequest
      *     `$this` object.
      */
-    public function setClaims($claims)
+    public function setClaims(string $claims): DeviceCompleteRequest
     {
         ValidationUtility::ensureNullOrString('$claims', $claims);
 
@@ -395,10 +395,10 @@ class DeviceCompleteRequest implements ArrayCopyable, Arrayable, Jsonable
      * Get the extra properties associated with the access token that will
      * be issued.
      *
-     * @return Property[]
+     * @return array|null Extra properties.
      *     Extra properties.
      */
-    public function getProperties()
+    public function getProperties(): ?array
     {
         return $this->properties;
     }
@@ -431,16 +431,16 @@ class DeviceCompleteRequest implements ArrayCopyable, Arrayable, Jsonable
      * database. The length of the resultant string must not exceed 65,535 in
      * bytes. This is the upper limit, but we think it is big enough.
      *
-     * @param array $properties
+     * @param array|null $properties
      *     Extra properties.
      *
      * @return DeviceCompleteRequest
      *     `$this` object.
      */
-    public function setProperties(array $properties = null)
+    public function setProperties(array $properties = null): DeviceCompleteRequest
     {
         ValidationUtility::ensureNullOrArrayOfType(
-            '$properties', $properties, __NAMESPACE__ . '\Property');
+            '$properties', __NAMESPACE__ . '\Property', $properties);
 
         $this->properties = $properties;
 
@@ -453,12 +453,12 @@ class DeviceCompleteRequest implements ArrayCopyable, Arrayable, Jsonable
      * non-null value, the set of scopes will be used instead of the scopes
      * specified in the original device authorization request.
      *
-     * @return string[]
+     * @return array|null
      *     Scopes to replace the scopes specified in the original device
      *     authorization request with. If this property holds null,
      *     replacement is not performed.
      */
-    public function getScopes()
+    public function getScopes(): ?array
     {
         return $this->scopes;
     }
@@ -471,7 +471,7 @@ class DeviceCompleteRequest implements ArrayCopyable, Arrayable, Jsonable
      *
      * Scopes that are not included in the original request can be included.
      *
-     * @param array $scopes
+     * @param array|null $scopes
      *     Scopes to replace the scopes specified in the original device
      *     authorization request with. If this property holds null,
      *     replacement is not performed.
@@ -479,7 +479,7 @@ class DeviceCompleteRequest implements ArrayCopyable, Arrayable, Jsonable
      * @return DeviceCompleteRequest
      *     `$this` object.
      */
-    public function setScopes(array $scopes = null)
+    public function setScopes(array $scopes = null): DeviceCompleteRequest
     {
         ValidationUtility::ensureNullOrArrayOfString('$scopes', $scopes);
 
@@ -493,13 +493,13 @@ class DeviceCompleteRequest implements ArrayCopyable, Arrayable, Jsonable
      * Get JSON that represents additional JWS header parameters
      * for the ID token that may be issued from the token endpoint.
      *
-     * @return string
+     * @return string|null
      *     JSON that represents additional JWS header parameters
      *     for the ID token.
      *
      * @since 1.9
      */
-    public function getIdtHeaderParams()
+    public function getIdtHeaderParams(): ?string
     {
         return $this->idtHeaderParams;
     }
@@ -518,7 +518,7 @@ class DeviceCompleteRequest implements ArrayCopyable, Arrayable, Jsonable
      *
      * @since 1.9
      */
-    public function setIdtHeaderParams($params)
+    public function setIdtHeaderParams(string $params): DeviceCompleteRequest
     {
         ValidationUtility::ensureNullOrString('$params', $params);
 
@@ -532,10 +532,10 @@ class DeviceCompleteRequest implements ArrayCopyable, Arrayable, Jsonable
      * Get the description of the error. This corresponds to the
      * `error_description` property in the response to the client.
      *
-     * @return string
+     * @return string|null The description of the error.
      *     The description of the error.
      */
-    public function getErrorDescription()
+    public function getErrorDescription(): ?string
     {
         return $this->errorDescription;
     }
@@ -558,7 +558,7 @@ class DeviceCompleteRequest implements ArrayCopyable, Arrayable, Jsonable
      * @return DeviceCompleteRequest
      *     `$this` object.
      */
-    public function setErrorDescription($description)
+    public function setErrorDescription(string $description): DeviceCompleteRequest
     {
         ValidationUtility::ensureNullOrString('$description', $description);
 
@@ -572,10 +572,10 @@ class DeviceCompleteRequest implements ArrayCopyable, Arrayable, Jsonable
      * Get the URI of a document which describes the error in detail. This
      * corresponds to the `error_uri` property in the response to the client.
      *
-     * @return string
+     * @return string|null
      *     The URI of a document which describes the error in detail.
      */
-    public function getErrorUri()
+    public function getErrorUri(): ?string
     {
         return $this->errorUri;
     }
@@ -595,7 +595,7 @@ class DeviceCompleteRequest implements ArrayCopyable, Arrayable, Jsonable
      * @return DeviceCompleteRequest
      *     `$this` object.
      */
-    public function setErrorUri($uri)
+    public function setErrorUri(string $uri): DeviceCompleteRequest
     {
         ValidationUtility::ensureNullOrString('$uri', $uri);
 
@@ -613,7 +613,7 @@ class DeviceCompleteRequest implements ArrayCopyable, Arrayable, Jsonable
      * @param array $array
      *     {@inheritdoc}
      */
-    public function copyToArray(array &$array)
+    public function copyToArray(array &$array): void
     {
         $array['userCode']         = $this->userCode;
         $array['result']           = LanguageUtility::toString($this->result);
@@ -638,7 +638,7 @@ class DeviceCompleteRequest implements ArrayCopyable, Arrayable, Jsonable
      * @param array $array
      *     {@inheritdoc}
      */
-    public function copyFromArray(array &$array)
+    public function copyFromArray(array &$array): void
     {
         // userCode
         $this->setUserCode(
@@ -671,7 +671,7 @@ class DeviceCompleteRequest implements ArrayCopyable, Arrayable, Jsonable
 
         // properties
         $_properties = LanguageUtility::getFromArray('properties', $array);
-        $_properties = LanguageUtility::convertArrayToArrayOfArrayCopyable($_properties, __NAMESPACE__ . '\Property');
+        $_properties = LanguageUtility::convertArrayToArrayOfArrayCopyable(__NAMESPACE__ . '\Property', $_properties);
         $this->setProperties($_properties);
 
         // scopes
@@ -691,4 +691,4 @@ class DeviceCompleteRequest implements ArrayCopyable, Arrayable, Jsonable
             LanguageUtility::getFromArray('errorUri', $array));
     }
 }
-?>
+

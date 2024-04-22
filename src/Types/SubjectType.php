@@ -34,7 +34,7 @@ use Authlete\Util\LanguageUtility;
  *
  * @see https://openid.net/specs/openid-connect-core-1_0.html#SubjectIDTypes OpenID Connect Core 1.0, 8. Subject Identifier Types
  */
-class SubjectType
+enum SubjectType: string implements Valuable
 {
     use EnumTrait;
 
@@ -43,25 +43,14 @@ class SubjectType
      * This provides the same "sub (subject) value to all Clients.
      * It is the default if the provider has no "subject_types_supported"
      * element in its discovery document.
-     *
-     * @static
-     * @var SubjectType
      */
-    public static $PUBLIC;
+    case PUBLIC = 'PUBLIC';
 
 
     /**
      * This provides a different "sub" (subject) value to each Client,
      * so as not to enable Clients to correlate the End-User's activities
      * without permission.
-     *
-     * @static
-     * @var SubjectType
      */
-    public static $PAIRWISE;
+    case PAIRWISE = 'PAIRWISE';
 }
-
-
-// Call SubjectType::initialize().
-LanguageUtility::initializeClass(__NAMESPACE__ . '\SubjectType');
-?>

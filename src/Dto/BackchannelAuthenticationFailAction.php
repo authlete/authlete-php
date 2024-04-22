@@ -26,6 +26,7 @@ namespace Authlete\Dto;
 
 
 use Authlete\Types\EnumTrait;
+use Authlete\Types\Valuable;
 use Authlete\Util\LanguageUtility;
 
 
@@ -35,19 +36,15 @@ use Authlete\Util\LanguageUtility;
  *
  * @since 1.8
  */
-class BackchannelAuthenticationFailAction
+enum BackchannelAuthenticationFailAction: string implements Valuable
 {
     use EnumTrait;
-
 
     /**
      * The implementation of the backchannel authentication endpoint should
      * return a `400 Bad Request` response to the client application.
-     *
-     * @static
-     * @var BackchannelAuthenticationFailAction
      */
-    public static $BAD_REQUEST;
+    case BAD_REQUEST = 'BAD_REQUEST';
 
 
     /**
@@ -57,11 +54,8 @@ class BackchannelAuthenticationFailAction
      * `BackchannelAuthenticationFailResponse.getAction()` returns this value
      * only when the `reason` request parameter of the API call was
      * `ACCESS_DENIED`.
-     *
-     * @static
-     * @var BackchannelAuthenticationFailAction
      */
-    public static $FORBIDDEN;
+    case FORBIDDEN = 'FORBIDDEN';
 
 
     /**
@@ -74,14 +68,7 @@ class BackchannelAuthenticationFailAction
      * when (1) the `reason` request parameter of the API call was
      * `SERVER_ERROR`, (2) an error occurred on Authlete side, or (3) the
      * request parameters of the API call were wrong.
-     *
-     * @static
-     * @var BackchannelAuthenticationFailAction
      */
-    public static $INTERNAL_SERVER_ERROR;
+    case INTERNAL_SERVER_ERROR = 'INTERNAL_SERVER_ERROR';
 }
 
-
-// Call BackchannelAuthenticationFailAction::initialize().
-LanguageUtility::initializeClass(__NAMESPACE__ . '\BackchannelAuthenticationFailAction');
-?>

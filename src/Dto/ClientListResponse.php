@@ -43,11 +43,11 @@ class ClientListResponse implements ArrayCopyable, Arrayable, Jsonable
     use JsonTrait;
 
 
-    private $start      = 0;     // integer
-    private $end        = 0;     // integer
-    private $developer  = null;  // string
-    private $totalCount = 0;     // integer
-    private $clients    = null;  // array of \Authlete\Dto\Client
+    private int $start         = 0;
+    private int $end           = 0;
+    private ?string $developer = null;
+    private int $totalCount    = 0;
+    private ?array $clients    = null;  // array of \Authlete\Dto\Client
 
 
     /**
@@ -60,7 +60,7 @@ class ClientListResponse implements ArrayCopyable, Arrayable, Jsonable
      * @return integer
      *     The start index (inclusive).
      */
-    public function getStart()
+    public function getStart(): int
     {
         return $this->start;
     }
@@ -75,7 +75,7 @@ class ClientListResponse implements ArrayCopyable, Arrayable, Jsonable
      * @return ClientListResponse
      *     `$this` object.
      */
-    public function setStart($start)
+    public function setStart(int $start): ClientListResponse
     {
         ValidationUtility::ensureInteger('$start', $start);
 
@@ -95,7 +95,7 @@ class ClientListResponse implements ArrayCopyable, Arrayable, Jsonable
      * @return integer
      *     The end index (exclusive).
      */
-    public function getEnd()
+    public function getEnd(): int
     {
         return $this->end;
     }
@@ -110,7 +110,7 @@ class ClientListResponse implements ArrayCopyable, Arrayable, Jsonable
      * @return ClientListResponse
      *     `$this` object.
      */
-    public function setEnd($end)
+    public function setEnd(int $end): ClientListResponse
     {
         ValidationUtility::ensureInteger('$end', $end);
 
@@ -127,10 +127,10 @@ class ClientListResponse implements ArrayCopyable, Arrayable, Jsonable
      * `developer` request parameter), or `null`. In the case of `null`, it
      * means that all the clients that belong to the service are targeted.
      *
-     * @return string
+     * @return string|null
      *     The unique identifier of the developer.
      */
-    public function getDeveloper()
+    public function getDeveloper(): ?string
     {
         return $this->developer;
     }
@@ -145,7 +145,7 @@ class ClientListResponse implements ArrayCopyable, Arrayable, Jsonable
      * @return ClientListResponse
      *     `$this` object.
      */
-    public function setDeveloper($developer)
+    public function setDeveloper(string $developer): ClientListResponse
     {
         ValidationUtility::ensureNullOrString('$developer', $developer);
 
@@ -168,7 +168,7 @@ class ClientListResponse implements ArrayCopyable, Arrayable, Jsonable
      *     The total number of client applications of either the entire
      *     service or the developer.
      */
-    public function getTotalCount()
+    public function getTotalCount(): int
     {
         return $this->totalCount;
     }
@@ -185,7 +185,7 @@ class ClientListResponse implements ArrayCopyable, Arrayable, Jsonable
      * @return ClientListResponse
      *     `$this` object.
      */
-    public function setTotalCount($totalCount)
+    public function setTotalCount(int $totalCount): ClientListResponse
     {
         ValidationUtility::ensureInteger('$totalCount', $totalCount);
 
@@ -198,10 +198,10 @@ class ClientListResponse implements ArrayCopyable, Arrayable, Jsonable
     /**
      * Get the list of client applications that match the query conditions.
      *
-     * @return Client[]
+     * @return array|null
      *     The list of client applications that match the query conditions.
      */
-    public function getClients()
+    public function getClients(): ?array
     {
         return $this->clients;
     }
@@ -216,10 +216,10 @@ class ClientListResponse implements ArrayCopyable, Arrayable, Jsonable
      * @return ClientListResponse
      *     `$this` object.
      */
-    public function setClients(array $clients = null)
+    public function setClients(array $clients = null): ClientListResponse
     {
         ValidationUtility::ensureNullOrArrayOfType(
-            '$clients', $clients, __NAMESPACE__ . '\Client');
+            '$clients', __NAMESPACE__ . '\Client', $clients);
 
         $this->clients = $clients;
 
@@ -235,7 +235,7 @@ class ClientListResponse implements ArrayCopyable, Arrayable, Jsonable
      * @param array $array
      *     {@inheritdoc}
      */
-    public function copyToArray(array &$array)
+    public function copyToArray(array &$array): void
     {
         $array['start']      = $this->start;
         $array['end']        = $this->end;
@@ -253,7 +253,7 @@ class ClientListResponse implements ArrayCopyable, Arrayable, Jsonable
      * @param array $array
      *     {@inheritdoc}
      */
-    public function copyFromArray(array &$array)
+    public function copyFromArray(array &$array): void
     {
         // start
         $this->setStart(
@@ -273,8 +273,8 @@ class ClientListResponse implements ArrayCopyable, Arrayable, Jsonable
 
         // clients
         $_clients = LanguageUtility::getFromArray('clients', $array);
-        $_clients = LanguageUtility::convertArrayToArrayOfArrayCopyable($_clients, __NAMESPACE__ . '\Client');
+        $_clients = LanguageUtility::convertArrayToArrayOfArrayCopyable(__NAMESPACE__ . '\Client', $_clients);
         $this->setClients($_clients);
     }
 }
-?>
+

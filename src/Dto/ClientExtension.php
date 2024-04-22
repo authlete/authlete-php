@@ -55,10 +55,10 @@ class ClientExtension implements ArrayCopyable, Arrayable, Jsonable
     use JsonTrait;
 
 
-    private $requestableScopesEnabled = false; // boolean
-    private $requestableScopes        = null;  // array of string
-    private $accessTokenDuration      = null;  // string or (64-bit) integer
-    private $refreshTokenDuration     = null;  // string or (64-bit) integer
+    private bool $requestableScopesEnabled            = false;
+    private ?array $requestableScopes                 = null;  // array of string
+    private string|int|null $accessTokenDuration      = null;
+    private string|int|null $refreshTokenDuration     = null;
 
 
     /**
@@ -68,7 +68,7 @@ class ClientExtension implements ArrayCopyable, Arrayable, Jsonable
      * @return boolean
      *     `true` if the "Requestable Scopes per Client" feature is enabled.
      */
-    public function isRequestableScopesEnabled()
+    public function isRequestableScopesEnabled(): bool
     {
         return $this->requestableScopesEnabled;
     }
@@ -98,7 +98,7 @@ class ClientExtension implements ArrayCopyable, Arrayable, Jsonable
      * @return ClientExtension
      *     `$this` object.
      */
-    public function setRequestableScopesEnabled($enabled)
+    public function setRequestableScopesEnabled(mixed $enabled): ClientExtension
     {
         ValidationUtility::ensureBoolean('$enabled', $enabled);
 
@@ -113,10 +113,10 @@ class ClientExtension implements ArrayCopyable, Arrayable, Jsonable
      * the "Requestable Scopes per Client" feature is enabled (= when the
      * `isRequestableScopesEnabled()` method returns `true`).
      *
-     * @return string[]
+     * @return string[]|null
      *      Scopes that the client application can request.
      */
-    public function getRequestableScopes()
+    public function getRequestableScopes(): ?array
     {
         return $this->requestableScopes;
     }
@@ -133,7 +133,7 @@ class ClientExtension implements ArrayCopyable, Arrayable, Jsonable
      * @return ClientExtension
      *     `$this` object.
      */
-    public function setRequestableScopes(array $requestableScopes = null)
+    public function setRequestableScopes(?array $requestableScopes = null): ClientExtension
     {
         ValidationUtility::ensureNullOrArrayOfString('$requestableScopes', $requestableScopes);
 
@@ -157,12 +157,12 @@ class ClientExtension implements ArrayCopyable, Arrayable, Jsonable
      * scope attribute `access_token.duration`, too. Authlete chooses the
      * minimum value among the candidates.
      *
-     * @return integer|string
+     * @return integer|string|null
      *     The duration of access tokens per client in seconds.
      *
      * @since 1.8
      */
-    public function getAccessTokenDuration()
+    public function getAccessTokenDuration(): int|string|null
     {
         return $this->accessTokenDuration;
     }
@@ -190,7 +190,7 @@ class ClientExtension implements ArrayCopyable, Arrayable, Jsonable
      *
      * @since 1.8
      */
-    public function setAccessTokenDuration($duration)
+    public function setAccessTokenDuration(mixed $duration): ClientExtension
     {
         ValidationUtility::ensureNullOrStringOrInteger('$duration', $duration);
 
@@ -214,12 +214,12 @@ class ClientExtension implements ArrayCopyable, Arrayable, Jsonable
      * scope attribute `refresh_token.duration`, too. Authlete chooses the
      * minimum value among the candidates.
      *
-     * @return integer|string
+     * @return int|string|null
      *     The duration of refresh tokens per client in seconds.
      *
      * @since 1.8
      */
-    public function getRefreshTokenDuration()
+    public function getRefreshTokenDuration(): int|string|null
     {
         return $this->refreshTokenDuration;
     }
@@ -247,7 +247,7 @@ class ClientExtension implements ArrayCopyable, Arrayable, Jsonable
      *
      * @since 1.8
      */
-    public function setRefreshTokenDuration($duration)
+    public function setRefreshTokenDuration(mixed $duration): ClientExtension
     {
         ValidationUtility::ensureNullOrStringOrInteger('$duration', $duration);
 
@@ -265,7 +265,7 @@ class ClientExtension implements ArrayCopyable, Arrayable, Jsonable
      * @param array $array
      *     {@inheritdoc}
      */
-    public function copyToArray(array &$array)
+    public function copyToArray(array &$array): void
     {
         $array['requestableScopesEnabled'] = $this->requestableScopesEnabled;
         $array['requestableScopes']        = $this->requestableScopes;
@@ -282,7 +282,7 @@ class ClientExtension implements ArrayCopyable, Arrayable, Jsonable
      * @param array $array
      *     {@inheritdoc}
      */
-    public function copyFromArray(array &$array)
+    public function copyFromArray(array &$array): void
     {
         // requestableScopesEnabled
         $this->setRequestableScopesEnabled(
@@ -301,4 +301,3 @@ class ClientExtension implements ArrayCopyable, Arrayable, Jsonable
             LanguageUtility::getFromArray('refreshTokenDuration', $array));
     }
 }
-?>

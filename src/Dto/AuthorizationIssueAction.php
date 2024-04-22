@@ -26,6 +26,7 @@ namespace Authlete\Dto;
 
 
 use Authlete\Types\EnumTrait;
+use Authlete\Types\Valuable;
 use Authlete\Util\LanguageUtility;
 
 
@@ -33,9 +34,10 @@ use Authlete\Util\LanguageUtility;
  * The value of "action" in responses from Authlete's
  * /api/auth/authorization/issue API.
  */
-class AuthorizationIssueAction
+enum AuthorizationIssueAction: string implements Valuable
 {
     use EnumTrait;
+
 
 
     /**
@@ -43,45 +45,29 @@ class AuthorizationIssueAction
      * or an error occurred in Authlete. The authorization server
      * implementation should return "500 Internal Server Error" to the
      * client application.
-     *
-     * @static
-     * @var AuthorizationIssueAction
      */
-    public static $INTERNAL_SERVER_ERROR;
+    case INTERNAL_SERVER_ERROR = 'INTERNAL_SERVER_ERROR';
 
 
     /**
      * The ticket was no longer valid. The authorization server
      * implementation should return "400 Bad Request" to the client
      * application.
-     *
-     * @static
-     * @var AuthorizationIssueAction
      */
-    public static $BAD_REQUEST;
+    case BAD_REQUEST = 'BAD_REQUEST';
 
 
     /**
      * The authorization server implementation should return "302 Found"
      * to the client application with a "Location" header.
-     *
-     * @static
-     * @var AuthorizationIssueAction
      */
-    public static $LOCATION;
+    case LOCATION = 'LOCATION';
 
 
     /**
      * The authorization server implementation should return "200 OK" to
      * the client application with an HTML which triggers redirection.
-     *
-     * @static
-     * @var AuthorizationIssueAction
      */
-    public static $FORM;
+    case FORM = 'FORM';
 }
 
-
-// Call AuthorizationIssueAction::initialize().
-LanguageUtility::initializeClass(__NAMESPACE__ . '\AuthorizationIssueAction');
-?>

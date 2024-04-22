@@ -192,35 +192,35 @@ use Authlete\Util\ValidationUtility;
  */
 class PushedAuthReqResponse extends ApiResponse
 {
-    private $action          = null;  // \Authlete\Dto\PushedAuthReqAction
-    private $responseContent = null;  // string
-    private $requestUri      = null;  // string
+    private ?string $action               = null;  // PushedAuthReqAction
+    private ?string $responseContent      = null;
+    private ?string $requestUri           = null;
 
 
     /**
      * Get the next action that the authorization server should take.
      *
-     * @return PushedAuthReqAction
+     * @return PushedAuthReqAction|null
      *     The next action that the authorization server should take.
      */
-    public function getAction()
+    public function getAction(): ?PushedAuthReqAction
     {
-        return $this->action;
+        return PushedAuthReqAction::valueOf($this->action);
     }
 
 
     /**
      * Set the next action that the authorization server should take.
      *
-     * @param PushedAuthReqAction $action
+     * @param PushedAuthReqAction|null $action
      *     The next action that the authorization server should take.
      *
      * @return PushedAuthReqResponse
      *     `$this` object.
      */
-    public function setAction(PushedAuthReqAction $action = null)
+    public function setAction(PushedAuthReqAction $action = null): PushedAuthReqResponse
     {
-        $this->action = $action;
+        $this->action = $action->value;
 
         return $this;
     }
@@ -230,10 +230,10 @@ class PushedAuthReqResponse extends ApiResponse
      * Get the response content which can be used as the entity body of the
      * response returned to the client application.
      *
-     * @return string
+     * @return string|null
      *     The response content.
      */
-    public function getResponseContent()
+    public function getResponseContent(): ?string
     {
         return $this->responseContent;
     }
@@ -249,7 +249,7 @@ class PushedAuthReqResponse extends ApiResponse
      * @return PushedAuthReqResponse
      *     `$this` object.
      */
-    public function setResponseContent($responseContent)
+    public function setResponseContent(string $responseContent): PushedAuthReqResponse
     {
         ValidationUtility::ensureNullOrString('$responseContent', $responseContent);
 
@@ -264,10 +264,10 @@ class PushedAuthReqResponse extends ApiResponse
      * request. This can be sent by the client as the `request_uri` request
      * parameter in an authorization request.
      *
-     * @return string
+     * @return string|null
      *     The request URI.
      */
-    public function getRequestUri()
+    public function getRequestUri(): ?string
     {
         return $this->requestUri;
     }
@@ -284,7 +284,7 @@ class PushedAuthReqResponse extends ApiResponse
      * @return PushedAuthReqResponse
      *     `$this` object.
      */
-    public function setRequestUri($uri)
+    public function setRequestUri(string $uri): PushedAuthReqResponse
     {
         ValidationUtility::ensureNullOrString('$uri', $uri);
 
@@ -302,7 +302,7 @@ class PushedAuthReqResponse extends ApiResponse
      * @param array $array
      *     {@inheritdoc}
      */
-    public function copyToArray(array &$array)
+    public function copyToArray(array &$array): void
     {
         parent::copyToArray($array);
 
@@ -320,7 +320,7 @@ class PushedAuthReqResponse extends ApiResponse
      * @param array $array
      *     {@inheritdoc}
      */
-    public function copyFromArray(array &$array)
+    public function copyFromArray(array &$array): void
     {
         parent::copyFromArray($array);
 
@@ -338,4 +338,4 @@ class PushedAuthReqResponse extends ApiResponse
             LanguageUtility::getFromArray('requestUri', $array));
     }
 }
-?>
+

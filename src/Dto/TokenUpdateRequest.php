@@ -43,25 +43,25 @@ class TokenUpdateRequest implements ArrayCopyable, Arrayable, Jsonable
     use JsonTrait;
 
 
-    private $accessToken                              = null;  // string
-    private $accessTokenExpiresAt                     = null;  // string or (64-bit) integer
-    private $scopes                                   = null;  // array of string
-    private $properties                               = null;  // array of \Authlete\Dto\Property
-    private $accessTokenExpiresAtUpdatedOnScopeUpdate = false; // boolean
-    private $accessTokenPersistent                    = false; // boolean
-    private $accessTokenHash                          = null;  // string
-    private $accessTokenValueUpdated                  = false; // boolean
-    private $certificateThumbprint                    = null;  // string
-    private $dpopKeyThumbprint                        = null;  // string
+    private ?string $accessToken                              = null;  // string
+    private string|int|null $accessTokenExpiresAt             = null;  // string or (64-bit) integer
+    private ?array $scopes                                    = null;  // array of string
+    private ?array $properties                                = null;  // array of \Authlete\Dto\Property
+    private bool $accessTokenExpiresAtUpdatedOnScopeUpdate    = false; // boolean
+    private bool $accessTokenPersistent                       = false; // boolean
+    private ?string $accessTokenHash                          = null;  // string
+    private bool $accessTokenValueUpdated                     = false; // boolean
+    private ?string $certificateThumbprint                    = null;  // string
+    private ?string $dpopKeyThumbprint                        = null;  // string
 
 
     /**
      * Get the access token to be updated.
      *
-     * @return string
+     * @return string|null
      *     The access token.
      */
-    public function getAccessToken()
+    public function getAccessToken(): ?string
     {
         return $this->accessToken;
     }
@@ -76,7 +76,7 @@ class TokenUpdateRequest implements ArrayCopyable, Arrayable, Jsonable
      * @return TokenUpdateRequest
      *     `$this` object.
      */
-    public function setAccessToken($accessToken)
+    public function setAccessToken(string $accessToken): TokenUpdateRequest
     {
         ValidationUtility::ensureNullOrString('$accessToken', $accessToken);
 
@@ -89,10 +89,10 @@ class TokenUpdateRequest implements ArrayCopyable, Arrayable, Jsonable
     /**
      * Get the new date at which the acces token will expire.
      *
-     * @return integer|string
+     * @return int|string|null
      *     The new date at which the access token will expire.
      */
-    public function getAccessTokenExpiresAt()
+    public function getAccessTokenExpiresAt(): int|string|null
     {
         return $this->accessTokenExpiresAt;
     }
@@ -111,7 +111,7 @@ class TokenUpdateRequest implements ArrayCopyable, Arrayable, Jsonable
      * @return TokenUpdateRequest
      *     `$this` object.
      */
-    public function setAccessTokenExpiresAt($expiresAt)
+    public function setAccessTokenExpiresAt(int|string $expiresAt): TokenUpdateRequest
     {
         ValidationUtility::ensureNullOrStringOrInteger('$expiresAt', $expiresAt);
 
@@ -124,10 +124,10 @@ class TokenUpdateRequest implements ArrayCopyable, Arrayable, Jsonable
     /**
      * Get the new set of scopes assigned to the access token.
      *
-     * @return string[]
+     * @return array|null
      *     The new set of scopes assigned to the access token.
      */
-    public function getScopes()
+    public function getScopes(): ?array
     {
         return $this->scopes;
     }
@@ -145,7 +145,7 @@ class TokenUpdateRequest implements ArrayCopyable, Arrayable, Jsonable
      * @return TokenUpdateRequest
      *     `$this` object.
      */
-    public function setScopes(array $scopes = null)
+    public function setScopes(array $scopes = null): TokenUpdateRequest
     {
         ValidationUtility::ensureNullOrArrayOfString('$scopes', $scopes);
 
@@ -158,10 +158,10 @@ class TokenUpdateRequest implements ArrayCopyable, Arrayable, Jsonable
     /**
      * Get the new set of properties assigned to the access token.
      *
-     * @return Property[]
+     * @return string[]|null
      *     The new set of properties assigned to the access token.
      */
-    public function getProperties()
+    public function getProperties(): ?array
     {
         return $this->properties;
     }
@@ -179,10 +179,10 @@ class TokenUpdateRequest implements ArrayCopyable, Arrayable, Jsonable
      * @return TokenUpdateRequest
      *     `$this` object.
      */
-    public function setProperties(array $properties = null)
+    public function setProperties(array $properties = null): TokenUpdateRequest
     {
         ValidationUtility::ensureNullOrArrayOfType(
-            '$properties', $properties, __NAMESPACE__ . '\Property');
+            '$properties', __NAMESPACE__ . '\Property', $properties);
 
         $this->properties = $properties;
 
@@ -201,7 +201,7 @@ class TokenUpdateRequest implements ArrayCopyable, Arrayable, Jsonable
      *
      * @since 1.8
      */
-    public function isAccessTokenExpiresAtUpdatedOnScopeUpdate()
+    public function isAccessTokenExpiresAtUpdatedOnScopeUpdate(): bool
     {
         return $this->accessTokenExpiresAtUpdatedOnScopeUpdate;
     }
@@ -239,7 +239,7 @@ class TokenUpdateRequest implements ArrayCopyable, Arrayable, Jsonable
      *
      * @since 1.8
      */
-    public function setAccessTokenExpiresAtUpdatedOnScopeUpdate($updated)
+    public function setAccessTokenExpiresAtUpdatedOnScopeUpdate(bool $updated): TokenUpdateRequest
     {
         ValidationUtility::ensureBoolean('$updated', $updated);
 
@@ -264,9 +264,9 @@ class TokenUpdateRequest implements ArrayCopyable, Arrayable, Jsonable
      *
      * @since 1.8
      */
-    public function isAccessTokenPersistent()
+    public function isAccessTokenPersistent(): bool
     {
-        return $this->accsssTokenPersistent;
+        return $this->accessTokenPersistent;
     }
 
 
@@ -288,7 +288,7 @@ class TokenUpdateRequest implements ArrayCopyable, Arrayable, Jsonable
      *
      * @since 1.8
      */
-    public function setAccessTokenPersistent($persistent)
+    public function setAccessTokenPersistent(bool $persistent): TokenUpdateRequest
     {
         ValidationUtility::ensureBoolean('$persistent', $persistent);
 
@@ -303,12 +303,12 @@ class TokenUpdateRequest implements ArrayCopyable, Arrayable, Jsonable
      * token is known (perhaps from lookup) but the value of the token itself
      * is not.
      *
-     * @return string
+     * @return string|null
      *     The hash of the access token value.
      *
      * @since 1.8
      */
-    public function getAccessTokenHash()
+    public function getAccessTokenHash(): ?string
     {
         return $this->accessTokenHash;
     }
@@ -327,11 +327,11 @@ class TokenUpdateRequest implements ArrayCopyable, Arrayable, Jsonable
      *
      * @since 1.8
      */
-    public function setAccessTokenHash($hash)
+    public function setAccessTokenHash(string $hash): TokenUpdateRequest
     {
         ValidationUtility::ensureNullOrString('$hash', $hash);
 
-        $this->accessTokenHash = $accessTokenHash;
+        $this->accessTokenHash = $hash;
 
         return $this;
     }
@@ -348,9 +348,9 @@ class TokenUpdateRequest implements ArrayCopyable, Arrayable, Jsonable
      *
      * @since 1.8
      */
-    public function isAccessTokenValueUpdated()
+    public function isAccessTokenValueUpdated(): bool
     {
-        return $this->accsssTokenValueUpdated;
+        return $this->accessTokenValueUpdated;
     }
 
 
@@ -368,7 +368,7 @@ class TokenUpdateRequest implements ArrayCopyable, Arrayable, Jsonable
      *
      * @since 1.8
      */
-    public function setAccessTokenValueUpdated($updated)
+    public function setAccessTokenValueUpdated(bool $updated): TokenUpdateRequest
     {
         ValidationUtility::ensureBoolean('$updated', $updated);
 
@@ -383,14 +383,14 @@ class TokenUpdateRequest implements ArrayCopyable, Arrayable, Jsonable
      * If this request parameter is set, a certificate whose thumbprint matches
      * the value must be presented when the client uses the access token.
      *
-     * @return string
+     * @return string|null
      *     The base64url-encoded SHA-256 certificate thumbprint.
      *
      * @see https://www.rfc-editor.org/rfc/rfc8705.html RFC 8705 OAuth 2.0 Mutual-TLS Client Authentication and Certificate-Bound Access Tokens
      *
      * @since 1.8
      */
-    public function getCertificateThumbprint()
+    public function getCertificateThumbprint(): ?string
     {
         return $this->certificateThumbprint;
     }
@@ -411,7 +411,7 @@ class TokenUpdateRequest implements ArrayCopyable, Arrayable, Jsonable
      *
      * @since 1.8
      */
-    public function setCertificateThumbprint($thumbprint)
+    public function setCertificateThumbprint(string $thumbprint): TokenUpdateRequest
     {
         ValidationUtility::ensureNullOrString('$thumbprint', $thumbprint);
 
@@ -430,12 +430,12 @@ class TokenUpdateRequest implements ArrayCopyable, Arrayable, Jsonable
      * See "OAuth 2.0 Demonstration of Proof-of-Possession at the Application
      * Layer (DPoP)" for details.
      *
-     * @return string
+     * @return string|null
      *     The JWK publick key thumbprint.
      *
      * @since 1.8
      */
-    public function getDpopKeyThumbprint()
+    public function getDpopKeyThumbprint(): ?string
     {
         return $this->dpopKeyThumbprint;
     }
@@ -458,7 +458,7 @@ class TokenUpdateRequest implements ArrayCopyable, Arrayable, Jsonable
      *
      * @since 1.8
      */
-    public function setDpopKeyThumbprint($thumbprint)
+    public function setDpopKeyThumbprint(string $thumbprint): TokenUpdateRequest
     {
         ValidationUtility::ensureNullOrString('$thumbprint', $thumbprint);
 
@@ -476,7 +476,7 @@ class TokenUpdateRequest implements ArrayCopyable, Arrayable, Jsonable
      * @param array $array
      *     {@inheritdoc}
      */
-    public function copyToArray(array &$array)
+    public function copyToArray(array &$array): void
     {
         $array['accessToken']                              = $this->accessToken;
         $array['accessTokenExpiresAt']                     = LanguageUtility::orZero($this->accessTokenExpiresAt);
@@ -499,7 +499,7 @@ class TokenUpdateRequest implements ArrayCopyable, Arrayable, Jsonable
      * @param array $array
      *     {@inheritdoc}
      */
-    public function copyFromArray(array &$array)
+    public function copyFromArray(array &$array): void
     {
         // accessToken
         $this->setAccessToken(
@@ -515,7 +515,7 @@ class TokenUpdateRequest implements ArrayCopyable, Arrayable, Jsonable
 
         // properties
         $_properties = LanguageUtility::getFromArray('properties', $array);
-        $_properties = LanguageUtility::convertArrayToArrayOfArrayCopyable($_properties, __NAMESPACE__ . '\Property');
+        $_properties = LanguageUtility::convertArrayToArrayOfArrayCopyable(__NAMESPACE__ . '\Property', $_properties);
         $this->setProperties($_properties);
 
         // accessTokenExpiresAtUpdatedOnScopeUpdate
@@ -543,4 +543,4 @@ class TokenUpdateRequest implements ArrayCopyable, Arrayable, Jsonable
             LanguageUtility::getFromArray('dpopKeyThumbprint', $array));
     }
 }
-?>
+

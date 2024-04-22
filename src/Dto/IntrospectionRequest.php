@@ -45,22 +45,22 @@ class IntrospectionRequest implements ArrayCopyable, Arrayable, Jsonable
     use JsonTrait;
 
 
-    private $token             = null;  // string
-    private $scopes            = null;  // array of string
-    private $subject           = null;  // string
-    private $clientCertificate = null;  // string
-    private $dpop              = null;  // string
-    private $htm               = null;  // string
-    private $htu               = null;  // string
+    private ?string $token             = null;
+    private ?array $scopes             = null;  // array of string
+    private ?string $subject           = null;
+    private ?string $clientCertificate = null;
+    private ?string $dpop              = null;
+    private ?string $htm               = null;
+    private ?string $htu               = null;
 
 
     /**
      * Get the access token.
      *
-     * @return string
+     * @return string|null
      *     The access token.
      */
-    public function getToken()
+    public function getToken(): ?string
     {
         return $this->token;
     }
@@ -75,7 +75,7 @@ class IntrospectionRequest implements ArrayCopyable, Arrayable, Jsonable
      * @return IntrospectionRequest
      *     `$this` object.
      */
-    public function setToken($token)
+    public function setToken(string $token): IntrospectionRequest
     {
         ValidationUtility::ensureNullOrString('$token', $token);
 
@@ -89,11 +89,11 @@ class IntrospectionRequest implements ArrayCopyable, Arrayable, Jsonable
      * Get scopes which are required to access the protected resource endpoint
      * of the resource server.
      *
-     * @return string[]
+     * @return array|null
      *     The scopes which are required to access the protected resource
      *     endpoint.
      */
-    public function getScopes()
+    public function getScopes(): ?array
     {
         return $this->scopes;
     }
@@ -116,7 +116,7 @@ class IntrospectionRequest implements ArrayCopyable, Arrayable, Jsonable
      * @return IntrospectionRequest
      *     `$this` object.
      */
-    public function setScopes(array $scopes = null)
+    public function setScopes(array $scopes = null): IntrospectionRequest
     {
         ValidationUtility::ensureNullOrArrayOfString('$scopes', $scopes);
 
@@ -130,11 +130,11 @@ class IntrospectionRequest implements ArrayCopyable, Arrayable, Jsonable
      * Get the subject (= unique identifier) of an end-user which is required
      * to access the protected resource endpoint of the resource server.
      *
-     * @return string
+     * @return string|null
      *     The subject which the access token is required to be associated
      *     with in order to access the protected resource endpoint.
      */
-    public function getSubject()
+    public function getSubject(): ?string
     {
         return $this->subject;
     }
@@ -158,7 +158,7 @@ class IntrospectionRequest implements ArrayCopyable, Arrayable, Jsonable
      * @return IntrospectionRequest
      *     `$this` object.
      */
-    public function setSubject($subject)
+    public function setSubject($subject): IntrospectionRequest
     {
         ValidationUtility::ensureNullOrString('$subject', $subject);
 
@@ -172,12 +172,12 @@ class IntrospectionRequest implements ArrayCopyable, Arrayable, Jsonable
      * Get the client certificate, used to validate binding against access
      * tokens using the MTLS sender confirmation method.
      *
-     * @return string
+     * @return string|null
      *     The client certificate in PEM format.
      *
      * @since 1.3
      */
-    public function getClientCertificate()
+    public function getClientCertificate(): ?string
     {
         return $this->clientCertificate;
     }
@@ -195,7 +195,7 @@ class IntrospectionRequest implements ArrayCopyable, Arrayable, Jsonable
      *
      * @since 1.3
      */
-    public function setClientCertificate($certificate)
+    public function setClientCertificate(string $certificate): IntrospectionRequest
     {
         ValidationUtility::ensureNullOrString('$certificate', $certificate);
 
@@ -213,12 +213,12 @@ class IntrospectionRequest implements ArrayCopyable, Arrayable, Jsonable
      * See "OAuth 2.0 Demonstration of Proof-of-Possession at the Application
      * Layer (DPoP)" for details.
      *
-     * @return string
+     * @return string|null
      *     The value of the `DPoP` header.
      *
      * @since 1.8
      */
-    public function getDpop()
+    public function getDpop(): ?string
     {
         return $this->dpop;
     }
@@ -240,7 +240,7 @@ class IntrospectionRequest implements ArrayCopyable, Arrayable, Jsonable
      *
      * @since 1.8
      */
-    public function setDpop($dpop)
+    public function setDpop(string $dpop): IntrospectionRequest
     {
         ValidationUtility::ensureNullOrString('$dpop', $dpop);
 
@@ -257,12 +257,12 @@ class IntrospectionRequest implements ArrayCopyable, Arrayable, Jsonable
      * See "OAuth 2.0 Demonstration of Proof-of-Possession at the Application
      * Layer (DPoP)" for details.
      *
-     * @return string
+     * @return string|null
      *     The HTTP method. For example, `GET`.
      *
      * @since 1.8
      */
-    public function getHtm()
+    public function getHtm(): ?string
     {
         return $this->htm;
     }
@@ -283,7 +283,7 @@ class IntrospectionRequest implements ArrayCopyable, Arrayable, Jsonable
      *
      * @since 1.8
      */
-    public function setHtm($htm)
+    public function setHtm(string $htm): IntrospectionRequest
     {
         ValidationUtility::ensureNullOrString('$htm', $htm);
 
@@ -300,12 +300,12 @@ class IntrospectionRequest implements ArrayCopyable, Arrayable, Jsonable
      * See "OAuth 2.0 Demonstration of Proof-of-Possession at the Application
      * Layer (DPoP)" for details.
      *
-     * @return string
+     * @return string|null The URL of the protected resource endpoint.
      *     The URL of the protected resource endpoint.
      *
      * @since 1.8
      */
-    public function getHtu()
+    public function getHtu(): ?string
     {
         return $this->htu;
     }
@@ -326,7 +326,7 @@ class IntrospectionRequest implements ArrayCopyable, Arrayable, Jsonable
      *
      * @since 1.8
      */
-    public function setHtu($htu)
+    public function setHtu(string $htu): IntrospectionRequest
     {
         ValidationUtility::ensureNullOrString('$htu', $htu);
 
@@ -344,7 +344,7 @@ class IntrospectionRequest implements ArrayCopyable, Arrayable, Jsonable
      * @param array $array
      *     {@inheritdoc}
      */
-    public function copyToArray(array &$array)
+    public function copyToArray(array &$array): void
     {
         $array['token']             = $this->token;
         $array['scopes']            = $this->scopes;
@@ -364,7 +364,7 @@ class IntrospectionRequest implements ArrayCopyable, Arrayable, Jsonable
      * @param array $array
      *     {@inheritdoc}
      */
-    public function copyFromArray(array &$array)
+    public function copyFromArray(array &$array): void
     {
         // token
         $this->setToken(
@@ -395,4 +395,3 @@ class IntrospectionRequest implements ArrayCopyable, Arrayable, Jsonable
             LanguageUtility::getFromArray('htu', $array));
     }
 }
-?>

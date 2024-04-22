@@ -43,10 +43,10 @@ class ServiceListResponse implements ArrayCopyable, Arrayable, Jsonable
     use JsonTrait;
 
 
-    private $start      = 0;     // integer
-    private $end        = 0;     // integer
-    private $totalCount = 0;     // integer
-    private $services   = null;  // array of \Authlete\Dto\Service
+    private int $start       = 0;
+    private int $end         = 0;
+    private int $totalCount  = 0;
+    private ?array $services = null;  // array of \Authlete\Dto\Service
 
 
     /**
@@ -59,7 +59,7 @@ class ServiceListResponse implements ArrayCopyable, Arrayable, Jsonable
      * @return integer
      *     The index (inclusive) of the result set of the query.
      */
-    public function getStart()
+    public function getStart(): int
     {
         return $this->start;
     }
@@ -74,7 +74,7 @@ class ServiceListResponse implements ArrayCopyable, Arrayable, Jsonable
      * @return ServiceListResponse
      *     `$this` object.
      */
-    public function setStart($start)
+    public function setStart(int $start): ServiceListResponse
     {
         ValidationUtility::ensureInteger('$start', $start);
 
@@ -94,7 +94,7 @@ class ServiceListResponse implements ArrayCopyable, Arrayable, Jsonable
      * @return integer
      *     The end index (exclusive) of the result set of the query.
      */
-    public function getEnd()
+    public function getEnd(): int
     {
         return $this->end;
     }
@@ -109,7 +109,7 @@ class ServiceListResponse implements ArrayCopyable, Arrayable, Jsonable
      * @return ServiceListResponse
      *     `$this` object.
      */
-    public function setEnd($end)
+    public function setEnd(int $end): ServiceListResponse
     {
         ValidationUtility::ensureInteger('$end', $end);
 
@@ -129,7 +129,7 @@ class ServiceListResponse implements ArrayCopyable, Arrayable, Jsonable
      * @return integer
      *     The total number of services.
      */
-    public function getTotalCount()
+    public function getTotalCount(): int
     {
         return $this->totalCount;
     }
@@ -144,7 +144,7 @@ class ServiceListResponse implements ArrayCopyable, Arrayable, Jsonable
      * @return ServiceListResponse
      *     `$this` object.
      */
-    public function setTotalCount($totalCount)
+    public function setTotalCount(int $totalCount): ServiceListResponse
     {
         ValidationUtility::ensureInteger('$totalCount', $totalCount);
 
@@ -157,10 +157,10 @@ class ServiceListResponse implements ArrayCopyable, Arrayable, Jsonable
     /**
      * Get the list of services that match the query conditions.
      *
-     * @return Service[]
+     * @return array|null
      *     The list of services that match the query conditions.
      */
-    public function getServices()
+    public function getServices(): ?array
     {
         return $this->services;
     }
@@ -175,10 +175,10 @@ class ServiceListResponse implements ArrayCopyable, Arrayable, Jsonable
      * @return ServiceListResponse
      *     `$this` object.
      */
-    public function setServices(array $services = null)
+    public function setServices(array $services = null): ServiceListResponse
     {
         ValidationUtility::ensureNullOrArrayOfType(
-            '$services', $services, __NAMESPACE__ . '\Service');
+            '$services', __NAMESPACE__ . '\Service', $services);
 
         $this->services = $services;
 
@@ -194,7 +194,7 @@ class ServiceListResponse implements ArrayCopyable, Arrayable, Jsonable
      * @param array $array
      *     {@inheritdoc}
      */
-    public function copyToArray(array &$array)
+    public function copyToArray(array &$array): void
     {
         $array['start']      = $this->start;
         $array['end']        = $this->end;
@@ -211,7 +211,7 @@ class ServiceListResponse implements ArrayCopyable, Arrayable, Jsonable
      * @param array $array
      *     {@inheritdoc}
      */
-    public function copyFromArray(array &$array)
+    public function copyFromArray(array &$array): void
     {
         // start
         $this->setStart(
@@ -227,8 +227,8 @@ class ServiceListResponse implements ArrayCopyable, Arrayable, Jsonable
 
         // services
         $_services = LanguageUtility::getFromArray('services', $array);
-        $_services = LanguageUtility::convertArrayToArrayOfArrayCopyable($_services, __NAMESPACE__ . '\Service');
+        $_services = LanguageUtility::convertArrayToArrayOfArrayCopyable(__NAMESPACE__ . '\Service', $_services);
         $this->setServices($_services);
     }
 }
-?>
+

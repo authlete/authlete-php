@@ -33,32 +33,23 @@ use Authlete\Util\LanguageUtility;
  *
  * @see https://tools.ietf.org/html/rfc6749#section-2.1 RFC 6749, 2.1. Client Types
  */
-class ClientType
+enum ClientType: string implements Valuable
 {
     use EnumTrait;
+
 
 
     /**
      * Clients incapable of maintaining the confidentiality of their
      * credentials. Typical examples are native applications on smart
      * phones.
-     *
-     * @static
-     * @var ClientType
      */
-    public static $PUBLIC;
+    case PUBLIC = 'PUBLIC';
 
 
     /**
      * Clients capable of maintaining the confidentiality of their
      * credentials.
-     *
-     * @static
-     * @var ClientType
      */
-    public static $CONFIDENTIAL;
+    case CONFIDENTIAL = 'CONFIDENTIAL';
 }
-
-
-LanguageUtility::initializeClass(__NAMESPACE__ . '\ClientType');
-?>

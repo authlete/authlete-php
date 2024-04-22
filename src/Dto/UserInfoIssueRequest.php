@@ -43,9 +43,9 @@ class UserInfoIssueRequest implements ArrayCopyable, Arrayable, Jsonable
     use JsonTrait;
 
 
-    private $token  = null;  // string
-    private $claims = null;  // string
-    private $sub    = null;  // string
+    private ?string $token  = null;
+    private ?string $claims = null;
+    private ?string $sub    = null;
 
 
     /**
@@ -55,7 +55,7 @@ class UserInfoIssueRequest implements ArrayCopyable, Arrayable, Jsonable
      * @return string
      *     The access token contained in the UserInfo request.
      */
-    public function getToken()
+    public function getToken(): ?string
     {
         return $this->token;
     }
@@ -71,7 +71,7 @@ class UserInfoIssueRequest implements ArrayCopyable, Arrayable, Jsonable
      * @return UserInfoIssueRequest
      *     `$this` object.
      */
-    public function setToken($token)
+    public function setToken(string $token): UserInfoIssueRequest
     {
         ValidationUtility::ensureNullOrString('$token', $token);
 
@@ -87,7 +87,7 @@ class UserInfoIssueRequest implements ArrayCopyable, Arrayable, Jsonable
      * @return string
      *     The claims of the subject in JSON format.
      */
-    public function getClaims()
+    public function getClaims(): ?string
     {
         return $this->claims;
     }
@@ -125,7 +125,7 @@ class UserInfoIssueRequest implements ArrayCopyable, Arrayable, Jsonable
      * @return UserInfoIssueRequest
      *     `$this` object.
      */
-    public function setClaims($claims)
+    public function setClaims(string $claims): UserInfoIssueRequest
     {
         ValidationUtility::ensureNullOrString('$claims', $claims);
 
@@ -141,7 +141,7 @@ class UserInfoIssueRequest implements ArrayCopyable, Arrayable, Jsonable
      * @return string
      *     The value of the `sub` claim.
      */
-    public function getSub()
+    public function getSub(): ?string
     {
         return $this->sub;
     }
@@ -162,7 +162,7 @@ class UserInfoIssueRequest implements ArrayCopyable, Arrayable, Jsonable
      * @return UserInfoIssueRequest
      *     `$this` object.
      */
-    public function setSub($sub)
+    public function setSub(string $sub): UserInfoIssueRequest
     {
         ValidationUtility::ensureNullOrString('$sub', $sub);
 
@@ -211,4 +211,4 @@ class UserInfoIssueRequest implements ArrayCopyable, Arrayable, Jsonable
             LanguageUtility::getFromArray('sub', $array));
     }
 }
-?>
+

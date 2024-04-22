@@ -43,11 +43,11 @@ class UserInfoRequest implements ArrayCopyable, Arrayable, Jsonable
     use JsonTrait;
 
 
-    private $token             = null;  // string
-    private $clientCertificate = null;  // string
-    private $dpop              = null;  // string
-    private $htm               = null;  // string
-    private $htu               = null;  // string
+    private ?string $token             = null;
+    private ?string $clientCertificate = null;
+    private ?string $dpop              = null;
+    private ?string $htm               = null;
+    private ?string $htu               = null;
 
 
     /**
@@ -57,7 +57,7 @@ class UserInfoRequest implements ArrayCopyable, Arrayable, Jsonable
      * @return string
      *     The access token.
      */
-    public function getToken()
+    public function getToken(): ?string
     {
         return $this->token;
     }
@@ -73,7 +73,7 @@ class UserInfoRequest implements ArrayCopyable, Arrayable, Jsonable
      * @return UserInfoRequest
      *     `$this` object.
      */
-    public function setToken($token)
+    public function setToken(string $token): UserInfoRequest
     {
         ValidationUtility::ensureNullOrString('$token', $token);
 
@@ -92,7 +92,7 @@ class UserInfoRequest implements ArrayCopyable, Arrayable, Jsonable
      *
      * @since 1.8
      */
-    public function getClientCertificate()
+    public function getClientCertificate(): ?string
     {
         return $this->clientCertificate;
     }
@@ -110,7 +110,7 @@ class UserInfoRequest implements ArrayCopyable, Arrayable, Jsonable
      *
      * @since 1.8
      */
-    public function setClientCertificate($certificate)
+    public function setClientCertificate(string $certificate): UserInfoRequest
     {
         ValidationUtility::ensureNullOrString('$certificate', $certificate);
 
@@ -133,7 +133,7 @@ class UserInfoRequest implements ArrayCopyable, Arrayable, Jsonable
      *
      * @since 1.8
      */
-    public function getDpop()
+    public function getDpop(): ?string
     {
         return $this->dpop;
     }
@@ -155,7 +155,7 @@ class UserInfoRequest implements ArrayCopyable, Arrayable, Jsonable
      *
      * @since 1.8
      */
-    public function setDpop($dpop)
+    public function setDpop($dpop): UserInfoRequest
     {
         ValidationUtility::ensureNullOrString('$dpop', $dpop);
 
@@ -179,7 +179,7 @@ class UserInfoRequest implements ArrayCopyable, Arrayable, Jsonable
      *
      * @since 1.8
      */
-    public function getHtm()
+    public function getHtm(): ?string
     {
         return $this->htm;
     }
@@ -197,12 +197,12 @@ class UserInfoRequest implements ArrayCopyable, Arrayable, Jsonable
      * @param string $htm
      *     The HTTP method. For example, `GET`.
      *
-     * @return UeerInfoRequest
+     * @return UserInfoRequest
      *     `$this` object.
      *
      * @since 1.8
      */
-    public function setHtm($htm)
+    public function setHtm(string $htm): UserInfoRequest
     {
         ValidationUtility::ensureNullOrString('$htm', $htm);
 
@@ -227,7 +227,7 @@ class UserInfoRequest implements ArrayCopyable, Arrayable, Jsonable
      *
      * @since 1.8
      */
-    public function getHtu()
+    public function getHtu(): ?string
     {
         return $this->htu;
     }
@@ -251,7 +251,7 @@ class UserInfoRequest implements ArrayCopyable, Arrayable, Jsonable
      *
      * @since 1.8
      */
-    public function setHtu($htu)
+    public function setHtu(string $htu): UserInfoRequest
     {
         ValidationUtility::ensureNullOrString('$htu', $htu);
 
@@ -310,4 +310,3 @@ class UserInfoRequest implements ArrayCopyable, Arrayable, Jsonable
             LanguageUtility::getFromArray('htu', $array));
     }
 }
-?>

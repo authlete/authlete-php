@@ -34,22 +34,22 @@ use Authlete\Util\ValidationUtility;
  */
 class GrantedScopesGetResponse extends ApiResponse
 {
-    private $serviceApiKey       = null;  // string or (64-bit) integer
-    private $clientId            = null;  // string or (64-bit) integer
-    private $subject             = null;  // string
-    private $latestGrantedScopes = null;  // array of string
-    private $mergedGrantedScopes = null;  // array of string
-    private $modifiedAt          = null;  // string or (64-bit) integer
+    private string|int|null $serviceApiKey = null;  // string or (64-bit) integer
+    private string|int|null $clientId      = null;  // string or (64-bit) integer
+    private ?string $subject               = null;  // string
+    private ?array $latestGrantedScopes    = null;  // array of string
+    private ?array $mergedGrantedScopes    = null;  // array of string
+    private string|int|null $modifiedAt    = null;  // string or (64-bit) integer
 
 
     /**
      * Get the API key of the service.
      *
-     * @return integer|string
+     * @return int|string|null
      *     The API key of the service. (64-bit integer if your PHP system can
      *     handle 64-bit integers.)
      */
-    public function getServiceApiKey()
+    public function getServiceApiKey(): int|string|null
     {
         return $this->serviceApiKey;
     }
@@ -58,13 +58,13 @@ class GrantedScopesGetResponse extends ApiResponse
     /**
      * Set the API key of the service.
      *
-     * @param integer|string
+     * @param integer|string $serviceApiKey
      *     The API key of the service.
      *
      * @return GrantedScopesGetResponse
      *     `$this` object.
      */
-    public function setServiceApiKey($serviceApiKey)
+    public function setServiceApiKey(int|string $serviceApiKey): GrantedScopesGetResponse
     {
         ValidationUtility::ensureNullOrStringOrInteger('$serviceApiKey', $serviceApiKey);
 
@@ -77,11 +77,11 @@ class GrantedScopesGetResponse extends ApiResponse
     /**
      * Get the ID of the client application.
      *
-     * @return integer|string
+     * @return int|string|null
      *     The ID of the client application. (64-bit integer if your PHP
      *     system can handle 64-bit integers.)
      */
-    public function getClientId()
+    public function getClientId(): int|string|null
     {
         return $this->clientId;
     }
@@ -97,7 +97,7 @@ class GrantedScopesGetResponse extends ApiResponse
      * @return GrantedScopesGetResponse
      *     `$this` object.
      */
-    public function setClientId($clientId)
+    public function setClientId(int|string $clientId): GrantedScopesGetResponse
     {
         ValidationUtility::ensureNullOrStringOrInteger('$clientId', $clientId);
 
@@ -111,10 +111,10 @@ class GrantedScopesGetResponse extends ApiResponse
      * Get the subject (= unique identifier) of the end-user who has granted
      * authorization to the client application.
      *
-     * @return string
+     * @return string|null
      *     The subject (= unique identifer) of the end-user.
      */
-    public function getSubject()
+    public function getSubject(): ?string
     {
         return $this->subject;
     }
@@ -130,7 +130,7 @@ class GrantedScopesGetResponse extends ApiResponse
      * @return GrantedScopesGetResponse
      *     `$this` object.
      */
-    public function setSubject($subject)
+    public function setSubject(string $subject): GrantedScopesGetResponse
     {
         ValidationUtility::ensureNullOrString('$subject', $subject);
 
@@ -151,11 +151,11 @@ class GrantedScopesGetResponse extends ApiResponse
      * array holds some elements, they are the scopes granted to the client
      * application by the last authorization process.
      *
-     * @return string[]
+     * @return array|null
      *     The scopes granted to the client application by the last
      *     authorization process by the end-user.
      */
-    public function getLatestGrantedScopes()
+    public function getLatestGrantedScopes(): ?array
     {
         return $this->latestGrantedScopes;
     }
@@ -173,7 +173,7 @@ class GrantedScopesGetResponse extends ApiResponse
      * @return GrantedScopesGetResponse
      *     `$this` object.
      */
-    public function setLatestGrantedScopes(array $scopes = null)
+    public function setLatestGrantedScopes(array $scopes = null): GrantedScopesGetResponse
     {
         ValidationUtility::ensureNullOrArrayOfString('$scopes', $scopes);
 
@@ -195,11 +195,11 @@ class GrantedScopesGetResponse extends ApiResponse
      *
      * Note that revoked scopes are not included.
      *
-     * @return string[]
+     * @return array|null
      *     The scopes granted to the client application by all the past
      *     authorization processes.
      */
-    public function getMergedGrantedScopes()
+    public function getMergedGrantedScopes(): ?array
     {
         return $this->mergedGrantedScopes;
     }
@@ -216,7 +216,7 @@ class GrantedScopesGetResponse extends ApiResponse
      * @return GrantedScopesGetResponse
      *     `$this` object.
      */
-    public function setMergedGrantedScopes(array $scopes = null)
+    public function setMergedGrantedScopes(array $scopes = null): GrantedScopesGetResponse
     {
         ValidationUtility::ensureNullOrArrayOfString('$scopes', $scopes);
 
@@ -230,11 +230,11 @@ class GrantedScopesGetResponse extends ApiResponse
      * Get the timestamp in milliseconds since the Unix epoch (1970-Jan-1)
      * at which the record was modified.
      *
-     * @return integer|string
+     * @return int|string|null
      *     The timestamp at which the record was modified. (64-bit integer
      *     if your PHP system can handle 64-bit integers.)
      */
-    public function getModifiedAt()
+    public function getModifiedAt(): int|string|null
     {
         return $this->modifiedAt;
     }
@@ -251,7 +251,7 @@ class GrantedScopesGetResponse extends ApiResponse
      * @return GrantedScopesGetResponse
      *     `$this` object.
      */
-    public function setModifiedAt($modifiedAt)
+    public function setModifiedAt(int|string $modifiedAt): GrantedScopesGetResponse
     {
         ValidationUtility::ensureNullOrStringOrInteger('$modifiedAt', $modifiedAt);
 
@@ -269,7 +269,7 @@ class GrantedScopesGetResponse extends ApiResponse
      * @param array $array
      *     {@inheritdoc}
      */
-    public function copyToArray(array &$array)
+    public function copyToArray(array &$array): void
     {
         parent::copyToArray($array);
 
@@ -290,7 +290,7 @@ class GrantedScopesGetResponse extends ApiResponse
      * @param array $array
      *     {@inheritdoc}
      */
-    public function copyFromArray(array &$array)
+    public function copyFromArray(array &$array): void
     {
         parent::copyFromArray($array);
 
@@ -319,4 +319,3 @@ class GrantedScopesGetResponse extends ApiResponse
             LanguageUtility::getFromArray('modifiedAt', $array));
     }
 }
-?>

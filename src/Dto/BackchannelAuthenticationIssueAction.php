@@ -26,6 +26,7 @@ namespace Authlete\Dto;
 
 
 use Authlete\Types\EnumTrait;
+use Authlete\Types\Valuable;
 use Authlete\Util\LanguageUtility;
 
 
@@ -35,7 +36,7 @@ use Authlete\Util\LanguageUtility;
  *
  * @since 1.8
  */
-class BackchannelAuthenticationIssueAction
+enum BackchannelAuthenticationIssueAction: string implements Valuable
 {
     use EnumTrait;
 
@@ -43,11 +44,8 @@ class BackchannelAuthenticationIssueAction
     /**
      * The implementation of the backchannel authentication endpoint should
      * return a `200 OK` response to the client application.
-     *
-     * @static
-     * @var BackchannelAuthenticationIssueAction
      */
-    public static $OK;
+    case OK = 'OK';
 
 
     /**
@@ -55,24 +53,14 @@ class BackchannelAuthenticationIssueAction
      * return a `500 Internal Server Error` response to the client application.
      * However, in most cases, commercial implementations prefer to use other
      * HTTP status code than 5xx.
-     *
-     * @static
-     * @var BackchannelAuthenticationIssueAction
      */
-    public static $INTERNAL_SERVER_ERROR;
+    case INTERNAL_SERVER_ERROR = 'INTERNAL_SERVER_ERROR';
 
 
     /**
      * The ticket included in the API call is invalid. It does not exist or
      * has expired.
-     *
-     * @static
-     * @var BackchannelAuthenticationIssueAction
      */
-    public static $INVALID_TICKET;
+    case INVALID_TICKET = 'INVALID_TICKET';
 }
 
-
-// Call BackchannelAuthenticationIssueAction::initialize().
-LanguageUtility::initializeClass(__NAMESPACE__ . '\BackchannelAuthenticationIssueAction');
-?>

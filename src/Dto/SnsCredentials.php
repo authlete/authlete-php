@@ -44,35 +44,35 @@ class SnsCredentials implements ArrayCopyable, Arrayable, Jsonable
     use JsonTrait;
 
 
-    private $sns       = null;  // \Authlete\Types\Sns
-    private $apiKey    = null;  // string
-    private $apiSecret = null;  // string
+    private ?string $sns       = null;  // Sns
+    private ?string $apiKey    = null;
+    private ?string $apiSecret = null;
 
 
     /**
      * Get the identifier of the SNS.
      *
-     * @return Sns
+     * @return Sns|null
      *     The identifier of the SNS.
      */
-    public function getSns()
+    public function getSns(): ?Sns
     {
-        return $this->sns;
+        return Sns::valueOf($this->sns);
     }
 
 
     /**
      * Set the identifier of the SNS.
      *
-     * @param Sns $sns
+     * @param Sns|null $sns
      *     The identifier of the SNS.
      *
      * @return SnsCredentials
      *     `$this` object.
      */
-    public function setSns(Sns $sns = null)
+    public function setSns(Sns $sns = null): SnsCredentials
     {
-        $this->sns = $sns;
+        $this->sns = $sns->value;
 
         return $this;
     }
@@ -81,10 +81,10 @@ class SnsCredentials implements ArrayCopyable, Arrayable, Jsonable
     /**
      * Get the API key assigned by the SNS.
      *
-     * @return string
+     * @return string|null
      *     The API key assigned by the SNS.
      */
-    public function getApikey()
+    public function getApikey(): ?string
     {
         return $this->apiKey;
     }
@@ -99,7 +99,7 @@ class SnsCredentials implements ArrayCopyable, Arrayable, Jsonable
      * @return SnsCredentials
      *     `$this` object.
      */
-    public function setApiKey($apiKey)
+    public function setApiKey(string $apiKey): SnsCredentials
     {
         ValidationUtility::ensureNullOrString('$apiKey', $apiKey);
 
@@ -112,10 +112,10 @@ class SnsCredentials implements ArrayCopyable, Arrayable, Jsonable
     /**
      * Get the API secret assigned by the SNS.
      *
-     * @return string
+     * @return string|null
      *     The API secret assigned by the SNS.
      */
-    public function getApiSecret()
+    public function getApiSecret(): ?string
     {
         return $this->apiSecret;
     }
@@ -130,7 +130,7 @@ class SnsCredentials implements ArrayCopyable, Arrayable, Jsonable
      * @return SnsCredentials
      *     `$this` object.
      */
-    public function setApiSecret($apiSecret)
+    public function setApiSecret(string $apiSecret): SnsCredentials
     {
         ValidationUtility::ensureNullOrString('$apiSecret', $apiSecret);
 
@@ -148,7 +148,7 @@ class SnsCredentials implements ArrayCopyable, Arrayable, Jsonable
      * @param array $array
      *     {@inheritdoc}
      */
-    public function copyToArray(array &$array)
+    public function copyToArray(array &$array): void
     {
         $array['sns']       = LanguageUtility::toString($this->sns);
         $array['apiKey']    = $this->apiKey;
@@ -180,4 +180,4 @@ class SnsCredentials implements ArrayCopyable, Arrayable, Jsonable
             LanguageUtility::getFromArray('apiSecret', $array));
     }
 }
-?>
+

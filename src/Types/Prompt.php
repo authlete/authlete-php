@@ -25,8 +25,6 @@
 namespace Authlete\Types;
 
 
-use Authlete\Util\LanguageUtility;
-
 
 /**
  * Values for the "prompt" request parameter defined in
@@ -34,7 +32,7 @@ use Authlete\Util\LanguageUtility;
  *
  * @see https://openid.net/specs/openid-connect-core-1_0.html OpenID Connect Core 1.0
  */
-class Prompt
+enum Prompt: string implements Valuable
 {
     use EnumTrait;
 
@@ -49,33 +47,24 @@ class Prompt
      * or another code defined in Section 3.1.2.6 (OIDC Core 1.0).
      * This can be used as a method to check for existing authentication
      * and/or consent.
-     *
-     * @static
-     * @var Prompt
      */
-    public static $NONE;
+    case NONE = 'NONE';
 
 
     /**
      * The Authorization Server SHOULD prompt the End-User for
      * reauthentication. If it cannot reauthenticate the End-User, it
      * MUST return an error, typically `login_required`.
-     *
-     * @static
-     * @var Prompt
      */
-    public static $LOGIN;
+    case LOGIN = 'LOGIN';
 
 
     /**
      * The Authorization Server SHOULD prompt the End-User for consent
      * before returning information to the Client. If it cannot obtain
      * consent, it MUST return an error, typically `consent_required`.
-     *
-     * @static
-     * @var Prompt
      */
-    public static $CONSENT;
+    case CONSENT = 'CONSENT';
 
 
     /**
@@ -86,14 +75,6 @@ class Prompt
      * If it cannot obtain an account selection choice made by the
      * End-User, it MUST return an error, typically
      * `account_selection_required`.
-     *
-     * @static
-     * @var Prompt
      */
-    public static $SELECT_ACCOUNT;
+    case SELECT_ACCOUNT = 'SELECT_ACCOUNT';
 }
-
-
-// Call Prompt::initialize().
-LanguageUtility::initializeClass(__NAMESPACE__ . '\Prompt');
-?>

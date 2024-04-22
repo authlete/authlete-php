@@ -26,6 +26,7 @@ namespace Authlete\Dto;
 
 
 use Authlete\Types\EnumTrait;
+use Authlete\Types\Valuable;
 use Authlete\Util\LanguageUtility;
 
 
@@ -33,7 +34,7 @@ use Authlete\Util\LanguageUtility;
  * The value of "action" in responses from Authlete's
  * /api/auth/introspection/standard API.
  */
-class StandardIntrospectionAction
+enum StandardIntrospectionAction: string implements Valuable
 {
     use EnumTrait;
 
@@ -44,11 +45,8 @@ class StandardIntrospectionAction
      *
      * The introspection endpoint should return `500 Internal Server Error`
      * to the client application.
-     *
-     * @static
-     * @var StandardIntrospectionAction
      */
-    public static $INTERNAL_SERVER_ERROR;
+    case INTERNAL_SERVER_ERROR = 'INTERNAL_SERVER_ERROR';
 
 
     /**
@@ -56,11 +54,8 @@ class StandardIntrospectionAction
      *
      * The introspection endpoint of your authorization server should return
      * `400 Bad Request` to the client application.
-     *
-     * @static
-     * @var StandardIntrospectionAction
      */
-    public static $BAD_REQUEST;
+    case BAD_REQUEST = 'BAD_REQUEST';
 
 
     /**
@@ -68,14 +63,7 @@ class StandardIntrospectionAction
      *
      * The introspection endpoint of your authorization server should return
      * `200 OK` to the client application.
-     *
-     * @static
-     * @var StandardIntrospectionAction
      */
-    public static $OK;
+    case OK = 'OK';
 }
 
-
-// Call StandardIntrospectionAction::initialize().
-LanguageUtility::initializeClass(__NAMESPACE__ . '\StandardIntrospectionAction');
-?>

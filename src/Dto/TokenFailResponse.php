@@ -84,17 +84,17 @@ use Authlete\Util\ValidationUtility;
  */
 class TokenFailResponse extends ApiResponse
 {
-    private $action          = null;  // \Authlete\Dto\TokenFailAction
-    private $responseContent = null;  // string
+    private ?TokenFailAction $action = null;
+    private ?string $responseContent = null;
 
 
     /**
      * Get the next action that the token endpoint implementation should take.
      *
-     * @return TokenFailAction
+     * @return TokenFailAction|null
      *     The next action that the token endpoint implementation should take.
      */
-    public function getAction()
+    public function getAction(): ?TokenFailAction
     {
         return $this->action;
     }
@@ -103,13 +103,13 @@ class TokenFailResponse extends ApiResponse
     /**
      * Set the next action that the token endpoint implementation should take.
      *
-     * @param TokenFailAction $action
+     * @param TokenFailAction|null $action
      *     The next action that the token endpoint implementation should take.
      *
      * @return TokenFailResponse
      *     `$this` object.
      */
-    public function setAction(TokenFailAction $action = null)
+    public function setAction(TokenFailAction $action = null): TokenFailResponse
     {
         $this->action = $action;
 
@@ -121,10 +121,10 @@ class TokenFailResponse extends ApiResponse
      * Get the response content which can be used as the entity body of the
      * response returned to the client application.
      *
-     * @return string
+     * @return string|null
      *     The response content.
      */
-    public function getResponseContent()
+    public function getResponseContent(): ?string
     {
         return $this->responseContent;
     }
@@ -140,7 +140,7 @@ class TokenFailResponse extends ApiResponse
      * @return TokenFailResponse
      *     `$this` object.
      */
-    public function setResponseContent($responseContent)
+    public function setResponseContent(string $responseContent): TokenFailResponse
     {
         ValidationUtility::ensureNullOrString('$responseContent', $responseContent);
 
@@ -158,7 +158,7 @@ class TokenFailResponse extends ApiResponse
      * @param array $array
      *     {@inheritdoc}
      */
-    public function copyToArray(array &$array)
+    public function copyToArray(array &$array): void
     {
         parent::copyToArray($array);
 
@@ -175,7 +175,7 @@ class TokenFailResponse extends ApiResponse
      * @param array $array
      *     {@inheritdoc}
      */
-    public function copyFromArray(array &$array)
+    public function copyFromArray(array &$array): void
     {
         parent::copyFromArray($array);
 
@@ -189,4 +189,4 @@ class TokenFailResponse extends ApiResponse
             LanguageUtility::getFromArray('responseContent', $array));
     }
 }
-?>
+

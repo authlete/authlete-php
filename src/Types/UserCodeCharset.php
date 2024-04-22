@@ -35,30 +35,20 @@ use Authlete\Util\LanguageUtility;
  *
  * @since 1.8
  */
-class UserCodeCharset
+enum UserCodeCharset: string implements Valuable
 {
     use EnumTrait;
 
 
     /**
      * "BCDFGHJKLMNPQRSTVWXZ", 20 upper-case non-vowel characters.
-     *
-     * @static
-     * @var UserCodeCharset
      */
-    public static $BASE20;
+    case BASE20 = 'BASE20';
 
 
     /**
      * "0123456789", 10 digit characters from '0' to '9'.
-     *
-     * @static
-     * @var UserCodeCharset
      */
-    public static $NUMERIC;
+    case NUMERIC = 'NUMERIC';
 }
 
-
-// Call UserCodeCharset::initialize().
-LanguageUtility::initializeClass(__NAMESPACE__ . '\UserCodeCharset');
-?>

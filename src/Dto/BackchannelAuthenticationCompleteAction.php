@@ -26,6 +26,7 @@ namespace Authlete\Dto;
 
 
 use Authlete\Types\EnumTrait;
+use Authlete\Types\Valuable;
 use Authlete\Util\LanguageUtility;
 
 
@@ -35,7 +36,7 @@ use Authlete\Util\LanguageUtility;
  *
  * @since 1.8
  */
-class BackchannelAuthenticationCompleteAction
+enum BackchannelAuthenticationCompleteAction: string implements Valuable
 {
     use EnumTrait;
 
@@ -44,11 +45,8 @@ class BackchannelAuthenticationCompleteAction
      * The OpenID provider implementation must send a notification to the
      * client's notification endpoint. This action code may be returned
      * when the backchannel token delivery mode is `ping` or `push`.
-     *
-     * @static
-     * @var BackchannelAuthenticationCompleteAction
      */
-    public static $NOTIFICATION;
+    case NOTIFICATION = 'NOTIFICATION';
 
 
     /**
@@ -57,11 +55,8 @@ class BackchannelAuthenticationCompleteAction
      * to handle polling requests from the client to the token endpoint.
      * This action code may be returned when the backchannel token delivery
      * mode is `poll`.
-     *
-     * @static
-     * @var BackchannelAuthenticationCompleteAction
      */
-    public static $NO_ACTION;
+    case NO_ACTION = 'NO_ACTION';
 
 
     /**
@@ -73,14 +68,6 @@ class BackchannelAuthenticationCompleteAction
      * token delivery mode is `ping` or `push`, `NOTIFICATION` is used as
      * the value of `action` instead of `SERVER_ERROR`. In the case,
      * `responseContent` contains `"error":"server_error"`.
-     *
-     * @static
-     * @var BackchannelAuthenticationCompleteAction
      */
-    public static $SERVER_ERROR;
+    case SERVER_ERROR = 'SERVER_ERROR';
 }
-
-
-// Call BackchannelAuthenticationCompleteAction::initialize().
-LanguageUtility::initializeClass(__NAMESPACE__ . '\BackchannelAuthenticationCompleteAction');
-?>

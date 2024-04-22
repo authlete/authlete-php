@@ -43,6 +43,6 @@ interface Arrayable
      * @return array
      *     An array.
      */
-    public function toArray();
+    public function toArray(): array;
 }
-?>
+

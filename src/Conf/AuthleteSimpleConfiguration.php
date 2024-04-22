@@ -46,7 +46,7 @@ class AuthleteSimpleConfiguration implements AuthleteConfiguration
      * @return AuthleteSimpleConfiguration
      *     `$this` object.
      */
-    public function setBaseUrl($baseUrl)
+    public function setBaseUrl(string $baseUrl): static
     {
         ValidationUtility::ensureNullOrString('$baseUrl', $baseUrl);
 
@@ -65,7 +65,7 @@ class AuthleteSimpleConfiguration implements AuthleteConfiguration
      * @return AuthleteSimpleConfiguration
      *     `$this` object.
      */
-    public function setServiceOwnerApiKey($apiKey)
+    public function setServiceOwnerApiKey(string $apiKey): static
     {
         ValidationUtility::ensureNullOrString('$apiKey', $apiKey);
 
@@ -84,7 +84,7 @@ class AuthleteSimpleConfiguration implements AuthleteConfiguration
      * @return AuthleteSimpleConfiguration
      *     `$this` object.
      */
-    public function setServiceOwnerApiSecret($apiSecret)
+    public function setServiceOwnerApiSecret(string $apiSecret): static
     {
         ValidationUtility::ensureNullOrString('$apiSecret', $apiSecret);
 
@@ -103,7 +103,7 @@ class AuthleteSimpleConfiguration implements AuthleteConfiguration
      * @return AuthleteSimpleConfiguration
      *     `$this` object.
      */
-    public function setServiceApiKey($apiKey)
+    public function setServiceApiKey(string $apiKey): static
     {
         ValidationUtility::ensureNullOrString('$apiKey', $apiKey);
 
@@ -122,7 +122,7 @@ class AuthleteSimpleConfiguration implements AuthleteConfiguration
      * @return AuthleteSimpleConfiguration
      *     `$this` object.
      */
-    public function setServiceApiSecret($apiSecret)
+    public function setServiceApiSecret(string $apiSecret): static
     {
         ValidationUtility::ensureNullOrString('$apiSecret', $apiSecret);
 
@@ -131,4 +131,4 @@ class AuthleteSimpleConfiguration implements AuthleteConfiguration
         return $this;
     }
 }
-?>
+

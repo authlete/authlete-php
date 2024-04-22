@@ -52,11 +52,11 @@ class BackchannelAuthenticationRequest implements ArrayCopyable, Arrayable, Json
     use JsonTrait;
 
 
-    private $parameters            = null;  // string
-    private $clientId              = null;  // string
-    private $clientSecret          = null;  // string
-    private $clientCertificate     = null;  // string
-    private $clientCertificatePath = null;  // array of string
+    private ?string $parameters            = null;
+    private ?string $clientId              = null;
+    private ?string $clientSecret          = null;
+    private ?string $clientCertificate     = null;
+    private ?array $clientCertificatePath  = null;  // array of string
 
 
     /**
@@ -64,11 +64,11 @@ class BackchannelAuthenticationRequest implements ArrayCopyable, Arrayable, Json
      * backchannel authentication endpoint of the authorization server
      * implementation received from a client application.
      *
-     * @return string
+     * @return string|null
      *     The request parameters of a backchannel authentication request in
      *     `application/x-www-form-urlencoded` format.
      */
-    public function getParameters()
+    public function getParameters(): ?string
     {
         return $this->parameters;
     }
@@ -86,7 +86,7 @@ class BackchannelAuthenticationRequest implements ArrayCopyable, Arrayable, Json
      * @return BackchannelAuthenticationRequest
      *     `$this` object.
      */
-    public function setParameters($parameters)
+    public function setParameters(string $parameters): BackchannelAuthenticationRequest
     {
         ValidationUtility::ensureNullOrString('$parameters', $parameters);
 
@@ -100,10 +100,10 @@ class BackchannelAuthenticationRequest implements ArrayCopyable, Arrayable, Json
      * Get the client ID extracted from the `Authorization` header of the
      * backchannel authentication request from a client application.
      *
-     * @return string
+     * @return string|null
      *     The client ID extracted from the `Authorization` header.
      */
-    public function getClientId()
+    public function getClientId(): ?string
     {
         return $this->clientId;
     }
@@ -119,7 +119,7 @@ class BackchannelAuthenticationRequest implements ArrayCopyable, Arrayable, Json
      * @return BackchannelAuthenticationRequest
      *     `$this` object.
      */
-    public function setClientId($clientId)
+    public function setClientId(string $clientId): BackchannelAuthenticationRequest
     {
         ValidationUtility::ensureNullOrString('$clientId', $clientId);
 
@@ -133,10 +133,10 @@ class BackchannelAuthenticationRequest implements ArrayCopyable, Arrayable, Json
      * Get the client secret extracted from the `Authorization` header of the
      * backchannel authentication request from a client application.
      *
-     * @return string
+     * @return string|null
      *     The client secret extracted from the `Authorization` header.
      */
-    public function getClientSecret()
+    public function getClientSecret(): ?string
     {
         return $this->clientSecret;
     }
@@ -152,7 +152,7 @@ class BackchannelAuthenticationRequest implements ArrayCopyable, Arrayable, Json
      * @return BackchannelAuthenticationRequest
      *     `$this` object.
      */
-    public function setClientSecret($clientSecret)
+    public function setClientSecret(string $clientSecret): BackchannelAuthenticationRequest
     {
         ValidationUtility::ensureNullOrString('$clientSecret', $clientSecret);
 
@@ -167,10 +167,10 @@ class BackchannelAuthenticationRequest implements ArrayCopyable, Arrayable, Json
      * application and the backchannel authentication endpoint of the
      * authorization server.
      *
-     * @return string
+     * @return string|null
      *     The client certificate.
      */
-    public function getClientCertificate()
+    public function getClientCertificate(): ?string
     {
         return $this->clientCertificate;
     }
@@ -187,7 +187,7 @@ class BackchannelAuthenticationRequest implements ArrayCopyable, Arrayable, Json
      * @return BackchannelAuthenticationRequest
      *     `$this` object.
      */
-    public function setClientCertificate($certificate)
+    public function setClientCertificate(string $certificate): BackchannelAuthenticationRequest
     {
         ValidationUtility::ensureNullOrString('$certificate', $certificate);
 
@@ -201,10 +201,10 @@ class BackchannelAuthenticationRequest implements ArrayCopyable, Arrayable, Json
      * Get the certificate path presented by the client during client
      * authentication.
      *
-     * @return string[]
+     * @return array|null
      *     The client certificate path. Each element is a string in PEM format.
      */
-    public function getClientCertificatePath()
+    public function getClientCertificatePath(): ?array
     {
         return $this->clientCertificatePath;
     }
@@ -220,7 +220,7 @@ class BackchannelAuthenticationRequest implements ArrayCopyable, Arrayable, Json
      * @return BackchannelAuthenticationRequest
      *     `$this` object.
      */
-    public function setClientCertificatePath(array $path = null)
+    public function setClientCertificatePath(array $path = null): BackchannelAuthenticationRequest
     {
         ValidationUtility::ensureNullOrArrayOfString('$path', $path);
 
@@ -238,7 +238,7 @@ class BackchannelAuthenticationRequest implements ArrayCopyable, Arrayable, Json
      * @param array $array
      *     {@inheritdoc}
      */
-    public function copyToArray(array &$array)
+    public function copyToArray(array &$array): void
     {
         $array['parameters']            = $this->parameters;
         $array['clientId']              = $this->clientId;
@@ -256,7 +256,7 @@ class BackchannelAuthenticationRequest implements ArrayCopyable, Arrayable, Json
      * @param array $array
      *     {@inheritdoc}
      */
-    public function copyFromArray(array &$array)
+    public function copyFromArray(array &$array): void
     {
         // parameters
         $this->setParameters(
@@ -279,4 +279,4 @@ class BackchannelAuthenticationRequest implements ArrayCopyable, Arrayable, Json
         $this->setClientCertificatePath($_client_certificate_path);
     }
 }
-?>
+

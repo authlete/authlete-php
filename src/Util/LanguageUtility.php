@@ -26,6 +26,10 @@ namespace Authlete\Util;
 
 
 use Authlete\Types\ArrayCopyable;
+use Authlete\Types\Valuable;
+use Exception;
+use InvalidArgumentException;
+use ReflectionClass;
 
 
 /**
@@ -43,7 +47,7 @@ class LanguageUtility
      * @param string $class
      *     Class name.
      */
-    public static function initializeClass($class)
+    public static function initializeClass(string $class): void
     {
         try
         {
@@ -72,13 +76,13 @@ class LanguageUtility
      * @param mixed $value
      *     An object.
      *
-     * @return string
+     * @return string|null
      *     If the given `$value` is `null` or a `string` object,
      *     the `$value` itself is returned. Otherwise, if it is
      *     a boolean object, `"true"` or `"false"` is returned.
      *     In other cases, `strval($value)` is returned.
      */
-    public static function toString($value)
+    public static function toString(mixed $value): ?string
     {
         if (is_null($value) || is_string($value))
         {
@@ -110,11 +114,11 @@ class LanguageUtility
      *     case-insensitive manner. If they match, this method
      *     returns `true`. Otherwise, `false` is returned.
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      *     The given object is not `null` and the type of the
      *     given object is neither `boolean` nor `string`.
      */
-    public static function parseBoolean($value)
+    public static function parseBoolean(mixed $value): bool
     {
         if (is_null($value))
         {
@@ -128,7 +132,7 @@ class LanguageUtility
 
         if (!is_string($value))
         {
-            throw new \InvalidArgumentException('Failed to parse as bool.');
+            throw new InvalidArgumentException('Failed to parse as bool.');
         }
 
         if (strcasecmp('true', $value) != 0)
@@ -153,11 +157,11 @@ class LanguageUtility
      *     object is not `string`, an `InvalidArgumentException` is
      *     thrown. Otherwise, this method returns `intval($value)`.
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      *     The given object is not `null` and the type of the
      *     given object is neither `integer` nor `string`.
      */
-    public static function parseInteger($value)
+    public static function parseInteger(mixed $value): int
     {
         if (is_null($value))
         {
@@ -171,7 +175,7 @@ class LanguageUtility
 
         if (!is_string($value))
         {
-            throw new \InvalidArgumentException('Failed to parse as an integer.');
+            throw new InvalidArgumentException('Failed to parse as an integer.');
         }
 
         return intval($value);
@@ -184,11 +188,11 @@ class LanguageUtility
      * @param string $key
      *     The name of an environment variable.
      *
-     * @return string
+     * @return string|null
      *     The value of the environment variable. If the environment
      *     variable is not defined, `null` is returned.
      */
-    public static function getFromEnv($key)
+    public static function getFromEnv(string $key): ?string
     {
         $value = getenv($key);
 
@@ -215,7 +219,7 @@ class LanguageUtility
      *     An element identifed by the key. If the key does not exist
      *     in the array, `null` is returned.
      */
-    public static function getFromArray($key, array &$array)
+    public static function getFromArray(string $key, array $array): mixed
     {
         if (array_key_exists($key, $array))
         {
@@ -240,11 +244,11 @@ class LanguageUtility
      *     by the key. If the key does not exist in the array, `null`
      *     is returned.
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      *     The element identified by the key could not be parsed as
      *     boolean.
      */
-    public static function getFromArrayAsBoolean($key, array &$array)
+    public static function getFromArrayAsBoolean(string $key, array &$array): bool
     {
         return self::parseBoolean(self::getFromArray($key, $array));
     }
@@ -254,22 +258,22 @@ class LanguageUtility
      * Convert elements of an array with a given converter and generate
      * a new array.
      *
-     * @param array $array
-     *     A reference to an array.
-     *
      * @param callable $converter
      *     A function that converts an element to another object. When `$arg`
      *     is `null`, `$converter` should be a function that takes one argument
      *     (an element). When `$arg` is not `null`, `$converter` should be a
      *     function that takes two arguments, an element and `$arg`.
      *
-     * @param mixed $arg
+     * @param mixed|null $arg
      *     An optional argument given to the converter.
      *
-     * @return array
+     * @param array|null $array
+     *     A reference to an array.
+     *
+     * @return array|null
      *     A reference of a new array that holds converted elements.
      */
-    public static function &convertArray(array &$array = null, $converter, $arg = null)
+    public static function convertArray(callable $converter, array &$array = null, mixed $arg = null): ?array
     {
         if (is_null($array))
         {
@@ -278,12 +282,14 @@ class LanguageUtility
             //   "Only variable references should be returned by reference"
             //
             // Therefore, an intermidiate object is used here.
-            $output = null;
-            return $output;
+            return null;
         }
 
         $output = array();
-
+        var_dump($array); // This will print the content and type of $array
+        if (!is_array($array)) {
+            throw new InvalidArgumentException("Expected array, received " . gettype($array));
+        }
         array_walk(
             $array,
             function ($value, $key) use ($converter, $arg, &$output)
@@ -294,7 +300,7 @@ class LanguageUtility
                 }
                 else
                 {
-                    $output[] = $converter($value, $arg);
+                    $output[] = $converter($arg, $value);
                 }
             }
         );
@@ -306,14 +312,14 @@ class LanguageUtility
     /**
      * Convert an ArrayCopyable instance to an array.
      *
-     * @param ArrayCopyable $object
+     * @param ArrayCopyable|null $object
      *     An object that implements the `ArrayCopyable` interface.
      *     `copyToArray()` method of the object will be called.
      *
-     * @return array
+     * @return array|null
      *     An array generated from the given object.
      */
-    public static function convertArrayCopyableToArray(ArrayCopyable $object = null)
+    public static function convertArrayCopyableToArray(ArrayCopyable $object = null): ?array
     {
         if (is_null($object))
         {
@@ -331,17 +337,17 @@ class LanguageUtility
     /**
      * Convert an ArrayCopyable instance to a JSON string.
      *
-     * @param ArrayCopyable $object
+     * @param ArrayCopyable|null $object
      *     An object that implements the `ArrayCopyable` interface.
      *     `copyToArray()` method of the object will be called.
      *
      * @param integer $options
      *     Options passed `json_encode()`.
      *
-     * @return string
+     * @return string|null
      *     A JSON string generated from the given object.
      */
-    public static function convertArrayCopyableToJson(ArrayCopyable $object = null, $options = 0)
+    public static function convertArrayCopyableToJson(ArrayCopyable $object = null, int $options = 0): ?string
     {
         $array = self::convertArrayCopyableToArray($object);
 
@@ -357,18 +363,18 @@ class LanguageUtility
     /**
      * Convert an array to an object.
      *
-     * @param array $array
-     *     A reference to an array.
-     *
      * @param string $className
      *     A name of a class that implements the `ArrayCopyable` interface.
      *     An instance of the class will be created and its `copyFromArray()`
      *     method will be called.
      *
+     * @param array|null $array $array
+     *     A reference to an array.
+     *
      * @return mixed
      *     An instance of the class which is specified by the class name.
      */
-    public static function convertArrayToArrayCopyable(array &$array = null, $className)
+    public static function convertArrayToArrayCopyable(mixed $className, array &$array = null): mixed
     {
         if (is_null($array))
         {
@@ -390,7 +396,7 @@ class LanguageUtility
     /**
      * Convert a JSON string to an object.
      *
-     * @param string $json
+     * @param string|null $json
      *     A JSON string.
      *
      * @param string $className
@@ -401,16 +407,11 @@ class LanguageUtility
      * @return mixed
      *     An instance of the class which is specified by the class name.
      */
-    public static function convertJsonToArrayCopyable($json, $className)
+    public static function convertJsonToArrayCopyable(?string $json, string $className): mixed
     {
-        if (is_null($json) || !is_string($json))
-        {
-            return null;
-        }
-
         $array = json_decode($json, true, 512, JSON_BIGINT_AS_STRING);
 
-        return self::convertArrayToArrayCopyable($array, $className);
+        return self::convertArrayToArrayCopyable( $className, $array);
     }
 
 
@@ -420,17 +421,17 @@ class LanguageUtility
      * Elements in the given array will be converted to string by
      * `LanguageUtility::toString()` method.
      *
-     * @param array $array
+     * @param array|null $array $array
      *     A reference to an array.
      *
-     * @return string[]
+     * @return array|null A string array.
      *     A string array.
      */
-    public static function convertArrayToStringArray(array &$array = null)
+    public static function convertArrayToStringArray(array $array = null): ?array
     {
         return self::convertArray(
-            $array,
-            '\Authlete\Util\LanguageUtility::toString');
+            '\Authlete\Util\LanguageUtility::toString',
+            $array);
     }
 
 
@@ -441,18 +442,18 @@ class LanguageUtility
      * Each element in the given array will be converted to an array by
      * `LanguageUtility::convertArrayCopyableToArray()`.
      *
-     * @param array $array
+     * @param array|null $array $array
      *     A reference to an array whose elements implement the `ArrayCopyable`
      *     interface.
      *
-     * @return array
+     * @return array|null An array of arrays.
      *     An array of arrays.
      */
-    public static function convertArrayOfArrayCopyableToArray(array &$array = null)
+    public static function convertArrayOfArrayCopyableToArray(array $array = null): ?array
     {
         return self::convertArray(
-            $array,
-            '\Authlete\Util\LanguageUtility::convertArrayCopyableToArray');
+            '\Authlete\Util\LanguageUtility::convertArrayCopyableToArray',
+            $array);
     }
 
 
@@ -464,20 +465,20 @@ class LanguageUtility
      * implements the `ArrayCopyable` interface by
      * `LanguageUtility::convertArrayToArrayCopyable()`.
      *
-     * @param array $array
-     *     A reference to an array of arrays.
-     *
      * @param string $className
      *     A name of a class that implements the `ArrayCopyable` interface.
      *
-     * @return array
+     * @param array|null $array $array
+     *     A reference to an array of arrays.
+     *
+     * @return array|null
      *     An array of objects that implement the `ArrayCopyable` interface.
      */
-    public static function convertArrayToArrayOfArrayCopyable(array &$array = null, $className)
+    public static function convertArrayToArrayOfArrayCopyable(string $className, array $array = null): ?array
     {
         return self::convertArray(
-            $array,
             '\Authlete\Util\LanguageUtility::convertArrayToArrayCopyable',
+            $array,
             $className);
     }
 
@@ -491,7 +492,7 @@ class LanguageUtility
      * @return mixed
      *     The given object itself or 0.
      */
-    public static function orZero($value)
+    public static function orZero(mixed $value): mixed
     {
         if (is_null($value))
         {
@@ -511,7 +512,7 @@ class LanguageUtility
      * @return mixed
      *     The given object itself or an empty string.
      */
-    public static function orEmpty($value)
+    public static function orEmpty(mixed $value): mixed
     {
         if (is_null($value))
         {
@@ -520,5 +521,23 @@ class LanguageUtility
 
         return $value;
     }
+
+    public static function enumValueOf(string $enumClass, string $value)
+    {
+        if (!class_exists($enumClass)) {
+            throw new InvalidArgumentException("Enum class '{$enumClass}' not found.");
+        }
+
+        // Ensure the enum class implements Valuable interface
+        if (!in_array(Valuable::class, class_implements($enumClass))) {
+            throw new InvalidArgumentException("Enum class '{$enumClass}' must implement Valuable interface.");
+        }
+
+        // Use the valueOf method if available
+        if (method_exists($enumClass, 'valueOf')) {
+            return call_user_func([$enumClass, 'valueOf'], $value);
+        }
+
+        throw new InvalidArgumentException("valueOf method not found in enum class '{$enumClass}'.");
+    }
 }
-?>

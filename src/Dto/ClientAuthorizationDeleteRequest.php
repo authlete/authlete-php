@@ -46,7 +46,7 @@ class ClientAuthorizationDeleteRequest implements ArrayCopyable, Arrayable, Json
     use JsonTrait;
 
 
-    private $subject = null;  // string
+    private ?string $subject = null;  // string
 
 
     /**
@@ -111,4 +111,4 @@ class ClientAuthorizationDeleteRequest implements ArrayCopyable, Arrayable, Json
             LanguageUtility::getFromArray('subject', $array));
     }
 }
-?>
+

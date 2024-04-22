@@ -45,7 +45,7 @@ trait ArrayTrait
      * @return array
      *     An array.
      */
-    public function toArray()
+    public function toArray(): array
     {
         return LanguageUtility::convertArrayCopyableToArray($this);
     }
@@ -57,15 +57,15 @@ trait ArrayTrait
      * This static function returns a new instance of this class.
      * If `$array` is `null`, `null` is returned.
      *
-     * @param array $array
+     * @param array|null $array $array
      *     An array
      *
      * @return static
      *     An instance of this class.
      */
-    public static function fromArray(array $array = null)
+    public static function fromArray(array $array = null): static
     {
-        return LanguageUtility::convertArrayToArrayCopyable($array, get_called_class());
+        return LanguageUtility::convertArrayToArrayCopyable(get_called_class(), $array);
     }
 }
-?>
+

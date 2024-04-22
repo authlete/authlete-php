@@ -49,12 +49,12 @@ class Address implements ArrayCopyable, Arrayable, Jsonable
     use JsonTrait;
 
 
-    private $formatted     = null;  // string
-    private $streetAddress = null;  // string
-    private $locality      = null;  // string
-    private $region        = null;  // string
-    private $postalCode    = null;  // string
-    private $country       = null;  // string
+    private ?string $formatted     = null;
+    private ?string $streetAddress = null;
+    private ?string $locality      = null;
+    private ?string $region        = null;
+    private ?string $postalCode    = null;
+    private ?string $country       = null;
 
 
     /**
@@ -64,7 +64,7 @@ class Address implements ArrayCopyable, Arrayable, Jsonable
      * @return string
      *     The full mailing address.
      */
-    public function getFormatted()
+    public function getFormatted(): ?string
     {
         return $this->formatted;
     }
@@ -80,7 +80,7 @@ class Address implements ArrayCopyable, Arrayable, Jsonable
      * @return Address
      *     `$this` object.
      */
-    public function setFormatted($formatted)
+    public function setFormatted(mixed $formatted): Address
     {
         ValidationUtility::ensureNullOrString('$formatted', $formatted);
 
@@ -95,10 +95,10 @@ class Address implements ArrayCopyable, Arrayable, Jsonable
      * number, street name, Post Office Box, and multi-line extended
      * street address information.
      *
-     * @return string
+     * @return string|null
      *     The full street address.
      */
-    public function getStreetAddress()
+    public function getStreetAddress(): ?string
     {
         return $this->streetAddress;
     }
@@ -115,7 +115,7 @@ class Address implements ArrayCopyable, Arrayable, Jsonable
      * @return Address
      *     `$this` object.
      */
-    public function setStreetAddress($streetAddress)
+    public function setStreetAddress(mixed $streetAddress): Address
     {
         ValidationUtility::ensureNullOrString('$streetAddress', $streetAddress);
 
@@ -128,10 +128,10 @@ class Address implements ArrayCopyable, Arrayable, Jsonable
     /**
      * Get the city or locality component.
      *
-     * @return string
+     * @return string|null
      *     The city or locality component.
      */
-    public function getLocality()
+    public function getLocality(): ?string
     {
         return $this->locality;
     }
@@ -146,7 +146,7 @@ class Address implements ArrayCopyable, Arrayable, Jsonable
      * @return Address
      *     `$this` object.
      */
-    public function setLocality($locality)
+    public function setLocality(mixed $locality): Address
     {
         ValidationUtility::ensureNullOrString('$locality', $locality);
 
@@ -159,10 +159,10 @@ class Address implements ArrayCopyable, Arrayable, Jsonable
     /**
      * Get the state, province, prefecture, or region component.
      *
-     * @return string
+     * @return string|null
      *     The state, province, prefecture, or region component.
      */
-    public function getRegion()
+    public function getRegion(): ?string
     {
         return $this->region;
     }
@@ -177,7 +177,7 @@ class Address implements ArrayCopyable, Arrayable, Jsonable
      * @return Address
      *     `$this` object.
      */
-    public function setRegion($region)
+    public function setRegion(mixed $region): Address
     {
         ValidationUtility::ensureNullOrString('$region', $region);
 
@@ -190,10 +190,10 @@ class Address implements ArrayCopyable, Arrayable, Jsonable
     /**
      * Get the zip code or postal code component.
      *
-     * @return string
+     * @return string|null
      *     The zip code or postal code component.
      */
-    public function getPostalCode()
+    public function getPostalCode(): ?string
     {
         return $this->postalCode;
     }
@@ -208,7 +208,7 @@ class Address implements ArrayCopyable, Arrayable, Jsonable
      * @return Address
      *     `$this` object.
      */
-    public function setPostalCode($postalCode)
+    public function setPostalCode(mixed $postalCode): Address
     {
         ValidationUtility::ensureNullOrString('$postalCode', $postalCode);
 
@@ -221,10 +221,10 @@ class Address implements ArrayCopyable, Arrayable, Jsonable
     /**
      * Get the country name component.
      *
-     * @return string
+     * @return string|null
      *     The country name component.
      */
-    public function getCountry()
+    public function getCountry(): ?string
     {
         return $this->country;
     }
@@ -239,7 +239,7 @@ class Address implements ArrayCopyable, Arrayable, Jsonable
      * @return Address
      *     `$this` object.
      */
-    public function setCountry($country)
+    public function setCountry(mixed $country): Address
     {
         ValidationUtility::ensureNullOrString('$country', $country);
 
@@ -254,10 +254,10 @@ class Address implements ArrayCopyable, Arrayable, Jsonable
      *
      * {@inheritdoc}
      *
-     * @param array $array
+     * @param array<string, mixed> $array
      *     {@inheritdoc}
      */
-    public function copyToArray(array &$array)
+    public function copyToArray(array &$array):void
     {
         $array['formatted']      = $this->formatted;
         $array['street_address'] = $this->streetAddress;
@@ -273,10 +273,10 @@ class Address implements ArrayCopyable, Arrayable, Jsonable
      *
      * {@inheritdoc}
      *
-     * @param array $array
+     * @param array<string, mixed> $array
      *     {@inheritdoc}
      */
-    public function copyFromArray(array &$array)
+    public function copyFromArray(array &$array):void
     {
         // formatted
         $this->setFormatted(
@@ -303,4 +303,4 @@ class Address implements ArrayCopyable, Arrayable, Jsonable
             LanguageUtility::getFromArray('country', $array));
     }
 }
-?>
+

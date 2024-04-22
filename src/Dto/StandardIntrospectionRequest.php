@@ -43,8 +43,8 @@ class StandardIntrospectionRequest implements ArrayCopyable, Arrayable, Jsonable
     use JsonTrait;
 
 
-    private $parameters = null;            // string
-    private $withHiddenProperties = false; // boolean
+    private ?string $parameters        = null;
+    private bool $withHiddenProperties = false;
 
 
     /**
@@ -57,7 +57,7 @@ class StandardIntrospectionRequest implements ArrayCopyable, Arrayable, Jsonable
      *
      * @see https://tools.ietf.org/html/rfc7662#section-2.1" RFC 7662, 2.1. Introspection Request
      */
-    public function getParameters()
+    public function getParameters(): ?string
     {
         return $this->parameters;
     }
@@ -88,7 +88,7 @@ class StandardIntrospectionRequest implements ArrayCopyable, Arrayable, Jsonable
      *
      * @see https://tools.ietf.org/html/rfc7662#section-2.1" RFC 7662, 2.1. Introspection Request
      */
-    public function setParameters($parameters)
+    public function setParameters(string $parameters): StandardIntrospectionRequest
     {
         ValidationUtility::ensureNullOrString('$parameters', $parameters);
 
@@ -117,7 +117,7 @@ class StandardIntrospectionRequest implements ArrayCopyable, Arrayable, Jsonable
      *
      * @since 1.10
      */
-    public function isWithHiddenProperties()
+    public function isWithHiddenProperties(): bool
     {
         return $this->withHiddenProperties;
     }
@@ -137,7 +137,7 @@ class StandardIntrospectionRequest implements ArrayCopyable, Arrayable, Jsonable
      *
      * @since 1.10
      */
-    public function setWithHiddenProperties($with)
+    public function setWithHiddenProperties(bool $with): StandardIntrospectionRequest
     {
         ValidationUtility::ensureBoolean('$with', $with);
 
@@ -181,4 +181,3 @@ class StandardIntrospectionRequest implements ArrayCopyable, Arrayable, Jsonable
             LanguageUtility::getFromArrayAsBoolean('withHiddenProperties', $array));
     }
 }
-?>

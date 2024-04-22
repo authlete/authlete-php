@@ -49,17 +49,17 @@ class BackchannelAuthenticationIssueRequest implements ArrayCopyable, Arrayable,
     use JsonTrait;
 
 
-    private $ticket = null;  // string
+    private ?string $ticket = null;  // string
 
 
     /**
      * Get the ticket which is necessary to call Authlete's
      * `/api/backchannel/authentication/issue` API.
      *
-     * @return string
+     * @return string|null
      *     A ticket.
      */
-    public function getTicket()
+    public function getTicket(): ?string
     {
         return $this->ticket;
     }
@@ -76,7 +76,7 @@ class BackchannelAuthenticationIssueRequest implements ArrayCopyable, Arrayable,
      * @return BackchannelAuthenticationIssueRequest
      *     `$this` object.
      */
-    public function setTicket($ticket)
+    public function setTicket(string $ticket): BackchannelAuthenticationIssueRequest
     {
         ValidationUtility::ensureNullOrString('$ticket', $ticket);
 
@@ -94,7 +94,7 @@ class BackchannelAuthenticationIssueRequest implements ArrayCopyable, Arrayable,
      * @param array $array
      *     {@inheritdoc}
      */
-    public function copyToArray(array &$array)
+    public function copyToArray(array &$array): void
     {
         $array['ticket'] = $this->ticket;
     }
@@ -108,11 +108,11 @@ class BackchannelAuthenticationIssueRequest implements ArrayCopyable, Arrayable,
      * @param array $array
      *     {@inheritdoc}
      */
-    public function copyFromArray(array &$array)
+    public function copyFromArray(array &$array): void
     {
         // ticket
         $this->setTicket(
             LanguageUtility::getFromArray('ticket', $array));
     }
 }
-?>
+

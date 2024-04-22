@@ -47,7 +47,7 @@ trait JsonTrait
      * @return string
      *     A JSON string.
      */
-    public function toJson($options = 0)
+    public function toJson(int $options = 0): string
     {
         return LanguageUtility::convertArrayCopyableToJson($this, $options);
     }
@@ -60,15 +60,15 @@ trait JsonTrait
      * If `$json` is `null` or the type of `$json` is not `string`,
      * `null` is returned.
      *
-     * @param string $json
+     * @param string|null $json
      *     A JSON string.
      *
      * @return static
      *     An instance of this class.
      */
-    public static function fromJson($json)
+    public static function fromJson(?string $json): static
     {
         return LanguageUtility::convertJsonToArrayCopyable($json, get_called_class());
     }
 }
-?>
+
