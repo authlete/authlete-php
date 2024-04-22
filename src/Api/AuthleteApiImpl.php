@@ -227,7 +227,7 @@ class AuthleteApiImpl implements AuthleteApi
         $curl = curl_init();
 
         // Set the HTTP method.
-        curl_setopt($curl, CURLOPT_CUSTOMREQUEST, LanguageUtility::toString($method));
+        curl_setopt($curl, CURLOPT_CUSTOMREQUEST, $method->value);
 
         // Set the URL of the Authlete API with query parameters.
         curl_setopt($curl, CURLOPT_URL, $this->buildRequestUrl($path, $queryParams));

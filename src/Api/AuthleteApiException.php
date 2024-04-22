@@ -45,7 +45,7 @@ class AuthleteApiException extends \Exception
     /**
      * Constructor.
      *
-     * @param int $message
+     * @param string $message
      *     An error message. This argument is passed to the constructor
      *     of the parent class. This value is available through
      *     `getMessage()` method.
@@ -68,7 +68,7 @@ class AuthleteApiException extends \Exception
      *
      */
     public function __construct(
-        int $message, int $statusCode = 0, HttpHeaders $responseHeaders = null, string $responseBody = null)
+        string $message, int $statusCode = 0, HttpHeaders $responseHeaders = null, string $responseBody = null)
     {
         ValidationUtility::ensureNullOrString('$message', $message);
         ValidationUtility::ensureInteger('$statusCode', $statusCode);
@@ -126,4 +126,3 @@ class AuthleteApiException extends \Exception
         return $this->responseBody;
     }
 }
-?>

@@ -59,10 +59,10 @@ interface Settings
     /**
      * Get the proxy host.
      *
-     * @return string
+     * @return string|null
      *     Proxy host.
      */
-    public function getProxyHost(): string;
+    public function getProxyHost(): ?string;
 
 
     /**
@@ -77,7 +77,7 @@ interface Settings
      * @throws \InvalidArgumentException
      *     The type of the argument is not `string`.
      */
-    public function setProxyHost($host): Settings;
+    public function setProxyHost(string $host): Settings;
 
 
     /**
@@ -125,6 +125,5 @@ interface Settings
      * @throws \InvalidArgumentException
      *     The type of the argument is not `boolean`.
      */
-    public function setHttpProxyTunnelUsed($used): Settings;
+    public function setHttpProxyTunnelUsed(bool $used): Settings;
 }
-?>

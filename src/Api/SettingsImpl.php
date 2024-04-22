@@ -33,10 +33,10 @@ use Authlete\Util\ValidationUtility;
  */
 class SettingsImpl implements Settings
 {
-    private int $connectionTimeout   = 0;     // integer
-    private ?string $proxyHost       = null;  // string
-    private int $proxyPort           = 0;     // integer
-    private bool $httpProxyTunnelUsed = false; // boolean
+    private int $connectionTimeout   = 0;
+    private ?string $proxyHost       = null;
+    private int $proxyPort           = 0;
+    private bool $httpProxyTunnelUsed = false;
 
 
     /**
@@ -78,7 +78,7 @@ class SettingsImpl implements Settings
      *
      * {@inheritdoc}
      */
-    public function getProxyHost(): string
+    public function getProxyHost(): ?string
     {
         return $this->proxyHost;
     }
@@ -92,7 +92,7 @@ class SettingsImpl implements Settings
      * @param string $host
      *     {@inheritdoc}
      */
-    public function setProxyHost($host): Settings
+    public function setProxyHost(string $host): Settings
     {
         ValidationUtility::ensureNullOrString('$host', $host);
 
@@ -150,7 +150,7 @@ class SettingsImpl implements Settings
      * @param boolean $used
      *     {@inheritdoc}
      */
-    public function setHttpProxyTunnelUsed($used): Settings
+    public function setHttpProxyTunnelUsed(bool $used): Settings
     {
         ValidationUtility::ensureBoolean('$used', $used);
 
@@ -159,4 +159,4 @@ class SettingsImpl implements Settings
         return $this;
     }
 }
-?>
+

@@ -795,4 +795,4 @@ interface AuthleteApi
      */
     public function getSettings(): Settings;
 }
-?>
+
