@@ -285,7 +285,7 @@ class AuthleteApiImpl implements AuthleteApi
     }
 
 
-    private function buildRequestUrl($path, array $queryParams = null)
+    private function buildRequestUrl($path, array $queryParams = null): string
     {
         $url = $this->baseUrl . $path;
 
@@ -325,7 +325,7 @@ class AuthleteApiImpl implements AuthleteApi
     }
 
 
-    private static function toQueryParamKey($key)
+    private static function toQueryParamKey($key): ?string
     {
         if (is_null($key))
         {
@@ -346,7 +346,7 @@ class AuthleteApiImpl implements AuthleteApi
     }
 
 
-    private static function toQueryParamValue($value)
+    private static function toQueryParamValue($value): string
     {
         if (is_null($value))
         {
@@ -378,7 +378,7 @@ class AuthleteApiImpl implements AuthleteApi
     }
 
 
-    private static function sendRequest($curl, $path)
+    private static function sendRequest($curl, $path): string
     {
         // Send the request to the Authlete API and receive a response.
         $response = curl_exec($curl);
@@ -489,19 +489,19 @@ class AuthleteApiImpl implements AuthleteApi
     }
 
 
-    private function callDeleteApi(BasicCredentials $credentials, $path, array $queryParams = null)
+    private function callDeleteApi(BasicCredentials $credentials, $path, array $queryParams = null): void
     {
         $this->callApi(null, HttpMethod::DELETE, $credentials, $path, $queryParams, null);
     }
 
 
-    private function callServiceOwnerDeleteApi($path, array $queryParams = null)
+    private function callServiceOwnerDeleteApi($path, array $queryParams = null): void
     {
         $this->callDeleteApi($this->serviceOwnerCredentials, $path, $queryParams);
     }
 
 
-    private function callServiceDeleteApi($path, array $queryParams = null)
+    private function callServiceDeleteApi($path, array $queryParams = null): void
     {
         $this->callDeleteApi($this->serviceCredentials, $path, $queryParams);
     }
@@ -600,7 +600,7 @@ class AuthleteApiImpl implements AuthleteApi
      * @param string $token
      *     {@inheritdoc}
      */
-    public function tokenDelete($token): void
+    public function tokenDelete(string $token): void
     {
         ValidationUtility::ensureString('$token', $token);
 
@@ -770,7 +770,7 @@ class AuthleteApiImpl implements AuthleteApi
      * @param integer|string $apiKey
      *     {@inheritdoc}
      */
-    public function deleteService($apiKey)
+    public function deleteService(int|string $apiKey): void
     {
         ValidationUtility::ensureStringOrInteger('$apiKey', $apiKey);
 
@@ -787,7 +787,7 @@ class AuthleteApiImpl implements AuthleteApi
      * @param integer|string $apiKey
      *     {@inheritdoc}
      */
-    public function getService($apiKey): Service
+    public function getService(int|string $apiKey): Service
     {
         ValidationUtility::ensureStringOrInteger('$apiKey', $apiKey);
 
@@ -808,7 +808,7 @@ class AuthleteApiImpl implements AuthleteApi
      * @param integer $end
      *     {@inheritdoc}
      */
-    public function getServiceList($start = 0, $end = 5): ServiceListResponse
+    public function getServiceList(int $start = 0, int $end = 5): ServiceListResponse
     {
         ValidationUtility::ensureInteger('$start', $start);
         ValidationUtility::ensureNotNegative('$start', $start);

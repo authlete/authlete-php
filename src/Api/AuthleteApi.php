@@ -25,32 +25,58 @@
 namespace Authlete\Api;
 
 
+use Authlete\Dto\ApiResponse;
 use Authlete\Dto\AuthorizationFailRequest;
+use Authlete\Dto\AuthorizationFailResponse;
 use Authlete\Dto\AuthorizationIssueRequest;
+use Authlete\Dto\AuthorizationIssueResponse;
 use Authlete\Dto\AuthorizationRequest;
+use Authlete\Dto\AuthorizationResponse;
+use Authlete\Dto\AuthorizedClientListResponse;
 use Authlete\Dto\BackchannelAuthenticationCompleteRequest;
+use Authlete\Dto\BackchannelAuthenticationCompleteResponse;
 use Authlete\Dto\BackchannelAuthenticationFailRequest;
+use Authlete\Dto\BackchannelAuthenticationFailResponse;
 use Authlete\Dto\BackchannelAuthenticationIssueRequest;
+use Authlete\Dto\BackchannelAuthenticationIssueResponse;
 use Authlete\Dto\BackchannelAuthenticationRequest;
+use Authlete\Dto\BackchannelAuthenticationResponse;
 use Authlete\Dto\Client;
-use Authlete\Dto\ClientAuthorizationDeleteRequest;
 use Authlete\Dto\ClientAuthorizationGetListRequest;
 use Authlete\Dto\ClientAuthorizationUpdateRequest;
+use Authlete\Dto\ClientSecretRefreshResponse;
+use Authlete\Dto\ClientSecretUpdateResponse;
 use Authlete\Dto\DeviceAuthorizationRequest;
+use Authlete\Dto\DeviceAuthorizationResponse;
 use Authlete\Dto\DeviceCompleteRequest;
+use Authlete\Dto\DeviceCompleteResponse;
 use Authlete\Dto\DeviceVerificationRequest;
+use Authlete\Dto\DeviceVerificationResponse;
+use Authlete\Dto\GrantedScopesGetResponse;
 use Authlete\Dto\IntrospectionRequest;
+use Authlete\Dto\IntrospectionResponse;
 use Authlete\Dto\PushedAuthReqRequest;
+use Authlete\Dto\PushedAuthReqResponse;
 use Authlete\Dto\RevocationRequest;
+use Authlete\Dto\RevocationResponse;
 use Authlete\Dto\Service;
+use Authlete\Dto\ServiceListResponse;
 use Authlete\Dto\StandardIntrospectionRequest;
+use Authlete\Dto\StandardIntrospectionResponse;
 use Authlete\Dto\TokenCreateRequest;
+use Authlete\Dto\TokenCreateResponse;
 use Authlete\Dto\TokenFailRequest;
+use Authlete\Dto\TokenFailResponse;
 use Authlete\Dto\TokenIssueRequest;
+use Authlete\Dto\TokenIssueResponse;
 use Authlete\Dto\TokenRequest;
+use Authlete\Dto\TokenResponse;
 use Authlete\Dto\TokenUpdateRequest;
+use Authlete\Dto\TokenUpdateResponse;
 use Authlete\Dto\UserInfoIssueRequest;
+use Authlete\Dto\UserInfoIssueResponse;
 use Authlete\Dto\UserInfoRequest;
+use Authlete\Dto\UserInfoResponse;
 
 
 /**
@@ -66,12 +92,12 @@ interface AuthleteApi
      * @param AuthorizationRequest $request
      *     Request parameters passed to the API.
      *
-     * @return \Authlete\Dto\AuthorizationResponse
+     * @return AuthorizationResponse
      *     Response from the API.
      *
      * @throws AuthleteApiException
      */
-    public function authorization(AuthorizationRequest $request): \Authlete\Dto\AuthorizationResponse;
+    public function authorization(AuthorizationRequest $request): AuthorizationResponse;
 
 
     /**
@@ -80,12 +106,12 @@ interface AuthleteApi
      * @param AuthorizationFailRequest $request
      *     Request parameters passed to the API.
      *
-     * @return \Authlete\Dto\AuthorizationFailResponse
+     * @return AuthorizationFailResponse
      *     Response from the API.
      *
      * @throws AuthleteApiException
      */
-    public function authorizationFail(AuthorizationFailRequest $request): \Authlete\Dto\AuthorizationFailResponse;
+    public function authorizationFail(AuthorizationFailRequest $request): AuthorizationFailResponse;
 
 
     /**
@@ -94,12 +120,12 @@ interface AuthleteApi
      * @param AuthorizationIssueRequest $request
      *     Request parameters passed to the API.
      *
-     * @return \Authlete\Dto\AuthorizationIssueResponse
+     * @return AuthorizationIssueResponse
      *     Response from the API.
      *
      * @throws AuthleteApiException
      */
-    public function authorizationIssue(AuthorizationIssueRequest $request): \Authlete\Dto\AuthorizationIssueResponse;
+    public function authorizationIssue(AuthorizationIssueRequest $request): AuthorizationIssueResponse;
 
 
     /**
@@ -108,12 +134,12 @@ interface AuthleteApi
      * @param TokenRequest $request
      *     Request parameters passed to the API.
      *
-     * @return \Authlete\Dto\TokenResponse
+     * @return TokenResponse
      *     Response from the API.
      *
      * @throws AuthleteApiException
      */
-    public function token(TokenRequest $request): \Authlete\Dto\TokenResponse;
+    public function token(TokenRequest $request): TokenResponse;
 
 
     /**
@@ -122,12 +148,12 @@ interface AuthleteApi
      * @param TokenCreateRequest $request
      *     Request parameters passed to the API.
      *
-     * @return \Authlete\Dto\TokenCreateResponse
+     * @return TokenCreateResponse
      *     Response from the API.
      *
      * @throws AuthleteApiException
      */
-    public function tokenCreate(TokenCreateRequest $request): \Authlete\Dto\TokenCreateResponse;
+    public function tokenCreate(TokenCreateRequest $request): TokenCreateResponse;
 
 
     /**
@@ -141,7 +167,7 @@ interface AuthleteApi
      *
      * @since 1.9
      */
-    public function tokenDelete($token);
+    public function tokenDelete(string $token);
 
 
     /**
@@ -150,12 +176,12 @@ interface AuthleteApi
      * @param TokenFailRequest $request
      *     Request parameters passed to the API.
      *
-     * @return \Authlete\Dto\TokenFailResponse
+     * @return TokenFailResponse
      *     Response from the API.
      *
      * @throws AuthleteApiException
      */
-    public function tokenFail(TokenFailRequest $request): \Authlete\Dto\TokenFailResponse;
+    public function tokenFail(TokenFailRequest $request): TokenFailResponse;
 
 
     /**
@@ -164,12 +190,12 @@ interface AuthleteApi
      * @param TokenIssueRequest $request
      *     Request parameters passed to the API.
      *
-     * @return \Authlete\Dto\TokenIssueResponse
+     * @return TokenIssueResponse
      *     Response from the API.
      *
      * @throws AuthleteApiException
      */
-    public function tokenIssue(TokenIssueRequest $request): \Authlete\Dto\TokenIssueResponse;
+    public function tokenIssue(TokenIssueRequest $request): TokenIssueResponse;
 
 
     /**
@@ -178,12 +204,12 @@ interface AuthleteApi
      * @param TokenUpdateRequest $request
      *     Request parameters passed to the API.
      *
-     * @return \Authlete\Dto\TokenUpdateResponse
+     * @return TokenUpdateResponse
      *     Response from the API.
      *
      * @throws AuthleteApiException
      */
-    public function tokenUpdate(TokenUpdateRequest $request): \Authlete\Dto\TokenUpdateResponse;
+    public function tokenUpdate(TokenUpdateRequest $request): TokenUpdateResponse;
 
 
     /**
@@ -192,12 +218,12 @@ interface AuthleteApi
      * @param RevocationRequest $request
      *     Request parameters passed to the API.
      *
-     * @return \Authlete\Dto\RevocationResponse
+     * @return RevocationResponse
      *     Response from the API.
      *
      * @throws AuthleteApiException
      */
-    public function revocation(RevocationRequest $request): \Authlete\Dto\RevocationResponse;
+    public function revocation(RevocationRequest $request): RevocationResponse;
 
 
     /**
@@ -206,12 +232,12 @@ interface AuthleteApi
      * @param UserInfoRequest $request
      *     Request parameters passed to the API.
      *
-     * @return \Authlete\Dto\UserInfoResponse
+     * @return UserInfoResponse
      *     Response from the API.
      *
      * @throws AuthleteApiException
      */
-    public function userInfo(UserInfoRequest $request): \Authlete\Dto\UserInfoResponse;
+    public function userInfo(UserInfoRequest $request): UserInfoResponse;
 
 
     /**
@@ -220,12 +246,12 @@ interface AuthleteApi
      * @param UserInfoIssueRequest $request
      *     Request parameters passed to the API.
      *
-     * @return \Authlete\Dto\UserInfoIssueResponse
+     * @return UserInfoIssueResponse
      *     Response from the API.
      *
      * @throws AuthleteApiException
      */
-    public function userInfoIssue(UserInfoIssueRequest $request): \Authlete\Dto\UserInfoIssueResponse;
+    public function userInfoIssue(UserInfoIssueRequest $request): UserInfoIssueResponse;
 
 
     /**
@@ -234,12 +260,12 @@ interface AuthleteApi
      * @param IntrospectionRequest $request
      *     Request parameters passed to the API.
      *
-     * @return \Authlete\Dto\IntrospectionResponse
+     * @return IntrospectionResponse
      *     Response from the API.
      *
      * @throws AuthleteApiException
      */
-    public function introspection(IntrospectionRequest $request): \Authlete\Dto\IntrospectionResponse;
+    public function introspection(IntrospectionRequest $request): IntrospectionResponse;
 
 
     /**
@@ -248,12 +274,12 @@ interface AuthleteApi
      * @param StandardIntrospectionRequest $request
      *     Request parameters passed to the API.
      *
-     * @return \Authlete\Dto\StandardIntrospectionResponse
+     * @return StandardIntrospectionResponse
      *     Response from the API.
      *
      * @throws AuthleteApiException
      */
-    public function standardIntrospection(StandardIntrospectionRequest $request): \Authlete\Dto\StandardIntrospectionResponse;
+    public function standardIntrospection(StandardIntrospectionRequest $request): StandardIntrospectionResponse;
 
 
     /**
@@ -280,7 +306,7 @@ interface AuthleteApi
      *
      * @throws AuthleteApiException
      */
-    public function deleteService($apiKey);
+    public function deleteService(int|string $apiKey);
 
 
     /**
@@ -295,7 +321,7 @@ interface AuthleteApi
      *
      * @throws AuthleteApiException
      */
-    public function getService($apiKey): Service;
+    public function getService(int|string $apiKey): Service;
 
 
     /**
@@ -334,12 +360,12 @@ interface AuthleteApi
      *     Must not be negative. This argument is optional and its
      *     default value is 5.
      *
-     * @return \Authlete\Dto\ServiceListResponse
+     * @return ServiceListResponse
      *     A list of services.
      *
      * @throws AuthleteApiException
      */
-    public function getServiceList($start = 0, $end = 5): \Authlete\Dto\ServiceListResponse;
+    public function getServiceList(int $start = 0, int $end = 5): ServiceListResponse;
 
 
     /**
@@ -531,12 +557,12 @@ interface AuthleteApi
      * @param string $subject
      *     Subject (= unique identifier) of an end-user.
      *
-     * @return \Authlete\Dto\GrantedScopesGetResponse
+     * @return GrantedScopesGetResponse
      *     Scopes granted to the client application by the end-user.
      *
      * @throws AuthleteApiException
      */
-    public function getGrantedScopes(int|string $clientId, string $subject): \Authlete\Dto\GrantedScopesGetResponse;
+    public function getGrantedScopes(int|string $clientId, string $subject): GrantedScopesGetResponse;
 
 
     /**
@@ -587,13 +613,13 @@ interface AuthleteApi
      *     Conditions of the query to Authlete's
      *     `/api/client/authorization/get/list` API.
      *
-     * @return \Authlete\Dto\AuthorizedClientListResponse
+     * @return AuthorizedClientListResponse
      *     The list of client applications.
      *
      * @throws AuthleteApiException
      */
     public function getClientAuthorizationList(
-        ClientAuthorizationGetListRequest $request): \Authlete\Dto\AuthorizedClientListResponse;
+        ClientAuthorizationGetListRequest $request): AuthorizedClientListResponse;
 
 
     /**
@@ -607,13 +633,13 @@ interface AuthleteApi
      * @param ClientAuthorizationUpdateRequest $request
      *     Request parameters passed to the Authlete API.
      *
-     * @return \Authlete\Dto\ApiResponse
+     * @return ApiResponse
      *     The result of the API call.
      *
      * @throws AuthleteApiException
      */
     public function updateClientAuthorization(
-        int|string $clientId, ClientAuthorizationUpdateRequest $request): \Authlete\Dto\ApiResponse;
+        int|string $clientId, ClientAuthorizationUpdateRequest $request): ApiResponse;
 
 
     /**
@@ -627,12 +653,12 @@ interface AuthleteApi
      * @param integer|string $clientId
      *     Client ID.
      *
-     * @return \Authlete\Dto\ClientSecretRefreshResponse
+     * @return ClientSecretRefreshResponse
      *     The client secret.
      *
      * @throws AuthleteApiException
      */
-    public function refreshClientSecret(int|string $clientId): \Authlete\Dto\ClientSecretRefreshResponse;
+    public function refreshClientSecret(int|string $clientId): ClientSecretRefreshResponse;
 
 
     /**
@@ -651,12 +677,12 @@ interface AuthleteApi
      * @param string $clientSecret
      *     A new value of client secret.
      *
-     * @return \Authlete\Dto\ClientSecretUpdateResponse
+     * @return ClientSecretUpdateResponse
      *     The client secret.
      *
      * @throws AuthleteApiException
      */
-    public function updateClientSecret(int|string $clientId, string $clientSecret): \Authlete\Dto\ClientSecretUpdateResponse;
+    public function updateClientSecret(int|string $clientId, string $clientSecret): ClientSecretUpdateResponse;
 
 
     /**
@@ -665,14 +691,14 @@ interface AuthleteApi
      * @param BackchannelAuthenticationRequest $request
      *     Request parameters passed to the API.
      *
-     * @return \Authlete\Dto\BackchannelAuthenticationResponse
+     * @return BackchannelAuthenticationResponse
      *     Response from the API.
      *
      * @throws AuthleteApiException
      *
      * @since 1.8
      */
-    public function backchannelAuthentication(BackchannelAuthenticationRequest $request): \Authlete\Dto\BackchannelAuthenticationResponse;
+    public function backchannelAuthentication(BackchannelAuthenticationRequest $request): BackchannelAuthenticationResponse;
 
 
     /**
@@ -681,14 +707,14 @@ interface AuthleteApi
      * @param BackchannelAuthenticationIssueRequest $request
      *     Request parameters passed to the API.
      *
-     * @return \Authlete\Dto\BackchannelAuthenticationIssueResponse
+     * @return BackchannelAuthenticationIssueResponse
      *     Response from the API.
      *
      * @throws AuthleteApiException
      *
      * @since 1.8
      */
-    public function backchannelAuthenticationIssue(BackchannelAuthenticationIssueRequest $request): \Authlete\Dto\BackchannelAuthenticationIssueResponse;
+    public function backchannelAuthenticationIssue(BackchannelAuthenticationIssueRequest $request): BackchannelAuthenticationIssueResponse;
 
 
     /**
@@ -697,14 +723,14 @@ interface AuthleteApi
      * @param BackchannelAuthenticationFailRequest $request
      *     Request parameters passed to the API.
      *
-     * @return \Authlete\Dto\BackchannelAuthenticationFailResponse
+     * @return BackchannelAuthenticationFailResponse
      *     Response from the API.
      *
      * @throws AuthleteApiException
      *
      * @since 1.8
      */
-    public function backchannelAuthenticationFail(BackchannelAuthenticationFailRequest $request): \Authlete\Dto\BackchannelAuthenticationFailResponse;
+    public function backchannelAuthenticationFail(BackchannelAuthenticationFailRequest $request): BackchannelAuthenticationFailResponse;
 
 
     /**
@@ -713,14 +739,14 @@ interface AuthleteApi
      * @param BackchannelAuthenticationCompleteRequest $request
      *     Request parameters passed to the API.
      *
-     * @return \Authlete\Dto\BackchannelAuthenticationCompleteResponse
+     * @return BackchannelAuthenticationCompleteResponse
      *     Response from the API.
      *
      * @throws AuthleteApiException
      *
      * @since 1.8
      */
-    public function backchannelAuthenticationComplete(BackchannelAuthenticationCompleteRequest $request): \Authlete\Dto\BackchannelAuthenticationCompleteResponse;
+    public function backchannelAuthenticationComplete(BackchannelAuthenticationCompleteRequest $request): BackchannelAuthenticationCompleteResponse;
 
 
     /**
@@ -729,14 +755,14 @@ interface AuthleteApi
      * @param DeviceAuthorizationRequest $request
      *     Request parameters passed to the API.
      *
-     * @return \Authlete\Dto\DeviceAuthorizationResponse
+     * @return DeviceAuthorizationResponse
      *     Response from the API.
      *
      * @throws AuthleteApiException
      *
      * @since 1.8
      */
-    public function deviceAuthorization(DeviceAuthorizationRequest $request): \Authlete\Dto\DeviceAuthorizationResponse;
+    public function deviceAuthorization(DeviceAuthorizationRequest $request): DeviceAuthorizationResponse;
 
 
     /**
@@ -745,14 +771,14 @@ interface AuthleteApi
      * @param DeviceCompleteRequest $request
      *     Request parameters passed to the API.
      *
-     * @return \Authlete\Dto\DeviceCompleteResponse
+     * @return DeviceCompleteResponse
      *     Response from the API.
      *
      * @throws AuthleteApiException
      *
      * @since 1.8
      */
-    public function deviceComplete(DeviceCompleteRequest $request): \Authlete\Dto\DeviceCompleteResponse;
+    public function deviceComplete(DeviceCompleteRequest $request): DeviceCompleteResponse;
 
 
     /**
@@ -761,14 +787,14 @@ interface AuthleteApi
      * @param DeviceVerificationRequest $request
      *     Request parameters passed to the API.
      *
-     * @return \Authlete\Dto\DeviceVerificationResponse
+     * @return DeviceVerificationResponse
      *     Response from the API.
      *
      * @throws AuthleteApiException
      *
      * @since 1.8
      */
-    public function deviceVerification(DeviceVerificationRequest $request): \Authlete\Dto\DeviceVerificationResponse;
+    public function deviceVerification(DeviceVerificationRequest $request): DeviceVerificationResponse;
 
 
     /**
@@ -777,14 +803,14 @@ interface AuthleteApi
      * @param PushedAuthReqRequest $request
      *     Request parameters passed to the API.
      *
-     * @return \Authlete\Dto\PushedAuthReqResponse
+     * @return PushedAuthReqResponse
      *     Response from the API.
      *
      * @throws AuthleteApiException
      *
      * @since 1.8
      */
-    public function pushAuthorizationRequest(PushedAuthReqRequest $request): \Authlete\Dto\PushedAuthReqResponse;
+    public function pushAuthorizationRequest(PushedAuthReqRequest $request): PushedAuthReqResponse;
 
 
     /**
