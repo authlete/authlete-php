@@ -161,6 +161,11 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
     private bool $scopeRequired                                 = false;
     private bool $nbfOptional                                   = false;
     private bool $issSuppressed                                 = false;
+    private ?array $supportedCustomClientMetadata               = null; // array of string
+    private bool $tokenExpirationLinked                         = false;
+    private bool $frontChannelRequestObjectEncryptionRequired   = false;
+    private bool $requestObjectEncryptionAlgMatchRequired       = false;
+    
 
 
     /**
@@ -197,10 +202,10 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
     /**
      * Get the API key of this service.
      *
-     * @return integer|string
+     * @return int|string|null The API key.
      *     The API key.
      */
-    public function getApiKey()
+    public function getApiKey(): int|string|null
     {
         return $this->apiKey;
     }
@@ -209,13 +214,13 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
     /**
      * Set the API key of this service.
      *
-     * @param integer|string $apiKey
+     * @param int|string|null $apiKey
      *     The API key.
      *
      * @return Service
      *     `$this` object.
      */
-    public function setApiKey($apiKey): Service
+    public function setApiKey(mixed $apiKey): Service
     {
         ValidationUtility::ensureNullOrStringOrInteger('$apiKey', $apiKey);
 
@@ -4591,6 +4596,257 @@ class Service implements ArrayCopyable, Arrayable, Jsonable
 
         return $this;
     }
+
+
+    /**
+     *  Get custom client metadata supported by this service.
+     *
+     *  <p>
+     *  Standard specifications define client metadata as necessary.
+     *  The following are such examples.
+     *  </p>
+     *
+     *  <ol>
+     *  <li><a href="https://openid.net/specs/openid-connect-registration-1_0.html"
+     *      >OpenID Connect Dynamic Client Registration 1.0</a>
+     *  <li><a href="https://www.rfc-editor.org/rfc/rfc7591.html"
+     *      >RFC 7591 OAuth 2.0 Dynamic Client Registration Protocol</a>
+     *  <li><a href="https://www.rfc-editor.org/rfc/rfc8705.html"
+     *      >RFC 8705 OAuth 2.0 Mutual-TLS Client Authentication and Certificate-Bound Access Tokens</a>
+     *  <li><a href="https://openid.net/specs/openid-client-initiated-backchannel-authentication-core-1_0.html"
+     *      >OpenID Connect Client-Initiated Backchannel Authentication Flow - Core 1.0</a>
+     *  <li><a href="https://www.rfc-editor.org/rfc/rfc9101.html"
+     *      >RFC 9101 The OAuth 2.0 Authorization Framework: JWT Secured Authorization Request (JAR)</a>
+     *  <li><a href="https://openid.net/specs/openid-financial-api-jarm.html"
+     *      >Financial-grade API: JWT Secured Authorization Response Mode for OAuth 2.0 (JARM)</a>
+     *  <li><a href="https://www.rfc-editor.org/rfc/rfc9126.html"
+     *      >RFC 9126 OAuth 2.0 Pushed Authorization Requests</a>
+     *  <li><a href="https://www.rfc-editor.org/rfc/rfc9396.html"
+     *       >RFC 9396 OAuth 2.0 Rich Authorization Requests</a>
+     *  </ol>
+     *
+     *  <p>
+     *  Standard client metadata included in Client Registration Request and
+     *  Client Update Request (cf. <a href=
+     *  "https://openid.net/specs/openid-connect-registration-1_0.html">OIDC
+     *  DynReg</a>, <a href="https://www.rfc-editor.org/rfc/rfc7591.html">RFC
+     *  7591</a> and <a href=""https://www.rfc-editor.org/rfc/rfc7592.html"
+     *  >RFC 7592</a>) are, if supported by Authlete, stored into Authlete
+     *  database. On the other hand, unrecognized client metadata are discarded.
+     *  </p>
+     *
+     *  <p>
+     *  By listing up custom client metadata in advance by using this property
+     *  ({`Service.supportedCustomClientMetadata`}), Authlete can recognize
+     *  them and stores their values into the database. The stored custom client
+     *  metadata values can be referenced by {@see Client#getCustomMetadata()}.
+     *  </p>
+     *
+     *  <p>
+     *  This property affects the behavior of {`/api/client/registration`}
+     *  API of Authlete 2.2 onwards.
+     *  </p>
+     * @return array|null
+     */
+    public function getSupportedCustomClientMetadata(): ?array
+    {
+        return $this->supportedCustomClientMetadata;
+    }
+
+
+    /**
+     * Set custom client metadata supported by this service.
+     * @param array|null $supportedCustomClientMetadata
+     * @return void
+     */
+    public function setSupportedCustomClientMetadata(?array $supportedCustomClientMetadata): void
+    {
+        $this->supportedCustomClientMetadata = $supportedCustomClientMetadata;
+    }
+
+
+    /**
+     * Get the flag indicating whether the expiration date of an access token
+     *  never exceeds that of the corresponding refresh token.
+     *
+     *  <p>
+     *  When a new access token is issued by a refresh token request (= a token
+     *  request with {`grant_type=refresh_token`}), the expiration date of
+     *  the access token may exceed the expiration date of the corresponding
+     *  refresh token. This behavior itself is not wrong and may happen when
+     *  {@see isRefreshTokenKept()} returns {`true`} and/or when
+     *  {@see isRefreshTokenDurationKept()} returns {`true`}.
+     *  </p>
+     *
+     *  <p>
+     *  When this flag is {`true`}, the expiration date of an access token
+     *  never exceeds that of the corresponding refresh token regardless of
+     *  the calculated duration based on other settings such as
+     *  {@see Service::getAccessTokenDuration()},
+     *  {@see ClientExtension::getAccessTokenDuration()} and the
+     *  {`access_token.duration`} attribute of scopes.
+     *  </p>
+     *
+     *  <p>
+     *  It is technically possible to set a value which is bigger than the
+     *  duration of refresh tokens as the duration of access tokens, although
+     *  it is strange. In the case, the duration of an access token becomes
+     *  longer than the duration of the refresh token which is issued together
+     *  with the access token. Even if the duration values are configured so,
+     *  if this flag is {`true`}, the expiration date of the access token
+     *  does not exceed that of the refresh token. That is, the duration of
+     *  the access token will be shortened, and as a result, the access token
+     *  and the refresh token will have the same expiration date.
+     *  </p>
+     * @return bool
+     *  {`true`} if the service assures that the expiration date
+     *          of an access token never exceeds that of the corresponding
+     *          refresh token.
+     */
+    public function isTokenExpirationLinked(): bool
+    {
+        return $this->tokenExpirationLinked;
+    }
+
+
+    /**
+     * Set the flag indicating whether the expiration date of an access token
+     *  never exceeds that of the corresponding refresh token.
+     * @param bool $tokenExpirationLinked
+     * @return void
+     */
+    public function setTokenExpirationLinked(bool $tokenExpirationLinked): void
+    {
+        $this->tokenExpirationLinked = $tokenExpirationLinked;
+    }
+
+    /**
+     * Get the flag indicating whether encryption of request object is required
+     *  when the request object is passed through the front channel.
+     *
+     *  <p>
+     *  This flag does not affect the processing of request objects at the
+     *  Pushed Authorization Request Endpoint, which is defined in <a href=
+     *  "https://www.rfc-editor.org/rfc/rfc9126.html"> RFC 9126 OAuth 2.0
+     *  Pushed Authorization Requests</a>. Unecrypted request objects are
+     *  accepted at the endpoint even if this flag is {`true`}.
+     *  </p>
+     *
+     *  <p>
+     *  This flag does not indicate whether a request object is always required.
+     *  There is a different flag, {`requestObjectRequired`}, for the purpose.
+     *  See the description of {@see #isRequestObjectRequired()} for details.
+     *  </p>
+     *
+     *  <p>
+     *  Even if this flag is {`false`}, encryption of request object is
+     *  required if the {`Client.frontChannelRequestObjectEncryptionRequired`}
+     *  flag is {`true`}.
+     *  </p>
+     *
+     * @return bool
+     *           {`true`} if encryption of request object is required when
+     *           the request object is passed through the front channel.
+     * @see Client::isFrontChannelRequestObjectEncryptionRequired()
+     * @see #isRequestObjectRequired()
+     */
+    public function isFrontChannelRequestObjectEncryptionRequired(): bool
+    {
+        return $this->frontChannelRequestObjectEncryptionRequired;
+    }
+
+
+    /**
+     * Set the flag indicating whether encryption of request object is required
+     *  when the request object is passed through the front channel.
+     *
+     * @param bool $frontChannelRequestObjectEncryptionRequired
+     * @return void
+     */
+    public function setFrontChannelRequestObjectEncryptionRequired(bool $frontChannelRequestObjectEncryptionRequired): void
+    {
+        $this->frontChannelRequestObjectEncryptionRequired = $frontChannelRequestObjectEncryptionRequired;
+    }
+
+
+    /**
+     * Get the flag indicating whether the JWE {`alg`} of encrypted request
+     *  object must match the {`request_object_encryption_alg`} client metadata
+     *  of the client that has sent the request object.
+     *
+     *  <p>
+     *  The {`request_object_encryption_alg`} client metadata itself is defined
+     *  in <a href="https://openid.net/specs/openid-connect-registration-1_0.html"
+     *  >OpenID Connect Dynamic Client Registration 1.0</a> as follows.
+     *  </p>
+     *
+     *  <blockquote>
+     *  <dl>
+     *  <dt>{`request_object_encryption_alg`}</dt>
+     *  <dd>
+     *  <p>
+     *  OPTIONAL. JWE [JWE] {`alg`} algorithm [JWA] the RP is declaring that
+     *  it may use for encrypting Request Objects sent to the OP. This parameter
+     *  SHOULD be included when symmetric encryption will be used, since this
+     *  signals to the OP that a {`client_secret`} value needs to be returned
+     *  from which the symmetric key will be derived, that might not otherwise be
+     *  returned. The RP MAY still use other supported encryption algorithms or
+     *  send unencrypted Request Objects, even when this parameter is present.
+     *  If both signing and encryption are requested, the Request Object will be
+     *  signed then encrypted, with the result being a Nested JWT, as defined in
+     *  [JWT]. The default, if omitted, is that the RP is not declaring whether
+     *  it might encrypt any Request Objects.
+     *  </p>
+     *  </dd>
+     *  </dl>
+     *  </blockquote>
+     *
+     *  <p>
+     *  The point here is <i>"The RP MAY still use other supported encryption
+     *  algorithms or send unencrypted Request Objects, even when this parameter
+     *  is present."</i>
+     *  </p>
+     *
+     *  <p>
+     *  The {@see Client}'s property that represents the client metadata is
+     *  {`Client.requestEncryptionAlg`}. See the description of
+     *  {@see Client::getRequestEncryptionAlg()} for details.
+     *  </p>
+     *
+     *  <p>
+     *  Even if this flag is {`false`}, the match is required if the
+     *  {`Client.requestObjectEncryptionAlgMatchRequired`} flag is {`true`}.
+     *  </p>
+     *
+     * @return bool
+     *   {`true`} if the JWE {`alg`} of encrypted request object
+     *        must match the {`request_object_encryption_alg`} client metadata.
+     * @see Client::isRequestObjectEncryptionAlgMatchRequired()
+     * @see Client::getRequestEncryptionAlg()
+     */
+    public function isRequestObjectEncryptionAlgMatchRequired(): bool
+    {
+        return $this->requestObjectEncryptionAlgMatchRequired;
+    }
+
+
+    /**
+     * Set the flag indicating whether the JWE {@code alg} of encrypted request
+     * object must match the {@code request_object_encryption_alg} client metadata
+     * of the client that has sent the request object.
+     * @param bool $requestObjectEncryptionAlgMatchRequired
+     * @return void
+     */
+    public function setRequestObjectEncryptionAlgMatchRequired(bool $requestObjectEncryptionAlgMatchRequired): void
+    {
+        $this->requestObjectEncryptionAlgMatchRequired = $requestObjectEncryptionAlgMatchRequired;
+    }
+
+
+
+
+
+
 
 
     /**

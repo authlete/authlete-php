@@ -130,5 +130,22 @@ class AuthleteSimpleConfiguration implements AuthleteConfiguration
 
         return $this;
     }
+
+
+    /**
+     * Set the Service access token,
+     *
+     * @param string $accessToken
+     *     The Service Access Token
+     *
+     * @return AuthleteSimpleConfiguration
+     *     `$this` object.
+     */
+    public function setServiceAccessToken(string $accessToken): static
+    {
+        ValidationUtility::ensureNullOrString('$accessToken', $accessToken);
+        $this->serviceAccessToken = $accessToken;
+        return $this;
+    }
 }
 

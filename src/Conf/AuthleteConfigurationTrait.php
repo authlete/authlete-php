@@ -37,6 +37,8 @@ trait AuthleteConfigurationTrait
     private ?string $serviceOwnerApiSecret = null;
     private ?string $serviceApiKey         = null;
     private ?string $serviceApiSecret      = null;
+    private ?string $serviceAccessToken    = null;
+    private ?string $apiVersion            = null;
 
 
     /**
@@ -96,6 +98,30 @@ trait AuthleteConfigurationTrait
     public function getServiceApiSecret(): ?string
     {
         return $this->serviceApiSecret;
+    }
+
+
+    /**
+     * Get the service access token.
+     *
+     * @return string|null
+     *     The service access token.
+     */
+    public function getServiceAccessToken(): ?string
+    {
+        return $this->serviceAccessToken;
+    }
+
+
+    /**
+     * Get the API version.
+     *
+     * @return string|null
+     *     The API version.
+     */
+    public function getApiVersion(): ?string
+    {
+        return $this->apiVersion;
     }
 }
 

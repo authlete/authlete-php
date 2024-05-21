@@ -64,7 +64,15 @@ class AuthleteApiImplTest extends TestCase
     {
         $this->skipIfEmpty(self::$configuration->getBaseUrl(),          'AUTHLETE_BASE_URL') ||
         $this->skipIfEmpty(self::$configuration->getServiceApiKey(),    'AUTHLETE_SERVICE_APIKEY') ||
-        $this->skipIfEmpty(self::$configuration->getServiceApiSecret(), 'AUTHLETE_SERVICE_APISECRET')
+        $this->skipIfEmpty(self::$configuration->getServiceApiSecret(), 'AUTHLETE_SERVICE_APISECRET') ||
+        $this->skipIfEmpty(self::$configuration->getApiVersion(),       'AUTHLETE_API_VERSION')
+        ;
+
+        $apiVersion = self::$configuration->getApiVersion();
+        // Skip all tests if the version is 3.0.0
+        if (self::$configuration->getApiVersion() === '3.0.0') {
+            $this->markTestSkipped("Skipping all tests for version $apiVersion");
+        }
         ;
     }
 
@@ -74,7 +82,6 @@ class AuthleteApiImplTest extends TestCase
         if (empty($value))
         {
             $this->markTestSkipped("The environment variable, {$envname}, is not set.");
-            return true;
         }
 
         return false;

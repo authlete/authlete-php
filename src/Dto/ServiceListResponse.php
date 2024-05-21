@@ -175,7 +175,7 @@ class ServiceListResponse implements ArrayCopyable, Arrayable, Jsonable
      * @return ServiceListResponse
      *     `$this` object.
      */
-    public function setServices(array $services = null): ServiceListResponse
+    public function setServices(?array $services = null): ServiceListResponse
     {
         ValidationUtility::ensureNullOrArrayOfType(
             '$services', __NAMESPACE__ . '\Service', $services);

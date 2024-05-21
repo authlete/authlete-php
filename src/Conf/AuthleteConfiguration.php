@@ -74,4 +74,22 @@ interface AuthleteConfiguration
      *     The API key of a service.
      */
     public function getServiceApiSecret(): ?string;
+
+
+    /**
+     * Get the service access token.
+     *
+     * @return string|null
+     *     The service access token.
+     */
+    public function getServiceAccessToken(): ?string;
+
+
+    /**
+     * Get the API version.
+     *
+     * @return string|null
+     *     The API version.
+     */
+    public function getApiVersion(): ?string;
 }

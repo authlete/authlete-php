@@ -50,6 +50,8 @@ class AuthleteEnvConfiguration implements AuthleteConfiguration
     private static string $ENV_SERVICE_OWNER_API_SECRET = 'AUTHLETE_SERVICEOWNER_APISECRET';
     private static string $ENV_SERVICE_API_KEY          = 'AUTHLETE_SERVICE_APIKEY';
     private static string $ENV_SERVICE_API_SECRET       = 'AUTHLETE_SERVICE_APISECRET';
+    private static string $ENV_SERVICE_ACCESS_TOKEN     = 'AUTHLETE_SERVICE_ACCESS_TOKEN';
+    private static string $ENV_AUTHLETE_API_VERSION     = 'AUTHLETE_API_VERSION';
 
 
     /**
@@ -63,6 +65,8 @@ class AuthleteEnvConfiguration implements AuthleteConfiguration
         $this->serviceOwnerApiSecret = LanguageUtility::getFromEnv(self::$ENV_SERVICE_OWNER_API_SECRET);
         $this->serviceApiKey         = LanguageUtility::getFromEnv(self::$ENV_SERVICE_API_KEY);
         $this->serviceApiSecret      = LanguageUtility::getFromEnv(self::$ENV_SERVICE_API_SECRET);
+        $this->serviceAccessToken    = LanguageUtility::getFromEnv(self::$ENV_SERVICE_ACCESS_TOKEN);
+        $this->apiVersion            = LanguageUtility::getFromEnv(self::$ENV_AUTHLETE_API_VERSION);
     }
 }
 
