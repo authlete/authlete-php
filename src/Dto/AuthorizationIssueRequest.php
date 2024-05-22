@@ -43,15 +43,15 @@ class AuthorizationIssueRequest implements ArrayCopyable, Arrayable, Jsonable
     use JsonTrait;
 
 
-    private ?string $ticket          = null;
-    private ?string $subject         = null;
-    private ?string $sub             = null;
-    private string|int|null $authTime= null;
-    private ?string $acr             = null;
-    private ?string $claims          = null;
-    private ?array $properties       = null;  // array of \Authlete\Dto\Property
-    private ?array $scopes           = null;  // array of string
-    private ?string $idtHeaderParams = null;
+    private ?string         $ticket          = null;
+    private ?string         $subject         = null;
+    private ?string         $sub             = null;
+    private string|int|null $authTime        = null;
+    private ?string         $acr             = null;
+    private ?string         $claims          = null;
+    private ?array          $properties      = null;  // array of \Authlete\Dto\Property
+    private ?array          $scopes          = null;  // array of string
+    private ?string         $idtHeaderParams = null;
 
 
     /**

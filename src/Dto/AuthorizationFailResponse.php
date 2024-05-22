@@ -126,8 +126,8 @@ use PhpParser\Node\Scalar\String_;
  */
 class AuthorizationFailResponse extends ApiResponse
 {
-    private ?string $action = null;
-    private ?string $responseContent         = null;
+    private ?string $action          = null;
+    private ?string $responseContent = null;
 
 
     /**

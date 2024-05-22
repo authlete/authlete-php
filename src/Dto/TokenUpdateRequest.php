@@ -43,16 +43,16 @@ class TokenUpdateRequest implements ArrayCopyable, Arrayable, Jsonable
     use JsonTrait;
 
 
-    private ?string $accessToken                              = null;  // string
-    private string|int|null $accessTokenExpiresAt             = null;  // string or (64-bit) integer
-    private ?array $scopes                                    = null;  // array of string
-    private ?array $properties                                = null;  // array of \Authlete\Dto\Property
-    private bool $accessTokenExpiresAtUpdatedOnScopeUpdate    = false; // boolean
-    private bool $accessTokenPersistent                       = false; // boolean
-    private ?string $accessTokenHash                          = null;  // string
-    private bool $accessTokenValueUpdated                     = false; // boolean
-    private ?string $certificateThumbprint                    = null;  // string
-    private ?string $dpopKeyThumbprint                        = null;  // string
+    private ?string         $accessToken                              = null;
+    private string|int|null $accessTokenExpiresAt                     = null;
+    private ?array          $scopes                                   = null;  // array of string
+    private ?array          $properties                               = null;  // array of \Authlete\Dto\Property
+    private bool            $accessTokenExpiresAtUpdatedOnScopeUpdate = false;
+    private bool            $accessTokenPersistent                    = false;
+    private ?string         $accessTokenHash                          = null;
+    private bool            $accessTokenValueUpdated                  = false;
+    private ?string         $certificateThumbprint                    = null;
+    private ?string         $dpopKeyThumbprint                        = null;
 
 
     /**

@@ -191,28 +191,28 @@ use Authlete\Util\ValidationUtility;
  */
 class TokenResponse extends ApiResponse
 {
-    private ?TokenAction $action           = null;  // \Authlete\Dto\TokenAction
-    private ?string $responseContent       = null;
-    private ?string $username              = null;
-    private ?string $password              = null;
-    private ?string $ticket                = null;
-    private ?string $accessToken           = null;
-    private $accessTokenExpiresAt          = null;  // string or (64-bit) integer
-    private $accessTokenDuration           = null;  // string or (64-bit) integer
-    private ?string $refreshToken          = null;
-    private $refreshTokenExpiresAt         = null;  // string or (64-bit) integer
-    private $refreshTokenDuration          = null;  // string or (64-bit) integer
-    private ?string $idToken               = null;
-    private ?GrantType $grantType          = null;  // \Authlete\Types\GrantType
-    private $clientId                      = null;  // string or (64-bit) integer
-    private ?string $clientIdAlias         = null;
-    private bool $clientIdAliasUsed        = false;
-    private ?string $subject               = null;
-    private ?array $scopes                 = null;  // array of string
-    private ?array $properties             = null;  // array of \Authlete\Dto\Property
-    private ?string $jwtAccessToken        = null;
-    private ?array $resources              = null;  // array of string
-    private ?array $accessTokenResources   = null;  // array of string
+    private ?TokenAction    $action                = null;  // \Authlete\Dto\TokenAction
+    private ?string         $responseContent       = null;
+    private ?string         $username              = null;
+    private ?string         $password              = null;
+    private ?string         $ticket                = null;
+    private ?string         $accessToken           = null;
+    private string|int|null $accessTokenExpiresAt  = null;
+    private string|int|null $accessTokenDuration   = null;
+    private ?string         $refreshToken          = null;
+    private string|int|null $refreshTokenExpiresAt = null;
+    private string|int|null $refreshTokenDuration  = null;
+    private ?string         $idToken               = null;
+    private ?GrantType      $grantType             = null;
+    private string|int|null $clientId              = null;
+    private ?string         $clientIdAlias         = null;
+    private bool            $clientIdAliasUsed     = false;
+    private ?string         $subject               = null;
+    private ?array          $scopes                = null;  // array of string
+    private ?array          $properties            = null;  // array of \Authlete\Dto\Property
+    private ?string         $jwtAccessToken        = null;
+    private ?array          $resources             = null;  // array of string
+    private ?array          $accessTokenResources  = null;  // array of string
 
 
     /**

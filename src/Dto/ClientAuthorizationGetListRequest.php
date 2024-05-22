@@ -48,8 +48,8 @@ class ClientAuthorizationGetListRequest implements ArrayCopyable, Arrayable, Jso
 
     private string $subject;
     private string $developer;
-    private int $start;
-    private int $end;
+    private int    $start;
+    private int    $end;
 
 
     /**

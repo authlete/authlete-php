@@ -46,8 +46,8 @@ class ClientAuthorizationUpdateRequest implements ArrayCopyable, Arrayable, Json
     use JsonTrait;
 
 
-    private ?string $subject = null;
-    private ?array $scopes   = null;
+    private ?string $subject  = null;
+    private ?array  $scopes   = null; // array of string
 
 
     /**

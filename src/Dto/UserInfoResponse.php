@@ -169,17 +169,17 @@ use Authlete\Util\ValidationUtility;
  */
 class UserInfoResponse extends ApiResponse
 {
-    private ?UserInfoAction $action    = null;
-    private string|int|null $clientId  = null;
-    private ?string $subject           = null;
-    private ?array $scopes             = null;  // array of string
-    private ?array $claims             = null;  // array of string
-    private ?string $token             = null;
-    private ?string $responseContent   = null;
-    private ?array $properties         = null;  // array of \Authlete\Dto\Property
-    private ?string $clientIdAlias     = null;
-    private bool $clientIdAliasUsed    = false;
-    private ?string $userInfoClaims    = null;
+    private ?UserInfoAction $action            = null;
+    private string|int|null $clientId          = null;
+    private ?string         $subject           = null;
+    private ?array          $scopes            = null;  // array of string
+    private ?array          $claims            = null;  // array of string
+    private ?string         $token             = null;
+    private ?string         $responseContent   = null;
+    private ?array          $properties        = null;  // array of \Authlete\Dto\Property
+    private ?string         $clientIdAlias     = null;
+    private bool            $clientIdAliasUsed = false;
+    private ?string         $userInfoClaims    = null;
 
 
     /**

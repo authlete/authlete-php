@@ -43,8 +43,8 @@ class StandardIntrospectionRequest implements ArrayCopyable, Arrayable, Jsonable
     use JsonTrait;
 
 
-    private ?string $parameters        = null;
-    private bool $withHiddenProperties = false;
+    private ?string $parameters           = null;
+    private bool    $withHiddenProperties = false;
 
 
     /**

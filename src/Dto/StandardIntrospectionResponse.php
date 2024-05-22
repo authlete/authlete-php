@@ -131,8 +131,8 @@ use Authlete\Util\ValidationUtility;
  */
 class StandardIntrospectionResponse extends ApiResponse
 {
-    private ?StandardIntrospectionAction $action = null;
-    private ?string $responseContent             = null;
+    private ?StandardIntrospectionAction $action          = null;
+    private ?string                      $responseContent = null;
 
 
     /**

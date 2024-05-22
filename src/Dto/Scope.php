@@ -46,10 +46,10 @@ class Scope implements ArrayCopyable, Arrayable, Jsonable
 
 
     private ?string $name         = null;
-    private bool $defaultEntry    = false;
+    private bool    $defaultEntry = false;
     private ?string $description  = null;
-    private ?array $descriptions  = null;
-    private ?array $attributes    = null;
+    private ?array  $descriptions = null;
+    private ?array  $attributes   = null;
 
 
     /**

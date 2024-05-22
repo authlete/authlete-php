@@ -84,8 +84,8 @@ use Authlete\Util\ValidationUtility;
  */
 class TokenFailResponse extends ApiResponse
 {
-    private ?TokenFailAction $action = null;
-    private ?string $responseContent = null;
+    private ?TokenFailAction $action          = null;
+    private ?string          $responseContent = null;
 
 
     /**

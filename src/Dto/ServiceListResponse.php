@@ -43,10 +43,10 @@ class ServiceListResponse implements ArrayCopyable, Arrayable, Jsonable
     use JsonTrait;
 
 
-    private int $start       = 0;
-    private int $end         = 0;
-    private int $totalCount  = 0;
-    private ?array $services = null;  // array of \Authlete\Dto\Service
+    private int    $start      = 0;
+    private int    $end        = 0;
+    private int    $totalCount = 0;
+    private ?array $services   = null;  // array of \Authlete\Dto\Service
 
 
     /**

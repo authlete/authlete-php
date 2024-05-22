@@ -33,10 +33,10 @@ use Authlete\Util\ValidationUtility;
  */
 class SettingsImpl implements Settings
 {
-    private int $connectionTimeout   = 0;
-    private ?string $proxyHost       = null;
-    private int $proxyPort           = 0;
-    private bool $httpProxyTunnelUsed = false;
+    private int     $connectionTimeout   = 0;
+    private ?string $proxyHost           = null;
+    private int     $proxyPort           = 0;
+    private bool    $httpProxyTunnelUsed = false;
 
 
     /**

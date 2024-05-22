@@ -43,7 +43,7 @@ class TokenFailRequest implements ArrayCopyable, Arrayable, Jsonable
     use JsonTrait;
 
 
-    private ?string $ticket          = null;
+    private ?string          $ticket = null;
     private ?TokenFailReason $reason = null;
 
 

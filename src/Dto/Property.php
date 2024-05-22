@@ -46,9 +46,9 @@ class Property implements ArrayCopyable, Arrayable, Jsonable
     use JsonTrait;
 
 
-    private ?string $key;
+    private ?string $key ;
     private ?string $value;
-    private bool $hidden;
+    private bool    $hidden;
 
 
     /**

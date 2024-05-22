@@ -47,19 +47,19 @@ class TokenCreateRequest implements ArrayCopyable, Arrayable, Jsonable
     use JsonTrait;
 
 
-    private ?GrantType $grantType                 = null;
-    private string|int|null $clientId             = null;
-    private ?string $subject                      = null;
-    private ?array $scopes                        = null;  // array of string
-    private string|int|null $accessTokenDuration  = null;
-    private string|int|null $refreshTokenDuration = null;
-    private ?array $properties                    = null;  // array of \Authlete\Dto\Property
-    private bool $clientIdAliasUsed               = false;
-    private ?string $accessToken                  = null;
-    private ?string $refreshToken                 = null;
-    private bool $accessTokenPersistent           = false;
-    private ?string $certificateThumbprint        = null;
-    private ?string $dpopKeyThumbprint            = null;
+    private ?GrantType      $grantType             = null;
+    private string|int|null $clientId              = null;
+    private ?string         $subject               = null;
+    private ?array          $scopes                = null;  // array of string
+    private string|int|null $accessTokenDuration   = null;
+    private string|int|null $refreshTokenDuration  = null;
+    private ?array          $properties            = null;  // array of \Authlete\Dto\Property
+    private bool            $clientIdAliasUsed     = false;
+    private ?string         $accessToken           = null;
+    private ?string         $refreshToken          = null;
+    private bool            $accessTokenPersistent = false;
+    private ?string         $certificateThumbprint = null;
+    private ?string         $dpopKeyThumbprint     = null;
 
 
     /**

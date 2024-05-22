@@ -37,9 +37,9 @@ use Authlete\Web\HttpHeaders;
  */
 class AuthleteApiException extends \Exception
 {
-    private int $statusCode;     // integer
-    private HttpHeaders|null $responseHeaders;  // \Authlete\Web\HttpHeaders
-    private string|null $responseBody;  // string
+    private int              $statusCode;
+    private HttpHeaders|null $responseHeaders;
+    private string|null      $responseBody;
 
 
     /**

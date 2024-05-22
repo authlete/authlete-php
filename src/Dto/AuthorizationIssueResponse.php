@@ -126,14 +126,14 @@ use Authlete\Util\ValidationUtility;
  */
 class AuthorizationIssueResponse extends ApiResponse
 {
-    private ?string $action     = null; //AuthorizationIssueAction
-    private ?string $responseContent              = null;
-    private ?string $accessToken                  = null;
+    private ?string         $action               = null; //AuthorizationIssueAction(string value)
+    private ?string         $responseContent      = null;
+    private ?string         $accessToken          = null;
     private string|int|null $accessTokenExpiresAt = null;
     private string|int|null $accessTokenDuration  = null;
-    private ?string $idToken                      = null;
-    private ?string $authorizationCode            = null;
-    private ?string $jwtAccessToken               = null;
+    private ?string         $idToken              = null;
+    private ?string         $authorizationCode    = null;
+    private ?string         $jwtAccessToken       = null;
 
 
     /**

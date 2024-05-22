@@ -62,11 +62,11 @@ use Authlete\Util\ValidationUtility;
  */
 class TokenUpdateResponse extends ApiResponse
 {
-    private ?TokenUpdateAction $action   = null;  // \Authlete\Dto\TokenUpdateAction
-    private ?string $accessToken         = null;
-    private $accessTokenExpiresAt        = null;  // string or (64-bit) integer
-    private ?array $scopes               = null;  // array of string
-    private ?array $properties           = null;  // array of \Authlete\Dto\Property
+    private ?TokenUpdateAction $action               = null;  // \Authlete\Dto\TokenUpdateAction
+    private ?string            $accessToken          = null;
+    private string|int|null    $accessTokenExpiresAt = null;
+    private ?array             $scopes               = null;  // array of string
+    private ?array             $properties           = null;  // array of \Authlete\Dto\Property
 
 
     /**

@@ -63,17 +63,17 @@ use Authlete\Util\ValidationUtility;
  */
 class TokenCreateResponse extends ApiResponse
 {
-    private ?TokenCreateAction $action  = null;
-    private ?GrantType $grantType       = null;
-    private string|int|null $clientId   = null;
-    private ?string $subject            = null;
-    private ?array $scopes              = null;  // array of string
-    private ?string $accessToken        = null;
-    private ?string $tokenType          = null;
-    private string|int|null $expiresIn  = null;
-    private string|int|null $expiresAt  = null;
-    private ?string $refreshToken       = null;
-    private ?array $properties          = null;  // array of \Authlete\Dto\Property
+    private ?TokenCreateAction $action       = null;
+    private ?GrantType         $grantType    = null;
+    private string|int|null    $clientId     = null;
+    private ?string            $subject      = null;
+    private ?array             $scopes       = null;  // array of string
+    private ?string            $accessToken  = null;
+    private ?string            $tokenType    = null;
+    private string|int|null    $expiresIn    = null;
+    private string|int|null    $expiresAt    = null;
+    private ?string            $refreshToken = null;
+    private ?array             $properties   = null;  // array of \Authlete\Dto\Property
 
 
     /**
