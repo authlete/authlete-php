@@ -31,7 +31,6 @@ use Authlete\Types\ArrayCopyable;
 use Authlete\Types\ClientAuthMethod;
 use Authlete\Types\ClientType;
 use Authlete\Types\DeliveryMode;
-use Authlete\Types\GrantType;
 use Authlete\Types\Jsonable;
 use Authlete\Types\JWEAlg;
 use Authlete\Types\JWEEnc;
@@ -57,74 +56,559 @@ class Client implements ArrayCopyable, Arrayable, Jsonable
     use JsonTrait;
 
 
-    private ?string $developer                             = null;
-    private string|int|null $clientId                      = null;
-    private ?string $clientIdAlias                         = null;
-    private bool $clientIdAliasEnabled                     = false;
-    private ?string $clientSecret                          = null;
-    private ?string $clientType                            = null;  //ClientType
-    private ?array $redirectUris                           = null;  // array of string
-    private ?array $responseTypes                          = null;  // array of \Authlete\Types\ResponseType
-    private ?array $grantTypes                             = null;  // array of \Authlete\Types\GrantType
-    private ?string $applicationType                       = null;  // ApplicationType
-    private ?array $contacts                               = null;  // array of string
-    private ?string $clientName                            = null;
-    private ?array $clientNames                            = null;  // array of \Authlete\Dto\TaggedValue
-    private ?string $logoUri                               = null;
-    private ?array $logoUris                               = null;  // array of \Authlete\Dto\TaggedValue
-    private ?string $clientUri                             = null;
-    private ?array $clientUris                             = null;  // array of \Authlete\Dto\TaggedValue
-    private ?string $policyUri                             = null;
-    private ?array $policyUris                             = null;  // array of \Authlete\Dto\TaggedValue
-    private ?string $tosUri                                = null;
-    private ?array $tosUris                                = null;  // array of \Authlete\Dto\TaggedValue
-    private ?string $jwksUri                               = null;
-    private ?string $jwks                                  = null;
-    private ?string $derivedSectorIdentifier               = null;
-    private ?string $sectorIdentifierUri                   = null;
-    private ?string $subjectType                           = null;  // SubjectType
-    private ?string $idTokenSignAlg                        = null;  // JWSAlg
-    private ?string $idTokenEncryptionAlg                  = null;  // JWEAlg
-    private ?string $userInfoSignAlg                       = null;  // JWEEnc
-    private ?string $userInfoEncryptionAlg                 = null;  // JWEAlg
-    private ?string $userInfoEncryptionEnc                 = null;  // JWEEnc
-    private ?string $requestSignAlg                        = null;  // JWSAlg
-    private ?string $requestEncryptionAlg                  = null;  // JWEAlg
-    private ?string $requestEncryptionEnc                  = null;  // JWEEnc
-    private ?string $tokenAuthMethod                       = null;  // ClientAuthMethod
-    private ?string $tokenAuthSignAlg                      = null;  // JWSAlg
-    private string|int|null $defaultMaxAge                 = null;
-    private bool $authTimeRequired                         = false;
-    private ?array $defaultAcrs                            = null;  // array of string
-    private ?string $loginUri                              = null;
-    private ?array $requestUris                            = null;  // array of string
-    private ?string $description                           = null;
-    private ?array $descriptions                           = null;  // array of \Authlete\Dto\TaggedValue
-    private string|int|null $createdAt                     = null;
-    private string|int|null $modifiedAt                    = null;
-    private ?ClientExtension $extension                    = null;
-    private ?string $tlsClientAuthSubjectDn                = null;
-    private ?string $tlsClientAuthSanDns                   = null;
-    private ?string $tlsClientAuthSanUri                   = null;
-    private ?string $tlsClientAuthSanIp                    = null;
-    private ?string $tlsClientAuthSanEmail                 = null;
-    private bool $tlsClientCertificateBoundAccessTokens    = false;
-    private ?string $selfSignedCertificateKeyId            = null;
-    private ?string $softwareId                            = null;
-    private ?string $softwareVersion                       = null;
-    private ?string $authorizationSignAlg                  = null;  // JWSAlg
-    private ?string $authorizationEncryptionAlg            = null;  // JWEAlg
-    private ?string $authorizationEncryptionEnc            = null;  // JWEEnc
-    private ?string $bcDeliveryMode                  = null;  // DeliveryMode
-    private ?string $bcNotificationEndpoint                = null;
-    private ?string $bcRequestSignAlg                      = null;  // JWSAlg
-    private bool $bcUserCodeRequired                       = false;
-    private bool $dynamicallyRegistered                    = false;
-    private ?string $registrationAccessTokenHash           = null;
-    private ?array $authorizationDataTypes                 = null;  // array of string
-    private bool $parRequired                              = false;
-    private bool $requestObjectRequired                    = false;
-    private ?string $idTokenEncryptionEnc                  = null;  // JWEEnc
+    /**
+     * Client number.
+     * @since Authlete 1.1
+     */
+    private int $number;
+
+    /**
+     * Service number.
+     * @since Authlete 1.1
+     */
+    private int $serviceNumber;
+
+    /**
+     * Developer unique ID.
+     * @since Authlete 1.1
+     * @deprecated Authlete 3.0
+     */
+    private ?string $developer = null;
+
+    /**
+     * Client ID.
+     * @since Authlete 1.1
+     */
+    private string|int|null $clientId = null;
+
+    /**
+     * Alias of Client ID.
+     * @since Authlete 1.1
+     */
+    private ?string $clientIdAlias = null;
+
+    /**
+     * True when the client ID alias is enabled.
+     * @since Authlete 1.1
+     */
+    private bool $clientIdAliasEnabled = false;
+
+    /**
+     * Client secret.
+     * @since Authlete 1.1
+     */
+    private ?string $clientSecret = null;
+
+    /**
+     * Client type.
+     * @since Authlete 1.1
+     */
+    private ?string $clientType = null;  // ClientType
+
+    /**
+     * Redirect URIs.
+     * @since Authlete 1.1
+     */
+    private ?array $redirectUris = null;  // array of string
+
+    /**
+     * Response types.
+     * @since Authlete 1.1
+     */
+    private ?array $responseTypes = null;  // array of \Authlete\Types\ResponseType
+
+    /**
+     * Grant types.
+     * @since Authlete 1.1
+     */
+    private ?array $grantTypes = null;  // array of \Authlete\Types\GrantType
+
+    /**
+     * Application type.
+     * @since Authlete 1.1
+     */
+    private ?string $applicationType = null;  // ApplicationType
+
+    /**
+     * Email addresses of contacts.
+     * @since Authlete 1.1
+     */
+    private ?array $contacts = null;  // array of string
+
+    /**
+     * Client name.
+     * @since Authlete 1.1
+     */
+    private ?string $clientName = null;
+
+    /**
+     * Client names.
+     * @since Authlete 1.1
+     */
+    private ?array $clientNames = null;  // array of \Authlete\Dto\TaggedValue
+
+    /**
+     * Logo URI.
+     * @since Authlete 1.1
+     */
+    private ?string $logoUri = null;
+
+    /**
+     * Logo URIs.
+     * @since Authlete 1.1
+     */
+    private ?array $logoUris = null;  // array of \Authlete\Dto\TaggedValue
+
+    /**
+     * Client URI.
+     * @since Authlete 1.1
+     */
+    private ?string $clientUri = null;
+
+    /**
+     * Client URIs.
+     * @since Authlete 1.1
+     */
+    private ?array $clientUris = null;  // array of \Authlete\Dto\TaggedValue
+
+    /**
+     * Policy URI.
+     * @since Authlete 1.1
+     */
+    private ?string $policyUri = null;
+
+    /**
+     * Policy URIs.
+     * @since Authlete 1.1
+     */
+    private ?array $policyUris = null;  // array of \Authlete\Dto\TaggedValue
+
+    /**
+     * Terms of Service URI.
+     * @since Authlete 1.1
+     */
+    private ?string $tosUri = null;
+
+    /**
+     * Terms of Service URIs.
+     * @since Authlete 1.1
+     */
+    private ?array $tosUris = null;  // array of \Authlete\Dto\TaggedValue
+
+    /**
+     * JSON Web Key Set URI.
+     * @since Authlete 1.1
+     */
+    private ?string $jwksUri = null;
+
+    /**
+     * JSON Web Key Set.
+     * @since Authlete 1.1
+     */
+    private ?string $jwks = null;
+
+    /**
+     * Calculated sector identifier host component.
+     * @since Authlete 2.2.1
+     */
+    private ?string $derivedSectorIdentifier = null;
+
+    /**
+     * Sector identifier URI.
+     * @since Authlete 2.2.1
+     */
+    private ?string $sectorIdentifierUri = null;
+
+    /**
+     * Subject type.
+     * @since Authlete 1.1
+     */
+    private ?string $subjectType = null;  // SubjectType
+
+    /**
+     * ID token signature algorithm.
+     * @since Authlete 1.1
+     */
+    private ?string $idTokenSignAlg = null;  // JWSAlg
+
+    /**
+     * ID token encryption algorithm.
+     * @since Authlete 1.1
+     */
+    private ?string $idTokenEncryptionAlg = null;  // JWEAlg
+
+    /**
+     * ID token encryption encoding.
+     * @since Authlete 1.1
+     */
+    private ?string $idTokenEncryptionEnc = null;  // JWEEnc
+
+    /**
+     * User info signature algorithm.
+     * @since Authlete 1.1
+     */
+    private ?string $userInfoSignAlg = null;  // JWSAlg
+
+    /**
+     * User info encryption algorithm.
+     * @since Authlete 1.1
+     */
+    private ?string $userInfoEncryptionAlg = null;  // JWEAlg
+
+    /**
+     * User info encryption encoding.
+     * @since Authlete 1.1
+     */
+    private ?string $userInfoEncryptionEnc = null;  // JWEEnc
+
+    /**
+     * Request signature algorithm.
+     * @since Authlete 1.1
+     */
+    private ?string $requestSignAlg = null;  // JWSAlg
+
+    /**
+     * Request encryption algorithm.
+     * @since Authlete 1.1
+     */
+    private ?string $requestEncryptionAlg = null;  // JWEAlg
+
+    /**
+     * Request encryption encoding.
+     * @since Authlete 1.1
+     */
+    private ?string $requestEncryptionEnc = null;  // JWEEnc
+
+    /**
+     * Token authentication method.
+     * @since Authlete 1.1
+     */
+    private ?string $tokenAuthMethod = null;  // ClientAuthMethod
+
+    /**
+     * Token authentication signature algorithm.
+     * @since Authlete 1.1
+     */
+    private ?string $tokenAuthSignAlg = null;  // JWSAlg
+
+    /**
+     * Default maximum age.
+     * @since Authlete 1.1
+     */
+    private string|int|null $defaultMaxAge = null;
+
+    /**
+     * Default ACRs.
+     * @since Authlete 1.1
+     */
+    private ?array $defaultAcrs = null;  // array of string
+
+    /**
+     * Whether authentication time is required.
+     * @since Authlete 1.1
+     */
+    private bool $authTimeRequired = false;
+
+    /**
+     * Login URI.
+     * @since Authlete 1.1
+     */
+    private ?string $loginUri = null;
+
+    /**
+     * Request URIs.
+     * @since Authlete 1.1
+     */
+    private ?array $requestUris = null;  // array of string
+
+    /**
+     * Description.
+     * @since Authlete 1.1
+     */
+    private ?string $description = null;
+
+    /**
+     * Descriptions.
+     * @since Authlete 1.1
+     */
+    private ?array $descriptions = null;  // array of \Authlete\Dto\TaggedValue
+
+    /**
+     * Creation timestamp.
+     * @since Authlete 1.1
+     */
+    private string|int|null $createdAt = null;
+
+    /**
+     * Modification timestamp.
+     * @since Authlete 1.1
+     */
+    private string|int|null $modifiedAt = null;
+
+    /**
+     * Client extension.
+     * @since Authlete 1.1
+     */
+    private ?ClientExtension $extension = null;
+
+    /**
+     * TLS client authentication subject DN.
+     * @since Authlete 1.1.17
+     */
+    private ?string $tlsClientAuthSubjectDn = null;
+
+    /**
+     * TLS client authentication SAN DNS.
+     * @since Authlete 2.0.0
+     */
+    private ?string $tlsClientAuthSanDns = null;
+
+    /**
+     * TLS client authentication SAN URI.
+     * @since Authlete 2.0.0
+     */
+    private ?string $tlsClientAuthSanUri = null;
+
+    /**
+     * TLS client authentication SAN IP.
+     * @since Authlete 2.0.0
+     */
+    private ?string $tlsClientAuthSanIp = null;
+
+    /**
+     * TLS client authentication SAN email.
+     * @since Authlete 2.0.0
+     */
+    private ?string $tlsClientAuthSanEmail = null;
+
+    /**
+     * Whether TLS client certificate-bound access tokens are enabled.
+     * @since Authlete 1.1.19
+     */
+    private bool $tlsClientCertificateBoundAccessTokens = false;
+
+    /**
+     * Self-signed certificate key ID.
+     * @since Authlete 1.1.19
+     */
+    private ?string $selfSignedCertificateKeyId = null;
+
+    /**
+     * Software ID.
+     * @since Authlete 2.3.0
+     */
+    private ?string $softwareId = null;
+
+    /**
+     * Software version.
+     * @since Authlete 2.3.0
+     */
+    private ?string $softwareVersion = null;
+
+    /**
+     * Authorization signature algorithm.
+     * @since Authlete 2.0.0
+     */
+    private ?string $authorizationSignAlg = null;  // JWSAlg
+
+    /**
+     * Authorization encryption algorithm.
+     * @since Authlete 2.0.0
+     */
+    private ?string $authorizationEncryptionAlg = null;  // JWEAlg
+
+    /**
+     * Authorization encryption encoding.
+     * @since Authlete 2.0.0
+     */
+    private ?string $authorizationEncryptionEnc = null;  // JWEEnc
+
+    /**
+     * Backchannel delivery mode.
+     * @since Authlete 2.0.0
+     */
+    private ?string $bcDeliveryMode = null;  // DeliveryMode
+
+    /**
+     * Backchannel notification endpoint.
+     * @since Authlete 2.0.0
+     */
+    private ?string $bcNotificationEndpoint = null;
+
+    /**
+     * Backchannel request signature algorithm.
+     * @since Authlete 2.0.0
+     */
+    private ?string $bcRequestSignAlg = null;  // JWSAlg
+
+    /**
+     * Whether backchannel user code is required.
+     * @since Authlete 2.0.0
+     */
+    private bool $bcUserCodeRequired = false;
+
+    /**
+     * Whether the client was dynamically registered.
+     * @since Authlete 2.0.0
+     */
+    private bool $dynamicallyRegistered = false;
+
+    /**
+     * Registration access token hash.
+     * @since Authlete 2.0.0
+     */
+    private ?string $registrationAccessTokenHash = null;
+
+    /**
+     * Authorization data types.
+     * @since Authlete 2.2.7
+     */
+    private ?array $authorizationDataTypes = null;  // array of string
+
+    /**
+     * Whether PAR is required.
+     * @since Authlete 2.2.1
+     */
+    private bool $parRequired = false;
+
+    /**
+     * Whether request object is required.
+     * @since Authlete 2.2.1
+     */
+    private bool $requestObjectRequired = false;
+
+
+    /**
+     * Digest algorithm.
+     * @since Authlete 2.3.0
+     */
+    private ?string $digestAlgorithm = null;
+
+    /**
+     * Whether a single access token per subject is enabled.
+     * @since Authlete 2.3.0
+     */
+    private bool $singleAccessTokenPerSubject = false;
+
+    /**
+     * Whether PKCE is required.
+     * @since Authlete 2.3.0
+     */
+    private bool $pkceRequired = false;
+
+    /**
+     * Whether PKCE S256 is required.
+     * @since Authlete 2.3.0
+     */
+    private bool $pkceS256Required = false;
+
+    /**
+     * RS signed request key ID.
+     * @since Authlete 2.3.0
+     */
+    private ?string $rsSignedRequestKeyId = null;
+
+    /**
+     * Whether RS request is signed.
+     * @since Authlete 2.3.0
+     */
+    private bool $rsRequestSigned = false;
+
+    /**
+     * Whether DPoP is required.
+     * @since Authlete 2.3.0
+     */
+    private bool $dpopRequired = false;
+
+    /**
+     * Whether the client is locked.
+     * @since Authlete 2.3.7
+     */
+    private bool $locked = false;
+
+    /**
+     * FAPI modes.
+     * @since Authlete 3.0.0
+     */
+    private ?array $fapiModes = null;  // array of FapiMode
+
+    /**
+     * Response modes.
+     * @since Authlete 3.0.0
+     */
+    private ?array $responseModes = null;  // array of ResponseMode
+
+    /**
+     * Entity ID.
+     * @since Authlete 2.3.0
+     */
+    private ?string $entityId = null;
+
+    /**
+     * Trust anchor ID.
+     * @since Authlete 2.3.0
+     */
+    private ?string $trustAnchorId = null;
+
+    /**
+     * Trust chain.
+     * @since Authlete 2.3.0
+     */
+    private ?array $trustChain = null;  // array of string
+
+    /**
+     * Trust chain expiration timestamp.
+     * @since Authlete 2.3.0
+     */
+    private string|int|null $trustChainExpiresAt = null;
+
+    /**
+     * Trust chain update timestamp.
+     * @since Authlete 2.3.0
+     */
+    private string|int|null $trustChainUpdatedAt = null;
+
+    /**
+     * Organization name.
+     * @since Authlete 2.3.0
+     */
+    private ?string $organizationName = null;
+
+    /**
+     * Signed JWKS URI.
+     * @since Authlete 2.3.0
+     */
+    private ?string $signedJwksUri = null;
+
+    /**
+     * Client registration types.
+     * @since Authlete 2.3.0
+     */
+    private ?array $clientRegistrationTypes = null;  // array of ClientRegistrationType
+
+    /**
+     * Whether the client is automatically registered.
+     * @since Authlete 2.3.0
+     */
+    private bool $automaticallyRegistered = false;
+
+    /**
+     * Whether the client is explicitly registered.
+     * @since Authlete 2.3.0
+     */
+    private bool $explicitlyRegistered = false;
+
+    /**
+     * Credential offer endpoint.
+     * @since Authlete 3.0
+     */
+    private ?string $credentialOfferEndpoint = null;
+
+    /**
+     * Whether credential response encryption is required.
+     * @since Authlete 3.0
+     */
+    private bool $credentialResponseEncryptionRequired = false;
 
 
     /**
