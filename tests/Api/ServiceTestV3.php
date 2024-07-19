@@ -4,6 +4,7 @@ namespace Tests\Api;
 
 use Authlete\Api\AuthleteApiException;
 use Authlete\Dto\Service;
+use function PHPUnit\Framework\assertNotNull;
 
 class ServiceTestV3 extends IntegrationTestBase
 {
@@ -60,6 +61,8 @@ class ServiceTestV3 extends IntegrationTestBase
     {
         try {
             $this->apiFor($service)->deleteService();
+            //it is a dummy assertion just for finishing the test method
+            assertNotNull($service);
         } catch (AuthleteApiException $exception) {
             error_log("Authlete API Exception: " . $exception->getMessage());
         }

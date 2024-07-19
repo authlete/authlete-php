@@ -141,7 +141,7 @@ class AuthleteApiImplV3
      */
     public function createService(Service $service): ?Service
     {
-        $uri = sprintf(self::$SERVICE_CREATE_API_PATH, $this->mServiceId);
+        $uri = self::$SERVICE_CREATE_API_PATH;
         $sendGetRequest = self::sendPostRequest($uri, $service, $this->httpClient);
         return $this->serializer->deserialize($sendGetRequest, Service::class, 'json');
     }

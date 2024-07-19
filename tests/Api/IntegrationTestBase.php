@@ -12,6 +12,7 @@ class IntegrationTestBase extends TestCase
 {
     private static string $ENV_BASE_URL = 'AUTHLETE_BASE_URL';
     private static string $ENV_SERVICE_ACCESS_TOKEN = 'AUTHLETE_SERVICE_ACCESS_TOKEN';
+    private static string $ENV_SERVICE_API_VERSION = 'AUTHLETE_API_VERSION';
 
     static AuthleteSimpleConfiguration $configuration;
 
@@ -32,6 +33,7 @@ class IntegrationTestBase extends TestCase
         $conf = new AuthleteSimpleConfiguration();
         $conf->setBaseUrl(LanguageUtility::getFromEnv(self::$ENV_BASE_URL));
         $conf->setServiceAccessToken(LanguageUtility::getFromEnv(self::$ENV_SERVICE_ACCESS_TOKEN));
+        $conf->setApiVersion(LanguageUtility::getFromEnv(self::$ENV_SERVICE_API_VERSION));
         self::$configuration = $conf;
 
     }

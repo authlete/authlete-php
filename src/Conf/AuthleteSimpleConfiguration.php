@@ -147,5 +147,13 @@ class AuthleteSimpleConfiguration implements AuthleteConfiguration
         $this->serviceAccessToken = $accessToken;
         return $this;
     }
+
+    public function setApiVersion(string $apiVersion): static
+    {
+        ValidationUtility::ensureNullOrString('$apiVersion', $apiVersion);
+        $this->apiVersion = $apiVersion;
+        return $this;
+    }
+
 }
 

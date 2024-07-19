@@ -11,7 +11,9 @@
     ],
     "homepage": "https://github.com/authlete/authlete-php",
     "require": {
-        "php": "8.3.*"
+        "php": "8.3.*",
+        "symfony/serializer": "v7.1.2",
+        "symfony/property-access": "v7.1.1"
     },
     "autoload": {
         "psr-4": {
