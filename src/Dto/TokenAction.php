@@ -1,6 +1,6 @@
 <?php
 //
-// Copyright (C) 2018 Authlete, Inc.
+// Copyright (C) 2018-2024 Authlete, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -98,6 +98,52 @@ class TokenAction
      * @var TokenAction
      */
     public static $OK;
+
+
+    /**
+     * The token request from the client was a valid token exchange request.
+     *
+     * The token endpoint implementation should take necessary actions (e.g.
+     * create an access token), generate a response and return it to the
+     * client application.
+     *
+     * @static
+     * @var TokenAction
+     * @since 1.13.0
+     */
+    public static $TOKEN_EXCHANGE;
+
+
+    /**
+     * The token request from the client was a valid token request with the
+     * grant type `"urn:ietf:params:oauth:grant-type:jwt-bearer"`.
+     *
+     * The token endpoint implementation must verify the signature of the
+     * assertion, create an access token, generate a response and return it
+     * to the client application.
+     *
+     * @static
+     * @var TokenAction
+     * @since 1.13.0
+     */
+    public static $JWT_BEARER;
+
+
+    /**
+     * The token request from the client was a valid token request using
+     * the refresh token flow and an ID token can be reissued.
+     *
+     * The token endpoint implementation can choose either (1) to execute
+     * the same steps as for the `$OK` action which results in the same
+     * behavior as before, or (2) to call the `/idtoken/reissue` API to
+     * reissue a new ID token together with a new access token and a
+     * refresh token.
+     *
+     * @static
+     * @var TokenAction
+     * @since 1.13.0
+     */
+    public static $ID_TOKEN_REISSUABLE;
 }
 
 

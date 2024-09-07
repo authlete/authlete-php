@@ -1,6 +1,12 @@
 CHANGES
 =======
 
+- `TokenAction` class
+    * Added `$TOKEN_EXCHANGE`.
+    * Added `$JWT_BEARER`.
+    * Added `$ID_TOKEN_REISSUABLE`.
+
+
 1.12.0 (2022-08-17)
 -------------------
 

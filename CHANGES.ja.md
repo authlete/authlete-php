@@ -1,6 +1,12 @@
 CHANGES (日本語)
 ================
 
+- `TokenAction` クラス
+    * `$TOKEN_EXCHANGE` を追加。
+    * `$JWT_BEARER` を追加。
+    * `$ID_TOKEN_REISSUABLE` を追加。
+
+
 1.12.0 (2022 年 08 月 17 日)
 ----------------------------
 
