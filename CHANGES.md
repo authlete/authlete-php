@@ -6,6 +6,9 @@ CHANGES
     * Added `$JWT_BEARER`.
     * Added `$ID_TOKEN_REISSUABLE`.
 
+- New parts
+    * `DynamicScope` class
+
 
 1.12.0 (2022-08-17)
 -------------------

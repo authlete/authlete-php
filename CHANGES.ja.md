@@ -6,6 +6,9 @@ CHANGES (日本語)
     * `$JWT_BEARER` を追加。
     * `$ID_TOKEN_REISSUABLE` を追加。
 
+- 新しい部品
+    * `DynamicScope` クラス
+
 
 1.12.0 (2022 年 08 月 17 日)
 ----------------------------
