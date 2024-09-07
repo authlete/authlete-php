@@ -29,6 +29,7 @@ CHANGES (日本語)
 - 新しい部品
     * `AuthorizationTicketInfo` クラス
     * `DynamicScope` クラス
+    * `GMAction` クラス
 
 
 1.12.0 (2022 年 08 月 17 日)

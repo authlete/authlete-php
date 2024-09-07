@@ -29,6 +29,7 @@ CHANGES
 - New parts
     * `AuthorizationTicketInfo` class
     * `DynamicScope` class
+    * `GMAction` class
 
 
 1.12.0 (2022-08-17)
