@@ -109,7 +109,7 @@ class TokenAction
      *
      * @static
      * @var TokenAction
-     * @since 1.13.0
+     * @since 1.13.0 Available since Authlete 2.3.
      */
     public static $TOKEN_EXCHANGE;
 
@@ -124,7 +124,7 @@ class TokenAction
      *
      * @static
      * @var TokenAction
-     * @since 1.13.0
+     * @since 1.13.0 Available since Authlete 2.3.
      */
     public static $JWT_BEARER;
 
@@ -141,7 +141,7 @@ class TokenAction
      *
      * @static
      * @var TokenAction
-     * @since 1.13.0
+     * @since 1.13.0 Available since Authlete 3.0.
      */
     public static $ID_TOKEN_REISSUABLE;
 }
