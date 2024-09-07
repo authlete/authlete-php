@@ -13,6 +13,10 @@ CHANGES (日本語)
     * `getAccessTokenDuration()` メソッドを追加。
     * `setAccessTokenDuration()` メソッドを追加。
 
+- `AuthorizationIssueResponse` クラス
+    * `getTicketInfo()` メソッドを追加。
+    * `setTicketInfo()` メソッドを追加。
+
 - `TokenAction` クラス
     * `$TOKEN_EXCHANGE` を追加。
     * `$JWT_BEARER` を追加。

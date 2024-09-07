@@ -13,6 +13,10 @@ CHANGES
     * Added `getAccessTokenDuration()` method.
     * Added `setAccessTokenDuration()` method.
 
+- `AuthorizationIssueResponse` class
+    * Added `getTicketInfo()` method.
+    * Added `setTicketInfo()` method.
+
 - `TokenAction` class
     * Added `$TOKEN_EXCHANGE`.
     * Added `$JWT_BEARER`.

@@ -1,6 +1,6 @@
 <?php
 //
-// Copyright (C) 2018-2020 Authlete, Inc.
+// Copyright (C) 2018-2024 Authlete, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -134,6 +134,7 @@ class AuthorizationIssueResponse extends ApiResponse
     private $idToken              = null;  // string
     private $authorizationCode    = null;  // string
     private $jwtAccessToken       = null;  // string
+    private $ticketInfo           = null;  // \Authlete\Dto\AuthorizationTicketInfo
 
 
     /**
@@ -439,6 +440,41 @@ class AuthorizationIssueResponse extends ApiResponse
 
 
     /**
+     * Get the information about the ticket that was presented to the
+     * `/auth/authorization/issue` API.
+     *
+     * @return AuthorizationTicketInfo
+     *     The information about the ticket.
+     *
+     * @since 1.13.0 Available since Authlete 3.0.
+     */
+    public function getTicketInfo()
+    {
+        return $this->ticketInfo;
+    }
+
+
+    /**
+     * Set the information about the ticket that was presented to the
+     * `/auth/authorization/issue` API.
+     *
+     * @param AuthorizationTicketInfo $info
+     *     The information about the ticket.
+     *
+     * @return AuthorizationIssueResponse
+     *     `$this` object.
+     *
+     * @since 1.13.0 Available since Authlete 3.0.
+     */
+    public function setTicketInfo(AuthorizationTicketInfo $info = null)
+    {
+        $this->ticketInfo = $info;
+
+        return $this;
+    }
+
+
+    /**
      * {@inheritdoc}
      *
      * {@inheritdoc}
@@ -458,6 +494,7 @@ class AuthorizationIssueResponse extends ApiResponse
         $array['idToken']              = $this->idToken;
         $array['authorizationCode']    = $this->authorizationCode;
         $array['jwtAccessToken']       = $this->jwtAccessToken;
+        $array['ticketInfo']           = LanguageUtility::convertArrayCopyableToArray($this->ticketInfo);
     }
 
 
@@ -505,6 +542,12 @@ class AuthorizationIssueResponse extends ApiResponse
         // jwtAccessToken
         $this->setJwtAccessToken(
             LanguageUtility::getFromArray('jwtAccessToken', $array));
+
+        // ticketInfo
+        $_ticketInfo = LanguageUtility::getFromArray('ticketInfo', $array);
+        $this->setTicketInfo(
+            LanguageUtility::convertArrayToArrayCopyable(
+                $_ticketInfo, __NAMESPACE__ . '\AuthorizationTicketInfo'));
     }
 }
 ?>
