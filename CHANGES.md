@@ -19,6 +19,7 @@ CHANGES
     * Added `$ID_TOKEN_REISSUABLE`.
 
 - New parts
+    * `AuthorizationTicketInfo` class
     * `DynamicScope` class
 
 

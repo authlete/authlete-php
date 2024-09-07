@@ -19,6 +19,7 @@ CHANGES (日本語)
     * `$ID_TOKEN_REISSUABLE` を追加。
 
 - 新しい部品
+    * `AuthorizationTicketInfo` クラス
     * `DynamicScope` クラス
 
 
