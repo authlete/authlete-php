@@ -1,6 +1,6 @@
 <?php
 //
-// Copyright (C) 2018 Authlete, Inc.
+// Copyright (C) 2018-2024 Authlete, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -47,6 +47,7 @@ class AuthorizationRequest implements ArrayCopyable, Arrayable, Jsonable
 
 
     private $parameters = null;  // string
+    private $context    = null;  // string
 
 
     /**
@@ -90,6 +91,55 @@ class AuthorizationRequest implements ArrayCopyable, Arrayable, Jsonable
 
 
     /**
+     * Get the arbitrary text to be attached to the ticket that will be issued
+     * from the `/auth/authorization` API.
+     *
+     * The text can be retrieved later by the `/auth/authorization/ticket/info`
+     * API and can be updated by the `/auth/authorization/ticket/update` API.
+     *
+     * The text will be compressed and encrypted when it is saved in the Authlete
+     * database.
+     *
+     * @return string
+     *     The arbitrary text to be attached to the ticket.
+     *
+     * @since 1.13.0 Available since Authlete 3.0.
+     */
+    public function getContext()
+    {
+        return $this->context;
+    }
+
+
+    /**
+     * Set the arbitrary text to be attached to the ticket that will be issued
+     * from the `/auth/authorization` API.
+     *
+     * The text can be retrieved later by the `/auth/authorization/ticket/info`
+     * API and can be updated by the `/auth/authorization/ticket/update` API.
+     *
+     * The text will be compressed and encrypted when it is saved in the Authlete
+     * database.
+     *
+     * @param string $context
+     *     The arbitrary text to be attached to the ticket.
+     *
+     * @return AuthorizationRequest
+     *     `$this` object
+     *
+     * @since 1.13.0 Available since Authlete 3.0.
+     */
+    public function setContext($context)
+    {
+        ValidationUtility::ensureNullOrString('$context', $context);
+
+        $this->context = $context;
+
+        return $this;
+    }
+
+
+    /**
      * {@inheritdoc}
      *
      * {@inheritdoc}
@@ -100,6 +150,7 @@ class AuthorizationRequest implements ArrayCopyable, Arrayable, Jsonable
     public function copyToArray(array &$array)
     {
         $array['parameters'] = $this->parameters;
+        $array['context']    = $this->context;
     }
 
 
@@ -116,6 +167,10 @@ class AuthorizationRequest implements ArrayCopyable, Arrayable, Jsonable
         // parameters
         $this->setParameters(
             LanguageUtility::getFromArray('parameters', $array));
+
+        // context
+        $this->setContext(
+            LanguageUtility::getFromArray('context', $array));
     }
 }
 ?>

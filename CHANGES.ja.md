@@ -17,6 +17,10 @@ CHANGES (日本語)
     * `getTicketInfo()` メソッドを追加。
     * `setTicketInfo()` メソッドを追加。
 
+- `AuthorizationRequest` クラス
+    * `getContext()` メソッドを追加。
+    * `setContext()` メソッドを追加。
+
 - `TokenAction` クラス
     * `$TOKEN_EXCHANGE` を追加。
     * `$JWT_BEARER` を追加。
