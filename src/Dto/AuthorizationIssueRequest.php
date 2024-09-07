@@ -43,15 +43,20 @@ class AuthorizationIssueRequest implements ArrayCopyable, Arrayable, Jsonable
     use JsonTrait;
 
 
-    private $ticket          = null;  // string
-    private $subject         = null;  // string
-    private $sub             = null;  // string
-    private $authTime        = null;  // string or (64-bit) integer
-    private $acr             = null;  // string
-    private $claims          = null;  // string
-    private $properties      = null;  // array of \Authlete\Dto\Property
-    private $scopes          = null;  // array of string
-    private $idtHeaderParams = null;  // string
+    private $ticket              = null;  // string
+    private $subject             = null;  // string
+    private $sub                 = null;  // string
+    private $authTime            = null;  // string or (64-bit) integer
+    private $acr                 = null;  // string
+    private $claims              = null;  // string
+    private $properties          = null;  // array of \Authlete\Dto\Property
+    private $scopes              = null;  // array of string
+    private $idtHeaderParams     = null;  // string
+    private $consentedClaims     = null;  // array of string
+    private $jwtAtClaims         = null;  // string
+    private $accessToken         = null;  // string
+    private $idTokenAudType      = null;  // string
+    private $accessTokenDuration = null;  // string or (64-bit) integer
 
 
     /**
@@ -189,7 +194,7 @@ class AuthorizationIssueRequest implements ArrayCopyable, Arrayable, Jsonable
 
 
     /**
-     * Get the time when the authentication of the end-user occurred.
+     * Set the time when the authentication of the end-user occurred.
      *
      * The value should represent the elapsed time since the Unix epoch
      * (1970-Jan-1) in seconds.
@@ -487,9 +492,324 @@ class AuthorizationIssueRequest implements ArrayCopyable, Arrayable, Jsonable
      */
     public function setIdtHeaderParams($params)
     {
-        ValidationUtility::ensureNullOrString('$idtHeaderParams', $params);
+        ValidationUtility::ensureNullOrString('$params', $params);
 
         $this->idtHeaderParams = $params;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the claims that the user has consented for the client application
+     * to know.
+     *
+     * @return string[]
+     *     A string array that represents consented claims.
+     *
+     * @since 1.13.0
+     */
+    public function getConsentedClaims()
+    {
+        return $this->consentedClaims;
+    }
+
+
+    /**
+     * Set the claims that the user has consented for the client application
+     * to know.
+     *
+     * If the `claims` request parameter holds JSON, Authlete extracts claims
+     * from the JSON and embeds them in an ID token. However, the claims are
+     * not necessarily identical to the set of claims that the user has
+     * actually consented for the client application to know.
+     *
+     * For example, if the user has allowed the `profile` scope to be tied to
+     * an access token being issued, it technically means that the user has
+     * consented for the client application to know the following claims based
+     * on the mapping defined in OpenID Connect Core 1.0, Section 5.4.
+     * Requesting Claims using Scope Values: `name`, `family_name`, `given_name`,
+     * `middle_name`, `nickname`, `preferred_username`, `profile`, `picture`,
+     * `website`, `gender`, `birthdate`, `zoneinfo`, `locale` and `updated_at`.
+     * However, JSON of the `claims` request parameter does not necessarily
+     * include all the claims. It may be simply because the authorization server
+     * does not support other claims or because the authorization server intends
+     * to return requested claims from the userinfo endpoint instead of embedding
+     * them in an ID token, or for some other reasons. Therefore, Authlete does
+     * not assume that the claims in the JSON of the `claims` request parameter
+     * represent the complete set of consented claims.
+     *
+     * This `consentedClaims` request parameter (available since Authlete 2.3)
+     * can be used to convey the exact set of consented claims to Authlete.
+     * Authlete saves the information into its database and makes them
+     * referrable in responses from the `/auth/introspection` API and the
+     * `/auth/userinfo` API.
+     *
+     * In addition, the information conveyed via this `consentedClaims` request
+     * parameter is used to compute the exact value of the `claims` parameter
+     * in responses from the grant management endpoint, which is defined in
+     * Grant Management for OAuth 2.0.
+     *
+     * When this request parameter is missing or its value is empty, Authlete
+     * computes the set of consented claims from the consented scopes (e.g.
+     * `profile`) and the claims in the JSON of the `claims` request parameter
+     * although Authlete knows the possibility that the computed set may be
+     * different from the actual set of consented claims. Especially, the
+     * computed set may not include claims that the authorization server
+     * returns from the userinfo endpoint. Therefore, if you want to control
+     * the exact set of consented claims, utilize this request parameter.
+     *
+     * @param array $claims
+     *     A string array that represents consented claims.
+     *
+     * @return AuthorizationIssueRequest
+     *     `$this` object.
+     *
+     * @since 1.13.0
+     */
+    public function setConsentedClaims(array $claims = null)
+    {
+        ValidationUtility::ensureNullOrArrayOfString('$claims', $claims);
+
+        $this->consentedClaims = $claims;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the additional claims in JSON object format that are added to the
+     * payload part of the JWT access token.
+     *
+     * This request parameter has a meaning only when the format of access
+     * tokens issued by this service is JWT. In other words, it has a meaning
+     * only when the `accessTokenSignAlg` property of the `Service` holds a
+     * non-null value.
+     *
+     * @return string
+     *     Additional claims that are added to the payload part of the JWT
+     *     access token.
+     *
+     * @since 1.13.0
+     */
+    public function getJwtAtClaims()
+    {
+        return $this->jwtAtClaims;
+    }
+
+
+    /**
+     * Set the additional claims in JSON object format that are added to the
+     * payload part of the JWT access token.
+     *
+     * This request parameter has a meaning only when the format of access
+     * tokens issued by this service is JWT. In other words, it has a meaning
+     * only when the `accessTokenSignAlg` property of the `Service` holds a
+     * non-null value.
+     *
+     * @param string $claims
+     *     Additional claims that are added to the payload part of the JWT
+     *     access token.
+     *
+     * @return AuthorizationIssueRequest
+     *     `$this` object.
+     *
+     * @since 1.13.0
+     */
+    public function setJwtAtClaims($claims)
+    {
+        ValidationUtility::ensureNullOrString('$claims', $claims);
+
+        $this->jwtAtClaims = $claims;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the representation of an access token that may be issued as a
+     * result of the Authlete API call.
+     *
+     * Basically, it is the Authlete server's role to generate an access token.
+     * However, some systems may have inflexible restrictions on the format of
+     * access tokens. Such systems may use this `accessToken` request parameter
+     * to specify the representation of an access token by themselves instead
+     * of leaving the access token generation task to the Authlete server.
+     *
+     * Usually, the Authlete server (1) generates a random 256-bit value, (2)
+     * base64url-encodes the value into a 43-character string, and (3) uses
+     * the resultant string as the representation of an access token. The
+     * Authlete implementation is written on the assumption that the 256-bit
+     * entropy is big enough. Therefore, make sure that the entropy of the
+     * value of the `accessToken` request parameter is big enough, too.
+     *
+     * The entropy does not necessarily have to be equal to or greater than
+     * 256 bits. For example, 192-bit random values (which will become
+     * 32-character strings when encoded by base64url) may be enough.
+     * However, note that if the entropy is too low, access token string
+     * values will collide and Authlete API calls will fail.
+     *
+     * When no access token is generated as a result of the Authlete API call,
+     * this `accessToken` request parameter is not used. Note that the Authlete
+     * API generates an access token only when the `response_type` request
+     * parameter of the authorization request contains `token`. In other cases,
+     * the Authlete API generates no access token.
+     *
+     * @return string
+     *     The representation of an access token that may be issued as a result
+     *     of the Authlete API call.
+     *
+     * @since 1.13.0
+     */
+    public function getAccessToken()
+    {
+        return $this->accessToken;
+    }
+
+
+    /**
+     * Set the representation of an access token that may be issued as a
+     * result of the Authlete API call.
+     *
+     * Basically, it is the Authlete server's role to generate an access token.
+     * However, some systems may have inflexible restrictions on the format of
+     * access tokens. Such systems may use this `accessToken` request parameter
+     * to specify the representation of an access token by themselves instead
+     * of leaving the access token generation task to the Authlete server.
+     *
+     * Usually, the Authlete server (1) generates a random 256-bit value, (2)
+     * base64url-encodes the value into a 43-character string, and (3) uses
+     * the resultant string as the representation of an access token. The
+     * Authlete implementation is written on the assumption that the 256-bit
+     * entropy is big enough. Therefore, make sure that the entropy of the
+     * value of the `accessToken` request parameter is big enough, too.
+     *
+     * The entropy does not necessarily have to be equal to or greater than
+     * 256 bits. For example, 192-bit random values (which will become
+     * 32-character strings when encoded by base64url) may be enough.
+     * However, note that if the entropy is too low, access token string
+     * values will collide and Authlete API calls will fail.
+     *
+     * When no access token is generated as a result of the Authlete API call,
+     * this `accessToken` request parameter is not used. Note that the Authlete
+     * API generates an access token only when the `response_type` request
+     * parameter of the authorization request contains `token`. In other cases,
+     * the Authlete API generates no access token.
+     *
+     * @param string $accessToken
+     *     The representation of an access token that may be issued as a result
+     *     of the Authlete API call.
+     *
+     * @return AuthorizationIssueRequest
+     *     `$this` object.
+     *
+     * @since 1.13.0
+     */
+    public function setAccessToken($accessToken)
+    {
+        ValidationUtility::ensureNullOrString('$accessToken', $accessToken);
+
+        $this->accessToken = $accessToken;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the type of the `aud` claim of the ID token being issued. Valid
+     * values are as follows.
+     *
+     * `'array'`: The type of the `aud` claim is always an array of strings.
+     *
+     * `'string'`: The type of the `aud` claim is always a single string.
+     *
+     * null: The type of the `aud` claim remains the same as before.
+     *
+     * This request parameter takes precedence over the `idTokenAudType`
+     * property of `Service`.
+     *
+     * @return string
+     *     The type of the `aud` claim in ID tokens.
+     *
+     * @since 1.13.0
+     */
+    public function getIdTokenAudType()
+    {
+        return $this->idTokenAudType;
+    }
+
+
+    /**
+     * Set the type of the `aud` claim of the ID token being issued. Valid
+     * values are as follows.
+     *
+     * `'array'`: The type of the `aud` claim is always an array of strings.
+     *
+     * `'string'`: The type of the `aud` claim is always a single string.
+     *
+     * null: The type of the `aud` claim remains the same as before.
+     *
+     * This request parameter takes precedence over the `idTokenAudType`
+     * property of `Service`.
+     *
+     * @param string $type
+     *     The type of the `aud` claim in ID tokens.
+     *
+     * @return AuthorizationIssueRequest
+     *     `$this` object.
+     *
+     * @since 1.13.0
+     */
+    public function setIdTokenAudType($type)
+    {
+        ValidationUtility::ensureNullOrString('$type', $type);
+
+        $this->idTokenAudType = $type;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the duration of the access token that may be issued as a result of
+     * the Authlete API call.
+     *
+     * When this request parameter holds a positive integer, it is used as the
+     * duration of the access token. In other cases, this request parameter is
+     * ignored.
+     *
+     * @return integer|string
+     *     The duration of the access token in seconds.
+     *
+     * @since 1.13.0
+     */
+    public function getAccessTokenDuration()
+    {
+        return $this->accessTokenDuration;
+    }
+
+
+    /**
+     * Set the duration of the access token that may be issued as a result of
+     * the Authlete API call.
+     *
+     * When this request parameter holds a positive integer, it is used as the
+     * duration of the access token. In other cases, this request parameter is
+     * ignored.
+     *
+     * @param integer|string $duration
+     *     The duration of the access token in seconds.
+     *
+     * @return AuthorizationIssueRequest
+     *     `$this` object.
+     *
+     * @since 1.13.0
+     */
+    public function setAccessTokenDuration($duration)
+    {
+        ValidationUtility::ensureNullOrStringOrInteger('$duration', $duration);
+
+        $this->accessTokenDuration = $duration;
 
         return $this;
     }
@@ -505,15 +825,20 @@ class AuthorizationIssueRequest implements ArrayCopyable, Arrayable, Jsonable
      */
     public function copyToArray(array &$array)
     {
-        $array['ticket']          = $this->ticket;
-        $array['subject']         = $this->subject;
-        $array['sub']             = $this->sub;
-        $array['authTime']        = LanguageUtility::orZero($this->authTime);
-        $array['acr']             = $this->acr;
-        $array['claims']          = $this->claims;
-        $array['properties']      = LanguageUtility::convertArrayOfArrayCopyableToArray($this->properties);
-        $array['scopes']          = $this->scopes;
-        $array['idtHeaderParams'] = $this->idtHeaderParams;
+        $array['ticket']              = $this->ticket;
+        $array['subject']             = $this->subject;
+        $array['sub']                 = $this->sub;
+        $array['authTime']            = LanguageUtility::orZero($this->authTime);
+        $array['acr']                 = $this->acr;
+        $array['claims']              = $this->claims;
+        $array['properties']          = LanguageUtility::convertArrayOfArrayCopyableToArray($this->properties);
+        $array['scopes']              = $this->scopes;
+        $array['idtHeaderParams']     = $this->idtHeaderParams;
+        $array['consentedClaims']     = $this->consentedClaims;
+        $array['jwtAtClaims']         = $this->jwtAtClaims;
+        $array['accessToken']         = $this->accessToken;
+        $array['idTokenAudType']      = $this->idTokenAudType;
+        $array['accessTokenDuration'] = LanguageUtility::orZero($this->accessTokenDuration);
     }
 
 
@@ -563,6 +888,26 @@ class AuthorizationIssueRequest implements ArrayCopyable, Arrayable, Jsonable
          // idtHeaderParams
         $this->setIdtHeaderParams(
             LanguageUtility::getFromArray('idtHeaderParams', $array));
+
+        // consentedClaims
+        $this->setConsentedClaims(
+            LanguageUtility:getFromArray('consentedClaims', $array));
+
+        // jwtAtClaims
+        $this->setJwtAtClaims(
+            LanguageUtility::getFromArray('jwtAtClaims', $array));
+
+        // accessToken
+        $this->setAccessToken(
+            LanguageUtility::getFromArray('accessToken', $array));
+
+        // idTokenAudType
+        $this->setIdTokenAudType(
+            LanguageUtility::getFromArray('idTokenAudType', $array));
+
+        // accessTokenDuration
+        $this->setAccessTokenDuration(
+            LanguageUtility::getFromArray('accessTokenDuration', $array));
     }
 }
 ?>

@@ -1,6 +1,18 @@
 CHANGES
 =======
 
+- `AuthorizationIssueRequest` class
+    * Added `getConsentedClaims()` method.
+    * Added `setConsentedClaims()` method.
+    * Added `getJwtAtCliams()` method.
+    * Added `setJwtAtClaims()` method.
+    * Added `getAccessToken()` method.
+    * Added `setAccessToken()` method.
+    * Added `getIdTokenAudType()` method.
+    * Added `setIdTokenAudType()` method.
+    * Added `getAccessTokenDuration()` method.
+    * Added `setAccessTokenDuration()` method.
+
 - `TokenAction` class
     * Added `$TOKEN_EXCHANGE`.
     * Added `$JWT_BEARER`.

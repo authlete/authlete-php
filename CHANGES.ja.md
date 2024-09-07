@@ -1,6 +1,18 @@
 CHANGES (日本語)
 ================
 
+- `AuthorizationIssueRequest` クラス
+    * `getConsentedClaims()` メソッドを追加。
+    * `setConsentedClaims()` メソッドを追加。
+    * `getJwtAtCliams()` メソッドを追加。
+    * `setJwtAtClaims()` メソッドを追加。
+    * `getAccessToken()` メソッドを追加。
+    * `setAccessToken()` メソッドを追加。
+    * `getIdTokenAudType()` メソッドを追加。
+    * `setIdTokenAudType()` メソッドを追加。
+    * `getAccessTokenDuration()` メソッドを追加。
+    * `setAccessTokenDuration()` メソッドを追加。
+
 - `TokenAction` クラス
     * `$TOKEN_EXCHANGE` を追加。
     * `$JWT_BEARER` を追加。
