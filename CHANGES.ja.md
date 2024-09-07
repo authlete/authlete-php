@@ -28,6 +28,8 @@ CHANGES (日本語)
 
 - 新しい部品
     * `AuthorizationTicketInfo` クラス
+    * `AuthzDetails` クラス
+    * `AuthzDetailsElement` クラス
     * `DynamicScope` クラス
     * `GMAction` クラス
 

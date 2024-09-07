@@ -28,6 +28,8 @@ CHANGES
 
 - New parts
     * `AuthorizationTicketInfo` class
+    * `AuthzDetails` class
+    * `AuthzDetailsElement` class
     * `DynamicScope` class
     * `GMAction` class
 
