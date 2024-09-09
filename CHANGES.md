@@ -23,6 +23,28 @@ CHANGES
     * Added `getContext()` method.
     * Added `setContext()` method.
 
+- `AuthorizationResponse` class
+    * Added `isClientEntityIdUsed()` method.
+    * Added `setClientEntityIdUsed()` method.
+    * Added `getDynamicScopes()` method.
+    * Added `setDynamicScopes()` method.
+    * Added `getClaimsAtUserInfo()` method.
+    * Added `setClaimsAtUserInfo()` method.
+    * Added `getAuthorizationDetails()` method.
+    * Added `setAuthorizationDetails()` method.
+    * Added `getGmAction()` method.
+    * Added `setGmAction()` method.
+    * Added `getGrantId()` method.
+    * Added `setGrantId()` method.
+    * Added `getGrantSubject()` method.
+    * Added `setGrantSubject()` method.
+    * Added `getGrant()` method.
+    * Added `setGrant()` method.
+    * Added `getCredentialOfferInfo()` method.
+    * Added `setCredentialOfferInfo()` method.
+    * Added `getIssuableCredentials()` method.
+    * Added `setIssuableCredentials()` method.
+
 - `TokenAction` class
     * Added `$TOKEN_EXCHANGE`.
     * Added `$JWT_BEARER`.

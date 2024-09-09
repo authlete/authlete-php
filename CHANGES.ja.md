@@ -23,6 +23,28 @@ CHANGES (日本語)
     * `getContext()` メソッドを追加。
     * `setContext()` メソッドを追加。
 
+- `AuthorizationResponse` クラス
+    * `isClientEntityIdUsed()` メソッドを追加。
+    * `setClientEntityIdUsed()` メソッドを追加。
+    * `getDynamicScopes()` メソッドを追加。
+    * `setDynamicScopes()` メソッドを追加。
+    * `getClaimsAtUserInfo()` メソッドを追加。
+    * `setClaimsAtUserInfo()` メソッドを追加。
+    * `getAuthorizationDetails()` メソッドを追加。
+    * `setAuthorizationDetails()` メソッドを追加。
+    * `getGmAction()` メソッドを追加。
+    * `setGmAction()` メソッドを追加。
+    * `getGrantId()` メソッドを追加。
+    * `setGrantId()` メソッドを追加。
+    * `getGrantSubject()` メソッドを追加。
+    * `setGrantSubject()` メソッドを追加。
+    * `getGrant()` メソッドを追加。
+    * `setGrant()` メソッドを追加。
+    * `getCredentialOfferInfo()` メソッドを追加。
+    * `setCredentialOfferInfo()` メソッドを追加。
+    * `getIssuableCredentials()` メソッドを追加。
+    * `setIssuableCredentials()` メソッドを追加。
+
 - `TokenAction` クラス
     * `$TOKEN_EXCHANGE` を追加。
     * `$JWT_BEARER` を追加。

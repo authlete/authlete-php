@@ -1,6 +1,6 @@
 <?php
 //
-// Copyright (C) 2018-2021 Authlete, Inc.
+// Copyright (C) 2018-2024 Authlete, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -26,6 +26,7 @@ namespace Authlete\Dto;
 
 
 use Authlete\Types\Display;
+use Authlete\Types\GMAction;
 use Authlete\Types\Prompt;
 use Authlete\Util\JsonTrait;
 use Authlete\Util\LanguageUtility;
@@ -313,7 +314,7 @@ use Authlete\Util\ValidationUtility;
  *
  *     * `acr` (optional): This parameter represents the ACR (Authentication
  *       Context Class Reference) which the authentication of the end-user
- *       satisifes. When `getAcrs()` method returns a non-empty array and
+ *       satisfies. When `getAcrs()` method returns a non-empty array and
  *       `isAcrEssential()` method returns `true`, the value of this parameter
  *       must be one of the array elements. Otherwise, even `null` is allowed.
  *       The value of this parameter will be embedded in an ID token as the
@@ -553,7 +554,7 @@ use Authlete\Util\ValidationUtility;
  *     4. If the value returned from `getPrompts()` method does not contain
  *        `Prompt::$LOGIN`, the authorization server implementation does not
  *        have to authenticate the end-user if all the conditions described
- *        below are satisfied. If any one of the condisionts is not satisfied,
+ *        below are satisfied. If any one of the conditions is not satisfied,
  *        show a login form to authenticate the end-user.
  *
  *        * An end-user has already logged in your service.
@@ -595,8 +596,8 @@ use Authlete\Util\ValidationUtility;
  * <br/>
  * When the subject returned from `getSubject()` method is not `null`, the
  * end-user authentication must be performed for the subject, meaning that
- * the authorization server implemetation should repeatedly show a login
- * form until the subject is succesfully authenticated.
+ * the authorization server implementation should repeatedly show a login
+ * form until the subject is successfully authenticated.
  *
  * The end-user will choose either (1) to grant authorization to the client
  * application or (2) to deny the authorization request. When the end-user
@@ -618,12 +619,15 @@ class AuthorizationResponse extends ApiResponse
     private $service              = null;  // \Authlete\Dto\Service
     private $client               = null;  // \Authlete\Dto\Client
     private $clientIdAliasUsed    = false; // boolean
+    private $clientEntityIdUsed   = false; // boolean
     private $display              = null;  // \Authlete\Types\Display
     private $maxAge               = null;  // string or (64-bit) integer
     private $scopes               = null;  // array of \Authlete\Dto\Scope
+    private $dynamicScopes        = null;  // array of \Authlete\Dto\DynamicScope
     private $uiLocales            = null;  // array of string
     private $claimsLocales        = null;  // array of string
     private $claims               = null;  // array of string
+    private $claimsAtUserInfo     = null;  // array of string
     private $acrEssential         = false; // boolean
     private $acrs                 = null;  // array of string
     private $subject              = null;  // string
@@ -633,7 +637,14 @@ class AuthorizationResponse extends ApiResponse
     private $idTokenClaims        = null;  // string
     private $userInfoClaims       = null;  // string
     private $resources            = null;  // array of string
+    private $authorizationDetails = null;  // \Authlete\Dto\AuthzDetails
     private $purpose              = null;  // string
+    private $gmAction             = null;  // \Authlete\Types\GMAction
+    private $grantId              = null;  // string
+    private $grantSubject         = null;  // string
+    private $grant                = null;  // \Authlete\Dto\Grant
+    private $credentialOfferInfo  = null;  // \Authlete\Dto\CredentialOfferInfo
+    private $issuableCredentials  = null;  // string
     private $responseContent      = null;  // string
     private $ticket               = null;  // string
 
@@ -771,6 +782,57 @@ class AuthorizationResponse extends ApiResponse
 
 
     /**
+     * Get the flag which indicates whether the value of the `client_id`
+     * request parameter included in the authorization request is the entity
+     * ID of the client.
+     *
+     * Entity ID is a technical term defined in OpenID Federation 1.0.
+     *
+     * When this flag is true, `Client.getEntityId()` returns the entity ID
+     * of the client.
+     *
+     * @return boolean
+     *     `true` if the value of the `client_id` request parameter is the
+     *     entity ID of the client.
+     *
+     * @since 1.13.0
+     */
+    public function isClientEntityIdUsed()
+    {
+        return $this->clientEntityIdUsed;
+    }
+
+
+    /**
+     * Set the flag which indicates whether the value of the `client_id`
+     * request parameter included in the authorization request is the entity
+     * ID of the client.
+     *
+     * Entity ID is a technical term defined in OpenID Federation 1.0.
+     *
+     * When this flag is true, `Client.getEntityId()` returns the entity ID
+     * of the client.
+     *
+     * @param boolean $used
+     *     `true` to indicate that the value of the `client_id` request
+     *     parameter is the entity ID of the client.
+     *
+     * @return AuthorizationResponse
+     *     `$this` object.
+     *
+     * @since 1.13.0
+     */
+    public function setClientEntityIdUsed($used)
+    {
+        ValidationUtility::ensureBoolean('$used', $used);
+
+        $this->clientEntityIdUsed = $used;
+
+        return $this;
+    }
+
+
+    /**
      * Get the display mode which the client application requested by the
      * `display` request parameter.
      *
@@ -900,6 +962,44 @@ class AuthorizationResponse extends ApiResponse
 
 
     /**
+     * Get the dynamic scopes which the client application requested by the
+     * `scope` request parameter.
+     *
+     * @return DynamicScope[]
+     *     The list of dynamic scopes.
+     *
+     * @since 1.13.0
+     */
+    public function getDynamicScopes()
+    {
+        return $this->dynamicScopes;
+    }
+
+
+    /**
+     * Set the dynamic scopes which the client application requested by the
+     * `scope` request parameter.
+     *
+     * @param DynamicScope[] $dynamicScopes
+     *     The list of dynamic scopes.
+     *
+     * @return AuthorizationResponse
+     *     `$this` object.
+     *
+     * @since 1.13.0
+     */
+    public function setDynamicScopes(array $dynamicScopes = null)
+    {
+        ValidationUtility::ensureNullOrArrayOfType(
+            '$dynamicScopes', $dynamicScopes, __NAMESPACE__ . '\DynamicScope');
+
+        $this->dynamicScopes = $dynamicScopes;
+
+        return $this;
+    }
+
+
+    /**
      * Get the list of preferred languages and scripts for the user interface.
      *
      * The value of this property comes from the `ui_locales` request
@@ -1004,6 +1104,51 @@ class AuthorizationResponse extends ApiResponse
         ValidationUtility::ensureNullOrArrayOfString('$claims', $claims);
 
         $this->claims = $claims;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the list of claims that the client application requested to be
+     * embedded in userinfo responses.
+     *
+     * The value of this property comes from the `scope` and `claims`
+     * request parameters of the original authorization request.
+     *
+     * @return string[]
+     *     The claims that the client application requests to be embedded
+     *     in userinfo responses.
+     *
+     * @since 1.13.0
+     */
+    public function getClaimsAtUserInfo()
+    {
+        return $this->claimsAtUserInfo;
+    }
+
+
+    /**
+     * Set the list of claims that the client application requested to be
+     * embedded in userinfo responses.
+     *
+     * The value of this property comes from the `scope` and `claims`
+     * request parameters of the original authorization request.
+     *
+     * @param string[] $claims
+     *     The claims that the client application requests to be embedded
+     *     in userinfo responses.
+     *
+     * @return AuthorizationResponse
+     *     `$this` object.
+     *
+     * @since 1.13.0
+     */
+    public function setClaimsAtUserInfo(array $claims = null)
+    {
+        ValidationUtility::ensureNullOrArrayOfString('$claims', $claims);
+
+        $this->claimsAtUserInfo = $claims;
 
         return $this;
     }
@@ -1470,6 +1615,41 @@ class AuthorizationResponse extends ApiResponse
 
 
     /**
+     * Get the authorization details. This represents the value of the
+     * `authorization_details` request parameter defined in RFC 9396
+     * OAuth 2.0 Rich Authorization Requests.
+     *
+     * @return AuthzDetails
+     *     The authorization details.
+     *
+     * @since 1.13.0
+     */
+    public function getAuthorizationDetails()
+    {
+        return $this->authorizationDetails;
+    }
+
+
+    /**
+     * Set the authorization details. This represents the value of the
+     * `authorization_details` request parameter defined in RFC 9396
+     * OAuth 2.0 Rich Authorization Requests.
+     *
+     * @param AuthzDetails $details
+     *     The authorization details.
+     *
+     * @return AuthorizationResponse
+     *     `$this` object.
+     */
+    public function setAuthorizationDetails(AuthzDetails $details = null)
+    {
+        $this->authorizationDetails = $details;
+
+        return $this;
+    }
+
+
+    /**
      * Get the value of the `purpose` request parameter.
      *
      * @return string
@@ -1503,6 +1683,298 @@ class AuthorizationResponse extends ApiResponse
         ValidationUtility::ensureNullOrString('$purpose', $purpose);
 
         $this->purpose = $purpose;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the value of the `grant_management_action` request parameter.
+     *
+     * @return GMAction
+     *     The grant management action.
+     *
+     * @since 1.13.0
+     */
+    public function getGmAction()
+    {
+        return $this->gmAction;
+    }
+
+
+    /**
+     * Set the value of the `grant_management_action` request parameter.
+     *
+     * @param GMAction $action
+     *     The grant management action.
+     *
+     * @return AuthorizationResponse
+     *     `$this` object.
+     *
+     * @since 1.13.0
+     */
+    public function setGmAction(GMAction $action = null)
+    {
+        $this->gmAction = $action;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the value of the `grant_id` request parameter.
+     *
+     * The `grant_id` request parameter is defined in Grant Management for
+     * OAuth 2.0.
+     *
+     * @return string
+     *     A grant ID.
+     *
+     * @since 1.13.0
+     */
+    public function getGrantId()
+    {
+        return $this->grantId;
+    }
+
+
+    /**
+     * Set the value of the `grant_id` request parameter.
+     *
+     * The `grant_id` request parameter is defined in Grant Management for
+     * OAuth 2.0.
+     *
+     * @param string $grantId
+     *     The value of the `grant_id` request parameter.
+     *
+     * @return AuthorizationResponse
+     *     `$this` object.
+     *
+     * @since 1.13.0
+     */
+    public function setGrantId($grantId)
+    {
+        ValidationUtility::ensureNullOrString('$grantId', $grantId);
+
+        $this->grantId = $grantId;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the subject of the user who has given the grant which is identified
+     * by the `grant_id` request parameter.
+     *
+     * Authlete 2.3 and newer versions support Grant Management for OAuth 2.0.
+     * An authorization request may contain a `grant_id` request parameter
+     * defined in the specification. If the value of the request parameter is
+     * valid, `getGrantSubject()` will return the subject of the user who has
+     * given the grant to the client application. Authorization server
+     * implementation may use the value returned from `getGrantSubject()` in
+     * order to determine the user to authenticate.
+     *
+     * The user your system will authenticate during the authorization process
+     * (or has already authenticated) may be different from the user of the
+     * grant. The first implementer's draft of "Grant Management for OAuth 2.0"
+     * does not mention anything about the case, so the behavior in the case is
+     * left to implementations. Authlete will not perform the grant management
+     * action when the `subject` passed to Authlete does not match the user of
+     * the grant.
+     *
+     * @return string
+     *     The subject of the user who has given the grant.
+     *
+     * @since 1.13.0
+     */
+    public function getGrantSubject()
+    {
+        return $this->grantSubject;
+    }
+
+
+    /**
+     * Set the subject of the user who has given the grant which is identified
+     * by the `grant_id` request parameter.
+     *
+     * Authlete 2.3 and newer versions support Grant Management for OAuth 2.0.
+     * An authorization request may contain a `grant_id` request parameter
+     * defined in the specification. If the value of the request parameter is
+     * valid, `getGrantSubject()` will return the subject of the user who has
+     * given the grant to the client application. Authorization server
+     * implementation may use the value returned from `getGrantSubject()` in
+     * order to determine the user to authenticate.
+     *
+     * The user your system will authenticate during the authorization process
+     * (or has already authenticated) may be different from the user of the
+     * grant. The first implementer's draft of "Grant Management for OAuth 2.0"
+     * does not mention anything about the case, so the behavior in the case is
+     * left to implementations. Authlete will not perform the grant management
+     * action when the `subject` passed to Authlete does not match the user of
+     * the grant.
+     *
+     * @param string $subject
+     *     The subject of the user who has given the grant.
+     *
+     * @return AuthorizationResponse
+     *     `$this` object.
+     *
+     * @since 1.13.0
+     */
+    public function setGrantSubject($subject)
+    {
+        ValidationUtility::ensureNullOrString('$subject', $subject);
+
+        $this->grantSubject = $subject;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the content of the grant which is identified by the `grant_id`
+     * request parameter.
+     *
+     * The user your system will authenticate during the authorization process
+     * (or has already authenticated) may be different from the user of the grant.
+     * Be careful when your system displays the content of the grant.
+     *
+     * @return Grant
+     *     The content of the grant.
+     *
+     * @since 1.13.0
+     */
+    public function getGrant()
+    {
+        return $this->grant;
+    }
+
+
+    /**
+     * Set the content of the grant which is identified by the `grant_id`
+     * request parameter.
+     *
+     * The user your system will authenticate during the authorization process
+     * (or has already authenticated) may be different from the user of the grant.
+     * Be careful when your system displays the content of the grant.
+     *
+     * @param Grant $grant
+     *     The content of the grant.
+     *
+     * @return AuthorizationResponse
+     *     `$this` object.
+     *
+     * @since 1.13.0
+     */
+    public function setGrant(Grant $grant = null)
+    {
+        $this->grant = $grant;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the information about the credential offer identified by the
+     * `issuer_state` request parameter.
+     *
+     * Before making an authorization request, a client application may obtain
+     * a credential offer from a credential issuer. If the credential offer
+     * contains an issuer state, the client can include the issuer state in an
+     * authorization request by using the request parameter, `issuer_state`.
+     * The request parameter is defined in the "OpenID for Verifiable Credential
+     * Issuance" specification.
+     *
+     * When the feature of "Verifiable Credentials" is enabled, the Authlete
+     * server recognizes the `issuer_state` request parameter. When an
+     * authorization request contains the request parameter, Authlete retrieves
+     * information about the credential offer identified by the issuer state
+     * from the database and sets the information to this `credentialOfferInfo`
+     * response parameter.
+     *
+     * @return CredentialOfferInfo
+     *     Information about the credential offer identified by the
+     *     `issuer_state` request parameter.
+     *
+     * @since 1.13.0
+     */
+    public function getCredentialOfferInfo()
+    {
+        return $this->credentialOfferInfo;
+    }
+
+
+    /**
+     * Set the information about the credential offer identified by the
+     * `issuer_state` request parameter.
+     *
+     * Before making an authorization request, a client application may obtain
+     * a credential offer from a credential issuer. If the credential offer
+     * contains an issuer state, the client can include the issuer state in an
+     * authorization request by using the request parameter, `issuer_state`.
+     * The request parameter is defined in the "OpenID for Verifiable Credential
+     * Issuance" specification.
+     *
+     * When the feature of "Verifiable Credentials" is enabled, the Authlete
+     * server recognizes the `issuer_state` request parameter. When an
+     * authorization request contains the request parameter, Authlete retrieves
+     * information about the credential offer identified by the issuer state
+     * from the database and sets the information to this `credentialOfferInfo`
+     * response parameter.
+     *
+     * @param CredentialOfferInfo $info
+     *     Information about the credential offer identified by the
+     *     `issuer_state` request parameter.
+     *
+     * @return AuthorizationResponse
+     *     `$this` object.
+     *
+     * @since 1.13.0
+     */
+    public function setCredentialOfferInfo(CredentialOfferInfo $info = null)
+    {
+        $this->credentialOfferInfo = $info;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the information about the issuable credentials that can be obtained
+     * by presenting the access token that will be issued as a result of the
+     * authorization request.
+     *
+     * @return string
+     *     Information about the issuable credentials specified by the
+     *     authorization request.
+     *
+     * @since 1.13.0
+     */
+    public function getIssuableCredentials()
+    {
+        return $this->issuableCredentials;
+    }
+
+
+    /**
+     * Set the information about the issuable credentials that can be obtained
+     * by presenting the access token that will be issued as a result of the
+     * authorization request.
+     *
+     * @param string $credentials
+     *     Information about the issuable credentials specified by the
+     *     authorization request.
+     *
+     * @return AuthorizationResponse
+     *     `$this` object.
+     *
+     * @since 1.13.0
+     */
+    public function setIssuableCredentials($credentials)
+    {
+        ValidationUtility::ensureNullOrString('$credentials', $credentials);
+
+        $this->issuableCredentials = $credentials;
 
         return $this;
     }
@@ -1596,12 +2068,15 @@ class AuthorizationResponse extends ApiResponse
         $array['service']              = LanguageUtility::convertArrayCopyableToArray($this->service);
         $array['client']               = LanguageUtility::convertArrayCopyableToArray($this->client);
         $array['clientIdAliasUsed']    = $this->clientIdAliasUsed;
+        $array['clientEntityIdUsed']   = $this->clientEntityIdUsed;
         $array['display']              = LanguageUtility::toString($this->display);
         $array['maxAge']               = LanguageUtility::orZero($this->maxAge);
         $array['scopes']               = LanguageUtility::convertArrayOfArrayCopyableToArray($this->scopes);
+        $array['dynamicScopes']        = LanguageUtility::convertArrayOfArrayCopyableToArray($this->dynamicScopes);
         $array['uiLocales']            = $this->uiLocales;
         $array['claimsLocales']        = $this->claimsLocales;
         $array['claims']               = $this->claims;
+        $array['claimsAtUserInfo']     = $this->claimsAtUserInfo;
         $array['acrEssential']         = $this->acrEssential;
         $array['acrs']                 = $this->acrs;
         $array['subject']              = $this->subject;
@@ -1611,7 +2086,14 @@ class AuthorizationResponse extends ApiResponse
         $array['idTokenClaims']        = $this->idTokenClaims;
         $array['userInfoClaims']       = $this->userInfoClaims;
         $array['resources']            = $this->resources;
+        $array['authorizationDetails'] = LanguageUtility::convertArrayCopyableToArray($this->authorizationDetails);
         $array['purpose']              = $this->purpose;
+        $array['gmAction']             = LanguageUtility::toString($this->gmAction);
+        $array['grantId']              = $this->grantId;
+        $array['grantSubject']         = $this->grantSubject;
+        $array['grant']                = LanguageUtility::convertArrayCopyableToArray($this->grant);
+        $array['credentialOfferInfo']  = LanguageUtility::convertArrayCopyableToArray($this->credentialOfferInfo);
+        $array['issuableCredentials']  = $this->issuableCredentials;
         $array['responseContent']      = $this->responseContent;
         $array['ticket']               = $this->ticket;
     }
@@ -1650,6 +2132,10 @@ class AuthorizationResponse extends ApiResponse
         $this->setClientIdAliasUsed(
             LanguageUtility::getFromArrayAsBoolean('clientIdAliasUsed', $array));
 
+        // clientEntityIdUsed
+        $this->setClientEntityIdUsed(
+            LanguageUtility::getFromArrayAsBoolean('clientEntityIdUsed', $array));
+
         // display
         $this->setDisplay(
             Display::valueOf(
@@ -1664,6 +2150,11 @@ class AuthorizationResponse extends ApiResponse
         $_scopes = LanguageUtility::convertArrayToArrayOfArrayCopyable($_scopes, __NAMESPACE__ . '\Scope');
         $this->setScopes($_scopes);
 
+        // dynamicScopes
+        $_dynamic_scopes = LanguageUtility::getFromArray('dynamicScopes', $array);
+        $_dynamic_scopes = LanguageUtility::convertArrayToArrayOfArrayCopyable($_dynamic_scopes, __NAMESPACE__ . '\DynamicScope');
+        $this->setDynamicScopes($_dynamic_scopes);
+
         // uiLocales
         $_ui_locales = LanguageUtility::getFromArray('uiLocales', $array);
         $this->setUiLocales($_ui_locales);
@@ -1675,6 +2166,10 @@ class AuthorizationResponse extends ApiResponse
         // claims
         $_claims = LanguageUtility::getFromArray('claims', $array);
         $this->setClaims($_claims);
+
+        // claimsAtUserInfo
+        $_claims_at_userinfo = LanguageUtility::getFromArray('claimsAtUserInfo', $array);
+        $this->setClaimsAtUserInfo($_claims_at_userinfo);
 
         // acrEssential
         $this->setAcrEssential(
@@ -1713,9 +2208,44 @@ class AuthorizationResponse extends ApiResponse
         $_resources = LanguageUtility::getFromArray('resources', $array);
         $this->setResources($_resources);
 
+        // authorizationDetails
+        $_details = LanguageUtility::getFromArray('authorizationDetails', $array);
+        $this->setAuthorizationDetails(
+            LanguageUtility::convertArrayToArrayCopyable(
+                $_details, __NAMESPACE__ . '\AuthzDetails'));
+
         // purpose
         $this->setPurpose(
             LanguageUtility::getFromArray('purpose', $array));
+
+        // gmAction
+        $this->setGmAction(
+            GMAction::valueOf(
+                LanguageUtility::getFromArray('gmAction', $array)));
+
+        // grantId
+        $this->setGrantId(
+            LanguageUtility::getFromArray('grantId', $array));
+
+        // grantSubject
+        $this->setGrantSubject(
+            LanguageUtility::getFromArray('grantSubject', $array));
+
+        // grant
+        $_grant = LanguageUtility::getFromArray('grant', $array);
+        $this->setCrant(
+            LanguageUtility::convertArrayToArrayCopyable(
+                $_grant, __NAMESPACE__ . '\Grant'));
+
+        // credentialOfferInfo
+        $_info = LanguageUtility::getFromArray('credentialOfferInfo', $array);
+        $this->setCredentialOfferInfo(
+            LanguageUtility::convertArrayToArrayCopyable(
+                $_info, __NAMESPACE__ . '\CredentialOfferInfo'));
+
+        // issuableCredentials
+        $this->setIssuableCredentials(
+            LanguageUtility::getFromArray('issuableCredentials', $array));
 
         // responseContent
         $this->setResponseContent(
