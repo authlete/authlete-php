@@ -315,7 +315,10 @@ class AuthleteApiImpl implements AuthleteApi
             $value = self::toQueryParamValue($value);
 
             // Build "key=value" and add it to the list.
-            $params[] = "${key}=${value}";
+
+            // The newer PHP interpreter says "Using ${var} in strings is deprecated, use {$var} instead.
+            //$params[] = "${key}=${value}";
+            $params[] = $key . "=" . $value;
         }
 
         if (count($params) === 0)
@@ -403,7 +406,9 @@ class AuthleteApiImpl implements AuthleteApi
         if ($errno !== CURLE_OK)
         {
             throw new AuthleteApiException(
-                "curl_exec() failed: path=${path}, errno=${errno}, error=${error}");
+                // The newer PHP interpreter says "Using ${var} in strings is deprecated, use {$var} instead.
+                //"curl_exec() failed: path=${path}, errno=${errno}, error=${error}");
+                "curl_exec() failed: path=" . $path . ", errno=" . $errno . ", error=" . $error);
         }
 
         // Split the response into the headers and the body.
@@ -421,7 +426,9 @@ class AuthleteApiImpl implements AuthleteApi
         $resultMessage = LanguageUtility::orEmpty(self::extractResultMessage($body));
 
         throw new AuthleteApiException(
-            "Unexpected response: path=${path}, statusCode=${statusCode}, resultMessage=${resultMessage}",
+            // The newer PHP interpreter says "Using ${var} in strings is deprecated, use {$var} instead.
+            //"Unexpected response: path=${path}, statusCode=${statusCode}, resultMessage=${resultMessage}",
+            "Unexpected response: path=" . $path . ", statusCode=" . $statusCode . ", resultMessage=" . $resultMessage,
             $statusCode, HttpHeaders::parse($headers), $body);
     }
 
