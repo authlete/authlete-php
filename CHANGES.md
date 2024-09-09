@@ -45,6 +45,10 @@ CHANGES
     * Added `getIssuableCredentials()` method.
     * Added `setIssuableCredentials()` method.
 
+- `JWSAlg` class
+    * Added `$ES256K`.
+    * Added `$EdDSA`.
+
 - `TokenAction` class
     * Added `$TOKEN_EXCHANGE`.
     * Added `$JWT_BEARER`.

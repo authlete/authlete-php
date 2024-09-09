@@ -1,6 +1,6 @@
 <?php
 //
-// Copyright (C) 2018 Authlete, Inc.
+// Copyright (C) 2018-2024 Authlete, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -153,6 +153,28 @@ class JWSAlg
      * @var JWSAlg
      */
     public static $PS512;
+
+
+    /**
+     * ECDSA using secp256k1 curve and SHA-256.
+     *
+     * @static
+     * @var JWSAlg
+     *
+     * @since 1.13.0
+     */
+    public static $ES256K;
+
+
+    /**
+     * EdDSA signature algorithms.
+     *
+     * @static
+     * @var JWSAlg
+     *
+     * @since 1.13.0
+     */
+    public static $EdDSA;
 }
 
 

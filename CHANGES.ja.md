@@ -45,6 +45,10 @@ CHANGES (日本語)
     * `getIssuableCredentials()` メソッドを追加。
     * `setIssuableCredentials()` メソッドを追加。
 
+- `JWSAlg` クラス
+    * `$ES256K` を追加。
+    * `$EdDSA` を追加。
+
 - `TokenAction` クラス
     * `$TOKEN_EXCHANGE` を追加。
     * `$JWT_BEARER` を追加。
