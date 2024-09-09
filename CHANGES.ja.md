@@ -2,6 +2,8 @@ CHANGES (日本語)
 ================
 
 - `AuthorizationIssueRequest` クラス
+    * `getAuthorizationDetails()` メソッドを追加。
+    * `setAuthorizationDetails()` メソッドを追加。
     * `getConsentedClaims()` メソッドを追加。
     * `setConsentedClaims()` メソッドを追加。
     * `getJwtAtCliams()` メソッドを追加。

@@ -2,6 +2,8 @@ CHANGES
 =======
 
 - `AuthorizationIssueRequest` class
+    * Added `getAuthorizationDetails()` method.
+    * Added `setAuthorizationDetails()` method.
     * Added `getConsentedClaims()` method.
     * Added `setConsentedClaims()` method.
     * Added `getJwtAtCliams()` method.

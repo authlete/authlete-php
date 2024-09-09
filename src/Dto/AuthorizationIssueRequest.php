@@ -43,20 +43,21 @@ class AuthorizationIssueRequest implements ArrayCopyable, Arrayable, Jsonable
     use JsonTrait;
 
 
-    private $ticket              = null;  // string
-    private $subject             = null;  // string
-    private $sub                 = null;  // string
-    private $authTime            = null;  // string or (64-bit) integer
-    private $acr                 = null;  // string
-    private $claims              = null;  // string
-    private $properties          = null;  // array of \Authlete\Dto\Property
-    private $scopes              = null;  // array of string
-    private $idtHeaderParams     = null;  // string
-    private $consentedClaims     = null;  // array of string
-    private $jwtAtClaims         = null;  // string
-    private $accessToken         = null;  // string
-    private $idTokenAudType      = null;  // string
-    private $accessTokenDuration = null;  // string or (64-bit) integer
+    private $ticket               = null;  // string
+    private $subject              = null;  // string
+    private $sub                  = null;  // string
+    private $authTime             = null;  // string or (64-bit) integer
+    private $acr                  = null;  // string
+    private $claims               = null;  // string
+    private $properties           = null;  // array of \Authlete\Dto\Property
+    private $scopes               = null;  // array of string
+    private $idtHeaderParams      = null;  // string
+    private $authorizationDetails = null;  // \Authlete\Dto\AuthzDetails
+    private $consentedClaims      = null;  // array of string
+    private $jwtAtClaims          = null;  // string
+    private $accessToken          = null;  // string
+    private $idTokenAudType       = null;  // string
+    private $accessTokenDuration  = null;  // string or (64-bit) integer
 
 
     /**
@@ -501,6 +502,45 @@ class AuthorizationIssueRequest implements ArrayCopyable, Arrayable, Jsonable
 
 
     /**
+     * Get the authorization details.
+     *
+     * This represents the value of the `authorization_details` request
+     * parameter defined in RFC 9396 OAuth 2.0 Rich Authorization Requests.
+     * If this parameter is set, it overrides the parameter in the original
+     * request.
+     *
+     * @return AuthzDetails
+     *     The authorization details.
+     */
+    public function getAuthorizationDetails()
+    {
+        return $this->authorizationDetails;
+    }
+
+
+    /**
+     * Set the authorization details.
+     *
+     * This represents the value of the `authorization_details` request
+     * parameter defined in RFC 9396 OAuth 2.0 Rich Authorization Requests.
+     * If this parameter is set, it overrides the parameter in the original
+     * request.
+     *
+     * @param AuthzDetails $details
+     *     The authorization details.
+     *
+     * @return AuthorizationIssueRequest
+     *     `$this` object.
+     */
+    public function setAuthorizationDetails(AuthzDetails $details = null)
+    {
+        $this->authorizationDetails = $details;
+
+        return $this;
+    }
+
+
+    /**
      * Get the claims that the user has consented for the client application
      * to know.
      *
@@ -825,20 +865,21 @@ class AuthorizationIssueRequest implements ArrayCopyable, Arrayable, Jsonable
      */
     public function copyToArray(array &$array)
     {
-        $array['ticket']              = $this->ticket;
-        $array['subject']             = $this->subject;
-        $array['sub']                 = $this->sub;
-        $array['authTime']            = LanguageUtility::orZero($this->authTime);
-        $array['acr']                 = $this->acr;
-        $array['claims']              = $this->claims;
-        $array['properties']          = LanguageUtility::convertArrayOfArrayCopyableToArray($this->properties);
-        $array['scopes']              = $this->scopes;
-        $array['idtHeaderParams']     = $this->idtHeaderParams;
-        $array['consentedClaims']     = $this->consentedClaims;
-        $array['jwtAtClaims']         = $this->jwtAtClaims;
-        $array['accessToken']         = $this->accessToken;
-        $array['idTokenAudType']      = $this->idTokenAudType;
-        $array['accessTokenDuration'] = LanguageUtility::orZero($this->accessTokenDuration);
+        $array['ticket']               = $this->ticket;
+        $array['subject']              = $this->subject;
+        $array['sub']                  = $this->sub;
+        $array['authTime']             = LanguageUtility::orZero($this->authTime);
+        $array['acr']                  = $this->acr;
+        $array['claims']               = $this->claims;
+        $array['properties']           = LanguageUtility::convertArrayOfArrayCopyableToArray($this->properties);
+        $array['scopes']               = $this->scopes;
+        $array['idtHeaderParams']      = $this->idtHeaderParams;
+        $array['authorizationDetails'] = LanguageUtility::convertArrayCopyableToArray($this->authorizationDetails);
+        $array['consentedClaims']      = $this->consentedClaims;
+        $array['jwtAtClaims']          = $this->jwtAtClaims;
+        $array['accessToken']          = $this->accessToken;
+        $array['idTokenAudType']       = $this->idTokenAudType;
+        $array['accessTokenDuration']  = LanguageUtility::orZero($this->accessTokenDuration);
     }
 
 
@@ -888,6 +929,12 @@ class AuthorizationIssueRequest implements ArrayCopyable, Arrayable, Jsonable
          // idtHeaderParams
         $this->setIdtHeaderParams(
             LanguageUtility::getFromArray('idtHeaderParams', $array));
+
+        // authorizationDetails
+        $_details = LanguageUtility::getFromArray('authorizationDetails', $array);
+        $this->setAuthorizationDetails(
+            LanguageUtility::convertArrayToArrayCopyable(
+                $_details, __NAMESPACE__ . '\AuthzDetails'));
 
         // consentedClaims
         $this->setConsentedClaims(
