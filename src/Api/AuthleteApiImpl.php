@@ -100,7 +100,7 @@ class AuthleteApiImpl implements AuthleteApi
 {
     // The string used as the value of 'User-Agent'. This string should
     // be updated on every release of a new version of this library.
-    private static $USER_AGENT = 'authlete-php/1.12.0';
+    private static $USER_AGENT = 'authlete-php/1.13.0';
 
     private static $AUTH_AUTHORIZATION_API_PATH            = '/api/auth/authorization';
     private static $AUTH_AUTHORIZATION_FAIL_API_PATH       = '/api/auth/authorization/fail';
