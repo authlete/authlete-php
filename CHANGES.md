@@ -30,6 +30,7 @@ CHANGES
     * `AuthorizationTicketInfo` class
     * `AuthzDetails` class
     * `AuthzDetailsElement` class
+    * `CredentialOfferInfo` class
     * `DynamicScope` class
     * `GMAction` class
     * `Grant` class

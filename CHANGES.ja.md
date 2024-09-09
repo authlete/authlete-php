@@ -30,6 +30,7 @@ CHANGES (日本語)
     * `AuthorizationTicketInfo` クラス
     * `AuthzDetails` クラス
     * `AuthzDetailsElement` クラス
+    * `CredentialOfferInfo` クラス
     * `DynamicScope` クラス
     * `GMAction` クラス
     * `Grant` クラス
