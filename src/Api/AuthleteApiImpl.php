@@ -1,6 +1,6 @@
 <?php
 //
-// Copyright (C) 2018-2022 Authlete, Inc.
+// Copyright (C) 2018-2024 Authlete, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -59,6 +59,8 @@ use Authlete\Dto\DeviceVerificationResponse;
 use Authlete\Dto\GrantedScopesDeleteRequest;
 use Authlete\Dto\GrantedScopesGetRequest;
 use Authlete\Dto\GrantedScopesGetResponse;
+use Authlete\Dto\IDTokenReissueRequest;
+use Authlete\Dto\IDTokenReissueResponse;
 use Authlete\Dto\IntrospectionRequest;
 use Authlete\Dto\IntrospectionResponse;
 use Authlete\Dto\PushedAuthReqRequest;
@@ -141,6 +143,7 @@ class AuthleteApiImpl implements AuthleteApi
     private static $DEVICE_COMPLETE_API_PATH               = '/api/device/complete';
     private static $DEVICE_VERIFICATION_API_PATH           = '/api/device/verification';
     private static $PUSHED_AUTH_REQ_API_PATH               = '/api/pushed_auth_req';
+    private static $ID_TOKEN_REISSUE_API_PATH              = '/api/idtoken/reissue';
 
 
     private $serviceOwnerCredentials = null;  // \Authlete\Web\BasicCredentials
@@ -1290,6 +1293,23 @@ class AuthleteApiImpl implements AuthleteApi
         return $this->callServicePostApi(
             '\Authlete\Dto\PushedAuthReqResponse::fromJson',
             self::$PUSHED_AUTH_REQ_API_PATH,
+            null, $request);
+    }
+
+
+    /**
+     * {@inheritdoc}
+     *
+     * {@inheritdoc}
+     *
+     * @param IDTokenReissueRequest $request
+     *     {@inheritdoc}
+     */
+    public function idTokenReissue(IDTokenReissueRequest $request)
+    {
+        return $this->callServicePostApi(
+            '\Authlete\Dto\IDTokenReissueResponse::fromJson',
+            self::$ID_TOKEN_REISSUE_API_PATH,
             null, $request);
     }
 

@@ -1,6 +1,9 @@
 CHANGES (日本語)
 ================
 
+- `AuthleteApi` インターフェース
+    * `idTokenReissue()` メソッドを追加。
+
 - `AuthorizationIssueRequest` クラス
     * `getAuthorizationDetails()` メソッドを追加。
     * `setAuthorizationDetails()` メソッドを追加。
@@ -63,6 +66,9 @@ CHANGES (日本語)
     * `GMAction` クラス
     * `Grant` クラス
     * `GrantScope` クラス
+    * `IDTokenReissueAction` クラス
+    * `IDTokenReissueRequest` クラス
+    * `IDTokenReissueResponse` クラス
 
 
 1.12.0 (2022 年 08 月 17 日)

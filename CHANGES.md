@@ -1,6 +1,9 @@
 CHANGES
 =======
 
+- `AuthleteApi` interface
+    * Added `idTokenReissue()` method.
+
 - `AuthorizationIssueRequest` class
     * Added `getAuthorizationDetails()` method.
     * Added `setAuthorizationDetails()` method.
@@ -63,6 +66,9 @@ CHANGES
     * `GMAction` class
     * `Grant` class
     * `GrantScope` class
+    * `IDTokenReissueAction` class
+    * `IDTokenReissueRequest` class
+    * `IDTokenReissueResponse` class
 
 
 1.12.0 (2022-08-17)

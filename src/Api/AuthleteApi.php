@@ -1,6 +1,6 @@
 <?php
 //
-// Copyright (C) 2018-2020 Authlete, Inc.
+// Copyright (C) 2018-2024 Authlete, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -39,6 +39,7 @@ use Authlete\Dto\ClientAuthorizationUpdateRequest;
 use Authlete\Dto\DeviceAuthorizationRequest;
 use Authlete\Dto\DeviceCompleteRequest;
 use Authlete\Dto\DeviceVerificationRequest;
+use Authlete\Dto\IDTokenReissueRequest;
 use Authlete\Dto\IntrospectionRequest;
 use Authlete\Dto\PushedAuthReqRequest;
 use Authlete\Dto\RevocationRequest;
@@ -785,6 +786,22 @@ interface AuthleteApi
      * @since 1.8
      */
     public function pushAuthorizationRequest(PushedAuthReqRequest $request);
+
+
+    /**
+     * Call Authlete's /idtoken/reissue API.
+     *
+     * @param IDTokenReissueRequest $request
+     *     Request parameters passed to the API.
+     *
+     * @return \Authlete\Dto\IDTokenReissueResponse
+     *     Response from the API.
+     *
+     * @throws AuthleteApiException
+     *
+     * @since 1.13.0
+     */
+    public function idTokenReissue(IDTokenReissueRequest $request);
 
 
     /**
