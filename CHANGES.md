@@ -32,6 +32,8 @@ CHANGES
     * `AuthzDetailsElement` class
     * `DynamicScope` class
     * `GMAction` class
+    * `Grant` class
+    * `GrantScope` class
 
 
 1.12.0 (2022-08-17)

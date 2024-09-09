@@ -32,6 +32,8 @@ CHANGES (日本語)
     * `AuthzDetailsElement` クラス
     * `DynamicScope` クラス
     * `GMAction` クラス
+    * `Grant` クラス
+    * `GrantScope` クラス
 
 
 1.12.0 (2022 年 08 月 17 日)
