@@ -2233,7 +2233,7 @@ class AuthorizationResponse extends ApiResponse
 
         // grant
         $_grant = LanguageUtility::getFromArray('grant', $array);
-        $this->setCrant(
+        $this->setGrant(
             LanguageUtility::convertArrayToArrayCopyable(
                 $_grant, __NAMESPACE__ . '\Grant'));
 
