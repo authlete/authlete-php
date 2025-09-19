@@ -1,6 +1,13 @@
 CHANGES
 =======
 
+1.14.0 (2025-09-19)
+-------------------
+
+- `AuthorizationResponse` class
+    * Fixed typo in `setGrant()` method.
+
+
 1.13.0 (2024-09-10)
 -------------------
 
